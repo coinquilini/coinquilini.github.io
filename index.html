@@ -688,10 +688,33 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     else if (e.target.classList.contains('next') && e.target.type === 'button' && controlla(steps[cur])) vai(cur + 1);
   });
 
-  function send(data){
-    if (!ENDPOINT) return Promise.resolve();
-    return fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) });
+  // Invio sicuro: aspetta l'"ok" del foglio, riprova da solo e, se proprio non riesce,
+  // conserva la risposta sul telefono e la rimanda alla visita successiva.
+  // Il codice unico evita che un nuovo tentativo la scriva due volte.
+  function nuovoId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
+  var ID_RISPOSTA = nuovoId(), ID_EMAIL = nuovoId(), CODA = 'da_inviare';
+  function leggiCoda(){ try { return JSON.parse(localStorage.getItem(CODA) || '[]'); } catch(e) { return []; } }
+  function scriviCoda(c){ try { localStorage.setItem(CODA, JSON.stringify(c)); } catch(e) {} }
+  function togliDallaCoda(id){ scriviCoda(leggiCoda().filter(function(x){ return x.id !== id; })); }
+  function prova(data){
+    return fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+      .then(function(r){ return r.text(); })
+      .then(function(t){ t = t.trim(); if (t === 'ok' || t === 'email non valida') return t; throw new Error(t); });
   }
+  function send(data){
+    if (!ENDPOINT) return Promise.resolve('ok');
+    var coda = leggiCoda();
+    if (!coda.some(function(x){ return x.id === data.id; })) { coda.push(data); scriviCoda(coda); }
+    var attese = [0, 1500, 4000, 8000];
+    function tentativo(i){
+      return new Promise(function(res){ setTimeout(res, attese[i]); })
+        .then(function(){ return prova(data); })
+        .then(function(t){ togliDallaCoda(data.id); return t; })
+        .catch(function(err){ if (i + 1 < attese.length) return tentativo(i + 1); throw err; });
+    }
+    return tentativo(0);
+  }
+  if (ENDPOINT) leggiCoda().forEach(function(d){ prova(d).then(function(){ togliDallaCoda(d.id); }).catch(function(){}); });
   function oggi(){ return new Date().toISOString().slice(0, 10); }
 
   f.addEventListener('submit', function(e){
@@ -699,7 +722,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     for (var k = 0; k < steps.length; k++) {
       if (!controlla(steps[k])) { if (k !== cur) vai(k); return; }
     }
-    var row = { tipo: 'risposta', giorno: oggi(), prezzo: variant + ' ' + P.month,
+    var row = { tipo: 'risposta', id: ID_RISPOSTA, giorno: oggi(), prezzo: variant + ' ' + P.month,
       persone: val('persone'), telefono: val('telefono'), liti: val('liti'), litialtro: testo('litialtro').slice(0, 80),
       app: val('app'), appquale: val('app') === 'sì' ? testo('appquale').slice(0, 60) : '',
       grafica: val('grafica'), nome: val('nome'), altronome: testo('altronome').slice(0, 40), scaricheresti: val('scaricheresti'),
@@ -725,7 +748,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     if (!document.getElementById('consenso').checked) { er.textContent = 'Spunta la casella per darci il permesso'; er.hidden = false; return; }
     er.hidden = true;
     var btn = this; btn.disabled = true; btn.textContent = 'Invio…';
-    send({ tipo: 'email', giorno: oggi(), email: em }).then(function(){
+    send({ tipo: 'email', giorno: oggi(), email: em, id: ID_EMAIL }).then(function(){
       document.getElementById('emailbox').innerHTML = '<h2>Il tuo posto è tenuto</h2><p class="okmsg" style="margin:0">Ti scriviamo appena c\'è qualcosa da provare.</p>';
     }).catch(function(){
       btn.disabled = false; btn.textContent = 'Tienimi un posto';
