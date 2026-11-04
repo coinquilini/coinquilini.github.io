@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Stiamo creando un'app per coinquilini: spese, turni e lista della spesa, tutto in pari. Un minuto per dire la tua, in modo anonimo.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vivere tra coinquilini, senza discussioni">
+<meta property="og:description" content="Stiamo creando un'app per coinquilini: spese, turni e lista della spesa, tutto in pari. Un minuto per dire la tua, in modo anonimo.">
+<meta property="og:image" content="https://coinquilini.github.io/anteprima-whatsapp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://coinquilini.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<style>body{margin:0;font-size:14px}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Sondaggio app coinquilini</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap">
+<style>
+/* Layout: una colonna da telefono; casetta e titolo, striscia di iPhone, domande a schede, ringraziamento con email e invito su WhatsApp */
+:root{
+  --page:#f5f6f1; --card:#ffffff; --ink:#1e1d33; --soft:#6b6a7d; --line:#e6e5ee; --sel:#1e1d33; --sel-ink:#ffffff;
+  --tu:#ffb020; --giulia:#ff6fa8; --marco:#22b8a7; --sara:#7c5cff;
+  --tu-t:#fff1d6; --giulia-t:#ffe3ef; --marco-t:#d8f4f0; --sara-t:#ebe5ff; --late:#ff5a3c; --late-t:#ffe6e0;
+  --err:#c2301c; --ok:#1d8a5a;
+  --display:"Fredoka","Nunito",system-ui,sans-serif; --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#16151f;--card:#211f2e;--ink:#f2f1f8;--soft:#a9a7bb;--line:#34324a;--sel:#ffb020;--sel-ink:#1e1d33;--err:#ff8a75;--ok:#6fd6a6;color-scheme:dark}}
+:root[data-theme="dark"]{--page:#16151f;--card:#211f2e;--ink:#f2f1f8;--soft:#a9a7bb;--line:#34324a;--sel:#ffb020;--sel-ink:#1e1d33;--err:#ff8a75;--ok:#6fd6a6;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--page);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--page)}
+html{scroll-behavior:smooth}
+.wrap{max-width:640px;margin:0 auto;padding-block:26px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:26px}
+h1,h2,.d{font-family:var(--display);font-weight:600;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(30px,8vw,40px);line-height:1.05;text-wrap:balance}
+h2{font-size:22px}
+.lead{color:var(--soft);margin:10px 0 0;font-weight:600}
+.hero{display:flex;flex-direction:column;gap:14px}
+
+/* telefoni (sempre chiari, come una foto) */
+.strip{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 14px;scroll-snap-type:x mandatory;margin:0 -2px}
+.shot{flex:0 0 auto;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px}
+.shot p{margin:0;font-size:13px;color:var(--soft);font-weight:600;max-width:255px;padding:0 4px}
+.dev{width:300px;height:650px;border-radius:50px;background:#16151f;padding:10px;zoom:.85}
+.scr{position:relative;width:100%;height:100%;border-radius:41px;overflow:hidden;background:#f5f6f1;color:#1e1d33;font-family:var(--body);font-size:13px;line-height:1.3;display:flex;flex-direction:column;--ink:#1e1d33;--soft:#6b6a7d;--line:#e6e5ee;--card:#fff}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:86px;height:25px;border-radius:13px;background:#000;z-index:3}
+.sb{flex:0 0 42px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 32px;font-weight:800;font-size:13px}
+.sb span:last-child{display:flex;gap:4px;align-items:center}
+.homei{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:104px;height:5px;border-radius:3px;background:#1e1d33;z-index:3}
+.bd{flex:1;overflow:hidden;padding:2px 14px 0}
+.box{width:20px;height:20px;border-radius:7px;border:2px solid #d9d8e3;flex:0 0 20px;display:flex;align-items:center;justify-content:center}
+.box.on{background:#1e1d33;border-color:#1e1d33;color:#fff}
+.keys{margin:auto -14px 0;background:#e7e6ee;padding:7px 6px 30px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.keys span{background:#fff;border-radius:10px;text-align:center;padding:9px 0;font-family:var(--display);font-weight:600;font-size:17px}
+.sws{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.sw{aspect-ratio:1;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#1e1d33}
+.sw.sel{box-shadow:0 0 0 3px #fff,0 0 0 6px #1e1d33}
+.pager{display:flex;justify-content:center;gap:6px;margin-top:2px}
+.pager i{width:7px;height:7px;border-radius:50%;background:var(--line);transition:width .2s}
+.pager i.on{width:20px;border-radius:4px;background:var(--ink)}
+.h{font-family:var(--display);font-weight:600;font-size:27px;margin:2px 2px 0}
+.sub{color:#6b6a7d;font-size:11.5px;margin:0 2px;font-weight:600}
+.lbl{font-family:var(--display);font-weight:600;font-size:13px;margin:13px 2px 6px;display:flex;justify-content:space-between;align-items:center}
+.lbl small{font-family:var(--body);font-weight:700;color:#6b6a7d;font-size:11px}
+.cd{background:#fff;border-radius:18px;padding:10px 12px}
+.it{display:flex;align-items:center;gap:10px;padding:5px 0}
+.it+.it{border-top:1.5px dashed #e6e5ee}
+.ico{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:0 0 36px}
+.ico svg{width:21px;height:21px}
+.tx{flex:1;min-width:0;font-weight:700}
+.tx small{display:block;font-weight:600;color:#6b6a7d;font-size:11px}
+.av{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex:0 0 22px}
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 9px 3px 3px;font-weight:800;font-size:11px}
+.bt{font-family:var(--display);font-weight:600;border-radius:999px;padding:6px 12px;font-size:12px;white-space:nowrap;background:#1e1d33;color:#fff}
+.bt.o{background:transparent;color:#1e1d33;box-shadow:inset 0 0 0 2px #1e1d33}
+.money{font-family:var(--display);font-weight:600;font-variant-numeric:tabular-nums}
+.tabbar{flex:0 0 74px;display:flex;justify-content:space-around;align-items:flex-start;padding:8px 10px 0;background:#fff;border-radius:24px 24px 0 0}
+.tab{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:800;color:#a3a2b3;width:50px}
+.tab svg{width:23px;height:23px}
+.tab.on{color:#1e1d33}
+.tab.on i{width:5px;height:5px;border-radius:50%;background:var(--tu)}
+.fab{width:46px;height:46px;border-radius:16px;background:#1e1d33;color:#fff;display:flex;align-items:center;justify-content:center;transform:rotate(-6deg);margin-top:-14px;box-shadow:0 4px 0 var(--tu)}
+.fab svg{width:24px;height:24px;transform:rotate(6deg)}
+.late{background:var(--late-t);border-radius:18px;padding:10px 12px;display:flex;gap:10px;align-items:center}
+
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#fff;border-radius:18px;padding:8px 6px;margin-top:10px}
+.day{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:800;color:#6b6a7d;padding:4px 0;border-radius:12px}
+.day b{font-family:var(--display);font-weight:600;font-size:14px;color:#1e1d33}
+.day.now{background:#1e1d33;color:#fff}.day.now b{color:#fff}
+.dots{display:flex;gap:2px;height:6px}.dots i{width:6px;height:6px;border-radius:50%}
+
+/* domande */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.plan{background:var(--page);border-radius:18px;padding:14px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.plan .pt{font-family:var(--display);font-weight:600;font-size:20px}
+.plan .ps{font-size:13px;font-weight:700;color:var(--soft)}
+.plan ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;font-size:13.5px;font-weight:700;line-height:1.3}
+.plan li{padding-left:22px;position:relative}
+.plan li::before{content:"";position:absolute;left:0;top:2px;width:14px;height:14px;border-radius:5px;background:var(--marco)}
+.plan.pro{background:#1e1d33;color:#fff;box-shadow:0 5px 0 var(--tu)}
+.plan.pro .ps{color:#c9c7dc}
+.plan.pro li::before{background:var(--tu)}
+.plan.pro li.more{color:var(--tu);font-family:var(--display);font-weight:600}
+.plan.pro li.more::before{background:transparent;box-shadow:inset 0 0 0 2px var(--tu)}
+.plan .pp{margin-top:auto;padding-top:10px;border-top:1.5px dashed #46445f;font-family:var(--display);font-weight:600;font-size:15px}
+.plan .pp small{font-family:var(--body);font-weight:700;color:#c9c7dc;font-size:12px}
+@media (max-width:380px){.plans{grid-template-columns:1fr}}
+.perks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.perks li{background:var(--page);border-radius:14px;padding:10px 12px;font-size:14.5px;font-weight:600;color:var(--soft)}
+.perks b{color:var(--ink);font-weight:800}
+form{display:flex;flex-direction:column;gap:14px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts label{border:2px solid var(--line);border-radius:999px;padding:8px 15px;cursor:pointer;font-weight:700;font-size:15px;background:var(--page)}
+.opts input:checked+label{background:var(--sel);color:var(--sel-ink);border-color:var(--sel)}
+.opts input:focus-visible+label{outline:3px solid var(--tu);outline-offset:2px}
+input[type=text],input[type=email],textarea{width:100%;font:inherit;font-weight:600;color:var(--ink);background:var(--page);border:2px solid var(--line);border-radius:16px;padding:11px 13px}
+textarea{min-height:92px;resize:vertical}
+input[type=text]:focus,input[type=email]:focus,textarea:focus{outline:none;border-color:var(--sel)}
+.err{color:var(--err);font-size:13.5px;font-weight:700}
+.big{font-family:var(--display);font-weight:600;font-size:17px;border:0;border-radius:999px;padding:15px 20px;cursor:pointer;background:var(--ink);color:var(--page);box-shadow:0 5px 0 var(--tu);width:100%}
+.big:active{transform:translateY(2px);box-shadow:0 3px 0 var(--tu)}
+.big:focus-visible{outline:3px solid var(--tu);outline-offset:3px}
+.big[disabled]{opacity:.6}
+.wa{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:600;font-size:17px;border-radius:999px;padding:15px 20px;background:#25d366;color:#0b2e17}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;font-weight:600;color:var(--soft)}
+.check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--ink);flex:0 0 20px}
+#grazie{display:flex;flex-direction:column;gap:14px}
+.done{background:var(--card);border-radius:22px;padding:22px 18px;display:flex;flex-direction:column;gap:12px}
+.okmsg{color:var(--ok);font-weight:800}
+.foot{text-align:center;font-size:12.5px;color:var(--soft);font-weight:600}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+/* stile minimal */
+.hero{gap:14px;padding-top:6px}
+.logo{margin-left:-8px}
+.eyebrow{display:flex;align-items:center;gap:8px;margin:0;font-family:var(--display);font-weight:600;font-size:15px}
+.eyebrow i{width:11px;height:11px;border-radius:50%;background:var(--tu);box-shadow:16px 0 0 var(--giulia),32px 0 0 var(--marco),48px 0 0 var(--sara);margin-right:54px}
+h1{font-size:clamp(36px,10vw,52px);line-height:1.02;letter-spacing:-.02em}
+mark{background:linear-gradient(transparent 60%,var(--tu) 60%,var(--tu) 90%,transparent 90%);color:inherit;padding:0 2px}
+.hero .lead{font-size:17px;max-width:34em}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0;font-family:var(--display);font-weight:600;font-size:15px}
+.meta span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);margin-right:7px;vertical-align:2px}
+section>h2{font-size:26px}
+.opts label{background:var(--card);border-color:var(--card)}
+input[type=text],input[type=email],textarea{background:var(--card);border-color:var(--card)}
+.plan{background:var(--card)}
+.sub2{display:flex;flex-direction:column;gap:12px}
+.sub2[hidden]{display:none}
+/* fasce di colore */
+.bleed{box-shadow:0 0 0 100vmax var(--band);clip-path:inset(0 -100vmax);background:var(--band)}
+.hero{--band:#1e1d33;color:#fff;--ink:#fff;--soft:#c9c7dc;margin-top:-26px;padding:30px 0 38px}
+.hero .lead{color:#c9c7dc}
+.hero h1{line-height:1.14}
+.hero mark{background:var(--tu);color:#1e1d33;padding:0 10px;border-radius:12px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hero .meta span::before{background:var(--tu)}
+
+/* un passo alla volta */
+.step{--band:#ffb020;color:#1e1d33;--ink:#1e1d33;--soft:#3d3b57;--card:#fff;--line:rgba(30,29,51,.2);--sel:#1e1d33;--sel-ink:#fff;--err:#8a1a0c;padding:30px 0 34px;display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.step[hidden]{display:none}
+.s2{--band:#ff6fa8}
+.s3{--band:#1e1d33;color:#fff;--ink:#fff;--soft:#c9c7dc;--line:rgba(255,255,255,.18);--sel:#ffb020;--sel-ink:#1e1d33;--err:#ffb3a6}
+.s4{--band:#22b8a7}
+.stephead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.seg{display:flex;gap:5px}
+.seg i{width:28px;height:7px;border-radius:4px;background:currentColor;opacity:.22}
+.seg i.on{opacity:1}
+.sn{font-family:var(--display);font-weight:600;font-size:14px}
+.st{font-family:var(--display);font-weight:600;font-size:clamp(34px,10vw,46px);line-height:1;margin:0;letter-spacing:-.02em}
+.ss{margin:6px 0 10px;font-family:var(--display);font-weight:600;font-size:17px;opacity:.85}
+.step .q{background:transparent;border-radius:0;padding:16px 0;border-top:1.5px dashed var(--line);display:flex;flex-direction:column;gap:10px}
+.step .ss+.q{border-top:0}
+.step .q .t{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.25}
+.step .opts label{background:#fff;border-color:#fff;color:#1e1d33}
+.step .opts input:checked+label{background:var(--sel);color:var(--sel-ink);border-color:var(--sel);box-shadow:0 3px 0 rgba(0,0,0,.22)}
+.step input[type=text],.step textarea{background:#fff;border-color:#fff;color:#1e1d33}
+.navi{display:flex;align-items:center;gap:12px;margin-top:16px}
+.back{background:none;border:0;font:inherit;font-weight:800;color:inherit;opacity:.75;cursor:pointer;padding:10px 0}
+.next{margin-left:auto;font-family:var(--display);font-weight:600;font-size:17px;border:0;border-radius:999px;padding:14px 30px;cursor:pointer;background:#1e1d33;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.22)}
+.s3 .next{background:#ffb020;color:#1e1d33}
+.next[disabled]{opacity:.6}
+.next:focus-visible,.back:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.s3 .plan{background:rgba(255,255,255,.08);color:#fff}
+.s3 .plan .ps{color:#c9c7dc}
+.s3 .plan.pro{background:#ffb020;color:#1e1d33;box-shadow:none}
+.s3 .plan.pro .ps{color:#5a4310}
+.s3 .plan.pro li::before{background:#1e1d33}
+.s3 .plan.pro li.more{color:#1e1d33}
+.s3 .plan.pro li.more::before{background:transparent;box-shadow:inset 0 0 0 2px #1e1d33}
+.s3 .plan .pp{border-top-color:rgba(30,29,51,.3)}
+.s3 .plan .pp small{color:#5a4310}
+.bars{display:flex;align-items:flex-end;gap:6px;height:84px}
+.bars div{flex:1;border-radius:7px 7px 3px 3px}
+.legend{display:flex;flex-wrap:wrap;gap:3px 9px;font-size:11px;font-weight:700;color:#6b6a7d}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
+.up{color:#c2301c}.down{color:#1d8a5a}
+/* schermata di blocco con notifiche */
+.scr.lock{background:#1e1d33;color:#fff;align-items:stretch}
+.lockbg{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);opacity:.14}
+.lockpro{text-align:center;margin-top:2px}
+.lockpro span{display:inline-block;background:#ffb020;color:#1e1d33;font-family:var(--display);font-weight:600;font-size:12px;border-radius:999px;padding:3px 11px}
+.lockdate{text-align:center;font-weight:700;font-size:14px;margin-top:6px;opacity:.9}
+.lockclock{text-align:center;font-family:var(--display);font-weight:600;font-size:70px;line-height:1;letter-spacing:-.02em;margin-bottom:14px}
+.notes{display:flex;flex-direction:column;gap:7px;padding:0 9px;position:relative}
+.note{display:flex;gap:9px;align-items:flex-start;background:rgba(255,255,255,.9);color:#1e1d33;border-radius:18px;padding:9px 11px}
+.nicon{width:30px;height:30px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;flex:0 0 30px;box-shadow:0 0 0 1px #e6e5ee}
+.nt{flex:1;min-width:0;font-size:11.5px;font-weight:600;line-height:1.3}
+.nh{display:flex;justify-content:space-between;gap:6px}
+.nh b{font-weight:800;font-size:12px}
+.nh span{font-size:10.5px;color:#6b6a7d;white-space:nowrap}
+.lockbtns{position:absolute;bottom:26px;left:30px;right:30px;display:flex;justify-content:space-between}
+.lockbtns span{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;color:#fff}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="house" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" d="M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5M10 20v-5h4v5"/></symbol>
+  <symbol id="coins" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><ellipse cx="9" cy="7" rx="5.5" ry="2.8"/><path d="M3.5 7v4.5c0 1.5 2.5 2.8 5.5 2.8M3.5 11.5V16c0 1.5 2.5 2.8 5.5 2.8"/><ellipse cx="16" cy="13.5" rx="5" ry="2.6"/><path d="M11 13.5v4c0 1.4 2.2 2.6 5 2.6s5-1.2 5-2.6v-4"/></g></symbol>
+  <symbol id="broom" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3 12.5 9.5"/><path d="M11 9 15 13l-2.5 7.5c-3-.5-6.5-2.5-9-6.5Z"/><path d="M7 16.5 9.5 14M9.5 19l2-2.5"/></g></symbol>
+  <symbol id="basket" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18l-2 9.5H5Z"/><path d="m8 10 3-6M16 10l-3-6M9.5 14v2.5M14.5 14v2.5"/></g></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="toilet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h6v7H7z"/><path d="M4 10h14a5 5 0 0 1-5 5h-3a6 6 0 0 1-6-5Z"/><path d="M9 15l-1 6h7l-1-5"/></g></symbol>
+  <symbol id="bin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4.5h6V7M6 7l1 13h10l1-13"/><path d="M10 11v5M14 11v5"/></g></symbol>
+  <symbol id="pan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="13" r="6.5"/><path d="M16.5 13H22M7.5 11.5c.6-1 1.6-1.6 2.7-1.6"/></g></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round" d="M13.5 2.5 5 14h6l-1 7.5L19 10h-6Z"/></symbol>
+  <symbol id="flame" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round" d="M12 2.5s5.5 4.5 5.5 10.5a5.5 5.5 0 0 1-11 0c0-2.7 1.6-4.4 1.6-4.4s.5 2.1 2.1 2.6C10.3 7.6 12 2.5 12 2.5Z"/></symbol>
+  <symbol id="key" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M18 12v3M21 12v2"/></g></symbol>
+  <symbol id="cart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.5l2.3 10.5h10l2-7.5H6.4"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g></symbol>
+  <symbol id="milk" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8v3l2 3v12H6V9l2-3Z"/><path d="M6 13h12"/></g></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18h3"/></g></symbol>
+  <symbol id="chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M4 5.5h16v10H10l-4.5 4v-4H4Z"/></symbol>
+  <symbol id="cam" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 8h3.5L9 5.5h6L16.5 8H20v11H4Z"/><circle cx="12" cy="13" r="3.4"/></g></symbol>
+  <symbol id="lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
+  <symbol id="sig" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx=".7"/><rect x="4.6" y="5" width="3" height="6" rx=".7"/><rect x="9.2" y="2.5" width="3" height="8.5" rx=".7"/><rect x="13.8" y="0" width="3" height="11" rx=".7"/></symbol>
+  <symbol id="bat" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3.4" fill="none" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="2"/><rect x="22.6" y="4" width="1.7" height="4" rx=".8" opacity=".45"/></symbol>
+  <symbol id="casetta" viewBox="0 0 74 60"><path d="M6 28 37 6l31 22v28H6Z" fill="#ffffff"/><path d="M3 29 37 4l34 25" fill="none" stroke="#1e1d33" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="30" width="13" height="10" rx="3" fill="#ffb020"/><rect x="47" y="30" width="13" height="10" rx="3" fill="#ff6fa8"/><rect x="14" y="44" width="13" height="10" rx="3" fill="#22b8a7"/><rect x="47" y="44" width="13" height="10" rx="3" fill="#7c5cff"/><rect x="31" y="40" width="12" height="16" rx="3" fill="#1e1d33"/></symbol>
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm5.6 13.7c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 .9c.3.2.5.2.6.3.1.2.1.8-.1 1.5Z"/></symbol>
+</svg>
+
+<div class="wrap">
+
+  <header class="hero bleed">
+    <svg class="logo" width="112" height="91" aria-hidden="true"><use href="#casetta"/></svg>
+    <p class="eyebrow"><i></i>In arrivo a fine 2026</p>
+    <h1>Vivere tra coinquilini, <mark>senza discussioni</mark>.</h1>
+    <p class="lead">Bollette, turni delle pulizie, il latte finito di nuovo. Stiamo creando un'app che mette tutto in pari, e vogliamo costruirla con chi vive fuori sede.</p>
+    <p class="meta"><span>1 minuto</span><span>4 passi</span><span>anonimo</span></p>
+  </header>
+
+  <section>
+    <h2>Come sarà</h2>
+    <p class="lead" style="margin:4px 0 12px">Ognuno sceglie il suo colore, così si capisce al volo chi deve fare cosa. Scorri le 8 schermate.</p>
+    <div class="strip" aria-label="Schermate dell'app">
+
+      <div class="shot"><div class="dev"><div class="scr">
+        <div class="island"></div>
+        <div class="sb"><span>9:41</span><span><svg width="17" height="11"><use href="#sig"/></svg><svg width="25" height="12"><use href="#bat"/></svg></span></div>
+        <div class="bd">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="sub">Via Roma 12</div><div class="h">Ciao Luca!</div></div><svg width="74" height="60"><use href="#casetta"/></svg></div>
+          <div class="lbl">Oggi tocca a te</div>
+          <div class="cd"><div class="it"><span class="ico" style="background:var(--tu-t);color:#b06d00"><svg><use href="#bin"/></svg></span><span class="tx">Spazzatura<small>La differenziata non si porta giù da sola</small></span><span class="bt">Fatto</span></div></div>
+          <div class="late" style="margin-top:8px"><span class="ico" style="background:#fff;color:var(--late)"><svg><use href="#toilet"/></svg></span><span class="tx">Il bagno aspetta Marco da 2 giorni<small>Gli diamo una mano?</small></span><span class="bt o" style="font-size:11px;padding:5px 9px">Lo faccio io</span></div>
+          <div class="lbl">Soldi <small>Dettagli ›</small></div>
+          <div class="cd"><div class="it"><span class="av" style="background:var(--giulia)">G</span><span class="tx">Da sistemare con Giulia</span><span class="money">25,00 €</span></div><div class="it"><span class="av" style="background:var(--marco)">M</span><span class="tx">Marco ti deve</span><span class="money">12,50 €</span></div></div>
+          <div class="lbl">Da comprare <small>3 cose</small></div>
+          <div class="cd" style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip" style="background:var(--sara-t)"><span class="av" style="background:var(--sara);width:18px;height:18px;flex-basis:18px">S</span>Detersivo</span><span class="chip" style="background:#f5f6f1">Latte (di nuovo)</span><span class="chip" style="background:#f5f6f1">Carta igienica</span></div>
+        </div>
+        <div class="tabbar"><span class="tab on"><svg><use href="#house"/></svg>Casa<i></i></span><span class="tab"><svg><use href="#coins"/></svg>Soldi</span><span class="fab"><svg><use href="#plus"/></svg></span><span class="tab"><svg><use href="#broom"/></svg>Faccende</span><span class="tab"><svg><use href="#basket"/></svg>Lista</span></div>
+        <span class="homei"></span>
+      </div></div><p>Casa: cosa tocca a te oggi, i conti e cosa manca.</p></div>
+
+      <div class="shot"><div class="dev"><div class="scr">
+        <div class="island"></div>
+        <div class="sb"><span>9:41</span><span><svg width="17" height="11"><use href="#sig"/></svg><svg width="25" height="12"><use href="#bat"/></svg></span></div>
+        <div class="bd">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end"><div class="h">Riepilogo</div><span class="chip" style="background:var(--tu);padding:4px 10px;margin-bottom:5px">Premium</span></div>
+          <div style="display:flex;gap:6px;margin:8px 0 2px"><span class="chip" style="background:#1e1d33;color:#fff;padding:5px 12px">Mese</span><span class="chip" style="background:#fff;padding:5px 12px">Anno</span></div>
+          <div class="lbl">Novembre <small>Totale 2.104 €</small></div>
+          <div class="cd">
+            <div class="bars" style="height:86px">
+              <div style="height:100%;background:#d9d8e3"></div>
+              <div style="height:34%;background:#ffb020"></div>
+              <div style="height:42%;background:#ff7a2e"></div>
+              <div style="height:16%;background:#3d8bff"></div>
+              <div style="height:48%;background:#22b8a7"></div>
+            </div>
+            <div class="legend" style="margin-top:8px"><span><i style="background:#d9d8e3"></i>Affitto</span><span><i style="background:#ffb020"></i>Luce</span><span><i style="background:#ff7a2e"></i>Gas</span><span><i style="background:#3d8bff"></i>Internet</span><span><i style="background:#22b8a7"></i>Spesa</span></div>
+          </div>
+          <div class="lbl">Consumi</div>
+          <div class="cd">
+            <div class="it"><span class="ico" style="background:#fff4c8;color:#a37800"><svg><use href="#bolt"/></svg></span><span class="tx">Luce<small>186 kWh</small></span><b class="money up" style="font-size:12px">+12% su ottobre</b></div>
+            <div class="it"><span class="ico" style="background:#ffe6dc;color:#c2471f"><svg><use href="#flame"/></svg></span><span class="tx">Gas<small>64 m³</small></span><b class="money down" style="font-size:12px">−5% su ottobre</b></div>
+          </div>
+          <div class="cd" style="margin-top:8px;background:#1e1d33;color:#fff;display:flex;justify-content:space-between;gap:8px">
+            <div><div class="money" style="color:var(--tu);font-size:17px">9.840 €</div><div style="font-size:10px;font-weight:700;opacity:.75">nel 2026</div></div>
+            <div><div class="money" style="color:var(--giulia);font-size:17px">Giulia</div><div style="font-size:10px;font-weight:700;opacity:.75">pulisce di più</div></div>
+            <div><div class="money" style="color:var(--marco);font-size:17px">Bagno</div><div style="font-size:10px;font-weight:700;opacity:.75">il più odiato</div></div>
+          </div>
+        </div>
+        <div class="tabbar"><span class="tab"><svg><use href="#house"/></svg>Casa</span><span class="tab on"><svg><use href="#coins"/></svg>Soldi<i></i></span><span class="fab"><svg><use href="#plus"/></svg></span><span class="tab"><svg><use href="#broom"/></svg>Faccende</span><span class="tab"><svg><use href="#basket"/></svg>Lista</span></div>
+        <span class="homei"></span>
+      </div></div><p>Con il Premium: quanto spendete e consumate, mese per mese e in un anno.</p></div>
+
+      <div class="shot"><div class="dev"><div class="scr lock">
+        <div class="island"></div>
+        <div class="sb" style="color:#fff"><span>9:41</span><span><svg width="17" height="11" fill="#fff"><use href="#sig"/></svg><svg width="25" height="12" fill="#fff" color="#fff"><use href="#bat"/></svg></span></div>
+        <svg class="lockbg" width="260" height="210" aria-hidden="true"><use href="#casetta"/></svg>
+        <div class="lockpro"><span>Premium</span></div>
+        <div class="lockdate">Mercoledì 5 novembre</div>
+        <div class="lockclock">9:41</div>
+        <div class="notes">
+          <div class="note"><span class="nicon"><svg width="22" height="18"><use href="#casetta"/></svg></span><div class="nt"><div class="nh"><b>Bolletta della luce divisa</b><span>ora</span></div>100 € in 4: la tua parte è 25 €. Scade il 20.</div></div>
+          <div class="note"><span class="nicon"><svg width="22" height="18"><use href="#casetta"/></svg></span><div class="nt"><div class="nh"><b>Ci pensiamo noi</b><span>10 min fa</span></div>Abbiamo ricordato a Marco i 12,50 € del gas. Tu non devi fare niente.</div></div>
+          <div class="note"><span class="nicon"><svg width="22" height="18"><use href="#casetta"/></svg></span><div class="nt"><div class="nh"><b>Turni di dicembre pronti</b><span>1 h fa</span></div>Sara è via a Natale: turni già sistemati e nel tuo calendario.</div></div>
+          <div class="note"><span class="nicon"><svg width="22" height="18"><use href="#casetta"/></svg></span><div class="nt"><div class="nh"><b>Novembre in casa</b><span>ieri</span></div>La luce è salita del 12%. Guarda il riepilogo.</div></div>
+        </div>
+        <div class="lockbtns"><span><svg width="20" height="20"><use href="#bolt"/></svg></span><span><svg width="20" height="20"><use href="#cam"/></svg></span></div>
+        <span class="homei" style="background:#fff"></span>
+      </div></div><p>Con il Premium l'app ricorda, divide e avvisa al posto tuo.</p></div>
+
+      <div class="shot"><div class="dev"><div class="scr">
+        <div class="island"></div>
+        <div class="sb"><span>9:41</span><span><svg width="17" height="11"><use href="#sig"/></svg><svg width="25" height="12"><use href="#bat"/></svg></span></div>
+        <div class="bd">
+          <div class="h">Soldi</div><div class="sub">Novembre</div>
+          <div class="cd" style="margin-top:12px;background:#1e1d33;color:#fff"><div style="font-size:11.5px;font-weight:700;opacity:.75">Nel complesso</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:2px"><span class="money" style="font-size:26px">−12,50 €</span><span class="bt" style="background:var(--tu);color:#1e1d33">Salda tutto</span></div><div style="font-size:11px;font-weight:600;opacity:.75;margin-top:4px">Bastano 2 pagamenti per tornare in pari.</div></div>
+          <div class="lbl">Chi deve a chi</div>
+          <div class="cd"><div class="it"><span class="av" style="background:var(--tu);color:#1e1d33">L</span><span style="font-weight:800;color:#6b6a7d">→</span><span class="av" style="background:var(--giulia)">G</span><span class="tx">25,00 €<small>Da pagare</small></span><span class="bt o" style="font-size:11px;padding:5px 9px">Ho pagato</span></div><div class="it"><span class="av" style="background:var(--marco)">M</span><span style="font-weight:800;color:#6b6a7d">→</span><span class="av" style="background:var(--tu);color:#1e1d33">L</span><span class="tx">12,50 €<small>Marco dice di aver pagato</small></span><span class="bt" style="font-size:11px;padding:5px 9px">Ricevuto</span></div></div>
+          <div class="lbl">Spese del mese</div>
+          <div class="cd"><div class="it"><span class="ico" style="background:#fff4c8;color:#a37800"><svg><use href="#bolt"/></svg></span><span class="tx">Luce<small>Pagata da <b style="color:#d64f86">Giulia</b></small></span><span class="money">100 €</span></div><div class="it"><span class="ico" style="background:#ffe6dc;color:#c2471f"><svg><use href="#flame"/></svg></span><span class="tx">Gas<small>Scade il 20</small></span><span class="money">84 €</span></div><div class="it"><span class="ico" style="background:#e5e4ee;color:#1e1d33"><svg><use href="#key"/></svg></span><span class="tx">Affitto<small>Giulia 520 · gli altri 360</small></span><span class="money">1.600 €</span></div></div>
+        </div>
+        <div class="tabbar"><span class="tab"><svg><use href="#house"/></svg>Casa</span><span class="tab on"><svg><use href="#coins"/></svg>Soldi<i></i></span><span class="fab"><svg><use href="#plus"/></svg></span><span class="tab"><svg><use href="#broom"/></svg>Faccende</span><span class="tab"><svg><use href="#basket"/></svg>Lista</span></div>
+        <span class="homei"></span>
+      </div></div><p>Soldi: un debito si chiude solo quando chi riceve conferma.</p></div>
+
+      <div class="shot"><div class="dev"><div class="scr">
+        <div class="island"></div>
+        <div class="sb"><span>9:41</span><span><svg width="17" height="11"><use href="#sig"/></svg><svg width="25" height="12"><use href="#bat"/></svg></span></div>
+        <div class="bd">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end"><div class="h">Faccende</div><span class="bt o" style="font-size:11px;padding:5px 10px;margin-bottom:4px">Sono via</span></div>
+          <div class="week">
+            <div class="day">L<b>3</b><span class="dots"><i style="background:var(--sara)"></i></span></div>
+            <div class="day">M<b>4</b><span class="dots"><i style="background:var(--marco)"></i></span></div>
+            <div class="day now">M<b>5</b><span class="dots"><i style="background:var(--tu)"></i></span></div>
+            <div class="day">G<b>6</b><span class="dots"></span></div>
+            <div class="day">V<b>7</b><span class="dots"><i style="background:var(--tu)"></i><i style="background:var(--sara)"></i></span></div>
+            <div class="day">S<b>8</b><span class="dots"><i style="background:var(--giulia)"></i></span></div>
+            <div class="day">D<b>9</b><span class="dots"></span></div>
+          </div>
+          <div class="lbl">Oggi e in ritardo</div>
+          <div class="cd">
+            <div class="it"><span class="ico" style="background:var(--late-t);color:var(--late)"><svg><use href="#toilet"/></svg></span><span class="tx">Bagno<small style="color:var(--late)">In ritardo di 2 giorni</small></span><span class="chip" style="background:var(--marco-t)"><span class="av" style="background:var(--marco);width:18px;height:18px;flex-basis:18px">M</span>Marco</span></div>
+            <div class="it"><span class="ico" style="background:var(--tu-t);color:#b06d00"><svg><use href="#bin"/></svg></span><span class="tx">Spazzatura<small>Oggi</small></span><span class="chip" style="background:var(--tu-t)"><span class="av" style="background:var(--tu);color:#1e1d33;width:18px;height:18px;flex-basis:18px">L</span>Tu</span></div>
+            <div class="it"><span class="ico" style="background:var(--giulia-t);color:#c23f75"><svg><use href="#pan"/></svg></span><span class="tx">Cucina<small>Sabato</small></span><span class="chip" style="background:var(--giulia-t)"><span class="av" style="background:var(--giulia);width:18px;height:18px;flex-basis:18px">G</span>Giulia</span></div>
+          </div>
+          <div class="lbl">Chi capita: lavastoviglie <small>questo mese</small></div>
+          <div class="cd"><div style="display:flex;align-items:flex-end;gap:12px;height:66px;padding:0 6px"><div style="flex:1;height:48px;border-radius:8px;background:var(--giulia)"></div><div style="flex:1;height:40px;border-radius:8px;background:var(--tu)"></div><div style="flex:1;height:16px;border-radius:8px;background:var(--marco)"></div><div style="flex:1;height:8px;border-radius:8px;background:var(--sara)"></div></div><div style="font-size:11.5px;font-weight:700;color:#6b6a7d;margin-top:8px">Sara, la lavastoviglie ti saluta.</div></div>
+        </div>
+        <div class="tabbar"><span class="tab"><svg><use href="#house"/></svg>Casa</span><span class="tab"><svg><use href="#coins"/></svg>Soldi</span><span class="fab"><svg><use href="#plus"/></svg></span><span class="tab on"><svg><use href="#broom"/></svg>Faccende<i></i></span><span class="tab"><svg><use href="#basket"/></svg>Lista</span></div>
+        <span class="homei"></span>
+      </div></div><p>Faccende: il calendario della settimana con il colore di chi tocca, e chi aiuta guadagna il turno.</p></div>
+
+      <div class="shot"><div class="dev"><div class="scr">
+        <div class="island"></div>
+        <div class="sb"><span>9:41</span><span><svg width="17" height="11"><use href="#sig"/></svg><svg width="25" height="12"><use href="#bat"/></svg></span></div>
+        <div class="bd">
+          <div class="h">Da comprare</div><div class="sub">3 cose</div>
+          <div class="cd" style="margin-top:12px">
+            <div class="it"><span class="box"></span><span class="tx">Detersivo piatti</span><span class="chip" style="background:var(--sara-t)"><span class="av" style="background:var(--sara);width:18px;height:18px;flex-basis:18px">S</span>lo prende Sara</span></div>
+            <div class="it"><span class="box"></span><span class="tx">Latte<small>Di nuovo. Chi lo beve tutto?</small></span><span class="bt o" style="font-size:11px;padding:5px 9px">Lo prendo io</span></div>
+            <div class="it"><span class="box"></span><span class="tx">Carta igienica</span><span class="bt o" style="font-size:11px;padding:5px 9px">Lo prendo io</span></div>
+          </div>
+          <div class="lbl">Comprati</div>
+          <div class="cd"><div class="it" style="opacity:.55"><span class="box on"><svg width="12" height="12"><use href="#check"/></svg></span><span class="tx"><s>Pane</s></span><span class="chip" style="background:var(--giulia-t)"><span class="av" style="background:var(--giulia);width:18px;height:18px;flex-basis:18px">G</span>Giulia</span></div></div>
+          <div class="cd" style="margin-top:8px;background:var(--tu-t);display:flex;gap:10px;align-items:center"><span class="ico" style="background:#fff;color:#b06d00"><svg><use href="#cart"/></svg></span><span class="tx" style="font-size:12px">Finito la spesa? Lo scontrino diventa una spesa di casa.</span><span class="bt" style="font-size:11px;padding:5px 9px">Aggiungi</span></div>
+          <div class="cd" style="margin-top:8px;color:#a3a2b3;font-weight:700">Cosa manca?</div>
+        </div>
+        <div class="tabbar"><span class="tab"><svg><use href="#house"/></svg>Casa</span><span class="tab"><svg><use href="#coins"/></svg>Soldi</span><span class="fab"><svg><use href="#plus"/></svg></span><span class="tab"><svg><use href="#broom"/></svg>Faccende</span><span class="tab on"><svg><use href="#basket"/></svg>Lista<i></i></span></div>
+        <span class="homei"></span>
+      </div></div><p>Lista: "Lo prendo io", così il latte non lo comprate in due.</p></div>
+
+      <div class="shot"><div class="dev"><div class="scr">
+        <div class="island"></div>
+        <div class="sb"><span>9:41</span><span><svg width="17" height="11"><use href="#sig"/></svg><svg width="25" height="12"><use href="#bat"/></svg></span></div>
+        <div class="bd" style="display:flex;flex-direction:column;padding-bottom:0">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-top:4px"><span style="color:#6b6a7d">Annulla</span><span class="d" style="font-size:15px">Nuova spesa</span><span style="color:#b06d00">Salva</span></div>
+          <div class="money" style="text-align:center;font-size:40px;margin-top:16px">12,40 €</div>
+          <div class="sub" style="text-align:center">Supermercato</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">
+            <span class="chip" style="background:#1e1d33;color:#fff;padding:5px 10px">Spesa</span><span class="chip" style="background:#fff;padding:5px 10px">Luce</span><span class="chip" style="background:#fff;padding:5px 10px">Gas</span><span class="chip" style="background:#fff;padding:5px 10px">Internet</span><span class="chip" style="background:#fff;padding:5px 10px">Affitto</span>
+          </div>
+          <div class="cd" style="margin-top:10px">
+            <div class="it"><span class="tx">Ha pagato</span><span class="chip" style="background:var(--tu-t)"><span class="av" style="background:var(--tu);color:#1e1d33;width:18px;height:18px;flex-basis:18px">L</span>Tu</span></div>
+            <div class="it"><span class="tx">Divisa tra<small>Sara era via</small></span><span style="display:flex;gap:3px"><span class="av" style="background:var(--tu);color:#1e1d33">L</span><span class="av" style="background:var(--giulia)">G</span><span class="av" style="background:var(--marco)">M</span><span class="av" style="background:#d9d8e3;color:#fff">S</span></span></div>
+          </div>
+          <div class="keys"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>,</span><span>0</span><span>⌫</span></div>
+        </div>
+        <span class="homei"></span>
+      </div></div><p>Il pulsante +: scrivi solo l'importo, il resto è già impostato.</p></div>
+
+      <div class="shot"><div class="dev"><div class="scr">
+        <div class="island"></div>
+        <div class="sb"><span>9:41</span><span><svg width="17" height="11"><use href="#sig"/></svg><svg width="25" height="12"><use href="#bat"/></svg></span></div>
+        <div class="bd" style="display:flex;flex-direction:column">
+          <div class="sub" style="margin-top:6px">Passo 1 di 3</div>
+          <div class="h" style="font-size:25px;line-height:1.1">Scegli il tuo colore</div>
+          <p style="margin:6px 2px 0;color:#6b6a7d;font-weight:600;font-size:12px">Ti seguirà ovunque: turni, spese e lista. I colori già presi sono più chiari.</p>
+          <div class="sws">
+            <div class="sw sel" style="background:var(--tu)"><svg width="24" height="24"><use href="#check"/></svg></div>
+            <div class="sw" style="background:var(--giulia);opacity:.35"></div>
+            <div class="sw" style="background:var(--marco);opacity:.35"></div>
+            <div class="sw" style="background:var(--sara);opacity:.35"></div>
+            <div class="sw" style="background:#3d8bff"></div>
+            <div class="sw" style="background:#ff7a2e"></div>
+            <div class="sw" style="background:#4cc35a"></div>
+            <div class="sw" style="background:#e3463d"></div>
+          </div>
+          <div class="cd" style="margin-top:16px;display:flex;align-items:center;gap:12px"><span class="av" style="background:var(--tu);color:#1e1d33;width:44px;height:44px;flex-basis:44px;font-size:17px">L</span><span class="tx" style="font-size:15px">Luca<small>Così ti vedranno i coinquilini</small></span></div>
+          <div class="cd" style="margin-top:8px;font-size:12px;font-weight:700">Giallo è libero. Ottima scelta, si vede anche al buio.</div>
+          <div class="bt" style="margin:auto 0 34px;text-align:center;padding:12px;font-size:15px">Avanti</div>
+        </div>
+        <span class="homei"></span>
+      </div></div><p>Il primo giorno: ognuno sceglie il suo colore.</p></div>
+
+    </div>
+    <div class="pager" id="pager" aria-hidden="true"></div>
+  </section>
+
+  <section id="sondaggio">
+    <form id="f" novalidate>
+
+      <div class="step s1 bleed" data-step="1">
+        <div class="stephead"><span class="seg"><i class="on"></i><i></i><i></i><i></i></span><span class="sn">Passo 1 di 4</span></div>
+        <h2 class="st">Tu e la tua casa</h2>
+        <p class="ss">Partiamo dalle basi.</p>
+
+        <div class="q" data-req="persone"><div class="t">Con quanti coinquilini vivi?</div>
+          <div class="opts">
+            <input type="radio" name="persone" id="p0" value="nessuno"><label for="p0">Nessuno</label>
+            <input type="radio" name="persone" id="p1" value="1"><label for="p1">1</label>
+            <input type="radio" name="persone" id="p2" value="2"><label for="p2">2</label>
+            <input type="radio" name="persone" id="p3" value="3 o più"><label for="p3">3 o più</label>
+          </div><div class="err" hidden></div></div>
+
+        <div class="q" data-req="telefono"><div class="t">Che telefono hai?</div>
+          <div class="opts">
+            <input type="radio" name="telefono" id="t1" value="iPhone"><label for="t1">iPhone</label>
+            <input type="radio" name="telefono" id="t2" value="Android"><label for="t2">Android</label>
+          </div><div class="err" hidden></div></div>
+
+        <div class="q" data-req="liti"><div class="t">Cosa fa discutere di più?</div>
+          <div class="opts">
+            <input type="radio" name="liti" id="l1" value="soldi e bollette"><label for="l1">Soldi e bollette</label>
+            <input type="radio" name="liti" id="l2" value="pulizie"><label for="l2">Pulizie</label>
+            <input type="radio" name="liti" id="l3" value="spesa"><label for="l3">La spesa</label>
+            <input type="radio" name="liti" id="l4" value="niente"><label for="l4">Niente, siamo santi</label>
+          </div>
+          <input type="text" id="litialtro" maxlength="80" placeholder="Altro? Scrivilo qui">
+          <div class="err" hidden></div></div>
+
+        <div class="q" data-req="app"><div class="t">Usate già un'app per la casa?</div>
+          <div class="opts">
+            <input type="radio" name="app" id="a0" value="nessuna"><label for="a0">Nessuna</label>
+            <input type="radio" name="app" id="a1" value="sì"><label for="a1">Sì</label>
+          </div>
+          <input type="text" id="appquale" maxlength="60" placeholder="Quale? Scrivi il nome dell'app" hidden>
+          <div class="err" hidden></div></div>
+
+        <div class="navi"><button type="button" class="next">Avanti</button></div>
+      </div>
+
+      <div class="step s2 bleed" data-step="2" hidden>
+        <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="sn">Passo 2 di 4</span></div>
+        <h2 class="st">La nostra app</h2>
+        <p class="ss">Ora giudica tu, senza pietà.</p>
+
+        <div class="q" data-req="grafica"><div class="t">Ti piace la grafica?</div>
+          <div class="opts">
+            <input type="radio" name="grafica" id="r1" value="1"><label for="r1">Per niente</label>
+            <input type="radio" name="grafica" id="r2" value="2"><label for="r2">Poco</label>
+            <input type="radio" name="grafica" id="r3" value="3"><label for="r3">Così così</label>
+            <input type="radio" name="grafica" id="r4" value="4"><label for="r4">Mi piace</label>
+            <input type="radio" name="grafica" id="r5" value="5"><label for="r5">La adoro</label>
+          </div><div class="err" hidden></div></div>
+
+        <div class="q" data-req="nome"><div class="t">Quale nome le daresti?</div>
+          <div class="opts" id="nomi"></div>
+          <input type="text" id="altronome" maxlength="40" placeholder="Hai un nome migliore? Scrivilo qui">
+          <div class="err" hidden></div></div>
+
+        <div class="q" data-req="scaricheresti"><div class="t">La scaricheresti?</div>
+          <div class="opts">
+            <input type="radio" name="scaricheresti" id="s1" value="sì"><label for="s1">Sì</label>
+            <input type="radio" name="scaricheresti" id="s2" value="forse"><label for="s2">Forse</label>
+            <input type="radio" name="scaricheresti" id="s3" value="no"><label for="s3">No</label>
+          </div><div class="err" hidden></div></div>
+
+        <div class="navi"><button type="button" class="back">Indietro</button><button type="button" class="next">Avanti</button></div>
+      </div>
+
+      <div class="step s3 bleed" data-step="3" hidden>
+        <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="sn">Passo 3 di 4</span></div>
+        <h2 class="st">Gratis o Premium?</h2>
+        <p class="ss">L'app è gratis, per sempre. Il Premium mette la casa col pilota automatico.</p>
+
+        <div class="plans">
+          <div class="plan">
+            <div class="pt">Gratis</div>
+            <div class="ps">Tutto quello che serve</div>
+            <ul>
+              <li>Spese e conti, senza limiti</li>
+              <li>Turni con calendario della settimana e del mese</li>
+              <li>Lista della spesa</li>
+              <li>Il tuo colore</li>
+              <li>Tutti vedono le stesse cose, subito</li>
+              <li>Nessuna pubblicità</li>
+            </ul>
+          </div>
+          <div class="plan pro">
+            <div class="pt">Premium</div>
+            <div class="ps">Tutto il gratis, più:</div>
+            <ul>
+              <li>Le bollette si dividono da sole: carichi il PDF o la inoltri alla casa</li>
+              <li>Promemoria automatici a chi non paga</li>
+              <li>Turni automatici e calendario sul telefono</li>
+              <li>Quanto spendete e quanto consumate, mese per mese e in un anno</li>
+              <li>Più case e valute diverse</li>
+              <li>Conti e caparra chiusi quando uno se ne va</li>
+              <li class="more">E tanto altro</li>
+            </ul>
+            <div class="pp"><span data-p="month"></span> al mese per tutta la casa<br><small><span data-p="each"></span> a testa in 4</small></div>
+          </div>
+        </div>
+
+        <div class="q" data-req="premium"><div class="t">Cosa ti farebbe passare al Premium?</div>
+          <div class="opts">
+            <input type="checkbox" name="extra" id="x1" value="bollette automatiche"><label for="x1">Le bollette che si dividono da sole</label>
+            <input type="checkbox" name="extra" id="x2" value="promemoria"><label for="x2">I promemoria a chi non paga</label>
+            <input type="checkbox" name="extra" id="x3" value="turni automatici"><label for="x3">I turni automatici</label>
+            <input type="checkbox" name="extra" id="x4" value="spese e consumi"><label for="x4">Spese e consumi</label>
+            <input type="checkbox" name="extra" id="x6" value="più case e valute"><label for="x6">Più case e valute</label>
+            <input type="checkbox" name="extra" id="x7" value="uscita"><label for="x7">I conti chiusi all'uscita</label>
+            <input type="checkbox" name="extra" id="x5" value="nessuna"><label for="x5">Niente, mi basta il gratis</label>
+          </div>
+          <div id="pagamento" class="sub2">
+            <div class="t">A <span data-p="month"></span> al mese per tutta la casa, lo paghereste?</div>
+            <div class="opts">
+              <input type="radio" name="premium" id="g1" value="sì"><label for="g1">Sì</label>
+              <input type="radio" name="premium" id="g2" value="forse"><label for="g2">Forse</label>
+              <input type="radio" name="premium" id="g3" value="no"><label for="g3">No</label>
+            </div>
+            <div class="t">Il prezzo ti sembra…</div>
+            <div class="opts">
+              <input type="radio" name="prezzo" id="c1" value="troppo alto"><label for="c1">Troppo alto</label>
+              <input type="radio" name="prezzo" id="c2" value="giusto"><label for="c2">Giusto</label>
+              <input type="radio" name="prezzo" id="c3" value="potrebbe costare di più"><label for="c3">Potrebbe costare di più</label>
+            </div>
+          </div><div class="err" hidden></div></div>
+
+        <div class="navi"><button type="button" class="back">Indietro</button><button type="button" class="next">Avanti</button></div>
+      </div>
+
+      <div class="step s4 bleed" data-step="4" hidden>
+        <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="sn">Passo 4 di 4</span></div>
+        <h2 class="st">L'ultima parola</h2>
+        <p class="ss">Ultima, promesso. E puoi anche saltarla.</p>
+
+        <div class="q"><label class="t" for="passo">Cosa dovrebbe avere in più per fartela scaricare subito?</label>
+          <textarea id="passo" maxlength="600" placeholder="Per esempio: dividere anche le spese degli ospiti"></textarea></div>
+
+        <div class="navi"><button type="button" class="back">Indietro</button><button type="submit" class="next" id="invia">Invia le risposte</button></div>
+        <div class="err" id="inviaerr" hidden></div>
+      </div>
+
+    </form>
+  </section>
+
+  <section id="grazie" hidden>
+    <div class="done">
+      <svg width="74" height="60" aria-hidden="true"><use href="#casetta"/></svg>
+      <h2>Grazie! Ora siamo pari.</h2>
+      <p style="margin:0;font-weight:600;color:var(--soft)">Le tue risposte sono arrivate: hai appena aiutato a costruire l'app.</p>
+    </div>
+
+    <div class="done" id="emailbox">
+      <h2>Tieniti un posto in prima fila</h2>
+      <ul class="perks">
+        <li><b>La provi prima di tutti.</b> Ti mandiamo l'anteprima prima che esca.</li>
+        <li><b>3 mesi di Premium in regalo.</b> Solo per i primi 100 iscritti.</li>
+        <li><b>Decidi con noi.</b> Prima del lancio ti scriviamo qualche volta per farti provare le novità e scegliere insieme nome, colori e funzioni.</li>
+      </ul>
+      <label for="email" style="font-weight:700">La tua email</label>
+      <input type="email" id="email" autocomplete="email" placeholder="nome@esempio.it">
+      <label class="check"><input type="checkbox" id="consenso"><span>Acconsento a ricevere email per provare e migliorare l'app prima del lancio e l'avviso quando sarà pronta. La mia email non viene data a nessuno, resta separata dalle risposte al sondaggio e posso chiedere di cancellarla quando voglio. <a href="privacy.html" target="_blank" rel="noopener">Leggi l'informativa</a></span></label>
+      <div class="err" id="emailerr" hidden></div>
+      <button type="button" class="big" id="avvisami">Tienimi un posto</button>
+    </div>
+
+    <div class="done">
+      <h2>Conosci qualcuno fuori sede?</h2>
+      <p style="margin:0;font-weight:600;color:var(--soft)">Chi divide già casa con altri, chi sta cercando una stanza o chi partirà per l'università: mandagli il sondaggio. Ci vuole un minuto, e l'app la facciamo anche per loro.</p>
+      <a class="wa" id="walink" href="https://wa.me/" target="_blank" rel="noopener"><svg width="22" height="22" aria-hidden="true"><use href="#wa"/></svg>Mandalo su WhatsApp</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  // Indirizzo che riceve risposte ed email (foglio Google). Vuoto = anteprima: niente viene salvato.
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycby1qs01PSUihFugALWZBwwJSj_3lOkM2r6cEjR5CwZFmLYo_dscThdS4uAnLyDoOaHK/exec';
+
+  function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e) { return null; } }
+
+  var variant = store('prezzo2');
+  if (variant !== 'A' && variant !== 'B') { variant = Math.random() < 0.5 ? 'A' : 'B'; store('prezzo2', variant); }
+  var P = variant === 'A' ? { month: '4,99 €', each: '1,25 €' } : { month: '6,99 €', each: '1,75 €' };
+  document.querySelectorAll('[data-p="month"]').forEach(function(el){ el.textContent = P.month; });
+  document.querySelectorAll('[data-p="each"]').forEach(function(el){ el.textContent = P.each; });
+
+  var NOMI = ['Siamo Pari', 'Tutti Pari', 'Sempre Pari', 'Pari in Casa'];
+  for (var i = NOMI.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = NOMI[i]; NOMI[i] = NOMI[j]; NOMI[j] = t; }
+  var box = document.getElementById('nomi');
+  NOMI.forEach(function(n, k){
+    var id = 'n' + k;
+    box.insertAdjacentHTML('beforeend', '<input type="radio" name="nome" id="' + id + '"><label for="' + id + '"></label>');
+    document.getElementById(id).value = n;
+    box.lastElementChild.textContent = n;
+  });
+
+  var strip = document.querySelector('.strip'), pager = document.getElementById('pager');
+  var shots = strip.querySelectorAll('.shot');
+  shots.forEach(function(){ pager.appendChild(document.createElement('i')); });
+  function pagina(){
+    var w = shots[0].getBoundingClientRect().width + 14;
+    var k = Math.min(shots.length - 1, Math.round(strip.scrollLeft / w));
+    if (strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 4) k = shots.length - 1;
+    Array.prototype.forEach.call(pager.children, function(d, j){ d.className = j === k ? 'on' : ''; });
+  }
+  strip.addEventListener('scroll', pagina, { passive: true }); pagina();
+
+  var link = location.href.split('#')[0];
+  document.getElementById('walink').href = 'https://wa.me/?text=' + encodeURIComponent('Hai mai litigato con i coinquilini per una bolletta o per il bagno? Stanno creando un\'app per chi vive fuori sede: spese, turni e lista della spesa, tutto in pari. Ci vuole un minuto per dire la tua: ' + link);
+
+  var f = document.getElementById('f');
+  function val(name){ var el = f.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; }
+  function testo(id){ return document.getElementById(id).value.trim(); }
+  var nessuna = document.getElementById('x5');
+  function soloGratis(){ return nessuna.checked; }
+  var EXTRA = { liti: function(){ return testo('litialtro'); }, nome: function(){ return testo('altronome'); }, premium: soloGratis };
+
+  f.addEventListener('input', function(e){
+    var q = e.target.closest('.q'); var er = q && q.querySelector('.err'); if (er) er.hidden = true;
+    if (e.target.name === 'app') {
+      var quale = document.getElementById('appquale'); quale.hidden = e.target.value !== 'sì';
+      if (!quale.hidden) quale.focus();
+    }
+  });
+  f.addEventListener('change', function(e){
+    if (e.target.name !== 'extra') return;
+    if (e.target === nessuna && nessuna.checked) f.querySelectorAll('input[name="extra"]').forEach(function(i){ if (i !== nessuna) i.checked = false; });
+    if (e.target !== nessuna && e.target.checked) nessuna.checked = false;
+    document.getElementById('pagamento').hidden = soloGratis();
+  });
+
+  // un passo alla volta
+  var steps = f.querySelectorAll('.step'), cur = 0;
+  function controlla(step){
+    var first = null;
+    step.querySelectorAll('.q[data-req]').forEach(function(q){
+      var name = q.getAttribute('data-req'), er = q.querySelector('.err'), msg = '';
+      if (name === 'premium') { if (!soloGratis() && !(val('premium') && val('prezzo'))) msg = 'Rispondi anche alle due domande sul prezzo'; }
+      else if (!val(name) && !(EXTRA[name] && EXTRA[name]())) msg = EXTRA[name] ? 'Scegli una risposta o scrivila' : 'Scegli una risposta';
+      else if (name === 'app' && val('app') === 'sì' && !testo('appquale')) msg = 'Scrivi quale app usate';
+      if (msg) { er.textContent = msg; er.hidden = false; if (!first) first = q; } else er.hidden = true;
+    });
+    if (first) first.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    return !first;
+  }
+  function vai(n){
+    steps[cur].hidden = true; cur = n; steps[cur].hidden = false;
+    document.getElementById('sondaggio').scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+  f.addEventListener('click', function(e){
+    if (e.target.classList.contains('back')) vai(cur - 1);
+    else if (e.target.classList.contains('next') && e.target.type === 'button' && controlla(steps[cur])) vai(cur + 1);
+  });
+
+  function send(data){
+    if (!ENDPOINT) return Promise.resolve();
+    return fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) });
+  }
+  function oggi(){ return new Date().toISOString().slice(0, 10); }
+
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    for (var k = 0; k < steps.length; k++) {
+      if (!controlla(steps[k])) { if (k !== cur) vai(k); return; }
+    }
+    var row = { tipo: 'risposta', giorno: oggi(), prezzo: variant + ' ' + P.month,
+      persone: val('persone'), telefono: val('telefono'), liti: val('liti'), litialtro: testo('litialtro').slice(0, 80),
+      app: val('app'), appquale: val('app') === 'sì' ? testo('appquale').slice(0, 60) : '',
+      grafica: val('grafica'), nome: val('nome'), altronome: testo('altronome').slice(0, 40), scaricheresti: val('scaricheresti'),
+      extra: Array.prototype.map.call(f.querySelectorAll('input[name="extra"]:checked'), function(i){ return i.value; }).join(', '),
+      premium: soloGratis() ? 'mi basta il gratis' : val('premium'), prezzogiudizio: soloGratis() ? '' : val('prezzo'),
+      passo: testo('passo').slice(0, 600) };
+    var btn = document.getElementById('invia'), er = document.getElementById('inviaerr');
+    btn.disabled = true; btn.textContent = 'Invio…'; er.hidden = true;
+    send(row).then(function(){
+      store('inviato', '1');
+      var g = document.getElementById('grazie');
+      Array.prototype.forEach.call(g.parentNode.children, function(el){ el.hidden = el !== g; });
+      g.hidden = false; window.scrollTo(0, 0);
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = 'Invia le risposte';
+      er.textContent = 'Invio non riuscito. Controlla la connessione e riprova.'; er.hidden = false;
+    });
+  });
+
+  document.getElementById('avvisami').addEventListener('click', function(){
+    var em = document.getElementById('email').value.trim(), er = document.getElementById('emailerr');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { er.textContent = 'Scrivi un indirizzo email valido'; er.hidden = false; return; }
+    if (!document.getElementById('consenso').checked) { er.textContent = 'Spunta la casella per darci il permesso'; er.hidden = false; return; }
+    er.hidden = true;
+    var btn = this; btn.disabled = true; btn.textContent = 'Invio…';
+    send({ tipo: 'email', giorno: oggi(), email: em }).then(function(){
+      document.getElementById('emailbox').innerHTML = '<h2>Il tuo posto è tenuto</h2><p class="okmsg" style="margin:0">Ti scriviamo appena c\'è qualcosa da provare.</p>';
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = 'Tienimi un posto';
+      er.textContent = 'Invio non riuscito. Riprova tra poco.'; er.hidden = false;
+    });
+  });
+  ['email', 'consenso'].forEach(function(id){ document.getElementById(id).addEventListener('input', function(){ document.getElementById('emailerr').hidden = true; }); });
+})();
+</script>
+
+</body>
+</html>
