@@ -229,6 +229,19 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .perks2 b{color:#1e1d33;font-weight:800}
 .facolt{font-family:var(--body);font-weight:700;font-size:13px;color:#6b6a7d;margin-left:6px}
 .step .check{color:#6b6a7d;font-size:13px}
+/* messaggio prima dell'invio, se l'email è vuota */
+.velo{position:fixed;inset:0;z-index:50;background:rgba(30,29,51,.55);display:flex;align-items:flex-end;justify-content:center;padding:16px;padding-bottom:max(16px,env(safe-area-inset-bottom,0px))}
+.velo[hidden]{display:none!important}
+.foglio{background:#fff;color:#1e1d33;width:100%;max-width:480px;border-radius:26px;padding:24px 20px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 -6px 0 var(--tu);animation:sale .25s ease-out}
+@keyframes sale{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.foglio{animation:none}}
+.foglio h2{font-family:var(--display);font-weight:600;font-size:24px;line-height:1.15;margin:0}
+.foglio p{margin:0;font-weight:600;color:#3d3b57;line-height:1.4}
+.foglio input{width:100%;font:inherit;font-weight:600;color:#1e1d33;background:#f3f2f7;border:2px solid transparent;border-radius:16px;padding:12px 14px}
+.foglio input:focus{outline:none;border-color:#1e1d33}
+.foglio .si{font-family:var(--display);font-weight:600;font-size:17px;border:0;border-radius:999px;padding:14px 20px;background:#1e1d33;color:#fff;box-shadow:0 4px 0 var(--tu);cursor:pointer}
+.foglio .no{background:none;border:0;font:inherit;font-weight:800;color:#6b6a7d;padding:8px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.foglio .err{color:#c2301c}
 .notaemail{margin:-4px 0 0;font-size:13px;font-weight:600;color:#6b6a7d;line-height:1.4}
 .notaemail a{color:#1e1d33}
 #correggi input{width:100%}
@@ -669,6 +682,18 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     </form>
   </section>
 
+  <div class="velo" id="velo" hidden>
+    <div class="foglio" role="dialog" aria-modal="true" aria-labelledby="velotit">
+      <h2 id="velotit">Aspetta, un'ultima cosa 🙂</h2>
+      <p>Non sei curioso/a di sapere come vivono gli altri coinquilini? Lasciaci l'email e ti mandiamo i risultati del sondaggio, più l'anteprima dell'app prima che esca.</p>
+      <input type="email" id="email3" autocomplete="email" inputmode="email" placeholder="La tua email" aria-label="La tua email">
+      <p class="notaemail">Lasciando l'email accetti di ricevere da noi solo i risultati, l'anteprima e qualche richiesta di parere. Niente pubblicità, e puoi cancellarti quando vuoi. <a href="privacy.html" target="_blank" rel="noopener">Informativa</a></p>
+      <div class="err" id="email3err" hidden></div>
+      <button type="button" class="si" id="velosi">Sì, mandameli</button>
+      <button type="button" class="no" id="velono">No grazie, invia senza email</button>
+    </div>
+  </div>
+
   <section id="grazie" hidden>
     <div class="done">
       <svg width="74" height="60" aria-hidden="true"><use href="#casetta"/></svg>
@@ -985,8 +1010,24 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     for (var k = 0; k < steps.length; k++) {
       if (!controlla(steps[k])) { if (k !== cur) vai(k); return; }
     }
+    if (!document.getElementById('email').value.trim() && !giaChiesto) { apriVelo(); return; }
     invia(false);
   });
+
+  // Messaggio prima dell'invio: compare una volta sola, solo se l'email è vuota.
+  // "Sì" usa l'email scritta nel messaggio; "No grazie" invia senza email; toccando fuori si torna al sondaggio.
+  var giaChiesto = false, velo = document.getElementById('velo');
+  function apriVelo(){ velo.hidden = false; document.getElementById('email3err').hidden = true; setTimeout(function(){ document.getElementById('email3').focus(); }, 50); }
+  function chiudiVelo(){ velo.hidden = true; }
+  document.getElementById('velosi').addEventListener('click', function(){
+    var em = document.getElementById('email3').value.trim(), er = document.getElementById('email3err');
+    if (!buona(em)) { er.textContent = em ? 'Questa email non sembra giusta: controllala' : 'Scrivi la tua email, oppure tocca "No grazie"'; er.hidden = false; return; }
+    document.getElementById('email').value = em; giaChiesto = true; chiudiVelo(); invia(false);
+  });
+  document.getElementById('velono').addEventListener('click', function(){ giaChiesto = true; chiudiVelo(); invia(false); });
+  velo.addEventListener('click', function(e){ if (e.target === velo) chiudiVelo(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !velo.hidden) chiudiVelo(); });
+  document.getElementById('email3').addEventListener('input', function(){ document.getElementById('email3err').hidden = true; });
 
 })();
 </script>
