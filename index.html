@@ -776,11 +776,12 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   })();
 
   var link = location.href.split('#')[0];
-  var MSG = 'Vivi con dei coinquilini? 🏠 Sondaggio anonimo di 2 minuti su soldi, bollette e faccende in casa. Spoiler: dentro c’è un’anteprima dell’app che stiamo creando 👀';
+  // Messaggio in righe brevi, con una riga vuota tra una frase e l'altra: su WhatsApp si legge meglio.
+  var MSG = 'Vivi con dei coinquilini? 🏠\n\nSondaggio anonimo di 2 minuti su soldi, bollette e faccende in casa.\n\n👀 Spoiler: dentro c’è un’anteprima dell’app che stiamo creando';
   // Sul telefono apre il menu di condivisione (WhatsApp, Instagram, Telegram…); dove non c'è, apre WhatsApp.
   document.getElementById('condividi').addEventListener('click', function(){
     if (navigator.share) { navigator.share({ title: 'Come si vive in una casa condivisa?', text: MSG, url: link }).catch(function(){}); return; }
-    window.open('https://wa.me/?text=' + encodeURIComponent(MSG + ' ' + link), '_blank', 'noopener');
+    window.open('https://wa.me/?text=' + encodeURIComponent(MSG + '\n\n👉 ' + link), '_blank', 'noopener');
   });
   document.getElementById('copia').addEventListener('click', function(){
     var b = this;
