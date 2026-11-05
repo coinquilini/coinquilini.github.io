@@ -237,6 +237,25 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .perks2 b{color:#1e1d33;font-weight:800}
 .facolt{font-family:var(--body);font-weight:700;font-size:13px;color:#6b6a7d;margin-left:6px}
 .step .check{color:#6b6a7d;font-size:13px}
+/* messaggio prima dell'invio, se l'email è vuota */
+.velo{position:fixed;inset:0;z-index:50;background:rgba(30,29,51,.55);display:flex;align-items:flex-end;justify-content:center;padding:16px;padding-bottom:max(16px,env(safe-area-inset-bottom,0px))}
+.velo[hidden]{display:none!important}
+.foglio{background:#fff;color:#1e1d33;width:100%;max-width:480px;border-radius:26px;padding:24px 20px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 -6px 0 var(--tu);animation:sale .25s ease-out}
+@keyframes sale{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.foglio{animation:none}}
+.foglio h2{font-family:var(--display);font-weight:600;font-size:24px;line-height:1.15;margin:0}
+.foglio p{margin:0;font-weight:600;color:#3d3b57;line-height:1.4}
+.foglio input{width:100%;font:inherit;font-weight:600;color:#1e1d33;background:#f3f2f7;border:2px solid transparent;border-radius:16px;padding:12px 14px}
+.foglio input:focus{outline:none;border-color:#1e1d33}
+.foglio .si{font-family:var(--display);font-weight:600;font-size:17px;border:0;border-radius:999px;padding:14px 20px;background:#1e1d33;color:#fff;box-shadow:0 4px 0 var(--tu);cursor:pointer}
+.foglio .no{background:none;border:0;font:inherit;font-weight:800;color:#6b6a7d;padding:8px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.foglio .err{color:#c2301c}
+.notaemail{margin:-4px 0 0;font-size:13px;font-weight:600;color:#6b6a7d;line-height:1.4}
+.notaemail a{color:#1e1d33}
+#correggi input{width:100%}
+#correggi .riga2{display:flex;gap:8px}
+#correggi .riga2 input{flex:1}
+#correggi button{font-family:var(--display);font-weight:600;font-size:16px;border:0;border-radius:16px;padding:0 18px;background:var(--ink);color:var(--page);cursor:pointer}
 .step .check a{color:#1e1d33}
 .navi{display:flex;align-items:center;gap:12px;margin-top:8px}
 .step .opts.c1{grid-template-columns:1fr}
@@ -655,14 +674,14 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
           <textarea id="racconto" maxlength="800"></textarea></div>
 
         <div class="q" id="emailq">
-          <div class="t">Vuoi provare l'app prima degli altri?</div>
+          <div class="t">Vuoi provarla prima di tutti?</div>
           <ul class="perks2">
-            <li><i style="background:var(--tu)">1</i><span><b>La provi prima di tutti.</b> Ti mandiamo l'anteprima prima che esca.</span></li>
-            <li><i style="background:var(--giulia)">2</i><span><b>Decidi con noi.</b> Qualche volta ti chiediamo un parere su novità, nome e funzioni.</span></li>
-            <li><i style="background:var(--marco)">3</i><span><b>3 mesi di Premium in regalo, quando arriverà.</b> Solo per i primi 100 iscritti.</span></li>
+            <li><i style="background:var(--tu)">1</i><span><b>La provi in anteprima.</b> Ti mandiamo l'app prima che esca, prima di tutti gli altri.</span></li>
+            <li><i style="background:var(--giulia)">2</i><span><b>3 mesi di Premium in regalo.</b> Per i primi 100 iscritti, quando il Premium arriverà.</span></li>
+            <li><i style="background:var(--marco)">3</i><span><b>Decidi con noi.</b> Qualche volta ti chiediamo un parere su nome e funzioni.</span></li>
           </ul>
-          <input type="email" id="email" autocomplete="email" placeholder="La tua email (facoltativa)" aria-label="La tua email">
-          <label class="check"><input type="checkbox" id="consenso"><span>Acconsento a ricevere email per provare e migliorare l'app prima del lancio e l'avviso quando sarà pronta. La mia email non viene data a nessuno, resta separata dalle risposte al sondaggio e posso chiedere di cancellarla quando voglio. <a href="privacy.html" target="_blank" rel="noopener">Leggi l'informativa</a></span></label>
+          <input type="email" id="email" autocomplete="email" inputmode="email" placeholder="La tua email (facoltativa)" aria-label="La tua email" aria-describedby="notaemail">
+          <p class="notaemail" id="notaemail">Lasciando l'email accetti di ricevere da noi solo l'anteprima, l'avviso quando l'app esce e qualche richiesta di parere. Non la diamo a nessuno, resta separata dalle risposte e puoi cancellarti quando vuoi. <a href="privacy.html" target="_blank" rel="noopener">Informativa</a></p>
           <div class="err" id="emailerr" hidden></div>
         </div>
 
@@ -673,12 +692,31 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     </form>
   </section>
 
+  <div class="velo" id="velo" hidden>
+    <div class="foglio" role="dialog" aria-modal="true" aria-labelledby="velotit">
+      <h2 id="velotit">Aspetta, un'ultima cosa 🙂</h2>
+      <p>Vuoi provare l'app prima che esca? Lasciaci l'email: ti mandiamo l'anteprima prima di tutti e, se sei tra i primi 100, 3 mesi di Premium in regalo quando arriverà.</p>
+      <input type="email" id="email3" autocomplete="email" inputmode="email" placeholder="La tua email" aria-label="La tua email">
+      <p class="notaemail">Lasciando l'email accetti di ricevere da noi solo l'anteprima, l'avviso quando l'app esce e qualche richiesta di parere. Niente pubblicità, e puoi cancellarti quando vuoi. <a href="privacy.html" target="_blank" rel="noopener">Informativa</a></p>
+      <div class="err" id="email3err" hidden></div>
+      <button type="button" class="si" id="velosi">Sì, voglio provarla</button>
+      <button type="button" class="no" id="velono">No grazie, invia senza email</button>
+    </div>
+  </div>
+
   <section id="grazie" hidden>
     <div class="done">
       <svg width="74" height="60" aria-hidden="true"><use href="#casetta"/></svg>
       <h2 id="grazietit">Grazie, le tue risposte sono arrivate.</h2>
       <p style="margin:0;font-weight:600;color:var(--soft)" id="grazietxt">Ci aiutano a capire se quest'app serve davvero, e a chi.</p>
-      <p class="okmsg" id="postotenuto" style="margin:0" hidden>Ti abbiamo segnato per l'anteprima: ti scriviamo appena c'è qualcosa da provare.</p>
+      <p class="okmsg" id="postotenuto" style="margin:0" hidden>Fatto: sei in lista per l'anteprima. Ti scriviamo appena c'è qualcosa da provare.</p>
+    </div>
+
+    <div class="done" id="correggi" hidden>
+      <h2>Controlla la tua email</h2>
+      <p style="margin:0;font-weight:600;color:var(--soft)">Le risposte sono arrivate, ma l'email che hai scritto non sembra giusta, quindi non l'abbiamo salvata. Vuoi correggerla?</p>
+      <div class="riga2"><input type="email" id="email2" autocomplete="email" inputmode="email" aria-label="La tua email"><button type="button" id="salvaemail">Salva</button></div>
+      <div class="err" id="email2err" hidden></div>
     </div>
 
     <div class="done">
@@ -697,18 +735,6 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycby1qs01PSUihFugALWZBwwJSj_3lOkM2r6cEjR5CwZFmLYo_dscThdS4uAnLyDoOaHK/exec';
   // Versione delle domande: la 1 era il sondaggio del 4 novembre 2026, la 2 è quello rivisto il 5 novembre.
   var VERSIONE = 2;
-  // Se la pagina è rimasta aperta (per esempio nel browser di WhatsApp) ed è uscita una versione nuova,
-  // si ricarica da sola, ma solo se la persona non ha ancora iniziato a rispondere.
-  var EDIZIONE = '20261105124711';
-  function controllaEdizione(){
-    if (document.querySelector('#f input:checked')) return;
-    fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' }).then(function(r){ return r.text(); }).then(function(t){
-      var m = t.match(/var EDIZIONE = '([^']+)'/);
-      if (m && m[1] !== EDIZIONE && !document.querySelector('#f input:checked')) location.reload();
-    }).catch(function(){});
-  }
-  controllaEdizione();
-  document.addEventListener('visibilitychange', function(){ if (!document.hidden) controllaEdizione(); });
 
   function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e) { return null; } }
 
@@ -918,16 +944,29 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   if (ENDPOINT) leggiCoda().forEach(function(d){ prova(d).then(function(){ togliDallaCoda(d.id); }).catch(function(){}); });
   function oggi(){ return new Date().toISOString().slice(0, 10); }
 
-  // Email facoltativa: vuota va bene; se c'è, deve essere valida e con il consenso.
-  // Restituisce l'email, '' se non c'è, false se c'è un problema (e lo mostra).
-  function emailValida(){
-    var em = document.getElementById('email').value.trim(), ok = document.getElementById('consenso').checked, er = document.getElementById('emailerr'), msg = '';
-    if (!em && ok) msg = 'Scrivi la tua email, oppure togli la spunta';
-    else if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) msg = 'Questa email non sembra giusta, controllala';
-    else if (em && !ok) msg = 'Spunta la casella per darci il permesso di scriverti';
-    er.textContent = msg; er.hidden = !msg;
-    return msg ? false : em;
+  // Email facoltativa, con un solo gesto: chi la scrive accetta quanto dice la frase sotto il campo.
+  // Non blocca mai l'invio delle risposte: se sembra sbagliata, si corregge dopo, nel ringraziamento.
+  function buona(em){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em); }
+  function inviaEmail(em, poi){
+    setTimeout(function(){
+      send({ tipo: 'email', giorno: oggi(), email: em, id: ID_EMAIL }).then(function(){ document.getElementById('postotenuto').hidden = false; if (poi) poi(true); }).catch(function(){ if (poi) poi(false); });
+    }, 2000 + Math.floor(Math.random() * 4000));
   }
+  document.getElementById('email').addEventListener('blur', function(){
+    var em = this.value.trim(), er = document.getElementById('emailerr');
+    er.textContent = em && !buona(em) ? 'Questa email non sembra giusta: controllala, oppure lasciala vuota' : '';
+    er.hidden = !er.textContent;
+  });
+  document.getElementById('email').addEventListener('input', function(){ document.getElementById('emailerr').hidden = true; });
+  document.getElementById('salvaemail').addEventListener('click', function(){
+    var em = document.getElementById('email2').value.trim(), er = document.getElementById('email2err'), b = this;
+    if (!buona(em)) { er.textContent = 'Ancora non sembra giusta: controlla la @ e il punto'; er.hidden = false; return; }
+    er.hidden = true; b.disabled = true; b.textContent = 'Invio…';
+    inviaEmail(em, function(ok){
+      if (ok) document.getElementById('correggi').hidden = true;
+      else { b.disabled = false; b.textContent = 'Salva'; er.textContent = 'Invio non riuscito, riprova tra poco'; er.hidden = false; }
+    });
+  });
 
   function riga(){
     var r = { tipo: 'risposta', versione: VERSIONE, id: ID_RISPOSTA, giorno: oggi(), casa: val('casa'), da: DA };
@@ -956,7 +995,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   function invia(soloFiltro){
     var btn = soloFiltro ? steps[0].querySelector('.next') : document.getElementById('invia');
     var er = document.getElementById(soloFiltro ? 'fuorierr' : 'inviaerr'), testoBtn = btn.textContent;
-    var em = soloFiltro ? '' : emailValida();
+    var scritta = soloFiltro ? '' : document.getElementById('email').value.trim();
+    var em = buona(scritta) ? scritta : '';
     btn.disabled = true; btn.textContent = 'Invio…'; er.hidden = true;
     send(riga()).then(function(){
       store('inviato', '1');
@@ -966,9 +1006,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       }
       // L'email parte a parte, qualche secondo dopo e con un suo codice: nel foglio finisce in un'altra scheda
       // e l'ordine delle righe non basta a collegarla alle risposte.
-      if (em) setTimeout(function(){
-        send({ tipo: 'email', giorno: oggi(), email: em, id: ID_EMAIL }).then(function(){ document.getElementById('postotenuto').hidden = false; }).catch(function(){});
-      }, 2000 + Math.floor(Math.random() * 4000));
+      if (em) inviaEmail(em);
+      else if (scritta) { document.getElementById('email2').value = scritta; document.getElementById('correggi').hidden = false; }
       mostraGrazie();
     }).catch(function(){
       btn.disabled = false; btn.textContent = testoBtn;
@@ -981,11 +1020,25 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     for (var k = 0; k < steps.length; k++) {
       if (!controlla(steps[k])) { if (k !== cur) vai(k); return; }
     }
-    if (emailValida() === false) { document.getElementById('emailq').scrollIntoView({ block: 'center', behavior: 'smooth' }); return; }
+    if (!document.getElementById('email').value.trim() && !giaChiesto) { apriVelo(); return; }
     invia(false);
   });
 
-  ['email', 'consenso'].forEach(function(id){ document.getElementById(id).addEventListener('input', function(){ document.getElementById('emailerr').hidden = true; }); });
+  // Messaggio prima dell'invio: compare una volta sola, solo se l'email è vuota.
+  // "Sì" usa l'email scritta nel messaggio; "No grazie" invia senza email; toccando fuori si torna al sondaggio.
+  var giaChiesto = false, velo = document.getElementById('velo');
+  function apriVelo(){ velo.hidden = false; document.getElementById('email3err').hidden = true; setTimeout(function(){ document.getElementById('email3').focus(); }, 50); }
+  function chiudiVelo(){ velo.hidden = true; }
+  document.getElementById('velosi').addEventListener('click', function(){
+    var em = document.getElementById('email3').value.trim(), er = document.getElementById('email3err');
+    if (!buona(em)) { er.textContent = em ? 'Questa email non sembra giusta: controllala' : 'Scrivi la tua email, oppure tocca "No grazie"'; er.hidden = false; return; }
+    document.getElementById('email').value = em; giaChiesto = true; chiudiVelo(); invia(false);
+  });
+  document.getElementById('velono').addEventListener('click', function(){ giaChiesto = true; chiudiVelo(); invia(false); });
+  velo.addEventListener('click', function(e){ if (e.target === velo) chiudiVelo(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !velo.hidden) chiudiVelo(); });
+  document.getElementById('email3').addEventListener('input', function(){ document.getElementById('email3err').hidden = true; });
+
 })();
 </script>
 
