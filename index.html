@@ -697,6 +697,18 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycby1qs01PSUihFugALWZBwwJSj_3lOkM2r6cEjR5CwZFmLYo_dscThdS4uAnLyDoOaHK/exec';
   // Versione delle domande: la 1 era il sondaggio del 4 novembre 2026, la 2 è quello rivisto il 5 novembre.
   var VERSIONE = 2;
+  // Se la pagina è rimasta aperta (per esempio nel browser di WhatsApp) ed è uscita una versione nuova,
+  // si ricarica da sola, ma solo se la persona non ha ancora iniziato a rispondere.
+  var EDIZIONE = '20261105124711';
+  function controllaEdizione(){
+    if (document.querySelector('#f input:checked')) return;
+    fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' }).then(function(r){ return r.text(); }).then(function(t){
+      var m = t.match(/var EDIZIONE = '([^']+)'/);
+      if (m && m[1] !== EDIZIONE && !document.querySelector('#f input:checked')) location.reload();
+    }).catch(function(){});
+  }
+  controllaEdizione();
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) controllaEdizione(); });
 
   function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e) { return null; } }
 
