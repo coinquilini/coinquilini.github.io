@@ -775,14 +775,28 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     return misura;
   })();
 
-  // Il link condiviso è sempre quello pulito del sondaggio, senza aggiunte nell'indirizzo.
-  var link = location.origin + location.pathname;
+  // Da quale link è arrivata la persona (?da=amici, ?da=gruppi…). Senza etichetta resta vuoto.
+  var DA = (function(){ try { return (new URLSearchParams(location.search).get('da') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 30); } catch(e) { return ''; } })();
+
+  // Conteggi anonimi (aperture della pagina e tocchi sui pulsanti di condivisione): solo cosa e da quale link,
+  // nessun dato sulla persona. Partono anche se la pagina si chiude subito dopo, e se non arrivano pazienza.
+  function conta(evento){
+    if (!ENDPOINT) return;
+    try { fetch(ENDPOINT, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ tipo: 'evento', evento: evento, da: DA, giorno: new Date().toISOString().slice(0, 10) }) }).catch(function(){}); } catch(e) {}
+  }
+  // Un'apertura per visita: se la persona ricarica la pagina non si conta di nuovo.
+  (function(){ var k = 'aperto'; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch(e) {} conta('apertura'); })();
+
+  // Il link condiviso dal sondaggio ha l'etichetta "condivisione": così si vede chi arriva dal passaparola.
+  var link = location.origin + location.pathname + '?da=condivisione';
   // Messaggio in righe brevi, con una riga vuota tra una frase e l'altra: su WhatsApp si legge meglio.
   var MSG = 'Vivi con dei coinquilini? 🏠\n\nSondaggio anonimo di 2 minuti su soldi, bollette e faccende in casa.\n\n👀 Spoiler: dentro c’è un’anteprima dell’app che stiamo creando';
-  // Sul telefono apre il menu di condivisione (WhatsApp, Instagram, Telegram…); dove non c'è, apre WhatsApp.
   // Il pulsante apre WhatsApp con il messaggio già scritto, diviso in righe, e il link in fondo.
   document.getElementById('condividi').href = 'https://wa.me/?text=' + encodeURIComponent(MSG + '\n\n👉 ' + link);
+  document.getElementById('condividi').addEventListener('click', function(){ conta('condividi_whatsapp'); });
   document.getElementById('copia').addEventListener('click', function(){
+    conta('copia_link');
     var b = this;
     function fatto(){ b.textContent = 'Link copiato'; setTimeout(function(){ b.textContent = 'Copia il link'; }, 2500); }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(fatto, function(){ window.prompt('Copia il link:', link); });
@@ -901,7 +915,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   }
 
   function riga(){
-    var r = { tipo: 'risposta', versione: VERSIONE, id: ID_RISPOSTA, giorno: oggi(), casa: val('casa') };
+    var r = { tipo: 'risposta', versione: VERSIONE, id: ID_RISPOSTA, giorno: oggi(), casa: val('casa'), da: DA };
     if (fuori()) return r;
     var metodo = tutti('metodo');
     return Object.assign(r, {
