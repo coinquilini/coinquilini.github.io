@@ -812,8 +812,11 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   // La domanda sulle conseguenze compare solo se nell'ultimo mese è successo almeno qualcosa.
   function qualcosa(){ return MESE.some(function(n){ var v = val(n); return v && v !== 'mai' && v !== 'non so'; }); }
   function aggiorna(){
+    // Chi non vive in casa condivisa continua lo stesso: salta solo la domanda su quante persone siete.
     var qp = document.getElementById('qpersone'); qp.hidden = fuori();
-    document.getElementById('casanota').hidden = !/ci /.test(val('casa'));
+    var nota = document.getElementById('casanota'), v = val('casa');
+    nota.hidden = !v || v === 'sì';
+    nota.textContent = fuori() ? 'Puoi rispondere lo stesso: pensa a una casa condivisa che conosci, o a come pensi che sarebbe viverci.' : 'Rispondi pensando alla tua ultima casa condivisa, o a come pensi che sarà.';
     document.getElementById('qconseguenze').hidden = !qualcosa();
     f.querySelectorAll('input[data-altro]').forEach(function(i){
       var campo = document.getElementById(i.getAttribute('data-altro'));
@@ -869,7 +872,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   f.addEventListener('click', function(e){
     if (e.target.classList.contains('back')) vai(cur - 1);
     else if (e.target.classList.contains('next') && e.target.type === 'button' && controlla(steps[cur])) {
-      if (cur === 0 && fuori()) invia(true); else vai(cur + 1);
+      vai(cur + 1);
     }
   });
 
@@ -916,7 +919,6 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
   function riga(){
     var r = { tipo: 'risposta', versione: VERSIONE, id: ID_RISPOSTA, giorno: oggi(), casa: val('casa'), da: DA };
-    if (fuori()) return r;
     var metodo = tutti('metodo');
     return Object.assign(r, {
       persone: val('persone'),
