@@ -684,7 +684,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     <div class="done">
       <h2>Conosci altre persone che vivono con coinquilini?</h2>
       <p style="margin:0;font-weight:600;color:var(--soft)">Mandagli il sondaggio: ci servono soprattutto le case che oggi non hanno problemi, per non sentire solo chi è già convinto.</p>
-      <button type="button" class="big" id="condividi">Condividi il sondaggio</button>
+      <a class="wa" id="condividi" href="https://wa.me/" target="_blank" rel="noopener"><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Condividi su WhatsApp</a>
       <button type="button" class="copia" id="copia">Copia il link</button>
     </div>
   </section>
@@ -775,14 +775,13 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     return misura;
   })();
 
-  var link = location.href.split('#')[0];
+  // Il link condiviso è sempre quello pulito del sondaggio, senza aggiunte nell'indirizzo.
+  var link = location.origin + location.pathname;
   // Messaggio in righe brevi, con una riga vuota tra una frase e l'altra: su WhatsApp si legge meglio.
   var MSG = 'Vivi con dei coinquilini? 🏠\n\nSondaggio anonimo di 2 minuti su soldi, bollette e faccende in casa.\n\n👀 Spoiler: dentro c’è un’anteprima dell’app che stiamo creando';
   // Sul telefono apre il menu di condivisione (WhatsApp, Instagram, Telegram…); dove non c'è, apre WhatsApp.
-  document.getElementById('condividi').addEventListener('click', function(){
-    if (navigator.share) { navigator.share({ title: 'Come si vive in una casa condivisa?', text: MSG, url: link }).catch(function(){}); return; }
-    window.open('https://wa.me/?text=' + encodeURIComponent(MSG + '\n\n👉 ' + link), '_blank', 'noopener');
-  });
+  // Il pulsante apre WhatsApp con il messaggio già scritto, diviso in righe, e il link in fondo.
+  document.getElementById('condividi').href = 'https://wa.me/?text=' + encodeURIComponent(MSG + '\n\n👉 ' + link);
   document.getElementById('copia').addEventListener('click', function(){
     var b = this;
     function fatto(){ b.textContent = 'Link copiato'; setTimeout(function(){ b.textContent = 'Copia il link'; }, 2500); }
