@@ -32,6 +32,10 @@
 body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--page)}
 html{scroll-behavior:smooth}
+/* niente scorrimento di lato: le fasce colorate arrivano ai bordi ma non allargano la pagina */
+html,body{overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+html.fascia body::before{background:var(--fondo)}
 .wrap{max-width:640px;margin:0 auto;padding-block:26px 0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:26px}
 h1,h2,.d{font-family:var(--display);font-weight:600;letter-spacing:-.01em;margin:0}
 h1{font-size:clamp(30px,8vw,40px);line-height:1.05;text-wrap:balance}
@@ -234,7 +238,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 /* fasce di colore */
 .bleed{position:relative;isolation:isolate;clip-path:inset(0 -100vmax)}
 /* lo sfondo di ogni fascia ha la stessa luce della pagina finale */
-.bleed::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:-100vmax;right:-100vmax;background:radial-gradient(circle at calc(50% - 130px) 80px,rgba(255,255,255,.32),transparent 420px),radial-gradient(circle at calc(50% + 190px) calc(100% - 80px),rgba(255,255,255,.16),transparent 380px),var(--band)}
+.bleed::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);background:radial-gradient(circle at calc(50% - 130px) 80px,rgba(255,255,255,.32),transparent 420px),radial-gradient(circle at calc(50% + 190px) calc(100% - 80px),rgba(255,255,255,.16),transparent 380px),var(--band)}
 .hero{--band:#7c5cff;color:#fff;--ink:#fff;--soft:rgba(255,255,255,.85);margin-top:-26px;padding:34px 0 42px;align-items:center;text-align:center}
 .hero .logo{margin:0}
 .hero .eyebrow{justify-content:center}
@@ -553,11 +557,11 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
         <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="sn">Passo 3 di 4</span></div>
         <div class="stemo" aria-hidden="true">💡</div>
         <h2 class="st">Un'idea per la casa</h2>
-        <p class="ss">Stiamo pensando a un'app per coinquilini: si segnano le spese e l'app calcola chi deve dare quanto a chi, ci sono i turni delle faccende e una lista della spesa comune. La base sarebbe gratis, senza pubblicità. Non esiste ancora: vogliamo capire se servirebbe davvero, anche se la risposta è no.</p>
+        <p class="ss">Un'app per spese, turni e lista della spesa, con la base gratis e senza pubblicità. Non esiste ancora: dicci cosa ne pensi, anche se è un no.</p>
 
         <section id="giro">
     <button type="button" class="lancio" id="lancio" hidden>
-      <span class="lt"><b id="lanciotit">Guarda come potrebbe essere</b><small>6 schermate, si scorrono in su</small></span>
+      <span class="lt"><b id="lanciotit">Dai una sbirciata all'app</b><small>6 schermate, si scorrono in su</small></span>
       <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
     </button>
     <p class="giroavanti" id="giroavanti" hidden></p>
@@ -982,7 +986,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     var n = mancano(), frase = 'Il sondaggio non è finito: mancano ' + n + ' domande veloci';
     tt.querySelector('.slmancatx').textContent = frase;
     var ga = document.getElementById('giroavanti'); ga.textContent = '👇 Mancano ' + n + ' domande veloci e hai finito'; ga.hidden = false;
-    document.getElementById('lanciotit').textContent = 'Rivedi le schermate';
+    document.getElementById('lanciotit').textContent = 'Dai un\u2019altra sbirciata';
     tt.classList.remove('esce');
     tt.hidden = false;
     document.documentElement.classList.add('tton');
@@ -1193,6 +1197,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   }
   function vai(n){
     steps[cur].hidden = true; cur = n; steps[cur].hidden = false; fondo();
+    // l'introduzione serve solo al primo passo: dopo, ogni passo parte pulito dal suo titolo
+    document.querySelector('.hero').hidden = cur > 0;
     document.getElementById('sondaggio').scrollIntoView({ block: 'start', behavior: 'smooth' });
     misuraGiro();
   }
