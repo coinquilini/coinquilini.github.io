@@ -185,6 +185,21 @@ html.fascia{background:var(--fondo)}
 .grazie1 .riga1{display:flex;align-items:center;gap:14px}
 .grazie1 .riga1 svg{flex:none}
 .grazie1 h2{font-size:21px;line-height:1.15}
+.grazie1{background:none;padding:6px 4px 0}
+/* il testo scorre accanto al telefono, poi sotto */
+.focus{display:block;border-top:6px solid var(--fc,#ffb020)}
+.focus::after{content:"";display:block;clear:both}
+.focuslbl{margin:0 0 4px!important;font-weight:800!important;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.focus h2{font-size:25px;line-height:1.1;margin-bottom:10px}
+.focus p{margin:0 0 10px;font-weight:600;line-height:1.45}
+.focus p:last-child{margin-bottom:0}
+.focusph{float:right;margin:-2px -2px 8px 14px}
+.focusph .dev{zoom:.3;box-shadow:0 18px 30px rgba(0,0,0,.25);transform:rotate(4deg)}
+.focusapp{display:flow-root;background:var(--page);border-radius:16px;padding:12px 14px;font-weight:700!important}
+.focusnota{font-size:14px;color:var(--soft)}
+.passa .wa.secondo{background:none;color:#fff;padding:4px;font-size:16px;text-decoration:underline;text-underline-offset:3px}
+.passa .wa.secondo svg{display:none}
+.passa .copia{color:#fff}
 .passa{background:#1e1d33;color:#fff;--ink:#fff;--soft:#c9c7dc}
 .passa h2{font-size:23px;line-height:1.12}
 .passa p{margin:0;font-weight:700;color:#c9c7dc}
@@ -798,16 +813,20 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       <button type="button" class="cartashare" id="cartashare" hidden>Metti la carta nelle storie</button>
     </div>
 
-    <div class="done passa" id="passa">
-      <h2>E i tuoi coinquilini come la vedono?</h2>
-      <p>Mandagli il sondaggio e scoprite se la pensate uguale. Le tue risposte restano anonime: nessuno le vede.</p>
-      <a class="wa" id="condividicasa" href="https://wa.me/" target="_blank" rel="noopener"><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Manda nel gruppo di casa</a>
+    <div class="done focus" id="focus" hidden>
+      <div class="focusph" id="focusph" aria-hidden="true"></div>
+      <p class="focuslbl" id="focuslbl"></p><h2 id="focustit"></h2>
+      <p id="focusfatto" hidden></p>
+      <p id="focusoggi" hidden></p>
+      <p class="focusapp" id="focusapp"></p>
+      <p class="focusnota" id="focusnota" hidden></p>
     </div>
 
-    <div class="done">
-      <h2 id="altritit">E chi vive in un'altra casa?</h2>
-      <p style="margin:0;font-weight:600;color:var(--soft)">Mandalo anche ad amici con coinquilini: ci servono soprattutto le case dove va tutto bene, per non sentire solo chi è già convinto.</p>
-      <a class="wa" id="condividi" href="https://wa.me/" target="_blank" rel="noopener"><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Condividi su WhatsApp</a>
+    <div class="done passa" id="passa">
+      <h2 id="passatit">Conosci qualcuno che vive con coinquilini?</h2>
+      <p id="passatxt">Mandagli il sondaggio: ci servono soprattutto le case dove va tutto bene, per non sentire solo chi è già convinto.</p>
+      <a class="wa" id="condividicasa" href="https://wa.me/" target="_blank" rel="noopener" hidden><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Manda nel gruppo di casa</a>
+      <a class="wa" id="condividi" href="https://wa.me/" target="_blank" rel="noopener"><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg><span id="condividitxt">Condividi su WhatsApp</span></a>
       <button type="button" class="copia" id="copia">Copia il link</button>
     </div>
   </section>
@@ -1041,10 +1060,9 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     if (alti >= 3) return { k: 'tregua', p: p };
     if (somma === 0) return { k: 'svizzera', p: p };
     if (max <= 1) return { k: 'zen', p: p };
-    // la voce con più intoppi; a parità vince l'ordine faccende, soldi, bollette, spesa
-    var ordine = [['faccende', 'fantasma'], ['soldi', 'venerdi'], ['bolletta', 'bolletta'], ['spesa', 'latte']], k = 'zen';
-    for (var i = 0; i < ordine.length; i++) if (p[ordine[i][0]] === max) { k = ordine[i][1]; break; }
-    return { k: k, p: p };
+    // la voce con più intoppi, la stessa del riquadro "punto debole" (vedi areaPrincipale)
+    var TIPO_AREA = { faccende: 'fantasma', soldi: 'venerdi', bolletta: 'bolletta', spesa: 'latte' };
+    return { k: TIPO_AREA[areaPrincipale().area] || 'zen', p: p };
   }
   function preparaCarta(){
     var casa = val('casa');
@@ -1066,10 +1084,118 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       m.appendChild(nome); m.appendChild(pt);
     });
     box.hidden = false;
-    document.getElementById('condividicasa').href = wa('Secondo me la nostra è ' + c.t.replace(/^La casa/, 'la casa') + ' ' + c.e + '\n\nFate anche voi il sondaggio, 2 minuti e anonimo: vediamo se la pensiamo uguale 👀', linkCasa);
-    var mia = casa === 'sì' ? 'La mia è ' + c.t.replace(/^La casa/, 'la casa') : 'La mia ultima casa? ' + c.t;
-    document.getElementById('condividi').href = wa('Ho fatto un sondaggio di 2 minuti sulla vita tra coinquilini. ' + mia + ' ' + c.e + '\n\nE la tua? 👀', link);
     disegnaCarta(c, r.p, casa === 'sì' ? 'LA TUA CASA È' : 'LA TUA ULTIMA CASA ERA');
+  }
+
+  // Il problema principale di chi ha risposto, scelto dalle sue risposte, e cosa farebbe l'app proprio per quello.
+  // I testi riprendono le sue parole (frequenza, conseguenze, come fanno oggi) e non promettono niente:
+  // l'app non esiste ancora, e chi ha detto che non gli serve si sente dire che va bene così.
+  var AREE = {
+    soldi:    { nome: 'I soldi', soggetto: 'sono i soldi', da: 'dai soldi', shot: 1, col: '#22b8a7', desc: 'dubbi su chi doveva dei soldi a chi',
+                app: 'Nell’app che stiamo pensando segni la spesa e lei calcola chi deve quanto a chi. Un debito si chiude solo quando chi riceve conferma.' },
+    bolletta: { nome: 'Le bollette', soggetto: 'sono le bollette', da: 'dalle bollette', shot: 1, col: '#3d8bff', desc: 'una bolletta divisa in ritardo o in modo poco chiaro',
+                app: 'Nell’app che stiamo pensando la bolletta si divide tra chi c’era, e la scadenza la vedono tutti prima che arrivi.' },
+    faccende: { nome: 'Le faccende', soggetto: 'sono le faccende', da: 'dalle faccende', shot: 2, col: '#ff6fa8', desc: 'una faccenda saltata o fatta sempre dalle stesse persone',
+                app: 'Nell’app che stiamo pensando ognuno vede a chi tocca, con il suo colore, e chi dà una mano guadagna il turno.' },
+    spesa:    { nome: 'La spesa', soggetto: 'è la spesa', da: 'dalla spesa', shot: 3, col: '#7c5cff', desc: 'qualcosa comprato due volte, o finito senza che nessuno lo ricomprasse',
+                app: 'Nell’app che stiamo pensando basta toccare «Lo prendo io»: niente doppioni, e lo scontrino diventa una spesa di casa.' }
+  };
+  var DA_FUNZIONE = { conti: 'soldi', bollette: 'bolletta', turni: 'faccende', lista: 'spesa' };
+  var VOLTE = { '1 volta': 'una volta', '2 o 3 volte': '2 o 3 volte', '4 o più': '4 volte o più' };
+  var DOPO = {
+    'discussione o tensione': 'c’è stata anche un po’ di tensione in casa',
+    'soldi persi': 'ci hai rimesso dei soldi',
+    'ho fatto io al posto di altri': 'hai fatto tu quello che toccava a un altro',
+    'tempo perso': 'hai perso tempo a fare i conti o a ricordarlo agli altri',
+    'si è sistemato subito': 'per fortuna si è sistemato subito'
+  };
+  var OGGI = {
+    'non li teniamo': 'Oggi non tenete i conti: ognuno paga un po’ a occhio.',
+    'a voce o WhatsApp': 'Oggi i conti li tenete a voce o nel gruppo WhatsApp.',
+    'note o foglio': 'Oggi i conti stanno nelle note del telefono o in un foglio.',
+    'app spese': 'Oggi usate già un’app per dividere le spese.',
+    'app casa': 'Oggi usate già un’app per la casa.'
+  };
+  var COME_VA = { bene: ' E secondo te funziona bene.', abbastanza: ' Funziona, ma con qualche problema.', male: ' E secondo te funziona male.' };
+  // Il problema principale: quello successo più spesso nell'ultimo mese; a parità vince quello che la persona
+  // avrebbe scelto per primo nell'app, poi l'ordine faccende, soldi, bollette, spesa.
+  // Se non è successo niente, si usa la funzione che avrebbe scelto (liscio = true).
+  function areaPrincipale(){
+    var max = 0, pari = [];
+    VOCI.forEach(function(v){ var x = PUNTI[val(v[0])]; if (x == null) return; if (x > max) { max = x; pari = [v[0]]; } else if (x === max && x > 0) pari.push(v[0]); });
+    var scelto = DA_FUNZIONE[val('funzione')];
+    if (max > 0) return { area: pari.indexOf(scelto) >= 0 ? scelto : ['faccende', 'soldi', 'bolletta', 'spesa'].filter(function(k){ return pari.indexOf(k) >= 0; })[0], liscio: false };
+    return { area: scelto || null, liscio: !!scelto };
+  }
+  function testo2(id, t){ var el = document.getElementById(id); el.textContent = t || ''; el.hidden = !t; }
+
+  function personalizza(){
+    var casa = val('casa'), vive = casa === 'sì', ultima = casa === "ci ho vissuto nell'ultimo anno", futura = casa === 'ci andrò nei prossimi 6 mesi';
+    var ost = tutti('ostacoli'), cons = tutti('conseguenze'), met = tutti('metodo'), funz = val('funzione');
+    var noGrazie = val('azione') === 'non la userei' || funz === 'nessuna';
+
+    // 1. quale problema (vedi areaPrincipale)
+    var ap = areaPrincipale(), area = ap.area, liscio = ap.liscio;
+
+    var focus = document.getElementById('focus');
+    if (!area || casa === 'no') { focus.hidden = true; }
+    else {
+      var A = AREE[area];
+      focus.hidden = false;
+      focus.style.setProperty('--fc', A.col);
+      var ph = document.getElementById('focusph'); ph.textContent = '';
+      var dev = shots[A.shot] && shots[A.shot].querySelector('.dev'); if (dev) ph.appendChild(dev.cloneNode(true));
+      if (futura) {
+        testo2('focuslbl', 'Quando andrai a vivere con altri');
+        document.getElementById('focustit').textContent = liscio ? 'Partiresti ' + A.da : A.nome + ', probabilmente';
+        testo2('focusfatto', '');
+      } else if (liscio) {
+        testo2('focuslbl', vive ? 'Da voi fila tutto liscio' : 'Nella tua ultima casa filava tutto liscio');
+        document.getElementById('focustit').textContent = 'Ma partiresti ' + A.da;
+        testo2('focusfatto', 'Nell’ultimo mese nessuno degli intoppi che ti abbiamo chiesto. Una casa rara.');
+      } else {
+        testo2('focuslbl', vive ? 'Il vostro punto debole' : 'Il punto debole della tua ultima casa');
+        document.getElementById('focustit').textContent = A.nome;
+        var fatto = 'Nell’ultimo mese è successo ' + VOLTE[val(area)] + ': ' + A.desc + '.';
+        var dopo = cons.filter(function(c){ return DOPO[c]; })[0];
+        if (dopo) fatto += ' E l’ultima volta che è capitato qualcosa, ' + DOPO[dopo] + '.';
+        testo2('focusfatto', fatto);
+      }
+      // come fanno oggi: solo quando il problema è di soldi o bollette, perché la domanda era sui conti
+      var oggi = '';
+      if ((area === 'soldi' || area === 'bolletta') && vive) {
+        var m = met.filter(function(x){ return OGGI[x]; })[0];
+        if (m) oggi = OGGI[m] + (COME_VA[val('funziona')] || '');
+      }
+      testo2('focusoggi', oggi);
+      var app = A.app;
+      if ((area === 'soldi' || area === 'bolletta') && vive && (met.indexOf('app spese') >= 0 || ost.indexOf("usiamo già un'altra app") >= 0)) app += ' Rispetto all’app che usate, ci sarebbero anche turni e lista nello stesso posto.';
+      document.getElementById('focusapp').textContent = app;
+      var nota = '';
+      if (noGrazie) nota = 'Hai detto che a te non servirebbe: va benissimo, è proprio quello che ci serve sapere.';
+      else if (val('funziona') === 'bene') nota = 'E se il vostro modo di oggi funziona, tenetevelo stretto.';
+      else if (ost.indexOf('non mi fido con i dati dei soldi') >= 0 && (area === 'soldi' || area === 'bolletta')) nota = 'Hai detto che non ti fideresti a mettere i dati dei soldi in un’app: ne terremo conto.';
+      testo2('focusnota', nota);
+    }
+
+    // 2. un solo invito a condividere, diverso per chi vive con coinquilini e per gli altri
+    var tit = document.getElementById('passatit'), txt = document.getElementById('passatxt');
+    var casaBtn = document.getElementById('condividicasa'), amici = document.getElementById('condividi'), amiciTxt = document.getElementById('condividitxt');
+    var c = tipoCasa;
+    if (vive) {
+      tit.textContent = ost.indexOf('i coinquilini non la userebbero') >= 0 ? 'Pensi che i tuoi coinquilini non la userebbero? Chiediglielo' : 'E i tuoi coinquilini come la vedono?';
+      txt.textContent = 'Mandagli il sondaggio: vediamo se anche per loro ' + (area && !liscio ? 'il punto debole ' + AREE[area].soggetto : 'fila tutto liscio') + '. Le tue risposte restano anonime: nessuno le vede.';
+      casaBtn.hidden = false;
+      casaBtn.href = wa('Ho fatto un sondaggio di 2 minuti sulla vita tra coinquilini. Secondo me la nostra è ' + c.t.replace(/^La casa/, 'la casa') + ' ' + c.e + '\n\nFatelo anche voi, è anonimo: vediamo se la pensiamo uguale 👀', linkCasa);
+      amici.classList.add('secondo'); amiciTxt.textContent = 'Mandalo ad amici di altre case';
+      amici.href = wa('Ho fatto un sondaggio di 2 minuti sulla vita tra coinquilini. La mia è ' + c.t.replace(/^La casa/, 'la casa') + ' ' + c.e + '\n\nE la tua? 👀', link);
+    } else {
+      tit.textContent = 'Conosci qualcuno che vive con coinquilini?';
+      txt.textContent = 'Mandagli il sondaggio: ci servono soprattutto le case dove va tutto bene, per non sentire solo chi è già convinto.';
+      casaBtn.hidden = true;
+      amici.classList.remove('secondo'); amiciTxt.textContent = 'Condividi su WhatsApp';
+      if (ultima && c) amici.href = wa('Ho fatto un sondaggio di 2 minuti sulla vita tra coinquilini. La mia ultima casa? ' + c.t + ' ' + c.e + '\n\nE la tua? 👀', link);
+    }
   }
 
   // Immagine 1080 x 1920 per le storie di Instagram. Si prepara subito, così al tocco la condivisione parte
@@ -1292,12 +1418,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
         document.getElementById('grazietit').textContent = 'Grazie!';
         document.getElementById('grazietxt').textContent = 'Questo sondaggio è pensato per chi vive con coinquilini, quindi per te finisce qui.';
       }
-      // chi oggi non vive con coinquilini non ha un gruppo di casa a cui mandarlo
-      if (soloFiltro || val('casa') !== 'sì') {
-        document.getElementById('passa').hidden = true;
-        document.getElementById('altritit').textContent = 'Conosci qualcuno che vive con coinquilini?';
-      }
-      if (!soloFiltro) preparaCarta();
+      // pagina finale costruita sulle sue risposte: carta della casa, il suo problema principale, un solo invito a condividere
+      if (!soloFiltro) { preparaCarta(); personalizza(); }
       // L'email parte a parte, qualche secondo dopo e con un suo codice: nel foglio finisce in un'altra scheda
       // e l'ordine delle righe non basta a collegarla alle risposte.
       if (em) inviaEmail(em);
