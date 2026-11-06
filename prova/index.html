@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it">
+<html lang="it" data-theme="light" data-edizione="grafica-20261106">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -418,6 +418,87 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 /* il riquadro giallo del prezzo è una spiegazione, non una domanda: niente numero */
 .step .q.pro::before{content:none}
 @media (prefers-reduced-motion:reduce){.step .opts input:checked+label{animation:none}}
+
+/* Revisione leggibilità — 6 novembre 2026. Palette e questionario conservati. */
+.wrap{gap:0}
+.hero{--band:#6242d6;padding:22px 0 26px;gap:10px}
+.hero .logo{width:68px;height:56px}
+.hero .eyebrow{margin:0;font-size:12px}
+.hero h1{font-size:clamp(29px,7.5vw,38px)}
+.hero .lead{font-size:16px;line-height:1.45;margin-top:2px;max-width:30em;color:#fff}
+.hero .meta{margin:4px 0 0;gap:6px}
+.hero .meta span{padding:5px 10px;font-size:12px}
+.step{padding:22px 0 calc(36px + env(safe-area-inset-bottom,0px));gap:16px;margin-top:0}
+.stephead{margin-bottom:0}
+.st{font-size:clamp(28px,8vw,36px);line-height:1.12}
+.stemo{font-size:32px;margin:0}
+.step .ss{font-family:var(--body);font-size:16px;font-weight:600;line-height:1.45;margin:0 0 4px;opacity:1}
+.s3{color:#1e1d33}
+.s3 .seg i{background:rgba(30,29,51,.25)}.s3 .seg i.on{background:#1e1d33}
+.step .q{border-radius:24px;box-shadow:0 3px 0 rgba(30,29,51,.12);padding:24px 16px 18px;gap:12px}
+.step .q .t{font-size:19px;line-height:1.3}
+.step .opts label{font-size:15px;font-weight:700;line-height:1.3;box-shadow:none;min-height:52px}
+.step .opts input:checked+label{box-shadow:inset 0 0 0 2px #1e1d33;animation:none}
+.step .opts.c1 input:checked+label::before{background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%231e1d33' stroke-width='3.6'/%3E%3C/svg%3E")}
+.step .opts input:focus-visible+label,.nomi input:focus-visible+label{outline:3px solid #1e1d33;outline-offset:3px}
+.step .q::before{box-shadow:0 0 0 3px #fff;font-size:14px;width:28px;height:28px}
+.righe{gap:18px}.riga+.riga{border-top:1px solid #e6e5ee;padding-top:16px}
+.step .riga .opts{gap:6px}.step .riga .opts label{font-size:13px;padding:8px 3px}
+.step .q .hint{line-height:1.4;margin:0}
+.selection-count{display:block;color:#1e1d33;font-size:13px;margin-top:4px}
+.navi{display:grid;grid-template-columns:1fr;gap:10px;padding:4px 4px 0;margin-top:4px}
+.navi .next{width:100%;margin:0;min-height:52px;box-shadow:0 3px 0 rgba(30,29,51,.18);grid-row:1}
+.navi .back{justify-self:center;padding:12px 20px;opacity:1;color:#1e1d33}
+.next:focus-visible,.back:focus-visible,summary:focus-visible,.lancio:focus-visible,.tt button:focus-visible{outline:3px solid #1e1d33;outline-offset:4px}
+.lancio{box-shadow:0 3px 0 rgba(30,29,51,.16);padding:16px}
+.lancio .play{animation:none;width:42px;height:42px}.lancio .play svg{margin:0;width:24px;height:24px}
+.lancio.rivisto{background:transparent;border:1.5px solid #1e1d33;box-shadow:none;padding:12px 16px;border-radius:16px}
+.lancio.rivisto b{font-family:var(--body);font-size:16px}.lancio.rivisto small,.lancio.rivisto .play{display:none}
+.giroavanti{color:#1e1d33;font-size:14px;font-weight:700;margin:12px 0 4px}
+.price{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.price-main{font-size:24px;line-height:1.2}.price small{margin-top:5px;font-size:14px}
+.price .each{text-align:left;font-family:var(--body);font-weight:600;font-size:15px;line-height:1.4;color:#eeedf7}
+.premium-list{margin:0;padding-left:20px;font-size:15px;line-height:1.5}.premium-list li+li{margin-top:6px}
+.s3 .q.pro{box-shadow:0 3px 0 rgba(30,29,51,.12)}
+.step .q .facolt{display:block!important;margin:5px 0 0;font-size:13px;font-weight:600}
+.nomi label{min-height:94px;font-size:24px;gap:4px}.nomi label svg{width:34px;height:28px}
+details.altro{display:block;padding-top:4px}details.altro summary{cursor:pointer;font-size:15px;font-weight:700;padding:8px 0}
+details.altro label{display:block;margin:10px 0 8px;font-size:14px}
+.field-help{margin:0;color:#525064;font-size:15px;font-weight:600;line-height:1.5}
+.field-label{font-size:15px;font-weight:700}
+.step .q textarea{min-height:112px}
+.step .q input:focus,.step .q textarea:focus{border-color:#1e1d33;outline:2px solid #1e1d33;outline-offset:2px}
+#emailq::before{content:none;counter-increment:none}
+.perks2{gap:10px}.perks2 li{font-size:15px;line-height:1.45}.perks2 li::before{content:'✓';color:#1e1d33;font-weight:800}
+.notaemail{font-size:14px;line-height:1.5;margin:0;color:#525064}
+.foglio{max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain;padding:22px 18px;box-shadow:0 -3px 0 var(--tu)}
+.foglio .no{border:1.5px solid #1e1d33;border-radius:999px;color:#1e1d33;min-height:50px;text-decoration:none;font-weight:700}
+.foglio button:focus-visible{outline:3px solid #1e1d33;outline-offset:3px}
+.ttbar{gap:8px;padding-top:calc(10px + env(safe-area-inset-top,0px));align-items:center}
+.ttcount{font-size:13px;font-weight:800;white-space:nowrap}.ttseg{max-width:90px}
+.ttx{width:auto;min-height:44px;height:auto;border-radius:999px;padding:10px 12px;font-size:13px;font-weight:800;margin-left:auto;background:#1e1d33;color:#fff}
+.ttx span{font-size:18px;margin-left:5px}
+.sl{padding:calc(68px + env(safe-area-inset-top,0px)) 16px calc(48px + env(safe-area-inset-bottom,0px));background:var(--bg);gap:14px;overflow-y:auto}
+.slcap b{font-size:28px;line-height:1.1}.slcap span{font-size:16px;font-weight:600;opacity:1;line-height:1.4}
+.sl.on .slph{animation:none}.sl .dev{transform:none;opacity:1;transition:none;box-shadow:0 18px 30px rgba(0,0,0,.2)}
+.sl.fine .slcap b{font-size:30px}.sl.fine>svg{width:72px;height:59px}
+.ttgo{font-size:18px;max-width:100%}.tt button:focus-visible{outline-color:#fff}
+.chart-names{display:flex;justify-content:space-around;gap:6px;font-size:12px;font-weight:700;margin-top:8px}
+.chart-names span{flex:1;text-align:center}
+.fincentro{padding:24px 0;gap:12px;animation:none}.finemo{font-size:64px;animation:none}.fintit{font-size:clamp(32px,10vw,46px);line-height:1.1}
+.finsub{font-size:17px;line-height:1.45;opacity:1}.finchip{flex-wrap:wrap;justify-content:center;border-radius:18px;font-size:15px;max-width:100%}
+.finlink{flex-wrap:wrap}.finlink .copia{padding:12px}.fingiu .wa{font-size:16px;min-height:52px;padding:14px 16px;text-align:center}
+#correggi{margin-top:16px;background:#fff;color:#1e1d33;--soft:#525064;--ink:#1e1d33;--page:#fff}
+#correggi .riga2{flex-wrap:wrap}#correggi .riga2 input{min-width:160px}#correggi button{min-height:48px}
+@media(max-width:360px){
+  .step .riga .opts.c5{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .step .riga .opts.c5 label:last-child{grid-column:1/-1;min-height:42px;background:#f4f3f7}
+  .step .riga .opts.c5 input:checked+label:last-child{background:#1e1d33}
+  .hero .meta{gap:4px}.hero .meta span{padding:5px 7px}
+  .ttseg{display:none}.ttcount{font-size:12px}.ttx{font-size:12px}
+}
+@media(max-height:650px){.sl{padding-top:60px;padding-bottom:36px;gap:10px}.slcap b{font-size:23px}.slcap span{font-size:14px}.fincentro{padding:16px 0}.finemo{font-size:44px}}
+
 </style>
 </head>
 <body>
@@ -453,7 +534,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     <svg class="logo" width="112" height="91" aria-hidden="true"><use href="#casetta"/></svg>
     <p class="eyebrow"><i></i>Un sondaggio per chi divide casa</p>
     <h1>Come si vive in una <mark>casa condivisa</mark>?</h1>
-    <p class="lead">Stiamo studiando come si organizzano i coinquilini con soldi, bollette e faccende. Non ci sono risposte giuste: ci servono anche i "no, a noi va bene così".</p>
+    <p class="lead">Come vi organizzate con soldi, bollette e faccende? Ci interessa anche quando va tutto bene.</p>
     <p class="meta"><span>circa 2 minuti</span><span>4 passi</span><span>anonimo</span></p>
   </header>
 
@@ -463,9 +544,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
       <div class="step s1 bleed" data-step="1">
         <div class="stephead"><span class="seg"><i class="on"></i><i></i><i></i><i></i></span><span class="sn">Passo 1 di 4</span></div>
-        <div class="stemo" aria-hidden="true">🏠</div>
         <h2 class="st">La tua casa</h2>
-        <p class="ss">Partiamo dalle basi.</p>
 
         <div class="q" data-req="casa"><div class="t">Oggi vivi in una casa condivisa con persone che non sono la tua famiglia?</div>
           <div class="opts c1">
@@ -588,8 +667,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
         <section id="giro">
     <button type="button" class="lancio" id="lancio" hidden>
-      <span class="lt"><b id="lanciotit">Dai una sbirciata all'app</b><small>4 schermate, si scorrono in su</small></span>
-      <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
+      <span class="lt"><b id="lanciotit">Guarda le 4 schermate</b><small>Scorri per conoscere l’idea</small></span>
+      <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="7" y="3" width="13" height="16" rx="3"/><path d="M4 7v12a3 3 0 0 0 3 3h9"/></svg></span>
     </button>
     <p class="giroavanti" id="giroavanti" hidden></p>
     <div class="strip" aria-label="Schermate dell'app">
@@ -620,7 +699,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
           <div class="lbl">Chi deve a chi</div>
           <div class="cd"><div class="it"><span class="av" style="background:var(--tu);color:#1e1d33">L</span><span style="font-weight:800;color:#6b6a7d">→</span><span class="av" style="background:var(--giulia)">G</span><span class="tx">25,00 €<small>Da pagare</small></span><span class="bt o" style="font-size:11px;padding:5px 9px">Ho pagato</span></div><div class="it"><span class="av" style="background:var(--marco)">M</span><span style="font-weight:800;color:#6b6a7d">→</span><span class="av" style="background:var(--tu);color:#1e1d33">L</span><span class="tx">12,50 €<small>Marco dice di aver pagato</small></span><span class="bt" style="font-size:11px;padding:5px 9px">Ricevuto</span></div></div>
           <div class="lbl">Spese del mese</div>
-          <div class="cd"><div class="it"><span class="ico" style="background:#fff4c8;color:#a37800"><svg><use href="#bolt"/></svg></span><span class="tx">Luce<small>Pagata da <b style="color:#d64f86">Giulia</b></small></span><span class="money">100 €</span></div><div class="it"><span class="ico" style="background:#ffe6dc;color:#c2471f"><svg><use href="#flame"/></svg></span><span class="tx">Gas<small>Scade il 20</small></span><span class="money">84 €</span></div><div class="it"><span class="ico" style="background:#e5e4ee;color:#1e1d33"><svg><use href="#key"/></svg></span><span class="tx">Affitto<small>Giulia 520 · gli altri 360</small></span><span class="money">1.600 €</span></div></div>
+          <div class="cd"><div class="it"><span class="ico" style="background:#fff4c8;color:#a37800"><svg><use href="#bolt"/></svg></span><span class="tx">Luce<small>Pagata da <b style="color:#d64f86">Giulia</b></small></span><span class="money">100 €</span></div><div class="it"><span class="ico" style="background:#e5e4ee;color:#1e1d33"><svg><use href="#key"/></svg></span><span class="tx">Affitto<small>Giulia 520 · gli altri 360</small></span><span class="money">1.600 €</span></div></div>
         </div>
         <div class="tabbar"><span class="tab"><svg><use href="#house"/></svg>Casa</span><span class="tab on"><svg><use href="#coins"/></svg>Soldi<i></i></span><span class="fab"><svg><use href="#plus"/></svg></span><span class="tab"><svg><use href="#broom"/></svg>Faccende</span><span class="tab"><svg><use href="#basket"/></svg>Lista</span></div>
         <span class="homei"></span>
@@ -647,7 +726,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
             <div class="it"><span class="ico" style="background:var(--giulia-t);color:#c23f75"><svg><use href="#pan"/></svg></span><span class="tx">Cucina<small>Sabato</small></span><span class="chip" style="background:var(--giulia-t)"><span class="av" style="background:var(--giulia);width:18px;height:18px;flex-basis:18px">G</span>Giulia</span></div>
           </div>
           <div class="lbl">Chi capita: lavastoviglie <small>questo mese</small></div>
-          <div class="cd"><div style="display:flex;align-items:flex-end;gap:12px;height:66px;padding:0 6px"><div style="flex:1;height:48px;border-radius:8px;background:var(--giulia)"></div><div style="flex:1;height:40px;border-radius:8px;background:var(--tu)"></div><div style="flex:1;height:16px;border-radius:8px;background:var(--marco)"></div><div style="flex:1;height:8px;border-radius:8px;background:var(--sara)"></div></div><div style="font-size:11.5px;font-weight:700;color:#6b6a7d;margin-top:8px">Sara, la lavastoviglie ti saluta.</div></div>
+          <div class="cd"><div style="display:flex;align-items:flex-end;gap:12px;height:66px;padding:0 6px"><div style="flex:1;height:48px;border-radius:8px;background:var(--giulia)"></div><div style="flex:1;height:40px;border-radius:8px;background:var(--tu)"></div><div style="flex:1;height:16px;border-radius:8px;background:var(--marco)"></div><div style="flex:1;height:8px;border-radius:8px;background:var(--sara)"></div></div><div class="chart-names"><span>Giulia</span><span>Tu</span><span>Marco</span><span>Sara</span></div></div>
         </div>
         <div class="tabbar"><span class="tab"><svg><use href="#house"/></svg>Casa</span><span class="tab"><svg><use href="#coins"/></svg>Soldi</span><span class="fab"><svg><use href="#plus"/></svg></span><span class="tab on"><svg><use href="#broom"/></svg>Faccende<i></i></span><span class="tab"><svg><use href="#basket"/></svg>Lista</span></div>
         <span class="homei"></span>
@@ -660,7 +739,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
           <div class="h">Da comprare</div><div class="sub">3 cose</div>
           <div class="cd" style="margin-top:12px">
             <div class="it"><span class="box"></span><span class="tx">Detersivo piatti</span><span class="chip" style="background:var(--sara-t)"><span class="av" style="background:var(--sara);width:18px;height:18px;flex-basis:18px">S</span>lo prende Sara</span></div>
-            <div class="it"><span class="box"></span><span class="tx">Latte<small>Di nuovo. Chi lo beve tutto?</small></span><span class="bt o" style="font-size:11px;padding:5px 9px">Lo prendo io</span></div>
+            <div class="it"><span class="box"></span><span class="tx">Latte</span><span class="bt o" style="font-size:11px;padding:5px 9px">Lo prendo io</span></div>
             <div class="it"><span class="box"></span><span class="tx">Carta igienica</span><span class="bt o" style="font-size:11px;padding:5px 9px">Lo prendo io</span></div>
           </div>
           <div class="lbl">Comprati</div>
@@ -710,8 +789,10 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
         <div class="q pro">
           <div class="qhead"><span class="pt">E a pagamento?</span></div>
-          <p class="pdesc">Alcune funzioni in più sarebbero a pagamento, con un solo abbonamento per tutta la casa: per esempio la bolletta divisa caricando il PDF, i promemoria automatici a chi non ha pagato, i turni organizzati da soli. Il prezzo non è deciso. Si può smettere quando si vuole.</p>
-          <div class="price"><span>Per esempio <span data-p="month"></span> al mese<small>per tutta la casa</small></span><span class="each">circa <span data-p="each"></span><small>a testa in 4</small></span></div>
+          <p class="pdesc">Un solo abbonamento per tutta la casa, con funzioni extra come:</p>
+          <ul class="premium-list"><li>Bollette divise caricando il PDF.</li><li>Promemoria automatici a chi non ha pagato.</li><li>Turni organizzati da soli.</li></ul>
+          <p class="pdesc">Il prezzo non è deciso. Si può smettere quando si vuole.</p>
+          <div class="price"><span class="price-main"><span data-p="month"></span> al mese<small>per tutta la casa · prezzo di esempio</small></span><span class="each">Circa <span data-p="each"></span> a persona,<br>se siete in quattro.</span></div>
         </div>
 
         <div class="q" data-req="premium"><div class="t">A questo prezzo, cosa succederebbe in casa vostra?</div>
@@ -728,9 +809,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
       <div class="step s4 bleed" data-step="4" hidden>
         <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="sn">Passo 4 di 4</span></div>
-        <div class="stemo" aria-hidden="true">🏁</div>
         <h2 class="st">Ultime cose</h2>
-        <p class="ss">Quasi finito.</p>
+        <p class="ss">Il telefono, poi solo domande facoltative.</p>
 
         <div class="q" data-req="telefono"><div class="t">Che telefono hai?</div>
           <div class="opts c3">
@@ -745,21 +825,24 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
             <input type="radio" name="nome" id="n2" value="nessuno dei due"><label for="n2">Nessuno dei due</label>
             <input type="radio" name="nome" id="n3" value="non so"><label for="n3">Non so</label>
           </div>
-          <div class="altro"><label for="altronome"><b>Hai un nome da proporre?</b><span class="facolt">facoltativo</span></label>
-            <input type="text" id="altronome" maxlength="40" placeholder="Scrivi il tuo nome per l'app"></div>
+          <details class="altro"><summary>Vuoi proporre un altro nome?</summary>
+            <label for="altronome">Il nome che proponi <span class="facolt">facoltativo</span></label>
+            <input type="text" id="altronome" maxlength="40" placeholder="Il nome dell’app"></details>
         </div>
 
-        <div class="q"><label class="t" for="racconto">Racconta l'ultima volta che in casa c'è stato un problema con soldi, bollette o faccende: cosa è successo e come è finita?<span class="facolt">facoltativa</span></label>
-          <textarea id="racconto" maxlength="800"></textarea></div>
+        <div class="q"><label class="t" for="racconto">L’ultimo problema in casa<span class="facolt">facoltativa</span></label>
+          <p class="field-help" id="raccontonota">Pensa a soldi, bollette o faccende: cosa è successo e come è finita?</p>
+          <textarea id="racconto" maxlength="800" aria-describedby="raccontonota"></textarea></div>
 
         <div class="q" id="emailq">
-          <div class="t">Vuoi provarla prima di tutti?</div>
+          <div class="t">Vuoi provarla in anteprima?<span class="facolt">facoltativo</span></div>
           <ul class="perks2">
-            <li><i style="background:var(--tu)">1</i><span><b>La provi in anteprima.</b> Ti mandiamo l'app prima che esca, prima di tutti gli altri.</span></li>
-            <li><i style="background:var(--giulia)">2</i><span><b>3 mesi di Premium in regalo.</b> Per i primi 100 iscritti, quando il Premium arriverà.</span></li>
-            <li><i style="background:var(--marco)">3</i><span><b>Decidi con noi.</b> Qualche volta ti chiediamo un parere su nome e funzioni.</span></li>
+            <li><span><b>Accesso in anteprima.</b> Provi l’app prima che esca.</span></li>
+            <li><span><b>3 mesi di Premium in regalo.</b> Per i primi 100 iscritti, quando il Premium arriverà.</span></li>
+            <li><span><b>Decidi con noi.</b> Qualche volta ti chiediamo un parere su nome e funzioni.</span></li>
           </ul>
-          <input type="email" id="email" autocomplete="email" inputmode="email" placeholder="La tua email (facoltativa)" aria-label="La tua email" aria-describedby="notaemail">
+          <label class="field-label" for="email">La tua email</label>
+          <input type="email" id="email" autocomplete="email" inputmode="email" placeholder="nome@esempio.it" aria-label="La tua email" aria-describedby="notaemail">
           <p class="notaemail" id="notaemail">Lasciando l'email accetti di ricevere da noi solo l'anteprima, l'avviso quando l'app esce e qualche richiesta di parere. Non la diamo a nessuno, resta separata dalle risposte e puoi cancellarti quando vuoi. <a href="privacy.html" target="_blank" rel="noopener">Informativa</a></p>
           <div class="err" id="emailerr" hidden></div>
         </div>
@@ -773,13 +856,14 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
   <div class="velo" id="velo" hidden>
     <div class="foglio" role="dialog" aria-modal="true" aria-labelledby="velotit">
-      <h2 id="velotit">Aspetta, un'ultima cosa 🙂</h2>
+      <h2 id="velotit">Vuoi ricevere l’anteprima?</h2>
       <p>Vuoi provare l'app prima che esca? Lasciaci l'email: ti mandiamo l'anteprima prima di tutti e, se sei tra i primi 100, 3 mesi di Premium in regalo quando arriverà.</p>
+      <label class="field-label" for="email3">Email facoltativa</label>
       <input type="email" id="email3" autocomplete="email" inputmode="email" placeholder="La tua email" aria-label="La tua email">
       <p class="notaemail">Lasciando l'email accetti di ricevere da noi solo l'anteprima, l'avviso quando l'app esce e qualche richiesta di parere. Niente pubblicità, e puoi cancellarti quando vuoi. <a href="privacy.html" target="_blank" rel="noopener">Informativa</a></p>
       <div class="err" id="email3err" hidden></div>
       <button type="button" class="si" id="velosi">Sì, voglio provarla</button>
-      <button type="button" class="no" id="velono">No grazie, invia senza email</button>
+      <button type="button" class="no" id="velono">Continua senza email</button>
     </div>
   </div>
 
@@ -859,20 +943,11 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   // Si aprono da sole la prima volta che si arriva al passo 3; dopo si riaprono dal pulsante giallo.
   var giro = document.getElementById('giro'), strip = giro.querySelector('.strip');
   var shots = strip.querySelectorAll('.shot');
-  var CASETTA = '<svg viewBox="0 0 74 60" aria-hidden="true"><use href="#casetta"/></svg>';
   var SLIDE = [
-    { bg: '#ffb020', fg: '#1e1d33', t: 'La casa', s: 'Cosa tocca a te oggi, i conti e cosa manca, in una schermata.',
-      stk: [{ notif: 1, h: CASETTA + '<span>Oggi tocca a te: spazzatura 🗑️<small>adesso</small></span>', d: '.5s' },
-            { h: '+12,50 € da Marco', st: 'right:-8%;bottom:24%', r: '4deg', d: '1.1s' }] },
-    { bg: '#22b8a7', fg: '#1e1d33', t: 'I soldi', s: 'Chi deve quanto a chi. Un debito si chiude quando chi riceve conferma.',
-      stk: [{ h: '✓ Ricevuto da Marco', st: 'left:-9%;top:30%', r: '-5deg', d: '.5s' },
-            { h: '2 pagamenti e siete pari', st: 'right:-8%;bottom:16%', r: '3deg', d: '1s' }] },
-    { bg: '#ff6fa8', fg: '#1e1d33', t: 'Le faccende', s: 'Il calendario con il colore di chi tocca. Chi aiuta guadagna il turno.',
-      stk: [{ h: '🧽 Bagno: tocca a Marco', st: 'right:-9%;top:36%', r: '4deg', d: '.5s' },
-            { h: '⭐ Turno guadagnato', st: 'left:-8%;bottom:20%', r: '-4deg', d: '1s' }] },
-    { bg: '#7c5cff', fg: '#ffffff', t: 'La lista', s: '«Lo prendo io», così il latte non lo comprate in due.',
-      stk: [{ h: '🥛 Lo prendo io!', st: 'right:-8%;top:26%', r: '5deg', d: '.5s' },
-            { h: '🛒 Lo scontrino diventa una spesa', st: 'left:-10%;bottom:30%', r: '-3deg', d: '1s' }] }
+    { bg: '#ffb020', fg: '#1e1d33', t: 'La casa', s: 'Cosa tocca a te, i conti e cosa manca. Tutto in una schermata.' },
+    { bg: '#22b8a7', fg: '#1e1d33', t: 'I soldi', s: 'Chi paga segna «Ho pagato». Chi riceve conferma «Ricevuto».' },
+    { bg: '#ff6fa8', fg: '#1e1d33', t: 'Le faccende', s: 'Un turno, una persona. Il calendario mostra a chi tocca.' },
+    { bg: '#6242d6', fg: '#ffffff', t: 'La lista', s: '«Lo prendo io»: tutti vedono chi compra cosa.' }
   ];
   var tt = null, ttScroll, ttSeg, ttHint, slides = [], visto = false, attiva = -1;
   var MOSSA = !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -881,16 +956,9 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     tt = document.createElement('div');
     tt.className = 'tt'; tt.hidden = true;
     tt.setAttribute('role', 'dialog'); tt.setAttribute('aria-modal', 'true'); tt.setAttribute('aria-label', "Schermate dell'app");
-    tt.innerHTML = '<div class="ttscroll"></div><div class="ttbar"><div class="ttseg"></div><button type="button" class="ttx" aria-label="Chiudi">✕</button></div>'
+    tt.innerHTML = '<div class="ttscroll"></div><div class="ttbar"><span class="ttcount" aria-live="polite"></span><div class="ttseg" aria-hidden="true"></div><button type="button" class="ttx">Torna alle domande <span aria-hidden="true">×</span></button></div>'
       + '<div class="tthint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>Scorri in su</div>';
     ttScroll = tt.querySelector('.ttscroll'); ttSeg = tt.querySelector('.ttseg'); ttHint = tt.querySelector('.tthint');
-    // prima schermata: avvisa che stanno per arrivare le schermate dell'app
-    var apre = document.createElement('section');
-    apre.className = 'sl intro';
-    apre.style.setProperty('--bg', '#1e1d33'); apre.style.setProperty('--fg', '#ffffff'); apre.dataset.fg = '#ffffff';
-    apre.innerHTML = '<div class="introemo" aria-hidden="true">👀</div>'
-      + '<div class="slcap"><b>Dai una sbirciata all\u2019app</b><span>Ecco come potrebbe essere. Sono 4 schermate: scorri in su per vederle.</span></div>';
-    ttScroll.appendChild(apre); slides.push(apre);
     shots.forEach(function(sh, i){
       var c = SLIDE[i] || SLIDE[0];
       var sl = document.createElement('section');
@@ -903,16 +971,6 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       cap.appendChild(b); cap.appendChild(s);
       var ph = document.createElement('div'); ph.className = 'slph';
       ph.appendChild(sh.querySelector('.dev').cloneNode(true));
-      (c.stk || []).forEach(function(k){
-        var e = document.createElement('div');
-        e.className = 'stk' + (k.notif ? ' notif' : '');
-        e.innerHTML = k.h;
-        if (k.st) e.setAttribute('style', k.st);
-        if (k.r) e.style.setProperty('--r', k.r);
-        e.style.setProperty('--d', k.d || '.45s');
-        e.setAttribute('aria-hidden', 'true');
-        ph.appendChild(e);
-      });
       sl.appendChild(cap); sl.appendChild(ph);
       ttScroll.appendChild(sl); slides.push(sl);
       ttSeg.appendChild(document.createElement('i'));
@@ -922,13 +980,13 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     fine.className = 'sl fine';
     fine.style.setProperty('--bg', '#1e1d33'); fine.style.setProperty('--fg', '#ffffff'); fine.dataset.fg = '#ffffff';
     fine.innerHTML = '<svg width="112" height="91" aria-hidden="true"><use href="#casetta"/></svg>'
-      + '<div class="slcap"><b>Questa è l’idea</b><span>Non esiste ancora: ora dicci cosa ne pensi davvero, ci serve anche un no.</span></div>'
-      + '<p class="slmanca"><span class="slbarra"><i></i><i></i><i></i><i class="no"></i></span><span class="slmancatx"></span></p>'
+      + '<div class="slcap"><b>Questa è l’idea</b><span>Ora ci interessa il tuo parere, anche se è un no.</span></div>'
+      + '<p class="slmanca"><span class="slmancatx"></span></p>'
       + '<button type="button" class="ttgo">Continua il sondaggio</button><button type="button" class="ttdinuovo">Rivedi dall’inizio</button>';
     ttScroll.appendChild(fine); slides.push(fine);
     document.body.appendChild(tt);
 
-    tt.querySelector('.ttx').addEventListener('click', function(){ chiudi(false); });
+    tt.querySelector('.ttx').addEventListener('click', function(){ chiudi(true); });
     fine.querySelector('.ttgo').addEventListener('click', function(){ chiudi(true); });
     fine.querySelector('.ttdinuovo').addEventListener('click', function(){ ttScroll.scrollTo({ top: 0, behavior: 'smooth' }); });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && tt && !tt.hidden) chiudi(false); });
@@ -947,18 +1005,19 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     attiva = i;
     slides.forEach(function(sl, j){ sl.classList.toggle('on', j === i); });
     // le barrette contano solo le schermate dell'app (la prima è l'avviso)
-    Array.prototype.forEach.call(ttSeg.children, function(d, j){ d.className = j < i ? 'ok' : ''; });
+    Array.prototype.forEach.call(ttSeg.children, function(d, j){ d.className = j <= i ? 'ok' : ''; });
     tt.style.setProperty('--fgnow', slides[i].dataset.fg);
+    tt.querySelector('.ttcount').textContent = i < shots.length ? (i + 1) + ' / ' + shots.length : 'Fine anteprima';
     if (i > 0) ttHint.classList.add('via');
   }
 
   // grandezza del telefono: il più grande possibile senza coprire titolo, barrette e indicazione in basso
   function misura(){
     var h = ttScroll.clientHeight, w = ttScroll.clientWidth, cap = 0;
-    slides.forEach(function(sl){ var c = sl.querySelector('.slcap'); if (c) cap = Math.max(cap, c.offsetHeight); });
+    slides.slice(0, shots.length).forEach(function(sl){ var c = sl.querySelector('.slcap'); if (c) cap = Math.max(cap, c.offsetHeight); });
     var sl0 = getComputedStyle(slides[0]);
     var libero = h - parseFloat(sl0.paddingTop) - parseFloat(sl0.paddingBottom) - cap - 16;
-    var z = Math.max(.42, Math.min(.82, libero / 650, (w - 70) / 300));
+    var z = Math.max(.35, Math.min(1, libero / 650, (w - 40) / 300));
     tt.style.setProperty('--tz', z.toFixed(3));
   }
 
@@ -971,13 +1030,15 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   function apri(){
     if (!tt) costruisci();
     visto = true;
-    var n = mancano(), frase = 'Il sondaggio non è finito: mancano ' + n + ' domande veloci';
+    var n = mancano(), frase = 'Restano ' + n + ' domande obbligatorie';
     tt.querySelector('.slmancatx').textContent = frase;
-    var ga = document.getElementById('giroavanti'); ga.textContent = '👇 Mancano ' + n + ' domande veloci e hai finito'; ga.hidden = false;
-    document.getElementById('lanciotit').textContent = 'Vuoi riguardare l\u2019app?';
-    document.querySelector('#lancio small').textContent = 'Tocca qui per rivedere le 4 schermate';
+    var ga = document.getElementById('giroavanti'); ga.textContent = frase; ga.hidden = false;
+    document.getElementById('lanciotit').textContent = 'Rivedi le schermate';
+    document.getElementById('lancio').classList.add('rivisto');
+    document.querySelector('#lancio small').textContent = '4 schermate dell’idea';
     tt.classList.remove('esce');
     tt.hidden = false;
+    document.querySelector('.wrap').inert = true;
     document.documentElement.classList.add('tton');
     attiva = -1;
     ttScroll.scrollTop = 0;
@@ -994,7 +1055,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     var dove = versoDomande ? document.getElementById('giroavanti') : document.getElementById('lancio');
     var y = dove.getBoundingClientRect().top + window.pageYOffset - (versoDomande ? 70 : innerHeight / 2 - 60);
     window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
-    function fatto(){ tt.hidden = true; tt.classList.remove('esce'); }
+    function fatto(){ tt.hidden = true; tt.classList.remove('esce'); document.querySelector('.wrap').inert = false; document.getElementById('lancio').focus({preventScroll:true}); }
     if (MOSSA) { tt.classList.add('esce'); setTimeout(fatto, 340); } else fatto();
   }
 
@@ -1132,7 +1193,14 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   function fuori(){ return val('casa') === 'no'; }
   // La domanda sulle conseguenze compare solo se nell'ultimo mese è successo almeno qualcosa.
   function qualcosa(){ return MESE.some(function(n){ var v = val(n); return v && v !== 'mai' && v !== 'non so'; }); }
+  document.querySelectorAll('.q[data-max]').forEach(function(q){
+    var count = document.createElement('span'); count.className = 'selection-count'; count.setAttribute('role', 'status');
+    q.querySelector('.hint').appendChild(count);
+  });
   function aggiorna(){
+    document.querySelectorAll('.q[data-max]').forEach(function(q){
+      q.querySelector('.selection-count').textContent = q.querySelectorAll('input[type=checkbox]:checked').length + ' di ' + q.dataset.max + ' selezionate';
+    });
     // Chi non vive in casa condivisa continua lo stesso: salta solo la domanda su quante persone siete.
     var qp = document.getElementById('qpersone'); qp.hidden = fuori();
     var nota = document.getElementById('casanota'), v = val('casa');
@@ -1317,12 +1385,20 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
   // Messaggio prima dell'invio: compare una volta sola, solo se l'email è vuota.
   // "Sì" usa l'email scritta nel messaggio; "No grazie" invia senza email; toccando fuori si torna al sondaggio.
+  document.addEventListener('keydown', function(e){
+    var dialog = tt && !tt.hidden ? tt : (velo && !velo.hidden ? velo : null);
+    if (!dialog || e.key !== 'Tab') return;
+    var focusable = Array.prototype.filter.call(dialog.querySelectorAll('button, input, a[href]'), function(el){ return !el.disabled && el.getClientRects().length; });
+    var first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !focusable.includes(document.activeElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   var giaChiesto = false, velo = document.getElementById('velo');
-  function apriVelo(){ velo.hidden = false; document.getElementById('email3err').hidden = true; setTimeout(function(){ document.getElementById('email3').focus(); }, 50); }
-  function chiudiVelo(){ velo.hidden = true; }
+  function apriVelo(){ velo.hidden = false; document.querySelector('.wrap').inert = true; document.getElementById('email3err').hidden = true; document.getElementById('velotit').setAttribute('tabindex', '-1'); document.getElementById('velotit').focus(); }
+  function chiudiVelo(){ velo.hidden = true; document.querySelector('.wrap').inert = false; document.getElementById('invia').focus({preventScroll:true}); }
   document.getElementById('velosi').addEventListener('click', function(){
     var em = document.getElementById('email3').value.trim(), er = document.getElementById('email3err');
-    if (!buona(em)) { er.textContent = em ? 'Questa email non sembra giusta: controllala' : 'Scrivi la tua email, oppure tocca "No grazie"'; er.hidden = false; return; }
+    if (!buona(em)) { er.textContent = em ? 'Questa email non sembra giusta: controllala' : 'Scrivi la tua email, oppure tocca "Continua senza email"'; er.hidden = false; return; }
     document.getElementById('email').value = em; giaChiesto = true; chiudiVelo(); invia(false);
   });
   document.getElementById('velono').addEventListener('click', function(){ giaChiesto = true; chiudiVelo(); invia(false); });
