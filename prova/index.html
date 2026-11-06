@@ -82,6 +82,11 @@ html.tton,html.tton body{overflow:hidden;overscroll-behavior:none}
 .stk.notif svg{width:34px;height:28px;flex:none}
 .stk.notif small{display:block;font-weight:700;font-size:11px;color:#6b6a7d}
 .sl.fine .slcap b{font-size:36px}
+.slmanca{margin:4px 0 0;display:flex;flex-direction:column;align-items:center;gap:8px;font-weight:800;font-size:15px;text-align:center;color:#ffb020}
+.slbarra{display:flex;gap:5px}
+.slbarra i{width:34px;height:6px;border-radius:3px;background:#ffb020}
+.slbarra i.no{background:rgba(255,255,255,.25)}
+.giroavanti{margin:12px 0 0;text-align:center;font-weight:800;font-size:16px;color:#ffb020}
 .ttgo{border:0;border-radius:999px;background:#ffb020;color:#1e1d33;font-family:var(--display);font-weight:600;font-size:19px;padding:16px 28px;box-shadow:0 5px 0 rgba(0,0,0,.3);cursor:pointer}
 .ttdinuovo{border:0;background:none;color:inherit;font:inherit;font-weight:800;text-decoration:underline;text-underline-offset:3px;opacity:.8;cursor:pointer}
 .ttbar{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 0;pointer-events:none}
@@ -177,49 +182,60 @@ input[type=text]:focus,input[type=email]:focus,textarea:focus{outline:none;borde
 .wa{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:600;font-size:17px;border-radius:999px;padding:15px 20px;background:#25d366;color:#0b2e17}
 .check{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;font-weight:600;color:var(--soft)}
 .check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--ink);flex:0 0 20px}
-#grazie{display:flex;flex-direction:column;gap:14px;padding-bottom:60px}
 /* sotto l'ultimo passo niente spazio bianco: lo sfondo prende il colore del passo */
 html.fascia{background:var(--fondo)}
 .done{background:var(--card);border-radius:22px;padding:22px 18px;display:flex;flex-direction:column;gap:12px}
 .okmsg{color:var(--ok);font-weight:800}
-.grazie1 .riga1{display:flex;align-items:center;gap:14px}
-.grazie1 .riga1 svg{flex:none}
-.grazie1 h2{font-size:21px;line-height:1.15}
-.grazie1{background:none;padding:6px 4px 0}
-/* il testo scorre accanto al telefono, poi sotto */
-.focus{display:block;border-top:6px solid var(--fc,#ffb020)}
-.focus::after{content:"";display:block;clear:both}
-.focuslbl{margin:0 0 4px!important;font-weight:800!important;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
-.focus h2{font-size:25px;line-height:1.1;margin-bottom:10px}
-.focus p{margin:0 0 10px;font-weight:600;line-height:1.45}
-.focus p:last-child{margin-bottom:0}
-.focusph{float:right;margin:-2px -2px 8px 14px}
-.focusph .dev{zoom:.3;box-shadow:0 18px 30px rgba(0,0,0,.25);transform:rotate(4deg)}
-.focusapp{display:flow-root;background:var(--page);border-radius:16px;padding:12px 14px;font-weight:700!important}
-.focusnota{font-size:14px;color:var(--soft)}
-.passa .wa.secondo{background:none;color:#fff;padding:4px;font-size:16px;text-decoration:underline;text-underline-offset:3px}
-.passa .wa.secondo svg{display:none}
-.passa .copia{color:#fff}
-.passa{background:#1e1d33;color:#fff;--ink:#fff;--soft:#c9c7dc}
-.passa h2{font-size:23px;line-height:1.12}
-.passa p{margin:0;font-weight:700;color:#c9c7dc}
-/* carta della casa: si calcola dalle risposte del passo 2, resta sul telefono e si può mettere nelle storie */
-.cartabox{display:flex;flex-direction:column;align-items:center;gap:12px;perspective:900px;padding:4px 0}
-.carta{width:100%;max-width:360px;border-radius:28px;padding:22px 22px 18px;background:radial-gradient(circle at 15% 12%,rgba(255,255,255,.4),transparent 40%),var(--cb,#ffb020);color:var(--cf,#1e1d33);box-shadow:0 18px 40px rgba(0,0,0,.25),inset 0 0 0 3px rgba(255,255,255,.25);display:flex;flex-direction:column;gap:8px;transform-origin:50% 100%;animation:rivela .9s cubic-bezier(.2,1.25,.35,1) .15s both}
-@keyframes rivela{from{opacity:0;transform:rotateX(75deg) scale(.8)}to{opacity:1;transform:none}}
-.cartalbl{margin:0;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
-.cartaemo{font-size:64px;line-height:1;animation:rimbalza .7s cubic-bezier(.2,1.8,.4,1) .9s both}
+/* pagina finale: una sola schermata del colore della carta della casa, costruita sulle risposte */
+#grazie.fin{--band:var(--cb,#1e1d33);color:var(--cf,#fff);--ink:var(--cf,#fff);margin-top:-26px;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;gap:clamp(8px,1.5vh,14px);padding:calc(14px + env(safe-area-inset-top,0px)) 0 calc(14px + env(safe-area-inset-bottom,0px))}
+#grazie.fin[hidden]{display:none!important}
+.finok{align-self:flex-start;margin:0;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.28);border-radius:999px;padding:6px 13px 6px 10px;font-weight:800;font-size:13.5px}
+.finlista{margin:-4px 0 0;font-weight:700;font-size:13px;opacity:.85}
+.fincarta{display:flex;flex-direction:column;gap:clamp(4px,.9vh,8px);transform-origin:50% 100%;animation:rivela .8s cubic-bezier(.2,1.25,.35,1) .1s both}
+@keyframes rivela{from{opacity:0;transform:rotateX(70deg) scale(.85)}to{opacity:1;transform:none}}
+.cartalbl{margin:0;font-weight:800;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.fintit{display:flex;align-items:center;gap:12px}
+.cartaemo{flex:none;font-size:clamp(40px,6.4vh,58px);line-height:1;animation:rimbalza .7s cubic-bezier(.2,1.8,.4,1) .7s both}
 @keyframes rimbalza{from{transform:scale(0) rotate(-30deg)}to{transform:none}}
-.carta h2{font-family:var(--display);font-weight:600;font-size:29px;line-height:1.05;margin:0}
-.cartadesc{margin:0;font-weight:700;font-size:15px;line-height:1.38;opacity:.9}
-.metri{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:center;margin-top:6px;padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.28);font-weight:800;font-size:13px}
-.metri .pt{display:flex;gap:5px}
-.metri .pt i{width:22px;height:9px;border-radius:5px;background:currentColor;opacity:.2}
+.fintit h2{font-family:var(--display);font-weight:600;font-size:clamp(23px,3.6vh,31px);line-height:1.04;margin:0}
+.cartadesc{margin:0;font-weight:700;font-size:clamp(13.5px,1.9vh,15.5px);line-height:1.35;opacity:.9}
+.metri{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:6px 10px;align-items:center;margin-top:2px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.28);font-weight:800;font-size:12.5px}
+.metri .pt{display:flex;gap:4px}
+.metri .pt i{width:15px;height:8px;border-radius:4px;background:currentColor;opacity:.22}
 .metri .pt i.on{opacity:.9}
-.metri .pt em{font-style:normal;font-weight:700;font-size:12px;opacity:.75}
-.cartapiede{display:flex;align-items:center;gap:8px;font-weight:800;font-size:12.5px;opacity:.85;margin-top:4px}
-.cartashare{border:0;border-radius:999px;background:var(--ink);color:var(--page);font-family:var(--display);font-weight:600;font-size:16px;padding:12px 22px;cursor:pointer}
-@media (prefers-reduced-motion:reduce){.carta,.cartaemo{animation:none}}
+.metri .pt em{font-style:normal;font-weight:700;font-size:11.5px;opacity:.75}
+.finvuoto{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding-top:4px}
+.finvuoto p{margin:0;font-weight:700;font-size:16px;line-height:1.4;opacity:.9}
+.focus{position:relative;background:#fff;color:#1e1d33;border-radius:22px;padding:13px 15px;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+.focus::after{content:"";display:block;clear:both}
+.focusph{float:right;margin:-2px -4px 4px 10px}
+.focusph .dev{zoom:.21;transform:rotate(4deg);box-shadow:0 14px 26px rgba(0,0,0,.25)}
+.focuslbl{margin:0 0 1px;font-weight:800;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:#6b6a7d}
+.focus h3{font-family:var(--display);font-weight:600;font-size:clamp(19px,2.8vh,23px);line-height:1.1;margin:0 0 5px}
+.focus p{margin:0 0 6px;font-weight:600;font-size:clamp(13px,1.8vh,14.5px);line-height:1.38}
+.focus p:last-child{margin-bottom:0}
+.focusapp{display:flow-root;background:#f5f6f1;border-radius:12px;padding:8px 10px;font-weight:700!important}
+.focusnota{color:#6b6a7d}
+.finshare{margin-top:auto;display:flex;flex-direction:column;gap:7px}
+.finsharetit{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(17px,2.5vh,20px);line-height:1.15}
+.finsharetx{margin:-3px 0 2px;font-weight:700;font-size:13.5px;line-height:1.35;opacity:.85}
+.finshare .wa{box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.finshare .wa.secondo{background:none;box-shadow:none;color:inherit;padding:2px;font-size:15px;text-decoration:underline;text-underline-offset:3px}
+.finshare .wa.secondo svg{display:none}
+.finlink{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 18px}
+.finlink .copia{color:inherit;font-size:14.5px}
+@media (prefers-reduced-motion:reduce){.fincarta,.cartaemo{animation:none}}
+/* schermi bassi (iPhone SE e simili): via le frasi di contorno, così resta tutto in una schermata */
+@media (max-height:740px){
+  #grazie.fin{gap:7px}
+  .cartadesc,.finsharetx{display:none}
+  .finlista{font-size:12px;margin-top:-2px}
+  .metri{padding:7px 10px;gap:4px 10px}
+  .focus{padding:11px 13px}
+  .focusph .dev{zoom:.17}
+  .finshare{gap:4px}
+  .finshare .wa{padding:12px 18px}
+}
 .foot{text-align:center;font-size:12.5px;color:var(--soft);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 /* stile minimal */
@@ -555,6 +571,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       <span class="lt"><b id="lanciotit">Guarda come potrebbe essere</b><small>6 schermate, si scorrono in su</small></span>
       <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
     </button>
+    <p class="giroavanti" id="giroavanti" hidden></p>
     <div class="strip" aria-label="Schermate dell'app">
 
       <div class="shot"><div class="dev"><div class="scr">
@@ -787,12 +804,9 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     </div>
   </div>
 
-  <section id="grazie" hidden>
-    <div class="done grazie1">
-      <div class="riga1"><svg width="56" height="45" aria-hidden="true"><use href="#casetta"/></svg><h2 id="grazietit">Grazie, le tue risposte sono arrivate.</h2></div>
-      <p style="margin:0;font-weight:600;color:var(--soft)" id="grazietxt">Ci aiutano a capire se quest'app serve davvero, e a chi.</p>
-      <p class="okmsg" id="postotenuto" style="margin:0" hidden>Fatto: sei in lista per l'anteprima. Ti scriviamo appena c'è qualcosa da provare.</p>
-    </div>
+  <section id="grazie" class="fin bleed" hidden>
+    <p class="finok"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="grazietit">Risposte inviate, grazie!</span></p>
+    <p class="finlista" id="postotenuto" hidden>Sei in lista per l'anteprima: ti scriviamo appena c'è qualcosa da provare.</p>
 
     <div class="done" id="correggi" hidden>
       <h2>Controlla la tua email</h2>
@@ -801,33 +815,33 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       <div class="err" id="email2err" hidden></div>
     </div>
 
-    <div class="cartabox" id="cartabox" hidden>
-      <div class="carta" id="carta">
-        <p class="cartalbl" id="cartalbl">La tua casa è</p>
-        <div class="cartaemo" id="cartaemo" aria-hidden="true"></div>
-        <h2 id="cartatit"></h2>
-        <p class="cartadesc" id="cartadesc"></p>
-        <div class="metri" id="metri"></div>
-        <div class="cartapiede"><svg width="30" height="24" aria-hidden="true"><use href="#casetta"/></svg>coinquilini.github.io</div>
-      </div>
-      <button type="button" class="cartashare" id="cartashare" hidden>Metti la carta nelle storie</button>
+    <div class="fincarta" id="cartabox" hidden>
+      <p class="cartalbl" id="cartalbl">La tua casa è</p>
+      <div class="fintit"><span class="cartaemo" id="cartaemo" aria-hidden="true"></span><h2 id="cartatit"></h2></div>
+      <p class="cartadesc" id="cartadesc"></p>
+      <div class="metri" id="metri"></div>
     </div>
 
-    <div class="done focus" id="focus" hidden>
+    <div class="finvuoto" id="finvuoto">
+      <svg width="96" height="78" aria-hidden="true"><use href="#casetta"/></svg>
+      <p id="grazietxt">Le tue risposte ci aiutano a capire se quest'app serve davvero, e a chi.</p>
+    </div>
+
+    <div class="focus" id="focus" hidden>
       <div class="focusph" id="focusph" aria-hidden="true"></div>
-      <p class="focuslbl" id="focuslbl"></p><h2 id="focustit"></h2>
+      <p class="focuslbl" id="focuslbl"></p><h3 id="focustit"></h3>
       <p id="focusfatto" hidden></p>
       <p id="focusoggi" hidden></p>
       <p class="focusapp" id="focusapp"></p>
       <p class="focusnota" id="focusnota" hidden></p>
     </div>
 
-    <div class="done passa" id="passa">
-      <h2 id="passatit">Conosci qualcuno che vive con coinquilini?</h2>
-      <p id="passatxt">Mandagli il sondaggio: ci servono soprattutto le case dove va tutto bene, per non sentire solo chi è già convinto.</p>
+    <div class="finshare" id="passa">
+      <p class="finsharetit" id="passatit">Conosci qualcuno che vive con coinquilini?</p>
+      <p class="finsharetx" id="passatxt">Ci servono anche le case dove va tutto bene.</p>
       <a class="wa" id="condividicasa" href="https://wa.me/" target="_blank" rel="noopener" hidden><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Manda nel gruppo di casa</a>
       <a class="wa" id="condividi" href="https://wa.me/" target="_blank" rel="noopener"><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg><span id="condividitxt">Condividi su WhatsApp</span></a>
-      <button type="button" class="copia" id="copia">Copia il link</button>
+      <div class="finlink"><button type="button" class="copia" id="copia">Copia il link</button><button type="button" class="copia" id="cartashare" hidden>Manda la carta come immagine</button></div>
     </div>
   </section>
 
@@ -935,8 +949,9 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     fine.className = 'sl fine';
     fine.style.setProperty('--bg', '#1e1d33'); fine.style.setProperty('--fg', '#ffffff'); fine.dataset.fg = '#ffffff';
     fine.innerHTML = '<svg width="112" height="91" aria-hidden="true"><use href="#casetta"/></svg>'
-      + '<div class="slcap"><b>Questa è l’idea</b><span>Non esiste ancora. Ora dicci cosa ne pensi davvero: ci serve anche un no.</span></div>'
-      + '<button type="button" class="ttgo">Rispondi alle domande</button><button type="button" class="ttdinuovo">Rivedi dall’inizio</button>';
+      + '<div class="slcap"><b>Questa è l’idea</b><span>Non esiste ancora: ora dicci cosa ne pensi davvero, ci serve anche un no.</span></div>'
+      + '<p class="slmanca"><span class="slbarra"><i></i><i></i><i></i><i class="no"></i></span><span class="slmancatx"></span></p>'
+      + '<button type="button" class="ttgo">Continua il sondaggio</button><button type="button" class="ttdinuovo">Rivedi dall’inizio</button>';
     ttScroll.appendChild(fine); slides.push(fine);
     document.body.appendChild(tt);
 
@@ -944,15 +959,13 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     fine.querySelector('.ttgo').addEventListener('click', function(){ chiudi(true); });
     fine.querySelector('.ttdinuovo').addEventListener('click', function(){ ttScroll.scrollTo({ top: 0, behavior: 'smooth' }); });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && tt && !tt.hidden) chiudi(false); });
-    ttScroll.addEventListener('scroll', function(){ if (ttScroll.scrollTop > 30) ttHint.classList.add('via'); }, { passive: true });
-
-    // quale schermata si vede: fa partire le sue animazioni, aggiorna le barrette in alto e il colore dei controlli
-    var io = new IntersectionObserver(function(voci){
-      voci.forEach(function(v){
-        if (v.isIntersecting && v.intersectionRatio > .6) segna(slides.indexOf(v.target));
-      });
-    }, { root: ttScroll, threshold: [.6] });
-    slides.forEach(function(sl){ io.observe(sl); });
+    // quale schermata si vede (da quanto si è scorso): fa partire le sue animazioni,
+    // aggiorna le barrette in alto e il colore dei controlli
+    ttScroll.addEventListener('scroll', function(){
+      if (ttScroll.scrollTop > 30) ttHint.classList.add('via');
+      var h = ttScroll.clientHeight || 1;
+      segna(Math.max(0, Math.min(slides.length - 1, Math.round(ttScroll.scrollTop / h))));
+    }, { passive: true });
     addEventListener('resize', function(){ if (!tt.hidden) misura(); });
   }
 
@@ -962,6 +975,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     slides.forEach(function(sl, j){ sl.classList.toggle('on', j === i); });
     Array.prototype.forEach.call(ttSeg.children, function(d, j){ d.className = j <= i ? 'ok' : ''; });
     tt.style.setProperty('--fgnow', slides[i].dataset.fg);
+    if (i > 0) ttHint.classList.add('via');
   }
 
   // grandezza del telefono: il più grande possibile senza coprire titolo, barrette e indicazione in basso
@@ -974,9 +988,18 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     tt.style.setProperty('--tz', z.toFixed(3));
   }
 
+  // quante domande obbligatorie restano (passi 3 e 4), per dire che il sondaggio non è finito
+  function mancano(){
+    var n = 0;
+    document.querySelectorAll('.step.s3 .q[data-req], .step.s4 .q[data-req]').forEach(function(q){ if (!q.hidden) n++; });
+    return n;
+  }
   function apri(){
     if (!tt) costruisci();
     visto = true;
+    var n = mancano(), frase = 'Il sondaggio non è finito: mancano ' + n + ' domande veloci';
+    tt.querySelector('.slmancatx').textContent = frase;
+    var ga = document.getElementById('giroavanti'); ga.textContent = '👇 Mancano ' + n + ' domande veloci e hai finito'; ga.hidden = false;
     document.getElementById('lanciotit').textContent = 'Rivedi le schermate';
     tt.classList.remove('esce');
     tt.hidden = false;
@@ -991,16 +1014,16 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
   function chiudi(versoDomande){
     if (!tt || tt.hidden) return;
-    function fatto(){
-      tt.hidden = true; tt.classList.remove('esce');
-      document.documentElement.classList.remove('tton');
-      var dove = versoDomande ? document.querySelector('[data-req="azione"]') : document.getElementById('lancio');
-      dove.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    }
+    // la pagina si mette subito sotto le schermate al punto giusto, così quando scendono si vedono le domande
+    document.documentElement.classList.remove('tton');
+    var dove = versoDomande ? document.getElementById('giroavanti') : document.getElementById('lancio');
+    var y = dove.getBoundingClientRect().top + window.pageYOffset - (versoDomande ? 70 : innerHeight / 2 - 60);
+    window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
+    function fatto(){ tt.hidden = true; tt.classList.remove('esce'); }
     if (MOSSA) { tt.classList.add('esce'); setTimeout(fatto, 340); } else fatto();
   }
 
-  if ('IntersectionObserver' in window) {
+  if (document.body.classList) {
     giro.classList.add('js');
     var lancio = document.getElementById('lancio');
     lancio.hidden = false;
@@ -1066,11 +1089,12 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   }
   function preparaCarta(){
     var casa = val('casa');
-    var box = document.getElementById('cartabox');
-    if (casa !== 'sì' && casa !== "ci ho vissuto nell'ultimo anno") { box.hidden = true; return; }
+    var box = document.getElementById('cartabox'), g = document.getElementById('grazie');
+    if (casa !== 'sì' && casa !== "ci ho vissuto nell'ultimo anno") { box.hidden = true; document.getElementById('finvuoto').hidden = false; return; }
     var r = tipoDellaCasa(), c = TIPI[r.k]; tipoCasa = c;
-    var carta = document.getElementById('carta');
-    carta.style.setProperty('--cb', c.b); carta.style.setProperty('--cf', c.f);
+    // tutta la pagina finale prende il colore della carta
+    g.style.setProperty('--cb', c.b); g.style.setProperty('--cf', c.f);
+    document.getElementById('finvuoto').hidden = true;
     document.getElementById('cartalbl').textContent = casa === 'sì' ? 'La tua casa è' : 'La tua ultima casa era';
     document.getElementById('cartaemo').textContent = c.e;
     document.getElementById('cartatit').textContent = c.t;
@@ -1088,35 +1112,35 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   }
 
   // Il problema principale di chi ha risposto, scelto dalle sue risposte, e cosa farebbe l'app proprio per quello.
-  // I testi riprendono le sue parole (frequenza, conseguenze, come fanno oggi) e non promettono niente:
+  // Testi brevi (la pagina finale sta in una schermata) che riprendono le sue risposte e non promettono niente:
   // l'app non esiste ancora, e chi ha detto che non gli serve si sente dire che va bene così.
   var AREE = {
-    soldi:    { nome: 'I soldi', soggetto: 'sono i soldi', da: 'dai soldi', shot: 1, col: '#22b8a7', desc: 'dubbi su chi doveva dei soldi a chi',
-                app: 'Nell’app che stiamo pensando segni la spesa e lei calcola chi deve quanto a chi. Un debito si chiude solo quando chi riceve conferma.' },
-    bolletta: { nome: 'Le bollette', soggetto: 'sono le bollette', da: 'dalle bollette', shot: 1, col: '#3d8bff', desc: 'una bolletta divisa in ritardo o in modo poco chiaro',
-                app: 'Nell’app che stiamo pensando la bolletta si divide tra chi c’era, e la scadenza la vedono tutti prima che arrivi.' },
-    faccende: { nome: 'Le faccende', soggetto: 'sono le faccende', da: 'dalle faccende', shot: 2, col: '#ff6fa8', desc: 'una faccenda saltata o fatta sempre dalle stesse persone',
-                app: 'Nell’app che stiamo pensando ognuno vede a chi tocca, con il suo colore, e chi dà una mano guadagna il turno.' },
-    spesa:    { nome: 'La spesa', soggetto: 'è la spesa', da: 'dalla spesa', shot: 3, col: '#7c5cff', desc: 'qualcosa comprato due volte, o finito senza che nessuno lo ricomprasse',
-                app: 'Nell’app che stiamo pensando basta toccare «Lo prendo io»: niente doppioni, e lo scontrino diventa una spesa di casa.' }
+    soldi:    { nome: 'I soldi', soggetto: 'sono i soldi', da: 'dai soldi', shot: 1, desc: 'dubbi su chi doveva dei soldi a chi',
+                app: 'Nell’app che stiamo pensando segni la spesa e lei calcola chi deve quanto a chi.' },
+    bolletta: { nome: 'Le bollette', soggetto: 'sono le bollette', da: 'dalle bollette', shot: 1, desc: 'bollette divise in ritardo o poco chiare',
+                app: 'Nell’app che stiamo pensando la bolletta si divide da sola e la scadenza la vedono tutti.' },
+    faccende: { nome: 'Le faccende', soggetto: 'sono le faccende', da: 'dalle faccende', shot: 2, desc: 'faccende saltate o fatte sempre dagli stessi',
+                app: 'Nell’app che stiamo pensando ognuno vede a chi tocca, e chi dà una mano guadagna il turno.' },
+    spesa:    { nome: 'La spesa', soggetto: 'è la spesa', da: 'dalla spesa', shot: 3, desc: 'cose comprate due volte o finite senza ricomprarle',
+                app: 'Nell’app che stiamo pensando basta «Lo prendo io»: niente più doppioni.' }
   };
   var DA_FUNZIONE = { conti: 'soldi', bollette: 'bolletta', turni: 'faccende', lista: 'spesa' };
-  var VOLTE = { '1 volta': 'una volta', '2 o 3 volte': '2 o 3 volte', '4 o più': '4 volte o più' };
+  var VOLTE = { '1 volta': 'Una volta', '2 o 3 volte': '2 o 3 volte', '4 o più': '4 volte o più' };
   var DOPO = {
-    'discussione o tensione': 'c’è stata anche un po’ di tensione in casa',
+    'discussione o tensione': 'c’è stata un po’ di tensione',
     'soldi persi': 'ci hai rimesso dei soldi',
-    'ho fatto io al posto di altri': 'hai fatto tu quello che toccava a un altro',
-    'tempo perso': 'hai perso tempo a fare i conti o a ricordarlo agli altri',
-    'si è sistemato subito': 'per fortuna si è sistemato subito'
+    'ho fatto io al posto di altri': 'hai fatto tu al posto di un altro',
+    'tempo perso': 'ci hai perso tempo',
+    'si è sistemato subito': 'si è sistemato subito'
   };
   var OGGI = {
-    'non li teniamo': 'Oggi non tenete i conti: ognuno paga un po’ a occhio.',
-    'a voce o WhatsApp': 'Oggi i conti li tenete a voce o nel gruppo WhatsApp.',
-    'note o foglio': 'Oggi i conti stanno nelle note del telefono o in un foglio.',
-    'app spese': 'Oggi usate già un’app per dividere le spese.',
-    'app casa': 'Oggi usate già un’app per la casa.'
+    'non li teniamo': 'Oggi non tenete i conti',
+    'a voce o WhatsApp': 'Oggi tenete i conti a voce o su WhatsApp',
+    'note o foglio': 'Oggi usate note o un foglio',
+    'app spese': 'Oggi usate già un’app per le spese',
+    'app casa': 'Oggi usate già un’app per la casa'
   };
-  var COME_VA = { bene: ' E secondo te funziona bene.', abbastanza: ' Funziona, ma con qualche problema.', male: ' E secondo te funziona male.' };
+  var COME_VA = { bene: ', e funziona bene.', abbastanza: ', con qualche problema.', male: ', e non funziona.' };
   // Il problema principale: quello successo più spesso nell'ultimo mese; a parità vince quello che la persona
   // avrebbe scelto per primo nell'app, poi l'ordine faccende, soldi, bollette, spesa.
   // Se non è successo niente, si usa la funzione che avrebbe scelto (liscio = true).
@@ -1142,39 +1166,37 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     else {
       var A = AREE[area];
       focus.hidden = false;
-      focus.style.setProperty('--fc', A.col);
       var ph = document.getElementById('focusph'); ph.textContent = '';
       var dev = shots[A.shot] && shots[A.shot].querySelector('.dev'); if (dev) ph.appendChild(dev.cloneNode(true));
+      var fatto = '';
       if (futura) {
         testo2('focuslbl', 'Quando andrai a vivere con altri');
         document.getElementById('focustit').textContent = liscio ? 'Partiresti ' + A.da : A.nome + ', probabilmente';
-        testo2('focusfatto', '');
       } else if (liscio) {
         testo2('focuslbl', vive ? 'Da voi fila tutto liscio' : 'Nella tua ultima casa filava tutto liscio');
         document.getElementById('focustit').textContent = 'Ma partiresti ' + A.da;
-        testo2('focusfatto', 'Nell’ultimo mese nessuno degli intoppi che ti abbiamo chiesto. Una casa rara.');
+        fatto = 'Nessun intoppo nell’ultimo mese. Una casa rara.';
       } else {
         testo2('focuslbl', vive ? 'Il vostro punto debole' : 'Il punto debole della tua ultima casa');
         document.getElementById('focustit').textContent = A.nome;
-        var fatto = 'Nell’ultimo mese è successo ' + VOLTE[val(area)] + ': ' + A.desc + '.';
+        fatto = VOLTE[val(area)] + ' nell’ultimo mese: ' + A.desc;
         var dopo = cons.filter(function(c){ return DOPO[c]; })[0];
-        if (dopo) fatto += ' E l’ultima volta che è capitato qualcosa, ' + DOPO[dopo] + '.';
-        testo2('focusfatto', fatto);
+        fatto += dopo ? '. E l’ultima volta ' + DOPO[dopo] + '.' : '.';
+        // come tengono i conti oggi: solo per soldi e bollette, perché la domanda era sui conti
+        if ((area === 'soldi' || area === 'bolletta') && vive) {
+          var m = met.filter(function(x){ return OGGI[x]; })[0];
+          if (m) fatto += ' ' + OGGI[m] + (COME_VA[val('funziona')] || '.');
+        }
       }
-      // come fanno oggi: solo quando il problema è di soldi o bollette, perché la domanda era sui conti
-      var oggi = '';
-      if ((area === 'soldi' || area === 'bolletta') && vive) {
-        var m = met.filter(function(x){ return OGGI[x]; })[0];
-        if (m) oggi = OGGI[m] + (COME_VA[val('funziona')] || '');
-      }
-      testo2('focusoggi', oggi);
+      testo2('focusfatto', fatto);
+      testo2('focusoggi', '');
       var app = A.app;
-      if ((area === 'soldi' || area === 'bolletta') && vive && (met.indexOf('app spese') >= 0 || ost.indexOf("usiamo già un'altra app") >= 0)) app += ' Rispetto all’app che usate, ci sarebbero anche turni e lista nello stesso posto.';
+      if ((area === 'soldi' || area === 'bolletta') && vive && (met.indexOf('app spese') >= 0 || ost.indexOf("usiamo già un'altra app") >= 0)) app += ' Con turni e lista nello stesso posto.';
       document.getElementById('focusapp').textContent = app;
       var nota = '';
-      if (noGrazie) nota = 'Hai detto che a te non servirebbe: va benissimo, è proprio quello che ci serve sapere.';
-      else if (val('funziona') === 'bene') nota = 'E se il vostro modo di oggi funziona, tenetevelo stretto.';
-      else if (ost.indexOf('non mi fido con i dati dei soldi') >= 0 && (area === 'soldi' || area === 'bolletta')) nota = 'Hai detto che non ti fideresti a mettere i dati dei soldi in un’app: ne terremo conto.';
+      if (noGrazie) nota = 'Hai detto che a te non servirebbe: va benissimo, ci serve saperlo.';
+      else if (val('funziona') === 'bene') nota = 'E se il vostro modo funziona, tenetevelo stretto.';
+      else if (ost.indexOf('non mi fido con i dati dei soldi') >= 0 && (area === 'soldi' || area === 'bolletta')) nota = 'Non ti fideresti a mettere i dati dei soldi in un’app: ne terremo conto.';
       testo2('focusnota', nota);
     }
 
@@ -1183,15 +1205,15 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     var casaBtn = document.getElementById('condividicasa'), amici = document.getElementById('condividi'), amiciTxt = document.getElementById('condividitxt');
     var c = tipoCasa;
     if (vive) {
-      tit.textContent = ost.indexOf('i coinquilini non la userebbero') >= 0 ? 'Pensi che i tuoi coinquilini non la userebbero? Chiediglielo' : 'E i tuoi coinquilini come la vedono?';
-      txt.textContent = 'Mandagli il sondaggio: vediamo se anche per loro ' + (area && !liscio ? 'il punto debole ' + AREE[area].soggetto : 'fila tutto liscio') + '. Le tue risposte restano anonime: nessuno le vede.';
+      tit.textContent = ost.indexOf('i coinquilini non la userebbero') >= 0 ? 'Pensi che i coinquilini non la userebbero? Chiediglielo' : 'E i tuoi coinquilini come la vedono?';
+      txt.textContent = 'Vediamo se anche per loro ' + (area && !liscio ? 'il punto debole ' + AREE[area].soggetto : 'fila tutto liscio') + '. Le tue risposte restano anonime.';
       casaBtn.hidden = false;
       casaBtn.href = wa('Ho fatto un sondaggio di 2 minuti sulla vita tra coinquilini. Secondo me la nostra è ' + c.t.replace(/^La casa/, 'la casa') + ' ' + c.e + '\n\nFatelo anche voi, è anonimo: vediamo se la pensiamo uguale 👀', linkCasa);
       amici.classList.add('secondo'); amiciTxt.textContent = 'Mandalo ad amici di altre case';
       amici.href = wa('Ho fatto un sondaggio di 2 minuti sulla vita tra coinquilini. La mia è ' + c.t.replace(/^La casa/, 'la casa') + ' ' + c.e + '\n\nE la tua? 👀', link);
     } else {
       tit.textContent = 'Conosci qualcuno che vive con coinquilini?';
-      txt.textContent = 'Mandagli il sondaggio: ci servono soprattutto le case dove va tutto bene, per non sentire solo chi è già convinto.';
+      txt.textContent = 'Mandagli il sondaggio: ci servono anche le case dove va tutto bene.';
       casaBtn.hidden = true;
       amici.classList.remove('secondo'); amiciTxt.textContent = 'Condividi su WhatsApp';
       if (ultima && c) amici.href = wa('Ho fatto un sondaggio di 2 minuti sulla vita tra coinquilini. La mia ultima casa? ' + c.t + ' ' + c.e + '\n\nE la tua? 👀', link);
@@ -1403,7 +1425,11 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   function mostraGrazie(){
     var g = document.getElementById('grazie');
     Array.prototype.forEach.call(g.parentNode.children, function(el){ el.hidden = el !== g; });
-    g.hidden = false; document.documentElement.classList.remove('fascia'); window.scrollTo({ top: 0, behavior: 'instant' });
+    g.hidden = false;
+    // anche sopra e sotto la pagina (quando si tira lo schermo) si vede il colore della carta
+    document.documentElement.style.setProperty('--fondo', getComputedStyle(g).getPropertyValue('--cb').trim() || '#1e1d33');
+    document.documentElement.classList.add('fascia');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function invia(soloFiltro){
