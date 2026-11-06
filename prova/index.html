@@ -102,7 +102,9 @@ html.tton,html.tton body{overflow:hidden;overscroll-behavior:none}
 .tthint svg{width:20px;height:20px;animation:su 1.2s ease-in-out infinite}
 .tthint.via{opacity:0;transform:translate(-50%,12px)}
 @keyframes su{0%,100%{transform:translateY(3px)}50%{transform:translateY(-4px)}}
-.sl.primo.on .slph{animation:accenno 1.4s ease-in-out .9s 2}
+.sl.intro .slcap b{font-size:38px}
+.introemo{font-size:96px;line-height:1}
+.sl.intro.on .introemo{animation:rimbalza .7s cubic-bezier(.2,1.8,.4,1) .2s both}
 @keyframes accenno{0%,100%{transform:translateY(0)}40%{transform:translateY(-38px)}}
 @media (prefers-reduced-motion:reduce){.tt,.tt.esce,.sl.on .slph,.sl.on .slcap,.tthint svg,.lancio .play{animation:none}.sl .dev{transition:none}.stk,.sl.on .stk{animation:none;opacity:1;transform:rotate(var(--r,0deg))}.tt.esce{display:none}}
 .scr{position:relative;width:100%;height:100%;border-radius:41px;overflow:hidden;background:#f5f6f1;color:#1e1d33;font-family:var(--body);font-size:13px;line-height:1.3;display:flex;flex-direction:column;--ink:#1e1d33;--soft:#6b6a7d;--line:#e6e5ee;--card:#fff}
@@ -904,10 +906,17 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     tt.innerHTML = '<div class="ttscroll"></div><div class="ttbar"><div class="ttseg"></div><button type="button" class="ttx" aria-label="Chiudi">✕</button></div>'
       + '<div class="tthint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>Scorri in su</div>';
     ttScroll = tt.querySelector('.ttscroll'); ttSeg = tt.querySelector('.ttseg'); ttHint = tt.querySelector('.tthint');
+    // prima schermata: avvisa che stanno per arrivare le schermate dell'app
+    var apre = document.createElement('section');
+    apre.className = 'sl intro';
+    apre.style.setProperty('--bg', '#1e1d33'); apre.style.setProperty('--fg', '#ffffff'); apre.dataset.fg = '#ffffff';
+    apre.innerHTML = '<div class="introemo" aria-hidden="true">👀</div>'
+      + '<div class="slcap"><b>Dai una sbirciata all\u2019app</b><span>Ecco come potrebbe essere. Sono 6 schermate: scorri in su per vederle.</span></div>';
+    ttScroll.appendChild(apre); slides.push(apre);
     shots.forEach(function(sh, i){
       var c = SLIDE[i] || SLIDE[0];
       var sl = document.createElement('section');
-      sl.className = 'sl' + (i === 0 ? ' primo' : '');
+      sl.className = 'sl';
       sl.style.setProperty('--bg', c.bg); sl.style.setProperty('--fg', c.fg);
       sl.dataset.fg = c.fg;
       var cap = document.createElement('div'); cap.className = 'slcap';
@@ -959,7 +968,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     if (i === attiva || i < 0) return;
     attiva = i;
     slides.forEach(function(sl, j){ sl.classList.toggle('on', j === i); });
-    Array.prototype.forEach.call(ttSeg.children, function(d, j){ d.className = j <= i ? 'ok' : ''; });
+    // le barrette contano solo le 6 schermate dell'app (la prima è l'avviso)
+    Array.prototype.forEach.call(ttSeg.children, function(d, j){ d.className = j < i ? 'ok' : ''; });
     tt.style.setProperty('--fgnow', slides[i].dataset.fg);
     if (i > 0) ttHint.classList.add('via');
   }
@@ -986,7 +996,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     var n = mancano(), frase = 'Il sondaggio non è finito: mancano ' + n + ' domande veloci';
     tt.querySelector('.slmancatx').textContent = frase;
     var ga = document.getElementById('giroavanti'); ga.textContent = '👇 Mancano ' + n + ' domande veloci e hai finito'; ga.hidden = false;
-    document.getElementById('lanciotit').textContent = 'Dai un\u2019altra sbirciata';
+    document.getElementById('lanciotit').textContent = 'Vuoi riguardare l\u2019app?';
+    document.querySelector('#lancio small').textContent = 'Tocca qui per rivedere le 6 schermate';
     tt.classList.remove('esce');
     tt.hidden = false;
     document.documentElement.classList.add('tton');
