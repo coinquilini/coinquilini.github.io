@@ -1092,6 +1092,8 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
       i.hidden = !disponibile; i.nextElementSibling.hidden = !disponibile;
       if (!disponibile) i.checked = false;
     });
+    document.querySelector('.s2 .st').textContent = reale ? 'Come vi organizzate' : 'Come immagini la casa';
+    document.querySelector('#qpriorita .hint').textContent = reale ? 'Una sola risposta. Non deve essere per forza la più frequente.' : 'Una sola risposta. Vanno bene anche nessuna o non so.';
     var priorita = val('priorita'), concreta = reale && !!AREE[priorita];
     visibilita('qcausa', concreta && priorita === 'faccende');
     visibilita('qconseguenze', concreta);
@@ -1112,7 +1114,7 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
       var label = i.nextElementSibling;
       if (!label.dataset.originale) label.dataset.originale = label.textContent;
       label.textContent = favorevole && labelsPositivi[i.value] ? labelsPositivi[i.value] : label.dataset.originale;
-      var pertinente = !reale || i.value !== 'situazione futura';
+      var pertinente = (!reale || i.value !== 'situazione futura') && (specifico || !['budget','abbonamento'].includes(i.value));
       i.hidden = !pertinente; label.hidden = !pertinente;
       if (!pertinente) i.checked = false;
     });
