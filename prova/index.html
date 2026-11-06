@@ -196,7 +196,7 @@ html.fineon,html.fineon body{overflow:hidden}
 #grazie.fin{position:fixed;inset:0;z-index:40;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;
   background:radial-gradient(circle at 18% 12%,rgba(255,255,255,.34),transparent 45%),radial-gradient(circle at 90% 85%,rgba(255,255,255,.18),transparent 40%),var(--cb,#1e1d33);
   color:var(--cf,#fff);--ink:var(--cf,#fff);
-  padding:calc(16px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px))}
+  padding:calc(16px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) calc(34px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px))}
 #grazie.fin[hidden]{display:none!important}
 .finsu{flex:1;display:flex;flex-direction:column;width:100%;max-width:520px;margin:0 auto}
 .finok{align-self:center;margin:0;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.26);border-radius:999px;padding:6px 13px 6px 10px;font-weight:800;font-size:13px}
@@ -252,7 +252,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .hero .meta span::before{background:var(--tu)}
 
 /* un passo alla volta */
-.step{--band:#ffb020;color:#1e1d33;--ink:#1e1d33;--soft:#3d3b57;--card:#fff;--line:rgba(30,29,51,.2);--sel:#1e1d33;--sel-ink:#fff;--err:#8a1a0c;padding:30px 0 34px;display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.step{--band:#ffb020;color:#1e1d33;--ink:#1e1d33;--soft:#3d3b57;--card:#fff;--line:rgba(30,29,51,.2);--sel:#1e1d33;--sel-ink:#fff;--err:#8a1a0c;padding:30px 0 calc(110px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:4px;margin-top:6px}
 .step[hidden]{display:none}
 #sondaggio{margin-top:-32px}
 .s2{--band:#ff6fa8}
