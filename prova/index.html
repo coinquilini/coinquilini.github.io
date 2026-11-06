@@ -44,24 +44,58 @@ h2{font-size:22px}
 .shot{display:flex;flex-direction:column;align-items:center;gap:8px}
 .shot p{margin:0;font-size:13px;color:var(--soft);font-weight:600;max-width:255px;padding:0 4px;text-align:center}
 .dev{width:300px;height:650px;border-radius:50px;background:#16151f;padding:10px;zoom:var(--z,.85)}
-/* giro delle schermate: mentre si scende la sezione resta ferma e i telefoni salgono uno alla volta, come su TikTok */
-#giro .viewer{position:relative}
-#giro .shot p{max-width:calc(300px * var(--z,.85))}
-#giro .pager,#giro .sutip{display:none}
-#giro.on .pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding-top:env(safe-area-inset-top,0px)}
-#giro.on .giroti{text-align:center;margin:0}
-#giro.on .viewer{width:100%;height:var(--h);overflow:hidden;cursor:pointer}
-#giro.on .strip{gap:0;padding:0;transform:translateY(calc(var(--pos,0) * var(--h) * -1));will-change:transform}
-#giro.on .shot{height:var(--h);flex:0 0 auto}
-#giro.on .pager{display:flex;position:absolute;left:calc(50% + var(--w) / 2 + 12px);top:calc(var(--dh) / 2);transform:translateY(-50%)}
-#giro.on .sutip{display:inline-flex}
-.sutip{align-items:center;gap:8px;border:0;border-radius:999px;background:#ffb020;color:#1e1d33;font-family:var(--display);font-weight:600;font-size:16px;padding:9px 16px 9px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.sutip svg{width:20px;height:20px;animation:su 1.2s ease-in-out infinite}
-.sutip small{font-family:var(--body);font-weight:800;font-size:12px;opacity:.6}
+/* schermate dell'app: senza JavaScript restano una sotto l'altra; con JavaScript si aprono a tutto schermo e si scorrono in su, una alla volta, come su TikTok */
+#giro.js .strip{display:none}
+.lancio{width:100%;display:flex;align-items:center;gap:14px;border:0;border-radius:24px;padding:18px 18px 18px 20px;background:#ffb020;color:#1e1d33;text-align:left;cursor:pointer;font:inherit;box-shadow:0 5px 0 rgba(0,0,0,.25);-webkit-tap-highlight-color:transparent}
+.lancio .lt{flex:1;display:flex;flex-direction:column;gap:2px}
+.lancio b{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.15}
+.lancio small{font-weight:700;font-size:13px;opacity:.75}
+.lancio .play{flex:none;width:52px;height:52px;border-radius:50%;background:#1e1d33;color:#ffb020;display:flex;align-items:center;justify-content:center;animation:pulsa 1.8s ease-in-out infinite}
+.lancio .play svg{width:26px;height:26px;margin-left:3px}
+@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(30,29,51,.35)}50%{box-shadow:0 0 0 10px rgba(30,29,51,0)}}
+
+html.tton,html.tton body{overflow:hidden;overscroll-behavior:none}
+.tt{position:fixed;inset:0;z-index:60;background:#1e1d33;color:var(--fgnow,#1e1d33);animation:ttin .5s cubic-bezier(.2,.9,.25,1)}
+.tt[hidden]{display:none!important}
+.tt.esce{animation:ttout .35s ease-in forwards}
+@keyframes ttin{from{transform:translateY(100%)}to{transform:none}}
+@keyframes ttout{to{transform:translateY(100%)}}
+.ttscroll{position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.ttscroll::-webkit-scrollbar{display:none}
+.sl{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  padding:calc(58px + env(safe-area-inset-top,0px)) 18px calc(70px + env(safe-area-inset-bottom,0px));
+  color:var(--fg);background:radial-gradient(circle at 12% 18%,rgba(255,255,255,.38),transparent 38%),radial-gradient(circle at 88% 82%,rgba(255,255,255,.28),transparent 42%),var(--bg)}
+.slcap{text-align:center;max-width:340px}
+.slcap b{display:block;font-family:var(--display);font-weight:600;font-size:31px;line-height:1.02;letter-spacing:-.01em}
+.slcap span{display:block;margin-top:7px;font-weight:700;font-size:15px;line-height:1.35;opacity:.85}
+.slph{position:relative}
+.sl .dev{zoom:var(--tz,.7);box-shadow:0 34px 60px rgba(0,0,0,.35);transform:scale(.9) rotate(-3deg);opacity:.6;transition:transform .7s cubic-bezier(.2,1.3,.4,1),opacity .4s}
+.sl.on .dev{transform:none;opacity:1}
+.sl.on .slph{animation:galleggia 4.5s ease-in-out .8s infinite}
+@keyframes galleggia{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.sl.on .slcap{animation:capin .55s ease-out both}
+@keyframes capin{from{opacity:0;transform:translateY(16px)}}
+.stk{position:absolute;z-index:3;background:#fff;color:#1e1d33;border-radius:16px;padding:9px 13px;font-weight:800;font-size:14px;line-height:1.2;box-shadow:0 12px 26px rgba(0,0,0,.28);white-space:nowrap;opacity:0;transform:translateY(18px) scale(.5) rotate(var(--r,0deg))}
+.sl.on .stk{animation:pop .65s cubic-bezier(.2,1.6,.4,1) var(--d,.45s) forwards}
+@keyframes pop{to{opacity:1;transform:translateY(0) scale(1) rotate(var(--r,0deg))}}
+.stk.notif{left:-5%;right:-5%;top:6%;white-space:normal;display:flex;align-items:center;gap:10px;border-radius:20px;padding:10px 12px;background:rgba(255,255,255,.96);transform:translateY(-40px) scale(.9);font-size:13.5px}
+.stk.notif svg{width:34px;height:28px;flex:none}
+.stk.notif small{display:block;font-weight:700;font-size:11px;color:#6b6a7d}
+.sl.fine .slcap b{font-size:36px}
+.ttgo{border:0;border-radius:999px;background:#ffb020;color:#1e1d33;font-family:var(--display);font-weight:600;font-size:19px;padding:16px 28px;box-shadow:0 5px 0 rgba(0,0,0,.3);cursor:pointer}
+.ttdinuovo{border:0;background:none;color:inherit;font:inherit;font-weight:800;text-decoration:underline;text-underline-offset:3px;opacity:.8;cursor:pointer}
+.ttbar{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 0;pointer-events:none}
+.ttseg{flex:1;display:flex;gap:4px}
+.ttseg i{flex:1;height:4px;border-radius:2px;background:currentColor;opacity:.22;transition:opacity .3s}
+.ttseg i.ok{opacity:.9}
+.ttx{pointer-events:auto;flex:none;border:0;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.14);color:inherit;font:inherit;font-size:20px;font-weight:800;line-height:1;cursor:pointer}
+.tthint{position:absolute;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:8px;background:#1e1d33;color:#fff;border-radius:999px;padding:10px 18px 10px 14px;font-family:var(--display);font-weight:600;font-size:16px;white-space:nowrap;pointer-events:none;transition:opacity .35s,transform .35s}
+.tthint svg{width:20px;height:20px;animation:su 1.2s ease-in-out infinite}
+.tthint.via{opacity:0;transform:translate(-50%,12px)}
 @keyframes su{0%,100%{transform:translateY(3px)}50%{transform:translateY(-4px)}}
-.viewer.accenna .strip{animation:accenno 1.3s ease-in-out 2}
-@keyframes accenno{0%,100%{translate:0 0}40%{translate:0 -48px}}
-@media (prefers-reduced-motion:reduce){.sutip svg{animation:none}}
+.sl.primo.on .slph{animation:accenno 1.4s ease-in-out .9s 2}
+@keyframes accenno{0%,100%{transform:translateY(0)}40%{transform:translateY(-38px)}}
+@media (prefers-reduced-motion:reduce){.tt,.tt.esce,.sl.on .slph,.sl.on .slcap,.tthint svg,.lancio .play{animation:none}.sl .dev{transition:none}.stk,.sl.on .stk{animation:none;opacity:1;transform:rotate(var(--r,0deg))}.tt.esce{display:none}}
 .scr{position:relative;width:100%;height:100%;border-radius:41px;overflow:hidden;background:#f5f6f1;color:#1e1d33;font-family:var(--body);font-size:13px;line-height:1.3;display:flex;flex-direction:column;--ink:#1e1d33;--soft:#6b6a7d;--line:#e6e5ee;--card:#fff}
 .island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:86px;height:25px;border-radius:13px;background:#000;z-index:3}
 .sb{flex:0 0 42px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 32px;font-weight:800;font-size:13px}
@@ -75,9 +109,6 @@ h2{font-size:22px}
 .sws{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
 .sw{aspect-ratio:1;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#1e1d33}
 .sw.sel{box-shadow:0 0 0 3px #fff,0 0 0 6px #1e1d33}
-.pager{flex-direction:column;align-items:center;gap:6px}
-.pager i{width:7px;height:7px;border-radius:50%;background:var(--line);transition:height .2s}
-.pager i.on{height:20px;border-radius:4px;background:var(--ink)}
 .h{font-family:var(--display);font-weight:600;font-size:27px;margin:2px 2px 0}
 .sub{color:#6b6a7d;font-size:11.5px;margin:0 2px;font-weight:600}
 .lbl{font-family:var(--display);font-weight:600;font-size:13px;margin:13px 2px 6px;display:flex;justify-content:space-between;align-items:center}
@@ -154,11 +185,26 @@ html.fascia{background:var(--fondo)}
 .grazie1 .riga1{display:flex;align-items:center;gap:14px}
 .grazie1 .riga1 svg{flex:none}
 .grazie1 h2{font-size:21px;line-height:1.15}
-.passa{background:#ffb020;color:#1e1d33;--ink:#1e1d33;--soft:#5a4310}
-.passa h2{font-size:25px;line-height:1.1}
-.passa p{margin:0;font-weight:700}
-.bolla{align-self:flex-start;max-width:94%;background:#e7ffdb;color:#111b21;border-radius:4px 16px 16px 16px;padding:9px 12px 10px;font-size:14.5px;line-height:1.38;font-weight:600;white-space:pre-line;box-shadow:0 1px 0 rgba(0,0,0,.14)}
-.bolla span{color:#027eb5;word-break:break-all}
+.passa{background:#1e1d33;color:#fff;--ink:#fff;--soft:#c9c7dc}
+.passa h2{font-size:23px;line-height:1.12}
+.passa p{margin:0;font-weight:700;color:#c9c7dc}
+/* carta della casa: si calcola dalle risposte del passo 2, resta sul telefono e si può mettere nelle storie */
+.cartabox{display:flex;flex-direction:column;align-items:center;gap:12px;perspective:900px;padding:4px 0}
+.carta{width:100%;max-width:360px;border-radius:28px;padding:22px 22px 18px;background:radial-gradient(circle at 15% 12%,rgba(255,255,255,.4),transparent 40%),var(--cb,#ffb020);color:var(--cf,#1e1d33);box-shadow:0 18px 40px rgba(0,0,0,.25),inset 0 0 0 3px rgba(255,255,255,.25);display:flex;flex-direction:column;gap:8px;transform-origin:50% 100%;animation:rivela .9s cubic-bezier(.2,1.25,.35,1) .15s both}
+@keyframes rivela{from{opacity:0;transform:rotateX(75deg) scale(.8)}to{opacity:1;transform:none}}
+.cartalbl{margin:0;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.cartaemo{font-size:64px;line-height:1;animation:rimbalza .7s cubic-bezier(.2,1.8,.4,1) .9s both}
+@keyframes rimbalza{from{transform:scale(0) rotate(-30deg)}to{transform:none}}
+.carta h2{font-family:var(--display);font-weight:600;font-size:29px;line-height:1.05;margin:0}
+.cartadesc{margin:0;font-weight:700;font-size:15px;line-height:1.38;opacity:.9}
+.metri{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:center;margin-top:6px;padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.28);font-weight:800;font-size:13px}
+.metri .pt{display:flex;gap:5px}
+.metri .pt i{width:22px;height:9px;border-radius:5px;background:currentColor;opacity:.2}
+.metri .pt i.on{opacity:.9}
+.metri .pt em{font-style:normal;font-weight:700;font-size:12px;opacity:.75}
+.cartapiede{display:flex;align-items:center;gap:8px;font-weight:800;font-size:12.5px;opacity:.85;margin-top:4px}
+.cartashare{border:0;border-radius:999px;background:var(--ink);color:var(--page);font-family:var(--display);font-weight:600;font-size:16px;padding:12px 22px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.carta,.cartaemo{animation:none}}
 .foot{text-align:center;font-size:12.5px;color:var(--soft);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 /* stile minimal */
@@ -490,9 +536,10 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
         <p class="ss">Stiamo pensando a un'app per coinquilini: si segnano le spese e l'app calcola chi deve dare quanto a chi, ci sono i turni delle faccende e una lista della spesa comune. La base sarebbe gratis, senza pubblicità. Non esiste ancora: vogliamo capire se servirebbe davvero, anche se la risposta è no.</p>
 
         <section id="giro">
-   <div class="pin">
-    <p class="giroti">Ecco come potrebbe essere</p>
-    <div class="viewer">
+    <button type="button" class="lancio" id="lancio" hidden>
+      <span class="lt"><b id="lanciotit">Guarda come potrebbe essere</b><small>6 schermate, si scorrono in su</small></span>
+      <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
+    </button>
     <div class="strip" aria-label="Schermate dell'app">
 
       <div class="shot"><div class="dev"><div class="scr">
@@ -617,10 +664,6 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       </div></div><p>Il primo giorno: ognuno sceglie il suo colore.</p></div>
 
     </div>
-    <div class="pager" id="pager" aria-hidden="true"></div>
-    </div>
-    <button type="button" class="sutip" id="sutip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg><b>Scorri in su</b><small>1 di 6</small></button>
-   </div>
   </section>
 
         <div class="q" data-req="azione"><div class="t">Se esistesse già oggi, cosa faresti?</div>
@@ -743,12 +786,22 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       <div class="err" id="email2err" hidden></div>
     </div>
 
+    <div class="cartabox" id="cartabox" hidden>
+      <div class="carta" id="carta">
+        <p class="cartalbl" id="cartalbl">La tua casa è</p>
+        <div class="cartaemo" id="cartaemo" aria-hidden="true"></div>
+        <h2 id="cartatit"></h2>
+        <p class="cartadesc" id="cartadesc"></p>
+        <div class="metri" id="metri"></div>
+        <div class="cartapiede"><svg width="30" height="24" aria-hidden="true"><use href="#casetta"/></svg>coinquilini.github.io</div>
+      </div>
+      <button type="button" class="cartashare" id="cartashare" hidden>Metti la carta nelle storie</button>
+    </div>
+
     <div class="done passa" id="passa">
-      <h2>Ora tocca ai tuoi coinquilini</h2>
-      <p>Mandalo nel gruppo di casa: chissà se rispondono come te. Le tue risposte restano anonime, nessuno le vede.</p>
-      <div class="bolla" id="bolla"></div>
+      <h2>E i tuoi coinquilini come la vedono?</h2>
+      <p>Mandagli il sondaggio e scoprite se la pensate uguale. Le tue risposte restano anonime: nessuno le vede.</p>
       <a class="wa" id="condividicasa" href="https://wa.me/" target="_blank" rel="noopener"><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Manda nel gruppo di casa</a>
-      <button type="button" class="copia" id="altreapp" hidden>Altre app</button>
     </div>
 
     <div class="done">
@@ -797,81 +850,148 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     primi.concat(mescola(coppie), ultimi).forEach(function(cp){ c.appendChild(cp[0]); c.appendChild(cp[1]); });
   });
 
-  // Schermate dell'app
-  var strip = document.querySelector('.strip'), pager = document.getElementById('pager');
+  // Schermate dell'app (passo 3): si aprono a tutto schermo e si scorrono in su, una alla volta, come su TikTok.
+  // Lo scatto da una schermata all'altra lo fa il telefono (scroll-snap), quindi è fluido come un'app.
+  // Si aprono da sole la prima volta che si arriva al passo 3; dopo si riaprono dal pulsante giallo.
+  var giro = document.getElementById('giro'), strip = giro.querySelector('.strip');
   var shots = strip.querySelectorAll('.shot');
-  shots.forEach(function(){ pager.appendChild(document.createElement('i')); });
+  var CASETTA = '<svg viewBox="0 0 74 60" aria-hidden="true"><use href="#casetta"/></svg>';
+  var SLIDE = [
+    { bg: '#ffb020', fg: '#1e1d33', t: 'La casa', s: 'Cosa tocca a te oggi, i conti e cosa manca, in una schermata.',
+      stk: [{ notif: 1, h: CASETTA + '<span>Oggi tocca a te: spazzatura 🗑️<small>adesso</small></span>', d: '.5s' },
+            { h: '+12,50 € da Marco', st: 'right:-8%;bottom:24%', r: '4deg', d: '1.1s' }] },
+    { bg: '#22b8a7', fg: '#1e1d33', t: 'I soldi', s: 'Chi deve quanto a chi. Un debito si chiude quando chi riceve conferma.',
+      stk: [{ h: '✓ Ricevuto da Marco', st: 'left:-9%;top:30%', r: '-5deg', d: '.5s' },
+            { h: '2 pagamenti e siete pari', st: 'right:-8%;bottom:16%', r: '3deg', d: '1s' }] },
+    { bg: '#ff6fa8', fg: '#1e1d33', t: 'Le faccende', s: 'Il calendario con il colore di chi tocca. Chi aiuta guadagna il turno.',
+      stk: [{ h: '🧽 Bagno: tocca a Marco', st: 'right:-9%;top:36%', r: '4deg', d: '.5s' },
+            { h: '⭐ Turno guadagnato', st: 'left:-8%;bottom:20%', r: '-4deg', d: '1s' }] },
+    { bg: '#7c5cff', fg: '#ffffff', t: 'La lista', s: '«Lo prendo io», così il latte non lo comprate in due.',
+      stk: [{ h: '🥛 Lo prendo io!', st: 'right:-8%;top:26%', r: '5deg', d: '.5s' },
+            { h: '🧾 Lo scontrino diventa una spesa', st: 'left:-10%;bottom:30%', r: '-3deg', d: '1s' }] },
+    { bg: '#3d8bff', fg: '#ffffff', t: 'Il pulsante +', s: 'Scrivi l’importo, il resto è già impostato.',
+      stk: [{ h: '12,40 € ÷ 3', st: 'left:-9%;top:16%', r: '-5deg', d: '.5s' },
+            { h: '4,13 € a testa', st: 'right:-8%;top:30%', r: '4deg', d: '1s' }] },
+    { bg: '#4cc35a', fg: '#1e1d33', t: 'Il primo giorno', s: 'Ognuno sceglie il suo colore, e lo ritrova ovunque.',
+      stk: [{ h: '💛 Il giallo è tuo', st: 'right:-8%;top:40%', r: '4deg', d: '.6s' }] }
+  ];
+  var tt = null, ttScroll, ttSeg, ttHint, slides = [], visto = false, attiva = -1;
+  var MOSSA = !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 
-  // Giro delle schermate (nel passo 3): scendendo con il dito la sezione resta ferma e i telefoni
-  // salgono uno alla volta, come su TikTok; poi si arriva alle domande.
-  // Chi ha chiesto meno animazioni vede i telefoni uno sotto l'altro.
-  var misuraGiro = (function(){
-    var giro = document.getElementById('giro'), pin = giro.querySelector('.pin'), viewer = giro.querySelector('.viewer');
-    var tip = document.getElementById('sutip'), tipT = tip.querySelector('b'), tipN = tip.querySelector('small');
-    var titolo = giro.querySelector('.giroti');
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return function(){};
-    var n = shots.length, passo = 0, largh = 0, alt = 0, k = -1, accennato = false;
-    function visibile(){ return giro.offsetParent !== null; }
-    function giu(){ return -giro.getBoundingClientRect().top - 40; }
-    function misura(){
-      if (!visibile()) return;
-      giro.classList.add('on');
-      giro.style.height = '';
-      giro.style.removeProperty('--h');
-      var didasc = 0;
-      shots.forEach(function(s){ didasc = Math.max(didasc, s.querySelector('p').offsetHeight); });
-      var sopra = parseFloat(getComputedStyle(pin).paddingTop) || 0;
-      var altro = titolo.offsetHeight + tip.offsetHeight + 20 + didasc + 8 + sopra;
-      var z = Math.max(.5, Math.min(.85, (pin.clientHeight - altro - 28) / 650));
-      strip.style.setProperty('--z', z.toFixed(3));
-      var h = 0;
-      shots.forEach(function(s){ h = Math.max(h, s.offsetHeight); });
-      giro.style.setProperty('--h', h + 'px');
-      giro.style.setProperty('--w', (300 * z) + 'px');
-      giro.style.setProperty('--dh', (650 * z) + 'px');
-      // ogni schermata chiede circa mezza altezza di schermo di scorrimento, più una pausa sull'ultima
-      passo = Math.max(220, innerHeight * .55);
-      giro.style.height = (pin.clientHeight + 40 + passo * (n - 1) + passo * .6) + 'px';
-      largh = innerWidth; alt = innerHeight;
-      muovi();
+  function costruisci(){
+    tt = document.createElement('div');
+    tt.className = 'tt'; tt.hidden = true;
+    tt.setAttribute('role', 'dialog'); tt.setAttribute('aria-modal', 'true'); tt.setAttribute('aria-label', "Schermate dell'app");
+    tt.innerHTML = '<div class="ttscroll"></div><div class="ttbar"><div class="ttseg"></div><button type="button" class="ttx" aria-label="Chiudi">✕</button></div>'
+      + '<div class="tthint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>Scorri in su</div>';
+    ttScroll = tt.querySelector('.ttscroll'); ttSeg = tt.querySelector('.ttseg'); ttHint = tt.querySelector('.tthint');
+    shots.forEach(function(sh, i){
+      var c = SLIDE[i] || SLIDE[0];
+      var sl = document.createElement('section');
+      sl.className = 'sl' + (i === 0 ? ' primo' : '');
+      sl.style.setProperty('--bg', c.bg); sl.style.setProperty('--fg', c.fg);
+      sl.dataset.fg = c.fg;
+      var cap = document.createElement('div'); cap.className = 'slcap';
+      var b = document.createElement('b'); b.textContent = c.t;
+      var s = document.createElement('span'); s.textContent = c.s;
+      cap.appendChild(b); cap.appendChild(s);
+      var ph = document.createElement('div'); ph.className = 'slph';
+      ph.appendChild(sh.querySelector('.dev').cloneNode(true));
+      (c.stk || []).forEach(function(k){
+        var e = document.createElement('div');
+        e.className = 'stk' + (k.notif ? ' notif' : '');
+        e.innerHTML = k.h;
+        if (k.st) e.setAttribute('style', k.st);
+        if (k.r) e.style.setProperty('--r', k.r);
+        e.style.setProperty('--d', k.d || '.45s');
+        e.setAttribute('aria-hidden', 'true');
+        ph.appendChild(e);
+      });
+      sl.appendChild(cap); sl.appendChild(ph);
+      ttScroll.appendChild(sl); slides.push(sl);
+      ttSeg.appendChild(document.createElement('i'));
+    });
+    // ultima schermata: si torna alle domande
+    var fine = document.createElement('section');
+    fine.className = 'sl fine';
+    fine.style.setProperty('--bg', '#1e1d33'); fine.style.setProperty('--fg', '#ffffff'); fine.dataset.fg = '#ffffff';
+    fine.innerHTML = '<svg width="112" height="91" aria-hidden="true"><use href="#casetta"/></svg>'
+      + '<div class="slcap"><b>Questa è l’idea</b><span>Non esiste ancora. Ora dicci cosa ne pensi davvero: ci serve anche un no.</span></div>'
+      + '<button type="button" class="ttgo">Rispondi alle domande</button><button type="button" class="ttdinuovo">Rivedi dall’inizio</button>';
+    ttScroll.appendChild(fine); slides.push(fine);
+    document.body.appendChild(tt);
+
+    tt.querySelector('.ttx').addEventListener('click', function(){ chiudi(false); });
+    fine.querySelector('.ttgo').addEventListener('click', function(){ chiudi(true); });
+    fine.querySelector('.ttdinuovo').addEventListener('click', function(){ ttScroll.scrollTo({ top: 0, behavior: 'smooth' }); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && tt && !tt.hidden) chiudi(false); });
+    ttScroll.addEventListener('scroll', function(){ if (ttScroll.scrollTop > 30) ttHint.classList.add('via'); }, { passive: true });
+
+    // quale schermata si vede: fa partire le sue animazioni, aggiorna le barrette in alto e il colore dei controlli
+    var io = new IntersectionObserver(function(voci){
+      voci.forEach(function(v){
+        if (v.isIntersecting && v.intersectionRatio > .6) segna(slides.indexOf(v.target));
+      });
+    }, { root: ttScroll, threshold: [.6] });
+    slides.forEach(function(sl){ io.observe(sl); });
+    addEventListener('resize', function(){ if (!tt.hidden) misura(); });
+  }
+
+  function segna(i){
+    if (i === attiva || i < 0) return;
+    attiva = i;
+    slides.forEach(function(sl, j){ sl.classList.toggle('on', j === i); });
+    Array.prototype.forEach.call(ttSeg.children, function(d, j){ d.className = j <= i ? 'ok' : ''; });
+    tt.style.setProperty('--fgnow', slides[i].dataset.fg);
+  }
+
+  // grandezza del telefono: il più grande possibile senza coprire titolo, barrette e indicazione in basso
+  function misura(){
+    var h = ttScroll.clientHeight, w = ttScroll.clientWidth, cap = 0;
+    slides.forEach(function(sl){ var c = sl.querySelector('.slcap'); if (c) cap = Math.max(cap, c.offsetHeight); });
+    var sl0 = getComputedStyle(slides[0]);
+    var libero = h - parseFloat(sl0.paddingTop) - parseFloat(sl0.paddingBottom) - cap - 16;
+    var z = Math.max(.42, Math.min(.82, libero / 650, (w - 70) / 300));
+    tt.style.setProperty('--tz', z.toFixed(3));
+  }
+
+  function apri(){
+    if (!tt) costruisci();
+    visto = true;
+    document.getElementById('lanciotit').textContent = 'Rivedi le schermate';
+    tt.classList.remove('esce');
+    tt.hidden = false;
+    document.documentElement.classList.add('tton');
+    attiva = -1;
+    ttScroll.scrollTop = 0;
+    ttHint.classList.remove('via');
+    misura();
+    segna(0);
+    tt.querySelector('.ttx').focus({ preventScroll: true });
+  }
+
+  function chiudi(versoDomande){
+    if (!tt || tt.hidden) return;
+    function fatto(){
+      tt.hidden = true; tt.classList.remove('esce');
+      document.documentElement.classList.remove('tton');
+      var dove = versoDomande ? document.querySelector('[data-req="azione"]') : document.getElementById('lancio');
+      dove.scrollIntoView({ block: 'center', behavior: 'smooth' });
     }
-    function muovi(){
-      if (!passo || !visibile()) return;
-      var g = giu();
-      var r = Math.max(0, Math.min(n - 1, g / passo));
-      var i = Math.floor(r), f = r - i;
-      // il telefono resta fermo all'inizio e alla fine di ogni tratto, così ognuno si legge con calma
-      var t = f < .25 ? 0 : f > .75 ? 1 : (f - .25) / .5;
-      t = t * t * (3 - 2 * t);
-      var pos = Math.min(n - 1, i + t);
-      strip.style.setProperty('--pos', pos.toFixed(4));
-      var nk = Math.round(pos);
-      if (nk !== k){
-        k = nk;
-        Array.prototype.forEach.call(pager.children, function(d, j){ d.className = j === k ? 'on' : ''; });
-        tipT.textContent = k < n - 1 ? 'Scorri in su' : 'Ora scorri e rispondi';
-        tipN.textContent = (k + 1) + ' di ' + n;
-        if (k > 0) viewer.classList.remove('accenna');
-      }
-      // la prima volta che la sezione si ferma, il telefono accenna a salire per mostrare il gesto
-      if (!accennato && g > -60 && g < passo * .2){
-        accennato = true;
-        setTimeout(function(){ if (k === 0) viewer.classList.add('accenna'); }, 400);
-      }
-    }
-    function avanti(){
-      if (k < n - 1) scrollBy({ top: (k + 1) * passo - giu(), behavior: 'smooth' });
-      else document.querySelector('[data-req="azione"]').scrollIntoView({ block: 'center', behavior: 'smooth' });
-    }
-    tip.addEventListener('click', avanti);
-    viewer.addEventListener('click', avanti);
-    viewer.addEventListener('animationend', function(){ viewer.classList.remove('accenna'); });
-    addEventListener('scroll', muovi, { passive: true });
-    // sull'iPhone l'altezza cambia quando compare o sparisce la barra di Safari: rimisura solo se cambia davvero
-    addEventListener('resize', function(){ if (innerWidth !== largh || Math.abs(innerHeight - alt) > 140) misura(); });
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(misura);
-    return misura;
-  })();
+    if (MOSSA) { tt.classList.add('esce'); setTimeout(fatto, 340); } else fatto();
+  }
+
+  if ('IntersectionObserver' in window) {
+    giro.classList.add('js');
+    var lancio = document.getElementById('lancio');
+    lancio.hidden = false;
+    lancio.addEventListener('click', apri);
+  }
+  // Arrivando al passo 3 per la prima volta, le schermate si aprono da sole.
+  function misuraGiro(){
+    var s3 = document.querySelector('.step.s3');
+    if (giro.classList.contains('js') && s3 && !s3.hidden && !visto) setTimeout(apri, 350);
+  }
 
   // Da quale link è arrivata la persona (?da=amici, ?da=gruppi…). Senza etichetta resta vuoto.
   var DA = (function(){ try { return (new URLSearchParams(location.search).get('da') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 30); } catch(e) { return ''; } })();
@@ -897,20 +1017,109 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   // Per il gruppo di casa: messaggio in prima persona e un link con la sua etichetta,
   // così nel pannello si vede quante persone arrivano dai coinquilini di chi ha risposto.
   var linkCasa = location.origin + location.pathname + '?da=condivisione-casa';
-  var MSG_CASA = 'Ho appena fatto questo sondaggio sulla vita tra coinquilini 🏠\n\n2 minuti, anonimo.\n\nFatelo anche voi, voglio vedere se rispondete come me 👀';
-  var bolla = document.getElementById('bolla');
-  bolla.textContent = MSG_CASA + '\n\n👉 ';
-  var bl = document.createElement('span'); bl.textContent = linkCasa; bolla.appendChild(bl);
-  document.getElementById('condividicasa').href = 'https://wa.me/?text=' + encodeURIComponent(MSG_CASA + '\n\n👉 ' + linkCasa);
   document.getElementById('condividicasa').addEventListener('click', function(){ conta('condividi_whatsapp'); });
-  // "Altre app" apre la condivisione del telefono (Instagram, Telegram, Messaggi…), solo dove esiste.
-  if (navigator.share) {
-    var altre = document.getElementById('altreapp');
-    altre.hidden = false;
-    altre.addEventListener('click', function(){
-      navigator.share({ text: MSG_CASA + '\n\n👉 ' + linkCasa }).catch(function(){});
+  function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
+
+  // Carta della casa: dopo l'invio, dalle risposte sugli intoppi dell'ultimo mese (passo 2).
+  // Si calcola sul telefono e non viene salvata; serve a dare qualcosa in cambio e un motivo per condividere.
+  // Non viene annunciata prima delle domande, così non cambia il modo di rispondere.
+  var TIPI = {
+    svizzera: { e: '🇨🇭', t: 'La casa svizzera', d: 'Conti in ordine, turni rispettati, latte sempre in frigo. Siete una leggenda, o non ve ne accorgete.', b: '#22b8a7', f: '#1e1d33' },
+    zen:      { e: '🧘', t: 'La casa quasi zen', d: 'Qualche intoppo ogni tanto, niente che una chiacchiera in cucina non sistemi.', b: '#4cc35a', f: '#1e1d33' },
+    fantasma: { e: '👻', t: 'La casa dei turni fantasma', d: 'I turni ci sono, tutti d’accordo. Poi spariscono nel nulla.', b: '#7c5cff', f: '#ffffff' },
+    venerdi:  { e: '💸', t: 'La casa del «ti ridò tutto venerdì»', d: 'Ognuno paga qualcosa, nessuno ricorda cosa. E il venerdì non arriva mai.', b: '#ffb020', f: '#1e1d33' },
+    bolletta: { e: '🧾', t: 'La casa della bolletta misteriosa', d: 'Arriva, qualcuno la paga, poi parte l’indagine su chi deve quanto.', b: '#3d8bff', f: '#ffffff' },
+    latte:    { e: '🥛', t: 'La casa del latte finito', d: 'Due cartoni comprati lo stesso giorno, zero la settimana dopo.', b: '#ff6fa8', f: '#1e1d33' },
+    tregua:   { e: '⚔️', t: 'La casa in tregua armata', d: 'Soldi, faccende, spesa: ogni settimana un fronte nuovo. Ma la pace regge.', b: '#ff5a3c', f: '#ffffff' }
+  };
+  var VOCI = [['soldi', 'Soldi'], ['bolletta', 'Bollette'], ['faccende', 'Faccende'], ['spesa', 'Spesa']];
+  var PUNTI = { 'mai': 0, '1 volta': 1, '2 o 3 volte': 2, '4 o più': 3 };
+  var cartaFile = null, tipoCasa = null;
+  function tipoDellaCasa(){
+    var p = {}, alti = 0, max = 0, somma = 0;
+    VOCI.forEach(function(v){ var x = PUNTI[val(v[0])]; p[v[0]] = x; if (x != null) { somma += x; if (x >= 2) alti++; if (x > max) max = x; } });
+    if (alti >= 3) return { k: 'tregua', p: p };
+    if (somma === 0) return { k: 'svizzera', p: p };
+    if (max <= 1) return { k: 'zen', p: p };
+    // la voce con più intoppi; a parità vince l'ordine faccende, soldi, bollette, spesa
+    var ordine = [['faccende', 'fantasma'], ['soldi', 'venerdi'], ['bolletta', 'bolletta'], ['spesa', 'latte']], k = 'zen';
+    for (var i = 0; i < ordine.length; i++) if (p[ordine[i][0]] === max) { k = ordine[i][1]; break; }
+    return { k: k, p: p };
+  }
+  function preparaCarta(){
+    var casa = val('casa');
+    var box = document.getElementById('cartabox');
+    if (casa !== 'sì' && casa !== "ci ho vissuto nell'ultimo anno") { box.hidden = true; return; }
+    var r = tipoDellaCasa(), c = TIPI[r.k]; tipoCasa = c;
+    var carta = document.getElementById('carta');
+    carta.style.setProperty('--cb', c.b); carta.style.setProperty('--cf', c.f);
+    document.getElementById('cartalbl').textContent = casa === 'sì' ? 'La tua casa è' : 'La tua ultima casa era';
+    document.getElementById('cartaemo').textContent = c.e;
+    document.getElementById('cartatit').textContent = c.t;
+    document.getElementById('cartadesc').textContent = c.d;
+    var m = document.getElementById('metri'); m.textContent = '';
+    VOCI.forEach(function(v){
+      var x = r.p[v[0]], nome = document.createElement('span'), pt = document.createElement('span');
+      nome.textContent = v[1]; pt.className = 'pt';
+      if (x == null) { var em = document.createElement('em'); em.textContent = 'non so'; pt.appendChild(em); }
+      else for (var i = 1; i <= 3; i++) { var d = document.createElement('i'); if (i <= x) d.className = 'on'; pt.appendChild(d); }
+      m.appendChild(nome); m.appendChild(pt);
+    });
+    box.hidden = false;
+    document.getElementById('condividicasa').href = wa('Secondo me la nostra è ' + c.t.replace(/^La casa/, 'la casa') + ' ' + c.e + '\n\nFate anche voi il sondaggio, 2 minuti e anonimo: vediamo se la pensiamo uguale 👀', linkCasa);
+    var mia = casa === 'sì' ? 'La mia è ' + c.t.replace(/^La casa/, 'la casa') : 'La mia ultima casa? ' + c.t;
+    document.getElementById('condividi').href = wa('Ho fatto un sondaggio di 2 minuti sulla vita tra coinquilini. ' + mia + ' ' + c.e + '\n\nE la tua? 👀', link);
+    disegnaCarta(c, r.p, casa === 'sì' ? 'LA TUA CASA È' : 'LA TUA ULTIMA CASA ERA');
+  }
+
+  // Immagine 1080 x 1920 per le storie di Instagram. Si prepara subito, così al tocco la condivisione parte
+  // senza attese (sull'iPhone deve partire subito dopo il tocco).
+  function disegnaCarta(c, p, etichetta){
+    var btn = document.getElementById('cartashare');
+    if (!navigator.share || !navigator.canShare || !window.File) return;
+    var pronti = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('600 80px Fredoka'), document.fonts.load('800 40px Nunito')]).catch(function(){}) : Promise.resolve();
+    pronti.then(function(){
+      var W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      var x = cv.getContext('2d');
+      x.fillStyle = c.b; x.fillRect(0, 0, W, H);
+      var g = x.createRadialGradient(170, 260, 0, 170, 260, 760); g.addColorStop(0, 'rgba(255,255,255,.42)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+      x.fillStyle = g; x.fillRect(0, 0, W, H);
+      x.fillStyle = c.f; x.textBaseline = 'alphabetic';
+      function righe(testo, font, maxW){
+        x.font = font; var parole = testo.split(' '), out = [], r = '';
+        parole.forEach(function(w){ var prova = r ? r + ' ' + w : w; if (x.measureText(prova).width > maxW && r) { out.push(r); r = w; } else r = prova; });
+        if (r) out.push(r); return out;
+      }
+      var y = 300;
+      x.globalAlpha = .75; x.font = '800 44px Nunito, sans-serif'; x.fillText(etichetta, 110, y); x.globalAlpha = 1;
+      y += 250; x.font = '230px system-ui, "Apple Color Emoji", sans-serif'; x.fillText(c.e, 100, y);
+      y += 150;
+      righe(c.t, '600 112px Fredoka, sans-serif', 860).forEach(function(l){ x.fillText(l, 110, y); y += 118; });
+      y += 30; x.globalAlpha = .9;
+      righe(c.d, '700 50px Nunito, sans-serif', 860).forEach(function(l){ x.fillText(l, 110, y); y += 70; });
+      x.globalAlpha = 1; y += 70;
+      x.fillStyle = 'rgba(255,255,255,.3)'; x.beginPath(); (x.roundRect ? x.roundRect(80, y - 70, 920, 400, 50) : x.rect(80, y - 70, 920, 400)); x.fill();
+      x.fillStyle = c.f;
+      VOCI.forEach(function(v, i){
+        var yy = y + 20 + i * 86, val = p[v[0]];
+        x.font = '800 48px Nunito, sans-serif'; x.fillText(v[1], 130, yy);
+        if (val == null) { x.globalAlpha = .75; x.font = '700 42px Nunito, sans-serif'; x.fillText('non so', 520, yy); x.globalAlpha = 1; }
+        else for (var k = 1; k <= 3; k++) { x.globalAlpha = k <= val ? .9 : .2; x.beginPath(); (x.roundRect ? x.roundRect(520 + (k - 1) * 130, yy - 34, 110, 36, 18) : x.rect(520 + (k - 1) * 130, yy - 34, 110, 36)); x.fill(); }
+        x.globalAlpha = 1;
+      });
+      // la scritta in fondo sta sempre sotto il riquadro, anche quando il titolo va su tre righe
+      x.font = '800 46px Nunito, sans-serif'; x.globalAlpha = .85; x.fillText('E la tua? coinquilini.github.io', 110, Math.max(H - 200, y + 330 + 130)); x.globalAlpha = 1;
+      cv.toBlob(function(b){
+        if (!b) return;
+        var file = new File([b], 'la-mia-casa.png', { type: 'image/png' });
+        if (!navigator.canShare({ files: [file] })) return;
+        cartaFile = file; btn.hidden = false;
+      }, 'image/png');
     });
   }
+  document.getElementById('cartashare').addEventListener('click', function(){
+    if (cartaFile) navigator.share({ files: [cartaFile] }).catch(function(){});
+  });
 
   document.getElementById('copia').addEventListener('click', function(){
     conta('copia_link');
@@ -1068,7 +1277,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   function mostraGrazie(){
     var g = document.getElementById('grazie');
     Array.prototype.forEach.call(g.parentNode.children, function(el){ el.hidden = el !== g; });
-    g.hidden = false; document.documentElement.classList.remove('fascia'); window.scrollTo(0, 0);
+    g.hidden = false; document.documentElement.classList.remove('fascia'); window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function invia(soloFiltro){
@@ -1088,6 +1297,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
         document.getElementById('passa').hidden = true;
         document.getElementById('altritit').textContent = 'Conosci qualcuno che vive con coinquilini?';
       }
+      if (!soloFiltro) preparaCarta();
       // L'email parte a parte, qualche secondo dopo e con un suo codice: nel foglio finisce in un'altra scheda
       // e l'ordine delle righe non basta a collegarla alle risposte.
       if (em) inviaEmail(em);
