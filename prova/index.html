@@ -186,47 +186,41 @@ input[type=text]:focus,input[type=email]:focus,textarea:focus{outline:none;borde
 html.fascia{background:var(--fondo)}
 .done{background:var(--card);border-radius:22px;padding:22px 18px;display:flex;flex-direction:column;gap:12px}
 .okmsg{color:var(--ok);font-weight:800}
-/* pagina finale: due schermate che si scorrono in su (la carta della casa, poi il punto debole),
-   con il pulsante per condividere sempre in basso */
-html.finale{scroll-snap-type:y mandatory}
-#grazie.fin{--band:var(--cb,#1e1d33);color:var(--cf,#fff);--ink:var(--cf,#fff);margin-top:-26px;display:block}
+/* pagina finale: una pagina semplice da scorrere. La carta della casa colorata, sotto il punto debole,
+   in fondo un solo invito a condividere */
+#grazie.fin{display:flex;flex-direction:column;gap:16px;padding:6px 0 40px}
 #grazie.fin[hidden]{display:none!important}
-.finpag{position:relative;min-height:100vh;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;gap:clamp(10px,2vh,18px);padding:calc(22px + env(safe-area-inset-top,0px)) 4px calc(140px + env(safe-area-inset-bottom,0px))}
-.finp1{justify-content:flex-start}
-.finp1 .fincarta,.finp1 .finvuoto{margin-top:auto;margin-bottom:auto}
-.finok{align-self:flex-start;margin:0;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.28);border-radius:999px;padding:6px 13px 6px 10px;font-weight:800;font-size:13.5px}
-.finlista{margin:-4px 0 0;font-weight:700;font-size:13px;opacity:.85}
-.fincarta{display:flex;flex-direction:column;gap:clamp(8px,1.6vh,14px);transform-origin:50% 100%;animation:rivela .8s cubic-bezier(.2,1.25,.35,1) .1s both}
+.finok{align-self:flex-start;margin:0;display:inline-flex;align-items:center;gap:7px;background:var(--card);border-radius:999px;padding:7px 14px 7px 11px;font-weight:800;font-size:14px}
+.finok svg{color:var(--ok)}
+.finlista{margin:-8px 0 0;font-weight:700;font-size:13.5px;color:var(--soft)}
+.fincarta{border-radius:28px;padding:24px 22px 22px;background:radial-gradient(circle at 15% 10%,rgba(255,255,255,.38),transparent 42%),var(--cb,#ffb020);color:var(--cf,#1e1d33);display:flex;flex-direction:column;gap:10px;box-shadow:0 14px 34px rgba(0,0,0,.16);transform-origin:50% 100%;animation:rivela .8s cubic-bezier(.2,1.25,.35,1) .1s both}
 @keyframes rivela{from{opacity:0;transform:rotateX(70deg) scale(.85)}to{opacity:1;transform:none}}
-.cartalbl{margin:0;font-weight:800;font-size:13px;letter-spacing:.07em;text-transform:uppercase;opacity:.75}
-.cartaemo{font-size:clamp(60px,10vh,84px);line-height:1;animation:rimbalza .7s cubic-bezier(.2,1.8,.4,1) .7s both}
+.cartalbl{margin:0;font-weight:800;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;opacity:.75}
+.cartaemo{font-size:60px;line-height:1;animation:rimbalza .7s cubic-bezier(.2,1.8,.4,1) .7s both}
 @keyframes rimbalza{from{transform:scale(0) rotate(-30deg)}to{transform:none}}
-.fincarta h2{font-family:var(--display);font-weight:600;font-size:clamp(30px,5vh,40px);line-height:1.02;margin:0}
-.cartadesc{margin:0;font-weight:700;font-size:clamp(15px,2.2vh,18px);line-height:1.4;opacity:.9}
-.metri{display:grid;grid-template-columns:auto 1fr;gap:9px 16px;align-items:center;margin-top:4px;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.28);font-weight:800;font-size:15px}
+.fincarta h2{font-family:var(--display);font-weight:600;font-size:30px;line-height:1.04;margin:0}
+.cartadesc{margin:0;font-weight:700;font-size:15.5px;line-height:1.4;opacity:.9}
+.metri{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;align-items:center;margin-top:4px;padding:13px 15px;border-radius:18px;background:rgba(255,255,255,.28);font-weight:800;font-size:14px}
 .metri .pt{display:flex;gap:6px}
-.metri .pt i{width:26px;height:10px;border-radius:5px;background:currentColor;opacity:.22}
+.metri .pt i{width:24px;height:9px;border-radius:5px;background:currentColor;opacity:.22}
 .metri .pt i.on{opacity:.9}
-.metri .pt em{font-style:normal;font-weight:700;font-size:13px;opacity:.75}
-.finvuoto{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
-.finvuoto p{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(22px,3.4vh,28px);line-height:1.2}
-.finp2{box-shadow:0 0 0 100vmax #f5f6f1;clip-path:inset(0 -100vmax);background:#f5f6f1;color:#1e1d33;--ink:#1e1d33}
-.focusico{width:clamp(64px,10vh,84px);height:clamp(64px,10vh,84px);border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:clamp(34px,5.4vh,46px);background:var(--fc,#ffb020);box-shadow:0 6px 0 rgba(0,0,0,.12);transform:rotate(-6deg)}
-.focuslbl{margin:6px 0 0;font-weight:800;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:#6b6a7d}
-.finp2 h2{font-family:var(--display);font-weight:600;font-size:clamp(30px,5vh,40px);line-height:1.02;margin:0}
-.finp2 p{margin:0}
-.focusfatto{font-weight:600;font-size:clamp(15px,2.2vh,17.5px);line-height:1.45}
-.focusapp{background:#fff;border-radius:18px;padding:14px 16px;font-weight:700;font-size:clamp(15px,2.1vh,17px);line-height:1.4;box-shadow:0 4px 0 rgba(30,29,51,.08)}
-.focusnota{font-weight:600;font-size:14.5px;color:#6b6a7d}
-.finlink{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 22px;margin-top:6px}
-.finlink .copia{color:inherit;font-size:15px}
-.finhint{position:fixed;left:50%;bottom:calc(138px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:8px;background:#1e1d33;color:#fff;border-radius:999px;padding:9px 16px 9px 12px;font-family:var(--display);font-weight:600;font-size:15px;white-space:nowrap;pointer-events:none;transition:opacity .35s}
-.finhint svg{width:18px;height:18px;animation:su 1.2s ease-in-out infinite}
-.finhint.via{opacity:0}
-.finbar{position:fixed;left:0;right:0;bottom:0;z-index:21;margin:0 auto;max-width:640px;display:flex;flex-direction:column;gap:9px;padding:14px max(16px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:#1e1d33;color:#fff;border-radius:26px 26px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.18)}
-.finsharetit{margin:0;font-family:var(--display);font-weight:600;font-size:16.5px;line-height:1.2;text-align:center}
-.finbar .wa{padding:14px 20px}
-@media (prefers-reduced-motion:reduce){.fincarta,.cartaemo,.finhint svg{animation:none}}
+.metri .pt em{font-style:normal;font-weight:700;font-size:12.5px;opacity:.75}
+.finvuoto{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:8px 4px}
+.finvuoto p{margin:0;font-family:var(--display);font-weight:600;font-size:22px;line-height:1.25}
+.focus{background:var(--card);border-radius:24px;padding:20px 18px;display:flex;flex-direction:column;gap:12px}
+.focustesta{display:flex;align-items:center;gap:14px}
+.focusico{flex:none;width:52px;height:52px;border-radius:17px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--fc,#ffb020)}
+.focuslbl{margin:0 0 2px;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.focus h2{font-family:var(--display);font-weight:600;font-size:24px;line-height:1.1;margin:0}
+.focus p{margin:0}
+.focusfatto{font-weight:600;font-size:15.5px;line-height:1.45}
+.focusapp{background:var(--page);border-radius:16px;padding:12px 14px;font-weight:700;font-size:15px;line-height:1.4}
+.focusnota{font-weight:600;font-size:14px;color:var(--soft)}
+.finbar{background:#1e1d33;color:#fff;--ink:#fff;border-radius:24px;padding:20px 18px 14px;display:flex;flex-direction:column;gap:12px}
+.finsharetit{margin:0;font-family:var(--display);font-weight:600;font-size:20px;line-height:1.2}
+.finlink{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 22px}
+.finlink .copia{color:#fff;font-size:15px}
+@media (prefers-reduced-motion:reduce){.fincarta,.cartaemo{animation:none}}
 .foot{text-align:center;font-size:12.5px;color:var(--soft);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 /* stile minimal */
@@ -795,53 +789,46 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     </div>
   </div>
 
-  <section id="grazie" class="fin bleed" hidden>
-    <div class="finpag finp1" id="finp1">
-      <p class="finok"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="grazietit">Risposte inviate, grazie!</span></p>
-      <p class="finlista" id="postotenuto" hidden>Sei in lista per l'anteprima: ti scriviamo appena c'è qualcosa da provare.</p>
+  <section id="grazie" class="fin" hidden>
+    <p class="finok"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="grazietit">Risposte inviate, grazie!</span></p>
+    <p class="finlista" id="postotenuto" hidden>Sei in lista per l'anteprima: ti scriviamo appena c'è qualcosa da provare.</p>
 
-      <div class="done" id="correggi" hidden>
-        <h2>Controlla la tua email</h2>
-        <p style="margin:0;font-weight:600;color:var(--soft)">Le risposte sono arrivate, ma l'email che hai scritto non sembra giusta, quindi non l'abbiamo salvata. Vuoi correggerla?</p>
-        <div class="riga2"><input type="email" id="email2" autocomplete="email" inputmode="email" aria-label="La tua email"><button type="button" id="salvaemail">Salva</button></div>
-        <div class="err" id="email2err" hidden></div>
-      </div>
-
-      <div class="fincarta" id="cartabox" hidden>
-        <p class="cartalbl" id="cartalbl">La tua casa è</p>
-        <div class="cartaemo" id="cartaemo" aria-hidden="true"></div>
-        <h2 id="cartatit"></h2>
-        <p class="cartadesc" id="cartadesc"></p>
-        <div class="metri" id="metri"></div>
-      </div>
-
-      <div class="finvuoto" id="finvuoto">
-        <svg width="112" height="91" aria-hidden="true"><use href="#casetta"/></svg>
-        <p id="grazietxt">Le tue risposte ci aiutano a capire se quest'app serve davvero, e a chi.</p>
-      </div>
+    <div class="done" id="correggi" hidden>
+      <h2>Controlla la tua email</h2>
+      <p style="margin:0;font-weight:600;color:var(--soft)">Le risposte sono arrivate, ma l'email che hai scritto non sembra giusta, quindi non l'abbiamo salvata. Vuoi correggerla?</p>
+      <div class="riga2"><input type="email" id="email2" autocomplete="email" inputmode="email" aria-label="La tua email"><button type="button" id="salvaemail">Salva</button></div>
+      <div class="err" id="email2err" hidden></div>
     </div>
 
-    <div class="finpag finp2" id="focus" hidden>
-      <div class="focusico" id="focusico" aria-hidden="true"></div>
-      <p class="focuslbl" id="focuslbl"></p>
-      <h2 id="focustit"></h2>
+    <div class="fincarta" id="cartabox" hidden>
+      <p class="cartalbl" id="cartalbl">La tua casa è</p>
+      <div class="cartaemo" id="cartaemo" aria-hidden="true"></div>
+      <h2 id="cartatit"></h2>
+      <p class="cartadesc" id="cartadesc"></p>
+      <div class="metri" id="metri"></div>
+    </div>
+
+    <div class="finvuoto" id="finvuoto">
+      <svg width="96" height="78" aria-hidden="true"><use href="#casetta"/></svg>
+      <p id="grazietxt">Le tue risposte ci aiutano a capire se quest'app serve davvero, e a chi.</p>
+    </div>
+
+    <div class="focus" id="focus" hidden>
+      <div class="focustesta"><span class="focusico" id="focusico" aria-hidden="true"></span><div><p class="focuslbl" id="focuslbl"></p><h2 id="focustit"></h2></div></div>
       <p class="focusfatto" id="focusfatto" hidden></p>
       <p id="focusoggi" hidden></p>
       <p class="focusapp" id="focusapp"></p>
       <p class="focusnota" id="focusnota" hidden></p>
     </div>
 
-    <div class="finlink" id="finlink">
-      <a class="copia" id="condividi2" href="https://wa.me/" target="_blank" rel="noopener" hidden>Mandalo ad amici di altre case</a>
-      <button type="button" class="copia" id="copia">Copia il link</button>
-    </div>
-
-    <div class="finhint" id="finhint" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>Scorri in su</div>
-
     <div class="finbar" id="passa">
       <p class="finsharetit" id="passatit">Conosci qualcuno che vive con coinquilini?</p>
       <a class="wa" id="condividicasa" href="https://wa.me/" target="_blank" rel="noopener" hidden><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Manda nel gruppo di casa</a>
       <a class="wa" id="condividi" href="https://wa.me/" target="_blank" rel="noopener"><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Condividi su WhatsApp</a>
+      <div class="finlink" id="finlink">
+        <a class="copia" id="condividi2" href="https://wa.me/" target="_blank" rel="noopener" hidden>Mandalo ad amici di altre case</a>
+        <button type="button" class="copia" id="copia">Copia il link</button>
+      </div>
     </div>
   </section>
 
@@ -901,7 +888,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
             { h: '⭐ Turno guadagnato', st: 'left:-8%;bottom:20%', r: '-4deg', d: '1s' }] },
     { bg: '#7c5cff', fg: '#ffffff', t: 'La lista', s: '«Lo prendo io», così il latte non lo comprate in due.',
       stk: [{ h: '🥛 Lo prendo io!', st: 'right:-8%;top:26%', r: '5deg', d: '.5s' },
-            { h: '🧾 Lo scontrino diventa una spesa', st: 'left:-10%;bottom:30%', r: '-3deg', d: '1s' }] },
+            { h: '🛒 Lo scontrino diventa una spesa', st: 'left:-10%;bottom:30%', r: '-3deg', d: '1s' }] },
     { bg: '#3d8bff', fg: '#ffffff', t: 'Il pulsante +', s: 'Scrivi l’importo, il resto è già impostato.',
       stk: [{ h: '12,40 € ÷ 3', st: 'left:-9%;top:16%', r: '-5deg', d: '.5s' },
             { h: '4,13 € a testa', st: 'right:-8%;top:30%', r: '4deg', d: '1s' }] },
@@ -1071,7 +1058,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     zen:      { e: '🧘', t: 'La casa quasi zen', d: 'Qualche intoppo ogni tanto, niente che una chiacchiera in cucina non sistemi.', b: '#4cc35a', f: '#1e1d33' },
     fantasma: { e: '👻', t: 'La casa dei turni fantasma', d: 'I turni ci sono, tutti d’accordo. Poi spariscono nel nulla.', b: '#7c5cff', f: '#ffffff' },
     venerdi:  { e: '💸', t: 'La casa del «ti ridò tutto venerdì»', d: 'Ognuno paga qualcosa, nessuno ricorda cosa. E il venerdì non arriva mai.', b: '#ffb020', f: '#1e1d33' },
-    bolletta: { e: '🧾', t: 'La casa della bolletta misteriosa', d: 'Arriva, qualcuno la paga, poi parte l’indagine su chi deve quanto.', b: '#3d8bff', f: '#ffffff' },
+    bolletta: { e: '📬', t: 'La casa della bolletta misteriosa', d: 'Arriva, qualcuno la paga, poi parte l’indagine su chi deve quanto.', b: '#3d8bff', f: '#ffffff' },
     latte:    { e: '🥛', t: 'La casa del latte finito', d: 'Due cartoni comprati lo stesso giorno, zero la settimana dopo.', b: '#ff6fa8', f: '#1e1d33' },
     tregua:   { e: '⚔️', t: 'La casa in tregua armata', d: 'Soldi, faccende, spesa: ogni settimana un fronte nuovo. Ma la pace regge.', b: '#ff5a3c', f: '#ffffff' }
   };
@@ -1093,8 +1080,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     var box = document.getElementById('cartabox'), g = document.getElementById('grazie');
     if (casa !== 'sì' && casa !== "ci ho vissuto nell'ultimo anno") { box.hidden = true; document.getElementById('finvuoto').hidden = false; return; }
     var r = tipoDellaCasa(), c = TIPI[r.k]; tipoCasa = c;
-    // tutta la pagina finale prende il colore della carta
-    g.style.setProperty('--cb', c.b); g.style.setProperty('--cf', c.f);
+    // la carta prende il colore del tipo di casa
+    box.style.setProperty('--cb', c.b); box.style.setProperty('--cf', c.f);
     document.getElementById('finvuoto').hidden = true;
     document.getElementById('cartalbl').textContent = casa === 'sì' ? 'La tua casa è' : 'La tua ultima casa era';
     document.getElementById('cartaemo').textContent = c.e;
@@ -1112,7 +1099,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   }
 
   // Il problema principale di chi ha risposto, scelto dalle sue risposte, e cosa farebbe l'app proprio per quello.
-  // Testi brevi (la pagina finale sta in una schermata) che riprendono le sue risposte e non promettono niente:
+  // Testi brevi che riprendono le sue risposte e non promettono niente:
   // l'app non esiste ancora, e chi ha detto che non gli serve si sente dire che va bene così.
   var AREE = {
     soldi:    { nome: 'I soldi', soggetto: 'sono i soldi', da: 'dai soldi', ico: '💶', col: '#22b8a7', desc: 'dubbi su chi doveva dei soldi a chi',
@@ -1215,13 +1202,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       casaBtn.hidden = true; amici.hidden = false; amici2.hidden = true;
       if (ultima && c) amici.href = wa('Ho fatto un sondaggio di 2 minuti sulla vita tra coinquilini. La mia ultima casa? ' + c.t + ' ' + c.e + '\n\nE la tua? 👀', link);
     }
-    // i link piccoli vanno in fondo all'ultima schermata visibile
-    var ultimaPag = focus.hidden ? document.getElementById('finp1') : focus;
-    ultimaPag.appendChild(document.getElementById('finlink'));
-    // "Scorri in su" solo se c'è la seconda schermata; sparisce appena si scorre
-    var hint = document.getElementById('finhint');
-    hint.hidden = focus.hidden;
-    if (!focus.hidden) addEventListener('scroll', function(){ if (window.pageYOffset > 40) hint.classList.add('via'); }, { passive: true });
+
   }
 
 
@@ -1382,11 +1363,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     var g = document.getElementById('grazie');
     Array.prototype.forEach.call(g.parentNode.children, function(el){ el.hidden = el !== g; });
     g.hidden = false;
-    // anche sopra e sotto la pagina (quando si tira lo schermo) si vede il colore della carta
-    document.documentElement.style.setProperty('--fondo', getComputedStyle(g).getPropertyValue('--cb').trim() || '#1e1d33');
-    document.documentElement.classList.add('fascia');
-    // le due schermate del risultato scattano una alla volta, come le schermate dell'app
-    if (!document.getElementById('focus').hidden) document.documentElement.classList.add('finale');
+    document.documentElement.classList.remove('fascia');
+
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
