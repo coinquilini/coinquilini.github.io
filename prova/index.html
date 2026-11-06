@@ -421,6 +421,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
 /* Revisione leggibilità — 6 novembre 2026. Palette e questionario conservati. */
 .wrap{gap:0}
+#sondaggio{margin-top:0}
 .hero{--band:#6242d6;padding:22px 0 26px;gap:10px}
 .hero .logo{width:68px;height:56px}
 .hero .eyebrow{margin:0;font-size:12px}
@@ -1024,7 +1025,7 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
   // quante domande obbligatorie restano (passi 3 e 4), per dire che il sondaggio non è finito
   function mancano(){
     var n = 0;
-    document.querySelectorAll('.step.s3 .q[data-req], .step.s4 .q[data-req]').forEach(function(q){ if (!q.hidden) n++; });
+    document.querySelectorAll('.step.s3 .q[data-req], .step.s4 .q[data-req]').forEach(function(q){ if (!q.hidden && !q.querySelector('input:checked')) n++; });
     return n;
   }
   function apri(){
@@ -1198,6 +1199,11 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
     q.querySelector('.hint').appendChild(count);
   });
   function aggiorna(){
+    if (visto) {
+      var restano = 'Restano ' + mancano() + ' domande obbligatorie';
+      document.getElementById('giroavanti').textContent = restano;
+      if (tt) tt.querySelector('.slmancatx').textContent = restano;
+    }
     document.querySelectorAll('.q[data-max]').forEach(function(q){
       q.querySelector('.selection-count').textContent = q.querySelectorAll('input[type=checkbox]:checked').length + ' di ' + q.dataset.max + ' selezionate';
     });
@@ -1394,8 +1400,8 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
   var giaChiesto = false, velo = document.getElementById('velo');
-  function apriVelo(){ velo.hidden = false; document.querySelector('.wrap').inert = true; document.getElementById('email3err').hidden = true; document.getElementById('velotit').setAttribute('tabindex', '-1'); document.getElementById('velotit').focus(); }
-  function chiudiVelo(){ velo.hidden = true; document.querySelector('.wrap').inert = false; document.getElementById('invia').focus({preventScroll:true}); }
+  function apriVelo(){ velo.hidden = false; f.inert = true; document.querySelector('.hero').inert = true; document.getElementById('email3err').hidden = true; document.getElementById('velotit').setAttribute('tabindex', '-1'); document.getElementById('velotit').focus(); }
+  function chiudiVelo(){ velo.hidden = true; f.inert = false; document.querySelector('.hero').inert = false; document.getElementById('invia').focus({preventScroll:true}); }
   document.getElementById('velosi').addEventListener('click', function(){
     var em = document.getElementById('email3').value.trim(), er = document.getElementById('email3err');
     if (!buona(em)) { er.textContent = em ? 'Questa email non sembra giusta: controllala' : 'Scrivi la tua email, oppure tocca "Continua senza email"'; er.hidden = false; return; }
