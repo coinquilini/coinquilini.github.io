@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="it">
+<html lang="it" data-theme="light" data-edizione="v32-202611061438">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta name="description" content="2 minuti, anonimo: soldi, bollette e faccende tra coinquilini. Spoiler: dentro c'è un'anteprima dell'app che stiamo creando 👀">
+<meta name="description" content="Circa 4 minuti, anonimo: soldi, bollette e faccende tra coinquilini. Dentro c’è un’anteprima dell’app che stiamo creando 👀">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Come si vive in una casa condivisa?">
-<meta property="og:description" content="2 minuti, anonimo: soldi, bollette e faccende tra coinquilini. Spoiler: dentro c'è un'anteprima dell'app che stiamo creando 👀">
+<meta property="og:description" content="Circa 4 minuti, anonimo: soldi, bollette e faccende tra coinquilini. Dentro c’è un’anteprima dell’app che stiamo creando 👀">
 <meta property="og:image" content="https://coinquilini.github.io/anteprima-whatsapp-2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -32,6 +32,10 @@
 body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--page)}
 html{scroll-behavior:smooth}
+/* niente scorrimento di lato: le fasce colorate arrivano ai bordi ma non allargano la pagina */
+html,body{overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+html.fascia body::before{background:var(--fondo)}
 .wrap{max-width:640px;margin:0 auto;padding-block:26px 0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:26px}
 h1,h2,.d{font-family:var(--display);font-weight:600;letter-spacing:-.01em;margin:0}
 h1{font-size:clamp(30px,8vw,40px);line-height:1.05;text-wrap:balance}
@@ -40,14 +44,69 @@ h2{font-size:22px}
 .hero{display:flex;flex-direction:column;gap:14px}
 
 /* telefoni (sempre chiari, come una foto) */
-.strip{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 14px;scroll-snap-type:x mandatory;margin:0 -2px}
-.shot{flex:0 0 auto;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px}
-.shot p{margin:0;font-size:13px;color:var(--soft);font-weight:600;max-width:255px;padding:0 4px}
+.strip{display:flex;flex-direction:column;align-items:center;gap:26px;padding:4px 0 14px}
+.shot{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shot p{margin:0;font-size:13px;color:var(--soft);font-weight:600;max-width:255px;padding:0 4px;text-align:center}
 .dev{width:300px;height:650px;border-radius:50px;background:#16151f;padding:10px;zoom:var(--z,.85)}
-/* giro delle schermate: mentre si scende, la sezione resta ferma e i telefoni scorrono di lato */
-#giro.on .pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:env(safe-area-inset-top,0px)}
-#giro.on .strip{overflow:hidden;scroll-snap-type:none}
-#giro .shot p{max-width:calc(300px * var(--z,.85))}
+/* schermate dell'app: senza JavaScript restano una sotto l'altra; con JavaScript si aprono a tutto schermo e si scorrono in su, una alla volta, come su TikTok */
+#giro.js .strip{display:none}
+.lancio{width:100%;display:flex;align-items:center;gap:14px;border:0;border-radius:24px;padding:18px 18px 18px 20px;background:#ffb020;color:#1e1d33;text-align:left;cursor:pointer;font:inherit;box-shadow:0 5px 0 rgba(0,0,0,.25);-webkit-tap-highlight-color:transparent}
+.lancio .lt{flex:1;display:flex;flex-direction:column;gap:2px}
+.lancio b{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.15}
+.lancio small{font-weight:700;font-size:13px;opacity:.75}
+.lancio .play{flex:none;width:52px;height:52px;border-radius:50%;background:#1e1d33;color:#ffb020;display:flex;align-items:center;justify-content:center;animation:pulsa 1.8s ease-in-out infinite}
+.lancio .play svg{width:26px;height:26px;margin-left:3px}
+@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(30,29,51,.35)}50%{box-shadow:0 0 0 10px rgba(30,29,51,0)}}
+
+html.tton,html.tton body{overflow:hidden;overscroll-behavior:none}
+.tt{position:fixed;inset:0;z-index:60;background:#1e1d33;color:var(--fgnow,#1e1d33);animation:ttin .5s cubic-bezier(.2,.9,.25,1)}
+.tt[hidden]{display:none!important}
+.tt.esce{animation:ttout .35s ease-in forwards}
+@keyframes ttin{from{transform:translateY(100%)}to{transform:none}}
+@keyframes ttout{to{transform:translateY(100%)}}
+.ttscroll{position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.ttscroll::-webkit-scrollbar{display:none}
+.sl{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  padding:calc(58px + env(safe-area-inset-top,0px)) 18px calc(70px + env(safe-area-inset-bottom,0px));
+  color:var(--fg);background:radial-gradient(circle at 12% 18%,rgba(255,255,255,.38),transparent 38%),radial-gradient(circle at 88% 82%,rgba(255,255,255,.28),transparent 42%),var(--bg)}
+.slcap{text-align:center;max-width:340px}
+.slcap b{display:block;font-family:var(--display);font-weight:600;font-size:31px;line-height:1.02;letter-spacing:-.01em}
+.slcap span{display:block;margin-top:7px;font-weight:700;font-size:15px;line-height:1.35;opacity:.85}
+.slph{position:relative}
+.sl .dev{zoom:var(--tz,.7);box-shadow:0 34px 60px rgba(0,0,0,.35);transform:scale(.9) rotate(-3deg);opacity:.6;transition:transform .7s cubic-bezier(.2,1.3,.4,1),opacity .4s}
+.sl.on .dev{transform:none;opacity:1}
+.sl.on .slph{animation:galleggia 4.5s ease-in-out .8s infinite}
+@keyframes galleggia{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.sl.on .slcap{animation:capin .55s ease-out both}
+@keyframes capin{from{opacity:0;transform:translateY(16px)}}
+.stk{position:absolute;z-index:3;background:#fff;color:#1e1d33;border-radius:16px;padding:9px 13px;font-weight:800;font-size:14px;line-height:1.2;box-shadow:0 12px 26px rgba(0,0,0,.28);white-space:nowrap;opacity:0;transform:translateY(18px) scale(.5) rotate(var(--r,0deg))}
+.sl.on .stk{animation:pop .65s cubic-bezier(.2,1.6,.4,1) var(--d,.45s) forwards}
+@keyframes pop{to{opacity:1;transform:translateY(0) scale(1) rotate(var(--r,0deg))}}
+.stk.notif{left:-5%;right:-5%;top:6%;white-space:normal;display:flex;align-items:center;gap:10px;border-radius:20px;padding:10px 12px;background:rgba(255,255,255,.96);transform:translateY(-40px) scale(.9);font-size:13.5px}
+.stk.notif svg{width:34px;height:28px;flex:none}
+.stk.notif small{display:block;font-weight:700;font-size:11px;color:#6b6a7d}
+.sl.fine .slcap b{font-size:36px}
+.slmanca{margin:4px 0 0;display:flex;flex-direction:column;align-items:center;gap:8px;font-weight:800;font-size:15px;text-align:center;color:#ffb020}
+.slbarra{display:flex;gap:5px}
+.slbarra i{width:34px;height:6px;border-radius:3px;background:#ffb020}
+.slbarra i.no{background:rgba(255,255,255,.25)}
+.giroavanti{margin:12px 0 0;text-align:center;font-weight:800;font-size:16px;color:#fff}
+.ttgo{border:0;border-radius:999px;background:#ffb020;color:#1e1d33;font-family:var(--display);font-weight:600;font-size:19px;padding:16px 28px;box-shadow:0 5px 0 rgba(0,0,0,.3);cursor:pointer}
+.ttdinuovo{border:0;background:none;color:inherit;font:inherit;font-weight:800;text-decoration:underline;text-underline-offset:3px;opacity:.8;cursor:pointer}
+.ttbar{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 0;pointer-events:none}
+.ttseg{flex:1;display:flex;gap:4px}
+.ttseg i{flex:1;height:4px;border-radius:2px;background:currentColor;opacity:.22;transition:opacity .3s}
+.ttseg i.ok{opacity:.9}
+.ttx{pointer-events:auto;flex:none;border:0;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.14);color:inherit;font:inherit;font-size:20px;font-weight:800;line-height:1;cursor:pointer}
+.tthint{position:absolute;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:8px;background:#1e1d33;color:#fff;border-radius:999px;padding:10px 18px 10px 14px;font-family:var(--display);font-weight:600;font-size:16px;white-space:nowrap;pointer-events:none;transition:opacity .35s,transform .35s}
+.tthint svg{width:20px;height:20px;animation:su 1.2s ease-in-out infinite}
+.tthint.via{opacity:0;transform:translate(-50%,12px)}
+@keyframes su{0%,100%{transform:translateY(3px)}50%{transform:translateY(-4px)}}
+.sl.intro .slcap b{font-size:38px}
+.introemo{font-size:96px;line-height:1}
+.sl.intro.on .introemo{animation:rimbalza .7s cubic-bezier(.2,1.8,.4,1) .2s both}
+@keyframes accenno{0%,100%{transform:translateY(0)}40%{transform:translateY(-38px)}}
+@media (prefers-reduced-motion:reduce){.tt,.tt.esce,.sl.on .slph,.sl.on .slcap,.tthint svg,.lancio .play{animation:none}.sl .dev{transition:none}.stk,.sl.on .stk{animation:none;opacity:1;transform:rotate(var(--r,0deg))}.tt.esce{display:none}}
 .scr{position:relative;width:100%;height:100%;border-radius:41px;overflow:hidden;background:#f5f6f1;color:#1e1d33;font-family:var(--body);font-size:13px;line-height:1.3;display:flex;flex-direction:column;--ink:#1e1d33;--soft:#6b6a7d;--line:#e6e5ee;--card:#fff}
 .island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:86px;height:25px;border-radius:13px;background:#000;z-index:3}
 .sb{flex:0 0 42px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 32px;font-weight:800;font-size:13px}
@@ -61,9 +120,6 @@ h2{font-size:22px}
 .sws{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
 .sw{aspect-ratio:1;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#1e1d33}
 .sw.sel{box-shadow:0 0 0 3px #fff,0 0 0 6px #1e1d33}
-.pager{display:flex;justify-content:center;gap:6px;margin-top:2px}
-.pager i{width:7px;height:7px;border-radius:50%;background:var(--line);transition:width .2s}
-.pager i.on{width:20px;border-radius:4px;background:var(--ink)}
 .h{font-family:var(--display);font-weight:600;font-size:27px;margin:2px 2px 0}
 .sub{color:#6b6a7d;font-size:11.5px;margin:0 2px;font-weight:600}
 .lbl{font-family:var(--display);font-weight:600;font-size:13px;margin:13px 2px 6px;display:flex;justify-content:space-between;align-items:center}
@@ -132,11 +188,37 @@ input[type=text]:focus,input[type=email]:focus,textarea:focus{outline:none;borde
 .wa{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:600;font-size:17px;border-radius:999px;padding:15px 20px;background:#25d366;color:#0b2e17}
 .check{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;font-weight:600;color:var(--soft)}
 .check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--ink);flex:0 0 20px}
-#grazie{display:flex;flex-direction:column;gap:14px;padding-bottom:60px}
 /* sotto l'ultimo passo niente spazio bianco: lo sfondo prende il colore del passo */
 html.fascia{background:var(--fondo)}
 .done{background:var(--card);border-radius:22px;padding:22px 18px;display:flex;flex-direction:column;gap:12px}
 .okmsg{color:var(--ok);font-weight:800}
+/* pagina finale: una schermata intera nel colore della casa. Poco testo, gerarchia netta:
+   tipo di casa in grande, una riga corta, il punto debole in un'etichetta, il pulsante in fondo */
+html.fineon,html.fineon body{overflow:hidden}
+#grazie.fin{position:fixed;inset:0;z-index:40;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;
+  background:radial-gradient(circle at 18% 12%,rgba(255,255,255,.34),transparent 45%),radial-gradient(circle at 90% 85%,rgba(255,255,255,.18),transparent 40%),var(--cb,#1e1d33);
+  color:var(--cf,#fff);--ink:var(--cf,#fff);
+  padding:calc(16px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) calc(34px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px))}
+#grazie.fin[hidden]{display:none!important}
+.finsu{flex:1;display:flex;flex-direction:column;width:100%;max-width:520px;margin:0 auto}
+.finok{align-self:center;margin:0;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.26);border-radius:999px;padding:6px 13px 6px 10px;font-weight:800;font-size:13px}
+.fincentro{margin:auto 0;padding:28px 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;animation:rivela .8s cubic-bezier(.2,1.25,.35,1) .1s both;transform-origin:50% 100%}
+@keyframes rivela{from{opacity:0;transform:translateY(30px) scale(.94)}to{opacity:1;transform:none}}
+.finlbl{margin:0;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.finemo{font-size:96px;line-height:1;margin:2px 0 -2px;animation:rimbalza .7s cubic-bezier(.2,1.8,.4,1) .6s both}
+@keyframes rimbalza{from{transform:scale(0) rotate(-30deg)}to{transform:none}}
+.fintit{font-family:var(--display);font-weight:600;font-size:clamp(42px,13vw,58px);line-height:.98;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.finsub{margin:0 auto;font-weight:700;font-size:19px;line-height:1.35;opacity:.8;max-width:20em;text-wrap:balance}
+.finchip{margin:6px 0 0;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.3);border-radius:999px;padding:10px 18px 10px 14px;font-weight:800;font-size:16px}
+.finchip b{font-weight:800;opacity:.7}
+.finlista{margin:0;font-weight:700;font-size:14px;opacity:.75}
+.fingiu{width:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.finq{margin:0;text-align:center;font-family:var(--display);font-weight:600;font-size:18px;line-height:1.2}
+.fingiu .wa{padding:16px 20px;font-size:18px;box-shadow:0 5px 0 rgba(0,0,0,.18)}
+.finlink{display:flex;justify-content:center;gap:4px 26px}
+.finlink .copia{color:inherit;font-size:15px;opacity:.85}
+@media (prefers-reduced-motion:reduce){.fincentro,.finemo{animation:none}}
+@media (max-height:700px){.finemo{font-size:72px}.fincentro{gap:10px;padding:16px 0}.finsub{font-size:17px}}
 .foot{text-align:center;font-size:12.5px;color:var(--soft);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 /* stile minimal */
@@ -156,30 +238,39 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .sub2{display:flex;flex-direction:column;gap:12px}
 .sub2[hidden]{display:none}
 /* fasce di colore */
-.bleed{box-shadow:0 0 0 100vmax var(--band);clip-path:inset(0 -100vmax);background:var(--band)}
-.hero{--band:#1e1d33;color:#fff;--ink:#fff;--soft:#c9c7dc;margin-top:-26px;padding:30px 0 38px}
-.hero .lead{color:#c9c7dc}
+.bleed{position:relative;isolation:isolate;clip-path:inset(0 -100vmax)}
+/* lo sfondo di ogni fascia ha la stessa luce della pagina finale */
+.bleed::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);background:radial-gradient(circle at calc(50% - 130px) 80px,rgba(255,255,255,.32),transparent 420px),radial-gradient(circle at calc(50% + 190px) calc(100% - 80px),rgba(255,255,255,.16),transparent 380px),var(--band)}
+.hero{--band:#7c5cff;color:#fff;--ink:#fff;--soft:rgba(255,255,255,.85);margin-top:-26px;padding:34px 0 42px;align-items:center;text-align:center}
+.hero .logo{margin:0}
+.hero .eyebrow{justify-content:center}
+.hero .lead{margin-left:auto;margin-right:auto;text-wrap:balance}
+.hero .meta{justify-content:center;gap:8px}
+.hero .meta span{background:rgba(255,255,255,.22);border-radius:999px;padding:6px 14px}
+.hero .meta span::before{display:none}
+.hero .lead{color:rgba(255,255,255,.88)}
 .hero h1{line-height:1.14}
 .hero mark{background:var(--tu);color:#1e1d33;padding:0 10px;border-radius:12px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .hero .meta span::before{background:var(--tu)}
 
 /* un passo alla volta */
-.step{--band:#ffb020;color:#1e1d33;--ink:#1e1d33;--soft:#3d3b57;--card:#fff;--line:rgba(30,29,51,.2);--sel:#1e1d33;--sel-ink:#fff;--err:#8a1a0c;padding:30px 0 34px;display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.step{--band:#ffb020;color:#1e1d33;--ink:#1e1d33;--soft:#3d3b57;--card:#fff;--line:rgba(30,29,51,.2);--sel:#1e1d33;--sel-ink:#fff;--err:#8a1a0c;padding:30px 0 calc(110px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:4px;margin-top:6px}
 .step[hidden]{display:none}
 #sondaggio{margin-top:-32px}
 .s2{--band:#ff6fa8}
-.s3{--band:#1e1d33;color:#fff;--ink:#fff;--soft:#c9c7dc;--line:rgba(255,255,255,.18);--sel:#ffb020;--sel-ink:#1e1d33;--err:#ffb3a6}
+.s3{--band:#3d8bff;color:#fff;--ink:#fff;--soft:rgba(255,255,255,.85);--line:rgba(255,255,255,.25);--sel:#ffb020;--sel-ink:#1e1d33;--err:#ffe0d9}
 .s4{--band:#22b8a7}
-.stephead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.stephead{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:4px}
+.stemo{font-size:64px;line-height:1;text-align:center;margin:6px 0 2px}
 .seg{display:flex;gap:5px}
 .seg i{width:28px;height:7px;border-radius:4px;background:currentColor;opacity:.22}
 .seg i.on{opacity:1}
 .sn{font-family:var(--display);font-weight:600;font-size:14px}
-.st{font-family:var(--display);font-weight:600;font-size:clamp(34px,10vw,46px);line-height:1;margin:0;letter-spacing:-.02em}
+.st{font-family:var(--display);font-weight:600;font-size:clamp(36px,11vw,50px);line-height:1;margin:0;letter-spacing:-.02em;text-align:center;text-wrap:balance}
 .ss{margin:6px 0 10px;font-family:var(--display);font-weight:600;font-size:17px;opacity:.85}
 /* ogni domanda in una scheda; risposte in una griglia di caselle uguali */
 .step{gap:12px}
-.step .ss{margin:0 0 6px}
+.step .ss{margin:0 auto 8px;text-align:center;text-wrap:balance;max-width:30em}
 .step .q{background:#fff;color:#1e1d33;border-radius:22px;padding:18px 16px;display:flex;flex-direction:column;gap:12px;--tile:#f3f2f7;--tile-ink:#1e1d33}
 .step .q .t{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.25}
 .step .q .hint{margin:-6px 0 0;font-size:14px;font-weight:600;color:#6b6a7d}
@@ -193,9 +284,9 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .step .q input[type=text],.step .q input[type=email],.step .q textarea{background:var(--tile);border-color:transparent;color:#1e1d33}
 .step .q input[type=text]:focus,.step .q input[type=email]:focus,.step .q textarea:focus{border-color:#1e1d33}
 .step .q .err{color:#c2301c}
-.s3 .q{background:rgba(255,255,255,.08);color:#fff;--tile:rgba(255,255,255,.1);--tile-ink:#fff}
+.s3 .q{background:rgba(255,255,255,.16);color:#fff;--tile:rgba(255,255,255,.18);--tile-ink:#fff}
 .s3 .q .err{color:#ffb3a6}
-.s3 .q .hint{color:#c9c7dc}
+.s3 .q .hint{color:rgba(255,255,255,.85)}
 /* nome: due schede grandi */
 .nomi{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .nomi input{position:absolute;opacity:0;pointer-events:none}
@@ -272,8 +363,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .s3 .next{background:#ffb020;color:#1e1d33}
 .next[disabled]{opacity:.6}
 .next:focus-visible,.back:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.s3 .plan{background:rgba(255,255,255,.08);color:#fff}
-.s3 .plan .ps{color:#c9c7dc}
+.s3 .plan{background:rgba(255,255,255,.16);color:#fff}
+.s3 .plan .ps{color:rgba(255,255,255,.85)}
 .s3 .plan.pro{background:#ffb020;color:#1e1d33;box-shadow:none}
 .s3 .plan.pro .ps{color:#5a4310}
 .s3 .plan.pro li::before{background:#1e1d33}
@@ -302,6 +393,120 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .nh span{font-size:10.5px;color:#6b6a7d;white-space:nowrap}
 .lockbtns{position:absolute;bottom:26px;left:30px;right:30px;display:flex;justify-content:space-between}
 .lockbtns span{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;color:#fff}
+/* domande con lo stile nuovo: riquadri bianchi "adesivo" con il numero nel colore del passo,
+   risposte grandi tinte del colore del passo, che si schiacciano al tocco; la scelta diventa blu scuro con la spunta */
+.step{counter-reset:dom}
+.s1{--acc:#ffb020}.s2{--acc:#ff6fa8}.s3{--acc:#3d8bff}.s4{--acc:#22b8a7}
+.step .q{position:relative;border-radius:28px;padding:22px 18px 18px;gap:14px;box-shadow:0 6px 0 rgba(30,29,51,.14);margin-top:8px}
+.s1 .q{--tile:#fff1d1}.s2 .q{--tile:#ffe3ef}.s4 .q{--tile:#d6f3ee}
+.s3 .q{background:#fff;color:#1e1d33;--tile:#e3eeff;--tile-ink:#1e1d33}
+.s3 .q .hint{color:#6b6a7d}.s3 .q .err{color:#c2301c}
+.step .q::before{counter-increment:dom;content:counter(dom);position:absolute;top:-13px;left:18px;width:32px;height:32px;border-radius:50%;background:var(--acc);color:#1e1d33;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;font-size:16px;box-shadow:0 3px 0 rgba(30,29,51,.2),0 0 0 3px #fff}
+.s3 .q::before{color:#fff}
+.step .q .t{font-size:20px;line-height:1.22}
+.step .opts{gap:10px}
+.step .opts label{border:0;border-radius:18px;min-height:56px;font-weight:800;box-shadow:0 3px 0 rgba(30,29,51,.1);transition:transform .12s,background .15s,color .15s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+.step .opts label:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(30,29,51,.1)}
+.step .opts input:checked+label{background:#1e1d33;color:#fff;border-color:#1e1d33;box-shadow:0 3px 0 var(--acc);animation:scelta .28s ease-out}
+@keyframes scelta{0%{transform:scale(.95)}60%{transform:scale(1.03)}100%{transform:none}}
+.step .opts.c1 label{gap:12px;padding:12px 14px;min-height:54px}
+.step .opts.c1 label::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 2px rgba(30,29,51,.22)}
+.step .opts.c1 input[type=checkbox]+label::before{border-radius:7px}
+.step .opts.c1 input:checked+label::before{background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%23ffffff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/15px no-repeat;box-shadow:none}
+.step .q input[type=text],.step .q input[type=email],.step .q textarea{border-radius:18px;border:2px solid transparent}
+.s3 .q.pro{box-shadow:0 6px 0 rgba(30,29,51,.18)}
+/* il riquadro giallo del prezzo è una spiegazione, non una domanda: niente numero */
+.step .q.pro::before{content:none}
+@media (prefers-reduced-motion:reduce){.step .opts input:checked+label{animation:none}}
+
+/* Revisione leggibilità — 6 novembre 2026. Palette e questionario conservati. */
+.wrap{gap:0}
+#sondaggio{margin-top:0}
+.hero{--band:#6242d6;padding:22px 0 26px;gap:10px}
+.hero .logo{width:68px;height:56px}
+.hero .eyebrow{margin:0;font-size:12px}
+.hero h1{font-size:clamp(29px,7.5vw,38px)}
+.hero .lead{font-size:16px;line-height:1.45;margin-top:2px;max-width:30em;color:#fff}
+.hero .meta{margin:4px 0 0;gap:6px}
+.hero .meta span{padding:5px 10px;font-size:12px}
+.step{padding:22px 0 calc(36px + env(safe-area-inset-bottom,0px));gap:16px;margin-top:0}
+.stephead{margin-bottom:0}
+.st{font-size:clamp(28px,8vw,36px);line-height:1.12}
+.stemo{font-size:32px;margin:0}
+.step .ss{font-family:var(--body);font-size:16px;font-weight:600;line-height:1.45;margin:0 0 4px;opacity:1}
+.s3{color:#1e1d33}
+.s3 .seg i{background:rgba(30,29,51,.25)}.s3 .seg i.on{background:#1e1d33}
+.step .q{border-radius:24px;box-shadow:0 3px 0 rgba(30,29,51,.12);padding:24px 16px 18px;gap:12px}
+.step .q .t{font-size:19px;line-height:1.3}
+.step .opts label{font-size:15px;font-weight:700;line-height:1.3;box-shadow:none;min-height:52px}
+.step .opts input:checked+label{box-shadow:inset 0 0 0 2px #1e1d33;animation:none}
+.step .opts.c1 input:checked+label::before{background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%231e1d33' stroke-width='3.6'/%3E%3C/svg%3E")}
+.step .opts input:focus-visible+label,.nomi input:focus-visible+label{outline:3px solid #1e1d33;outline-offset:3px}
+.step .q::before{box-shadow:0 0 0 3px #fff;font-size:14px;width:28px;height:28px}
+.righe{gap:18px}.riga+.riga{border-top:1px solid #e6e5ee;padding-top:16px}
+.step .riga .opts{gap:6px}.step .riga .opts label{font-size:13px;padding:8px 3px}
+.step .q .hint{line-height:1.4;margin:0}
+.selection-count{display:block;color:#1e1d33;font-size:13px;margin-top:4px}
+.navi{display:grid;grid-template-columns:1fr;gap:10px;padding:4px 4px 0;margin-top:4px}
+.navi .next{width:100%;margin:0;min-height:52px;box-shadow:0 3px 0 rgba(30,29,51,.18);grid-row:1}
+.navi .back{justify-self:center;padding:12px 20px;opacity:1;color:#1e1d33}
+.next:focus-visible,.back:focus-visible,summary:focus-visible,.lancio:focus-visible,.tt button:focus-visible{outline:3px solid #1e1d33;outline-offset:4px}
+.lancio{box-shadow:0 3px 0 rgba(30,29,51,.16);padding:16px}
+.lancio .play{animation:none;width:42px;height:42px}.lancio .play svg{margin:0;width:24px;height:24px}
+.lancio.rivisto{background:transparent;border:1.5px solid #1e1d33;box-shadow:none;padding:12px 16px;border-radius:16px}
+.lancio.rivisto b{font-family:var(--body);font-size:16px}.lancio.rivisto small,.lancio.rivisto .play{display:none}
+.giroavanti{color:#1e1d33;font-size:14px;font-weight:700;margin:12px 0 4px}
+.price{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.price-main{font-size:24px;line-height:1.2}.price small{margin-top:5px;font-size:14px}
+.price .each{text-align:left;font-family:var(--body);font-weight:600;font-size:15px;line-height:1.4;color:#eeedf7}
+.premium-list{margin:0;padding-left:20px;font-size:15px;line-height:1.5}.premium-list li+li{margin-top:6px}
+.s3 .q.pro{box-shadow:0 3px 0 rgba(30,29,51,.12)}
+.step .q .facolt{display:block!important;margin:5px 0 0;font-size:13px;font-weight:600}
+.nomi label{min-height:94px;font-size:24px;gap:4px}.nomi label svg{width:34px;height:28px}
+details.altro{display:block;padding-top:4px}details.altro summary{cursor:pointer;font-size:15px;font-weight:700;padding:8px 0}
+details.altro label{display:block;margin:10px 0 8px;font-size:14px}
+.field-help{margin:0;color:#525064;font-size:15px;font-weight:600;line-height:1.5}
+.field-label{font-size:15px;font-weight:700}
+.step .q textarea{min-height:112px}
+.step .q input:focus,.step .q textarea:focus{border-color:#1e1d33;outline:2px solid #1e1d33;outline-offset:2px}
+#emailq::before{content:none;counter-increment:none}
+.perks2{gap:10px}.perks2 li{font-size:15px;line-height:1.45}.perks2 li::before{content:'✓';color:#1e1d33;font-weight:800}
+.notaemail{font-size:14px;line-height:1.5;margin:0;color:#525064}
+.foglio{max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain;padding:22px 18px;box-shadow:0 -3px 0 var(--tu)}
+.foglio .no{border:1.5px solid #1e1d33;border-radius:999px;color:#1e1d33;min-height:50px;text-decoration:none;font-weight:700}
+.foglio button:focus-visible{outline:3px solid #1e1d33;outline-offset:3px}
+.ttbar{gap:8px;padding-top:calc(10px + env(safe-area-inset-top,0px));align-items:center}
+.ttcount{font-size:13px;font-weight:800;white-space:nowrap}.ttseg{max-width:90px}
+.ttx{width:auto;min-height:44px;height:auto;border-radius:999px;padding:10px 12px;font-size:13px;font-weight:800;margin-left:auto;background:#1e1d33;color:#fff}
+.ttx span{font-size:18px;margin-left:5px}
+.sl{padding:calc(68px + env(safe-area-inset-top,0px)) 16px calc(48px + env(safe-area-inset-bottom,0px));background:var(--bg);gap:14px;overflow-y:auto}
+.slcap b{font-size:28px;line-height:1.1}.slcap span{font-size:16px;font-weight:600;opacity:1;line-height:1.4}
+.sl.on .slph{animation:none}.sl .dev{transform:none;opacity:1;transition:none;box-shadow:0 18px 30px rgba(0,0,0,.2)}
+.sl.fine .slcap b{font-size:30px}.sl.fine>svg{width:72px;height:59px}
+.ttgo{font-size:18px;max-width:100%}.tt button:focus-visible{outline-color:#fff}
+.chart-names{display:flex;justify-content:space-around;gap:6px;font-size:12px;font-weight:700;margin-top:8px}
+.chart-names span{flex:1;text-align:center}
+.fincentro{padding:24px 0;gap:12px;animation:none}.finemo{font-size:64px;animation:none}.fintit{font-size:clamp(32px,10vw,46px);line-height:1.1}
+.finsub{font-size:17px;line-height:1.45;opacity:1}.finchip{flex-wrap:wrap;justify-content:center;border-radius:18px;font-size:15px;max-width:100%}
+.finlink{flex-wrap:wrap}.finlink .copia{padding:12px}.fingiu .wa{font-size:16px;min-height:52px;padding:14px 16px;text-align:center}
+#correggi{margin-top:16px;background:#fff;color:#1e1d33;--soft:#525064;--ink:#1e1d33;--page:#fff}
+#correggi .riga2{flex-wrap:wrap}#correggi .riga2 input{min-width:160px}#correggi button{min-height:48px}
+@media(max-width:360px){
+  .step .riga .opts.c5{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .step .riga .opts.c5 label:last-child{grid-column:1/-1;min-height:42px;background:#f4f3f7}
+  .step .riga .opts.c5 input:checked+label:last-child{background:#1e1d33}
+  .hero .meta{gap:4px}.hero .meta span{padding:5px 7px}
+  .ttseg{display:none}.ttcount{font-size:12px}.ttx{font-size:12px}
+}
+@media(max-height:650px){.sl{padding-top:60px;padding-bottom:36px;gap:10px}.slcap b{font-size:23px}.slcap span{font-size:14px}.fincentro{padding:16px 0}.finemo{font-size:44px}}
+
+
+/* Domande v3: opzioni lunghe e frequenze con non applicabile. */
+.preview-note{font-size:13px!important;line-height:1.4;font-weight:800;padding:9px 12px;border:1px solid currentColor;border-radius:12px;margin:0 0 16px}
+.frequenze{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.frequenze label:nth-of-type(5),.frequenze label:nth-of-type(6){grid-column:span 2!important}
+.frequenze label{white-space:normal!important;min-width:0;line-height:1.25}
+.fin .fintit{font-size:clamp(30px,7vw,56px);overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -337,8 +542,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     <svg class="logo" width="112" height="91" aria-hidden="true"><use href="#casetta"/></svg>
     <p class="eyebrow"><i></i>Un sondaggio per chi divide casa</p>
     <h1>Come si vive in una <mark>casa condivisa</mark>?</h1>
-    <p class="lead">Stiamo studiando come si organizzano i coinquilini con soldi, bollette e faccende. Non ci sono risposte giuste: ci servono anche i "no, a noi va bene così".</p>
-    <p class="meta"><span>circa 2 minuti</span><span>4 passi</span><span>anonimo</span></p>
+    <p class="lead">Come vi organizzate con soldi, bollette e faccende? Ci interessa anche quando va tutto bene.</p>
+    <p class="meta"><span>circa 4 minuti</span><span>4 passi</span><span>anonimo</span></p>
   </header>
 
 
@@ -348,19 +553,18 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       <div class="step s1 bleed" data-step="1">
         <div class="stephead"><span class="seg"><i class="on"></i><i></i><i></i><i></i></span><span class="sn">Passo 1 di 4</span></div>
         <h2 class="st">La tua casa</h2>
-        <p class="ss">Partiamo dalle basi.</p>
 
         <div class="q" data-req="casa"><div class="t">Oggi vivi in una casa condivisa con persone che non sono la tua famiglia?</div>
           <div class="opts c1">
             <input type="radio" name="casa" id="h1" value="sì"><label for="h1">Sì</label>
             <input type="radio" name="casa" id="h2" value="ci ho vissuto nell'ultimo anno"><label for="h2">No, ma ci ho vissuto nell'ultimo anno</label>
             <input type="radio" name="casa" id="h3" value="ci andrò nei prossimi 6 mesi"><label for="h3">No, ma ci andrò nei prossimi 6 mesi</label>
-            <input type="radio" name="casa" id="h4" value="no"><label for="h4">No</label>
+            <input type="radio" name="casa" id="h4" value="no"><label for="h4">No, e non ho un trasferimento previsto nei prossimi 6 mesi</label>
           </div>
           <p class="hint" id="casanota" hidden>Rispondi pensando alla tua ultima casa condivisa, o a come pensi che sarà.</p>
           <div class="err" hidden></div></div>
 
-        <div class="q" data-req="persone" id="qpersone"><div class="t">Quante persone siete in casa, te compreso?</div>
+        <div class="q" id="qpersone"><div class="t">Quante persone siete in casa, te compreso?<span class="facolt">facoltativa</span></div>
           <div class="opts c4">
             <input type="radio" name="persone" id="p2" value="2"><label for="p2">2</label>
             <input type="radio" name="persone" id="p3" value="3"><label for="p3">3</label>
@@ -374,102 +578,68 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
       <div class="step s2 bleed" data-step="2" hidden>
         <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="sn">Passo 2 di 4</span></div>
+        <div class="stemo" aria-hidden="true">🧩</div>
         <h2 class="st">Come vi organizzate</h2>
-        <p class="ss">Come va davvero, non come dovrebbe andare.</p>
+        <p class="ss" id="esperienzanota">Pensa agli ultimi 30 giorni nella tua casa.</p>
 
-        <div class="q" data-req="mese"><div class="t">Nell'ultimo mese, quante volte è successo in casa?</div>
-          <div class="righe" data-mescola>
+        <div class="q" data-req="mese" id="qmese"><div class="t">Negli ultimi 30 giorni, quante volte è successo in casa?</div>
+          <p class="hint">Se una situazione non riguarda la casa, usa l’ultima opzione.</p><div class="righe" data-mescola>
             <div class="riga" data-r="soldi"><b>Dubbi su chi doveva dei soldi a chi</b>
-              <div class="opts c5">
+              <div class="opts frequenze">
                 <input type="radio" name="soldi" id="ms0" value="mai"><label for="ms0">Mai</label>
                 <input type="radio" name="soldi" id="ms1" value="1 volta"><label for="ms1">1 volta</label>
                 <input type="radio" name="soldi" id="ms2" value="2 o 3 volte"><label for="ms2">2 o 3</label>
                 <input type="radio" name="soldi" id="ms3" value="4 o più"><label for="ms3">4 o più</label>
-                <input type="radio" name="soldi" id="ms4" value="non so"><label for="ms4">Non so</label>
+                <input type="radio" name="soldi" id="ms4" value="non so"><label for="ms4">Non so</label><input type="radio" name="soldi" id="ms5" value="non applicabile"><label for="ms5">Non riguarda la casa</label>
               </div></div>
-            <div class="riga" data-r="bollette"><b>Una bolletta divisa in ritardo o in modo poco chiaro</b>
-              <div class="opts c5">
+            <div class="riga" data-r="bollette"><b>Non era chiaro quanto ognuno dovesse pagare per una bolletta</b>
+              <div class="opts frequenze">
                 <input type="radio" name="bolletta" id="mb0" value="mai"><label for="mb0">Mai</label>
                 <input type="radio" name="bolletta" id="mb1" value="1 volta"><label for="mb1">1 volta</label>
                 <input type="radio" name="bolletta" id="mb2" value="2 o 3 volte"><label for="mb2">2 o 3</label>
                 <input type="radio" name="bolletta" id="mb3" value="4 o più"><label for="mb3">4 o più</label>
-                <input type="radio" name="bolletta" id="mb4" value="non so"><label for="mb4">Non so</label>
+                <input type="radio" name="bolletta" id="mb4" value="non so"><label for="mb4">Non so</label><input type="radio" name="bolletta" id="mb5" value="non applicabile"><label for="mb5">Non riguarda la casa</label>
               </div></div>
-            <div class="riga" data-r="faccende"><b>Una faccenda saltata o fatta sempre dalle stesse persone</b>
-              <div class="opts c5">
+            <div class="riga" data-r="faccende"><b>Una faccenda comune rimasta da fare quando pensavi fosse necessaria</b>
+              <div class="opts frequenze">
                 <input type="radio" name="faccende" id="mf0" value="mai"><label for="mf0">Mai</label>
                 <input type="radio" name="faccende" id="mf1" value="1 volta"><label for="mf1">1 volta</label>
                 <input type="radio" name="faccende" id="mf2" value="2 o 3 volte"><label for="mf2">2 o 3</label>
                 <input type="radio" name="faccende" id="mf3" value="4 o più"><label for="mf3">4 o più</label>
-                <input type="radio" name="faccende" id="mf4" value="non so"><label for="mf4">Non so</label>
+                <input type="radio" name="faccende" id="mf4" value="non so"><label for="mf4">Non so</label><input type="radio" name="faccende" id="mf5" value="non applicabile"><label for="mf5">Non riguarda la casa</label>
               </div></div>
-            <div class="riga" data-r="spesa"><b>Qualcosa comprato due volte, o finito senza che nessuno lo ricomprasse</b>
-              <div class="opts c5">
+            <div class="riga" data-r="spesa"><b>Un prodotto per la casa finito senza che venisse ricomprato</b>
+              <div class="opts frequenze">
                 <input type="radio" name="spesa" id="mp0" value="mai"><label for="mp0">Mai</label>
                 <input type="radio" name="spesa" id="mp1" value="1 volta"><label for="mp1">1 volta</label>
                 <input type="radio" name="spesa" id="mp2" value="2 o 3 volte"><label for="mp2">2 o 3</label>
                 <input type="radio" name="spesa" id="mp3" value="4 o più"><label for="mp3">4 o più</label>
-                <input type="radio" name="spesa" id="mp4" value="non so"><label for="mp4">Non so</label>
+                <input type="radio" name="spesa" id="mp4" value="non so"><label for="mp4">Non so</label><input type="radio" name="spesa" id="mp5" value="non applicabile"><label for="mp5">Non riguarda la casa</label>
               </div></div>
           </div>
           <div class="err" hidden></div></div>
 
-        <div class="q" data-req="conseguenze" data-max="2" id="qconseguenze" hidden><div class="t">L'ultima volta che è successo una di queste cose, cosa ne è venuto fuori?</div>
-          <p class="hint">Al massimo 2 risposte.</p>
-          <div class="opts c1">
-            <input type="checkbox" name="conseguenze" id="c1" value="si è sistemato subito" data-solo><label for="c1">Niente, si è sistemato subito</label>
-            <input type="checkbox" name="conseguenze" id="c2" value="tempo perso"><label for="c2">Ho perso tempo a fare i conti o a ricordarlo agli altri</label>
-            <input type="checkbox" name="conseguenze" id="c3" value="soldi persi"><label for="c3">Ci ho rimesso dei soldi</label>
-            <input type="checkbox" name="conseguenze" id="c4" value="discussione o tensione"><label for="c4">Una discussione o un po' di tensione in casa</label>
-            <input type="checkbox" name="conseguenze" id="c5" value="ho fatto io al posto di altri"><label for="c5">Ho fatto io quello che toccava a un altro</label>
-            <input type="checkbox" name="conseguenze" id="c6" value="altro" data-altro="conseguenzealtro"><label for="c6">Altro</label>
-          </div>
-          <input type="text" id="conseguenzealtro" maxlength="80" placeholder="Cosa è successo?" hidden>
-          <div class="err" hidden></div></div>
-
-        <div class="q" data-req="metodo"><div class="t">Oggi come tenete i conti delle spese di casa?</div>
-          <p class="hint">Puoi scegliere più risposte.</p>
-          <div class="opts c1" data-mescola>
-            <input type="checkbox" name="metodo" id="t1" value="non li teniamo" data-solo data-fisso><label for="t1">Non li teniamo: ognuno paga un po' a occhio</label>
-            <input type="checkbox" name="metodo" id="t2" value="a voce o WhatsApp"><label for="t2">A voce o nel gruppo WhatsApp</label>
-            <input type="checkbox" name="metodo" id="t3" value="note o foglio"><label for="t3">Note del telefono o un foglio (Excel, Google)</label>
-            <input type="checkbox" name="metodo" id="t4" value="app spese" data-altro="appspese"><label for="t4">Un'app per dividere le spese (per esempio Splitwise, Tricount)</label>
-            <input type="checkbox" name="metodo" id="t5" value="app casa" data-altro="appcasa"><label for="t5">Un'app per organizzare la casa (faccende, turni)</label>
-            <input type="checkbox" name="metodo" id="t6" value="altro" data-altro="metodoaltro" data-fisso><label for="t6">Altro</label>
-          </div>
-          <input type="text" id="appspese" maxlength="60" placeholder="Quale app per le spese?" hidden>
-          <input type="text" id="appcasa" maxlength="60" placeholder="Quale app per la casa?" hidden>
-          <input type="text" id="metodoaltro" maxlength="80" placeholder="Come fate?" hidden>
-          <div class="err" hidden></div></div>
-
-        <div class="q" data-req="funziona"><div class="t">Quanto funziona il vostro modo di oggi?</div>
-          <div class="opts c1">
-            <input type="radio" name="funziona" id="w1" value="bene"><label for="w1">Bene, non lo cambierei</label>
-            <input type="radio" name="funziona" id="w2" value="abbastanza"><label for="w2">Abbastanza, ma con qualche problema</label>
-            <input type="radio" name="funziona" id="w3" value="male"><label for="w3">Male, vorremmo cambiarlo</label>
-            <input type="radio" name="funziona" id="w4" value="non so"><label for="w4">Non so</label>
-          </div><div class="err" hidden></div></div>
-
-        <div class="q" data-req="bollette"><div class="t">Come pagate luce, gas e internet?</div>
-          <div class="opts c1">
-            <input type="radio" name="bollette" id="b1" value="comprese nell'affitto"><label for="b1">Sono comprese nell'affitto</label>
-            <input type="radio" name="bollette" id="b2" value="le paga il proprietario"><label for="b2">Le paga il proprietario e poi ci chiede la nostra parte</label>
-            <input type="radio" name="bollette" id="b3" value="intestate a uno di noi"><label for="b3">Sono intestate a uno di noi, che poi divide</label>
-            <input type="radio" name="bollette" id="b4" value="ognuno la sua parte"><label for="b4">Ognuno ha la sua parte separata</label>
-            <input type="radio" name="bollette" id="b5" value="non so"><label for="b5">Non so</label>
-          </div><div class="err" hidden></div></div>
-
-        <div class="navi"><button type="button" class="back">Indietro</button><button type="button" class="next">Avanti</button></div>
-      </div>
+<div class="q" id="qpriorita" data-req="priorita"><div class="t">Quale di queste situazioni ti ha pesato di più?</div><p class="hint">Una sola risposta. Non deve essere per forza la più frequente.</p><div class="opts c1" data-mescola><input type="radio" name="priorita" id="v3_priorita_0" value="soldi" ><label for="v3_priorita_0">Capire chi deve dei soldi a chi</label><input type="radio" name="priorita" id="v3_priorita_1" value="bolletta" ><label for="v3_priorita_1">Capire le quote delle bollette</label><input type="radio" name="priorita" id="v3_priorita_2" value="faccende" ><label for="v3_priorita_2">Le faccende rimaste da fare</label><input type="radio" name="priorita" id="v3_priorita_3" value="spesa" ><label for="v3_priorita_3">Le cose di casa da ricomprare</label><input type="radio" name="priorita" id="v3_priorita_4" value="nessuna" data-fisso><label for="v3_priorita_4">Nessuna in particolare</label><input type="radio" name="priorita" id="v3_priorita_5" value="non so" data-fisso><label for="v3_priorita_5">Non so</label></div><div class="err" hidden></div></div>
+<div class="q" id="qcausa" data-req="causa" hidden><div class="t">Nell’ultimo episodio con le faccende, qual è stato il motivo principale?</div><div class="opts c1" data-mescola><input type="radio" name="causa" id="v3_causa_0" value="accordi" ><label for="v3_causa_0">Non era chiaro chi dovesse fare cosa</label><input type="radio" name="causa" id="v3_causa_1" value="dimenticanza" ><label for="v3_causa_1">Qualcuno se n’è dimenticato</label><input type="radio" name="causa" id="v3_causa_2" value="tempo" ><label for="v3_causa_2">Mancavano il tempo o le energie</label><input type="radio" name="causa" id="v3_causa_3" value="criteri" ><label for="v3_causa_3">Avevamo idee diverse su quando fosse necessario pulire</label><input type="radio" name="causa" id="v3_causa_4" value="accordi non rispettati" ><label for="v3_causa_4">Gli accordi erano chiari ma non sono stati rispettati</label><input type="radio" name="causa" id="v3_causa_5" value="altro" data-fisso><label for="v3_causa_5">Un altro motivo</label><input type="radio" name="causa" id="v3_causa_6" value="non so" data-fisso><label for="v3_causa_6">Non so</label></div><div class="err" hidden></div></div>
+<div class="q" id="qconseguenze" data-req="conseguenze" data-max="2" hidden><div class="t">Ripensa all’ultimo episodio nella situazione scelta: cosa è successo?</div><p class="hint">Al massimo 2 risposte.</p><div class="opts c1"><input type="checkbox" name="conseguenze" id="v3_conseguenze_0" value="nessuna" data-solo><label for="v3_conseguenze_0">Nessuna conseguenza per me</label><input type="checkbox" name="conseguenze" id="v3_conseguenze_1" value="tempo" ><label for="v3_conseguenze_1">Ho perso tempo per risolverlo o ricordarlo agli altri</label><input type="checkbox" name="conseguenze" id="v3_conseguenze_2" value="soldi" ><label for="v3_conseguenze_2">Ci ho rimesso dei soldi</label><input type="checkbox" name="conseguenze" id="v3_conseguenze_3" value="tensione" ><label for="v3_conseguenze_3">Ci sono state tensioni o discussioni</label><input type="checkbox" name="conseguenze" id="v3_conseguenze_4" value="fatto io" ><label for="v3_conseguenze_4">Ho fatto io quello che spettava ad altri</label><input type="checkbox" name="conseguenze" id="v3_conseguenze_5" value="altro" ><label for="v3_conseguenze_5">Altro</label><input type="checkbox" name="conseguenze" id="v3_conseguenze_6" value="non so" data-solo><label for="v3_conseguenze_6">Non ricordo</label></div><div class="err" hidden></div></div>
+<div class="q" id="qmetodo" data-req="metodo"><div class="t">Come organizzate oggi le cose comuni di casa?</div><p class="hint">Puoi scegliere più risposte.</p><div class="opts c1" data-mescola><input type="checkbox" name="metodo" id="v3_metodo_0" value="voce o chat" ><label for="v3_metodo_0">A voce o con messaggi in chat</label><input type="checkbox" name="metodo" id="v3_metodo_1" value="note o fogli" ><label for="v3_metodo_1">Note, fogli o calendario condiviso</label><input type="checkbox" name="metodo" id="v3_metodo_2" value="app spese" ><label for="v3_metodo_2">Un’app per dividere le spese</label><input type="checkbox" name="metodo" id="v3_metodo_3" value="app casa" ><label for="v3_metodo_3">Un’app per faccende e turni</label><input type="checkbox" name="metodo" id="v3_metodo_4" value="nessun metodo" data-solo data-fisso><label for="v3_metodo_4">Nessun metodo preciso</label><input type="checkbox" name="metodo" id="v3_metodo_5" value="altro" data-fisso><label for="v3_metodo_5">In un altro modo</label><input type="checkbox" name="metodo" id="v3_metodo_6" value="non so" data-solo data-fisso><label for="v3_metodo_6">Non so</label></div><div class="err" hidden></div></div>
+<div class="q" id="qfunziona" data-req="funziona" hidden><div class="t">Quanto funziona questo modo di organizzarvi?</div><div class="opts c1"><input type="radio" name="funziona" id="v3_funziona_0" value="bene" ><label for="v3_funziona_0">Bene</label><input type="radio" name="funziona" id="v3_funziona_1" value="abbastanza" ><label for="v3_funziona_1">Abbastanza bene</label><input type="radio" name="funziona" id="v3_funziona_2" value="poco" ><label for="v3_funziona_2">Poco</label><input type="radio" name="funziona" id="v3_funziona_3" value="per niente" ><label for="v3_funziona_3">Per niente</label><input type="radio" name="funziona" id="v3_funziona_4" value="non so" ><label for="v3_funziona_4">Non so</label></div><div class="err" hidden></div></div>
+<div class="q" id="qbollette" data-req="bollette" hidden><div class="t">Come vengono gestite le bollette della casa?</div><p class="hint">Puoi scegliere più risposte, se dipende dalla bolletta.</p><div class="opts c1"><input type="checkbox" name="bollette" id="v3_bollette_0" value="incluse" ><label for="v3_bollette_0">Sono comprese nell’affitto</label><input type="checkbox" name="bollette" id="v3_bollette_1" value="proprietario" ><label for="v3_bollette_1">Il proprietario ci chiede la nostra parte</label><input type="checkbox" name="bollette" id="v3_bollette_2" value="coinquilino" ><label for="v3_bollette_2">Uno di noi paga e poi divide</label><input type="checkbox" name="bollette" id="v3_bollette_3" value="separate" ><label for="v3_bollette_3">Ognuno paga direttamente la propria parte</label><input type="checkbox" name="bollette" id="v3_bollette_4" value="non so" data-solo><label for="v3_bollette_4">Non so</label></div><div class="err" hidden></div></div>
+<div class="navi"><button type="button" class="back">Indietro</button><button type="button" class="next">Avanti</button></div>
+</div>
 
       <div class="step s3 bleed" data-step="3" hidden>
         <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="sn">Passo 3 di 4</span></div>
+        <div class="stemo" aria-hidden="true">💡</div>
         <h2 class="st">Un'idea per la casa</h2>
-        <p class="ss">Stiamo pensando a un'app per coinquilini: si segnano le spese e l'app calcola chi deve dare quanto a chi, ci sono i turni delle faccende e una lista della spesa comune. La base sarebbe gratis, senza pubblicità. Non esiste ancora: vogliamo capire se servirebbe davvero, anche se la risposta è no.</p>
+        <p class="ss">Stiamo progettando un’app, non è ancora disponibile. L’idea gratuita comprende conti condivisi, turni con promemoria e lista della spesa. Le schermate sono esempi. Può anche non servirti.</p>
 
         <section id="giro">
-   <div class="pin">
-    <p class="giroti">Ecco come potrebbe essere. Continua a scorrere: le schermate passano da sole.</p>
+    <button type="button" class="lancio" id="lancio" hidden>
+      <span class="lt"><b id="lanciotit">Guarda le 4 schermate</b><small>Scorri per conoscere l’idea</small></span>
+      <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="7" y="3" width="13" height="16" rx="3"/><path d="M4 7v12a3 3 0 0 0 3 3h9"/></svg></span>
+    </button>
+    <p class="giroavanti" id="giroavanti" hidden></p>
     <div class="strip" aria-label="Schermate dell'app">
 
       <div class="shot"><div class="dev"><div class="scr">
@@ -498,7 +668,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
           <div class="lbl">Chi deve a chi</div>
           <div class="cd"><div class="it"><span class="av" style="background:var(--tu);color:#1e1d33">L</span><span style="font-weight:800;color:#6b6a7d">→</span><span class="av" style="background:var(--giulia)">G</span><span class="tx">25,00 €<small>Da pagare</small></span><span class="bt o" style="font-size:11px;padding:5px 9px">Ho pagato</span></div><div class="it"><span class="av" style="background:var(--marco)">M</span><span style="font-weight:800;color:#6b6a7d">→</span><span class="av" style="background:var(--tu);color:#1e1d33">L</span><span class="tx">12,50 €<small>Marco dice di aver pagato</small></span><span class="bt" style="font-size:11px;padding:5px 9px">Ricevuto</span></div></div>
           <div class="lbl">Spese del mese</div>
-          <div class="cd"><div class="it"><span class="ico" style="background:#fff4c8;color:#a37800"><svg><use href="#bolt"/></svg></span><span class="tx">Luce<small>Pagata da <b style="color:#d64f86">Giulia</b></small></span><span class="money">100 €</span></div><div class="it"><span class="ico" style="background:#ffe6dc;color:#c2471f"><svg><use href="#flame"/></svg></span><span class="tx">Gas<small>Scade il 20</small></span><span class="money">84 €</span></div><div class="it"><span class="ico" style="background:#e5e4ee;color:#1e1d33"><svg><use href="#key"/></svg></span><span class="tx">Affitto<small>Giulia 520 · gli altri 360</small></span><span class="money">1.600 €</span></div></div>
+          <div class="cd"><div class="it"><span class="ico" style="background:#fff4c8;color:#a37800"><svg><use href="#bolt"/></svg></span><span class="tx">Luce<small>Pagata da <b style="color:#d64f86">Giulia</b></small></span><span class="money">100 €</span></div><div class="it"><span class="ico" style="background:#e5e4ee;color:#1e1d33"><svg><use href="#key"/></svg></span><span class="tx">Affitto<small>Giulia 520 · gli altri 360</small></span><span class="money">1.600 €</span></div></div>
         </div>
         <div class="tabbar"><span class="tab"><svg><use href="#house"/></svg>Casa</span><span class="tab on"><svg><use href="#coins"/></svg>Soldi<i></i></span><span class="fab"><svg><use href="#plus"/></svg></span><span class="tab"><svg><use href="#broom"/></svg>Faccende</span><span class="tab"><svg><use href="#basket"/></svg>Lista</span></div>
         <span class="homei"></span>
@@ -525,7 +695,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
             <div class="it"><span class="ico" style="background:var(--giulia-t);color:#c23f75"><svg><use href="#pan"/></svg></span><span class="tx">Cucina<small>Sabato</small></span><span class="chip" style="background:var(--giulia-t)"><span class="av" style="background:var(--giulia);width:18px;height:18px;flex-basis:18px">G</span>Giulia</span></div>
           </div>
           <div class="lbl">Chi capita: lavastoviglie <small>questo mese</small></div>
-          <div class="cd"><div style="display:flex;align-items:flex-end;gap:12px;height:66px;padding:0 6px"><div style="flex:1;height:48px;border-radius:8px;background:var(--giulia)"></div><div style="flex:1;height:40px;border-radius:8px;background:var(--tu)"></div><div style="flex:1;height:16px;border-radius:8px;background:var(--marco)"></div><div style="flex:1;height:8px;border-radius:8px;background:var(--sara)"></div></div><div style="font-size:11.5px;font-weight:700;color:#6b6a7d;margin-top:8px">Sara, la lavastoviglie ti saluta.</div></div>
+          <div class="cd"><div style="display:flex;align-items:flex-end;gap:12px;height:66px;padding:0 6px"><div style="flex:1;height:48px;border-radius:8px;background:var(--giulia)"></div><div style="flex:1;height:40px;border-radius:8px;background:var(--tu)"></div><div style="flex:1;height:16px;border-radius:8px;background:var(--marco)"></div><div style="flex:1;height:8px;border-radius:8px;background:var(--sara)"></div></div><div class="chart-names"><span>Giulia</span><span>Tu</span><span>Marco</span><span>Sara</span></div></div>
         </div>
         <div class="tabbar"><span class="tab"><svg><use href="#house"/></svg>Casa</span><span class="tab"><svg><use href="#coins"/></svg>Soldi</span><span class="fab"><svg><use href="#plus"/></svg></span><span class="tab on"><svg><use href="#broom"/></svg>Faccende<i></i></span><span class="tab"><svg><use href="#basket"/></svg>Lista</span></div>
         <span class="homei"></span>
@@ -538,7 +708,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
           <div class="h">Da comprare</div><div class="sub">3 cose</div>
           <div class="cd" style="margin-top:12px">
             <div class="it"><span class="box"></span><span class="tx">Detersivo piatti</span><span class="chip" style="background:var(--sara-t)"><span class="av" style="background:var(--sara);width:18px;height:18px;flex-basis:18px">S</span>lo prende Sara</span></div>
-            <div class="it"><span class="box"></span><span class="tx">Latte<small>Di nuovo. Chi lo beve tutto?</small></span><span class="bt o" style="font-size:11px;padding:5px 9px">Lo prendo io</span></div>
+            <div class="it"><span class="box"></span><span class="tx">Latte</span><span class="bt o" style="font-size:11px;padding:5px 9px">Lo prendo io</span></div>
             <div class="it"><span class="box"></span><span class="tx">Carta igienica</span><span class="bt o" style="font-size:11px;padding:5px 9px">Lo prendo io</span></div>
           </div>
           <div class="lbl">Comprati</div>
@@ -550,110 +720,27 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
         <span class="homei"></span>
       </div></div><p>Lista: "Lo prendo io", così il latte non lo comprate in due.</p></div>
 
-      <div class="shot"><div class="dev"><div class="scr">
-        <div class="island"></div>
-        <div class="sb"><span>9:41</span><span><svg width="17" height="11"><use href="#sig"/></svg><svg width="25" height="12"><use href="#bat"/></svg></span></div>
-        <div class="bd" style="display:flex;flex-direction:column;padding-bottom:0">
-          <div style="display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-top:4px"><span style="color:#6b6a7d">Annulla</span><span class="d" style="font-size:15px">Nuova spesa</span><span style="color:#b06d00">Salva</span></div>
-          <div class="money" style="text-align:center;font-size:40px;margin-top:16px">12,40 €</div>
-          <div class="sub" style="text-align:center">Supermercato</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">
-            <span class="chip" style="background:#1e1d33;color:#fff;padding:5px 10px">Spesa</span><span class="chip" style="background:#fff;padding:5px 10px">Luce</span><span class="chip" style="background:#fff;padding:5px 10px">Gas</span><span class="chip" style="background:#fff;padding:5px 10px">Internet</span><span class="chip" style="background:#fff;padding:5px 10px">Affitto</span>
-          </div>
-          <div class="cd" style="margin-top:10px">
-            <div class="it"><span class="tx">Ha pagato</span><span class="chip" style="background:var(--tu-t)"><span class="av" style="background:var(--tu);color:#1e1d33;width:18px;height:18px;flex-basis:18px">L</span>Tu</span></div>
-            <div class="it"><span class="tx">Divisa tra<small>Sara era via</small></span><span style="display:flex;gap:3px"><span class="av" style="background:var(--tu);color:#1e1d33">L</span><span class="av" style="background:var(--giulia)">G</span><span class="av" style="background:var(--marco)">M</span><span class="av" style="background:#d9d8e3;color:#fff">S</span></span></div>
-          </div>
-          <div class="keys"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>,</span><span>0</span><span>⌫</span></div>
-        </div>
-        <span class="homei"></span>
-      </div></div><p>Il pulsante +: scrivi solo l'importo, il resto è già impostato.</p></div>
-
-      <div class="shot"><div class="dev"><div class="scr">
-        <div class="island"></div>
-        <div class="sb"><span>9:41</span><span><svg width="17" height="11"><use href="#sig"/></svg><svg width="25" height="12"><use href="#bat"/></svg></span></div>
-        <div class="bd" style="display:flex;flex-direction:column">
-          <div class="sub" style="margin-top:6px">Passo 1 di 3</div>
-          <div class="h" style="font-size:25px;line-height:1.1">Scegli il tuo colore</div>
-          <p style="margin:6px 2px 0;color:#6b6a7d;font-weight:600;font-size:12px">Ti seguirà ovunque: turni, spese e lista. I colori già presi sono più chiari.</p>
-          <div class="sws">
-            <div class="sw sel" style="background:var(--tu)"><svg width="24" height="24"><use href="#check"/></svg></div>
-            <div class="sw" style="background:var(--giulia);opacity:.35"></div>
-            <div class="sw" style="background:var(--marco);opacity:.35"></div>
-            <div class="sw" style="background:var(--sara);opacity:.35"></div>
-            <div class="sw" style="background:#3d8bff"></div>
-            <div class="sw" style="background:#ff7a2e"></div>
-            <div class="sw" style="background:#4cc35a"></div>
-            <div class="sw" style="background:#e3463d"></div>
-          </div>
-          <div class="cd" style="margin-top:16px;display:flex;align-items:center;gap:12px"><span class="av" style="background:var(--tu);color:#1e1d33;width:44px;height:44px;flex-basis:44px;font-size:17px">L</span><span class="tx" style="font-size:15px">Luca<small>Così ti vedranno i coinquilini</small></span></div>
-          <div class="cd" style="margin-top:8px;font-size:12px;font-weight:700">Giallo è libero. Ottima scelta, si vede anche al buio.</div>
-          <div class="bt" style="margin:auto 0 34px;text-align:center;padding:12px;font-size:15px">Avanti</div>
-        </div>
-        <span class="homei"></span>
-      </div></div><p>Il primo giorno: ognuno sceglie il suo colore.</p></div>
 
     </div>
-    <div class="pager" id="pager" aria-hidden="true"></div>
-   </div>
   </section>
 
-        <div class="q" data-req="azione"><div class="t">Se esistesse già oggi, cosa faresti?</div>
-          <div class="opts c1">
-            <input type="radio" name="azione" id="a1" value="la proporrei questa settimana"><label for="a1">La proporrei ai coinquilini questa settimana</label>
-            <input type="radio" name="azione" id="a2" value="la proverei se la propone un altro"><label for="a2">La proverei se la proponesse qualcun altro</label>
-            <input type="radio" name="azione" id="a3" value="forse, ma ci basta il nostro modo"><label for="a3">Forse, ma il nostro modo di oggi ci basta</label>
-            <input type="radio" name="azione" id="a4" value="non la userei"><label for="a4">Non la userei</label>
-            <input type="radio" name="azione" id="a5" value="non so"><label for="a5">Non so</label>
-          </div><div class="err" hidden></div></div>
+<div class="q" id="qostacoli" data-req="ostacoli" data-max="2"><div class="t">Cosa potrebbe renderti difficile usare quest’app in casa?</div><p class="hint">Al massimo 2 risposte.</p><div class="opts c1" data-mescola><input type="checkbox" name="ostacoli" id="v32_ostacoli_0" value="coinquilini"><label for="v32_ostacoli_0">Coinvolgere gli altri coinquilini</label><input type="checkbox" name="ostacoli" id="v32_ostacoli_1" value="aggiornare"><label for="v32_ostacoli_1">Ricordarmi di tenerla aggiornata</label><input type="checkbox" name="ostacoli" id="v32_ostacoli_2" value="abitudini"><label for="v32_ostacoli_2">Aggiungere un’altra app alle nostre abitudini</label><input type="checkbox" name="ostacoli" id="v32_ostacoli_3" value="dati"><label for="v32_ostacoli_3">Inserire dati sulle spese</label><input type="checkbox" name="ostacoli" id="v32_ostacoli_4" value="niente" data-solo data-fisso><label for="v32_ostacoli_4">Niente in particolare</label><input type="checkbox" name="ostacoli" id="v32_ostacoli_5" value="altro" data-fisso><label for="v32_ostacoli_5">Altro</label><input type="checkbox" name="ostacoli" id="v32_ostacoli_6" value="non so" data-solo data-fisso><label for="v32_ostacoli_6">Non so ancora</label></div><div class="err" hidden></div></div>
+<div class="q" data-max="2" data-req="extra" id="qextra"><div class="t">Oltre alle funzioni gratuite, quali aiuti ti sarebbero utili?</div><p class="hint">Scegli al massimo 2 aiuti pensando alla tua situazione. Sono possibilità da valutare, non funzioni già decise.</p><div class="opts c1" data-mescola=""><input id="v3_extra_0" name="extra" type="checkbox" value="turni flessibili"/><label for="v3_extra_0">Riorganizzare automaticamente i turni quando cambiano assenze e impegni</label><input id="v3_extra_1" name="extra" type="checkbox" value="lettura bollette"/><label for="v3_extra_1">Ricavare importi e scadenze dal PDF di una bolletta senza ricopiarli</label><input id="v3_extra_2" name="extra" type="checkbox" value="solleciti"/><label for="v3_extra_2">Inviare automaticamente promemoria dei pagamenti senza doverli sollecitare io</label><input id="v3_extra_3" name="extra" type="checkbox" value="spese consumi"/><label for="v3_extra_3">Capire come cambiano nel tempo le spese e i consumi della casa</label><input id="v3_extra_4" name="extra" type="checkbox" value="uscita casa"/><label for="v3_extra_4">Preparare il riepilogo di conti e caparra quando qualcuno lascia casa</label><input data-altro="extraaltro" data-fisso="" id="v3_extra_5" name="extra" type="checkbox" value="altro"/><label for="v3_extra_5">Un aiuto diverso</label><input data-fisso="" data-solo="" id="v3_extra_6" name="extra" type="checkbox" value="nessuno"/><label for="v3_extra_6">Nessuno: non mi servirebbe un aiuto in più</label><input data-fisso="" data-solo="" id="v3_extra_7" name="extra" type="checkbox" value="non so"/><label for="v3_extra_7">Non so ancora</label></div><label class="field-label" for="extraaltro" hidden="" id="extraaltrolabel">Quale aiuto? <span class="facolt">facoltativo</span></label><input hidden="" id="extraaltro" maxlength="160" type="text"/><div class="err" hidden=""></div></div>
 
-        <div class="q" data-req="ostacoli" data-max="2"><div class="t">Cosa potrebbe fermare te o la tua casa?</div>
-          <p class="hint">Al massimo 2 risposte.</p>
-          <div class="opts c1" data-mescola>
-            <input type="checkbox" name="ostacoli" id="o1" value="i coinquilini non la userebbero"><label for="o1">I coinquilini non la installerebbero o non la userebbero</label>
-            <input type="checkbox" name="ostacoli" id="o2" value="ci basta WhatsApp"><label for="o2">Ci basta il gruppo WhatsApp</label>
-            <input type="checkbox" name="ostacoli" id="o3" value="usiamo già un'altra app"><label for="o3">Usiamo già un'altra app</label>
-            <input type="checkbox" name="ostacoli" id="o4" value="non voglio un'altra app"><label for="o4">Non voglio un'altra app sul telefono</label>
-            <input type="checkbox" name="ostacoli" id="o5" value="non mi fido con i dati dei soldi"><label for="o5">Non mi fido a mettere i dati dei soldi in un'app</label>
-            <input type="checkbox" name="ostacoli" id="o6" value="la proverei" data-solo data-fisso><label for="o6">Niente, la proverei</label>
-            <input type="checkbox" name="ostacoli" id="o7" value="altro" data-altro="ostacolialtro" data-fisso><label for="o7">Altro</label>
-          </div>
-          <input type="text" id="ostacolialtro" maxlength="80" placeholder="Cosa vi fermerebbe?" hidden>
-          <div class="err" hidden></div></div>
-
-        <div class="q" data-req="funzione"><div class="t">Se all'inizio potessi averne una sola, quale sceglieresti?</div>
-          <div class="opts c1" data-mescola>
-            <input type="radio" name="funzione" id="u1" value="conti"><label for="u1">Conti e chi deve a chi</label>
-            <input type="radio" name="funzione" id="u2" value="bollette"><label for="u2">Bollette divise e ricordate prima della scadenza</label>
-            <input type="radio" name="funzione" id="u3" value="turni"><label for="u3">Turni delle faccende</label>
-            <input type="radio" name="funzione" id="u4" value="lista"><label for="u4">Lista della spesa comune</label>
-            <input type="radio" name="funzione" id="u5" value="nessuna" data-fisso><label for="u5">Nessuna mi servirebbe</label>
-          </div><div class="err" hidden></div></div>
-
-        <div class="q pro">
-          <div class="qhead"><span class="pt">E a pagamento?</span></div>
-          <p class="pdesc">Alcune funzioni in più sarebbero a pagamento, con un solo abbonamento per tutta la casa: per esempio la bolletta divisa caricando il PDF, i promemoria automatici a chi non ha pagato, i turni organizzati da soli. Il prezzo non è deciso. Si può smettere quando si vuole.</p>
-          <div class="price"><span>Per esempio <span data-p="month"></span> al mese<small>per tutta la casa</small></span><span class="each">circa <span data-p="each"></span><small>a testa in 4</small></span></div>
-        </div>
-
-        <div class="q" data-req="premium"><div class="t">A questo prezzo, cosa succederebbe in casa vostra?</div>
-          <div class="opts c1">
-            <input type="radio" name="premium" id="g1" value="lo pagherei io per tutti"><label for="g1">Lo pagherei io per tutti</label>
-            <input type="radio" name="premium" id="g2" value="lo divideremmo"><label for="g2">Lo prenderemmo dividendo la spesa</label>
-            <input type="radio" name="premium" id="g3" value="forse, dipende dagli altri"><label for="g3">Forse, dipende dagli altri</label>
-            <input type="radio" name="premium" id="g4" value="no, basta il gratis"><label for="g4">No, ci basterebbe la versione gratis</label>
-            <input type="radio" name="premium" id="g5" value="non so"><label for="g5">Non so</label>
-          </div><div class="err" hidden></div></div>
-
-        <div class="navi"><button type="button" class="back">Indietro</button><button type="button" class="next">Avanti</button></div>
-      </div>
+<div class="q" data-req="extra_principale" hidden="" id="qextra_principale"><div class="t">Tra gli aiuti scelti, quale farebbe più differenza per te?</div><p class="hint">Scegline uno: le prossime domande sul pagamento riguarderanno solo questo.</p><div class="opts c1"><input id="v31_primario_0" name="extra_principale" type="radio" value="turni flessibili"/><label for="v31_primario_0">Riorganizzare automaticamente i turni quando cambiano assenze e impegni</label><input id="v31_primario_1" name="extra_principale" type="radio" value="lettura bollette"/><label for="v31_primario_1">Ricavare importi e scadenze dal PDF di una bolletta senza ricopiarli</label><input id="v31_primario_2" name="extra_principale" type="radio" value="solleciti"/><label for="v31_primario_2">Inviare automaticamente promemoria dei pagamenti senza doverli sollecitare io</label><input id="v31_primario_3" name="extra_principale" type="radio" value="spese consumi"/><label for="v31_primario_3">Capire come cambiano nel tempo le spese e i consumi della casa</label><input id="v31_primario_4" name="extra_principale" type="radio" value="uscita casa"/><label for="v31_primario_4">Preparare il riepilogo di conti e caparra quando qualcuno lascia casa</label><input id="v31_primario_5" name="extra_principale" type="radio" value="altro"/><label for="v31_primario_5">Un aiuto diverso</label></div><div class="err" hidden=""></div></div>
+<div class="q" id="qpagamento" data-req="pagamento" hidden><div class="t">Per questo aiuto aggiuntivo, prenderesti in considerazione di pagare?</div><p class="hint"><span id="aiutoscelto"></span>Non stai scegliendo un abbonamento. Importo e modalità non sono ancora definiti; le funzioni di base resterebbero gratuite.</p><div class="opts c1"><input type="radio" name="pagamento" id="v3_pagamento_0" value="valuterei" ><label for="v3_pagamento_0">Sì, lo valuterei in base al prezzo</label><input type="radio" name="pagamento" id="v3_pagamento_1" value="dopo prova" ><label for="v3_pagamento_1">Forse, ma solo dopo averlo provato nella casa</label><input type="radio" name="pagamento" id="v3_pagamento_2" value="no" ><label for="v3_pagamento_2">No, non lo pagherei</label><input type="radio" name="pagamento" id="v3_pagamento_3" value="non so" ><label for="v3_pagamento_3">Non so</label></div><div class="err" hidden></div></div>
+<div class="q" id="qrisultato" data-req="risultato" hidden><div class="t">Cosa dovrebbe farti ottenere questo aiuto per valere la spesa?</div><p class="hint">Scegli il risultato più importante.</p><div class="opts c1" data-mescola><input type="radio" name="risultato" id="v32_risultato_0" value="meno tempo"><label for="v32_risultato_0">Dedicare meno tempo a organizzarmi</label><input type="radio" name="risultato" id="v32_risultato_1" value="meno solleciti"><label for="v32_risultato_1">Dover ricordare meno spesso agli altri cosa fare</label><input type="radio" name="risultato" id="v32_risultato_2" value="equilibrio"><label for="v32_risultato_2">Dividere in modo più giusto il lavoro di casa</label><input type="radio" name="risultato" id="v32_risultato_3" value="meno errori"><label for="v32_risultato_3">Evitare errori o dimenticanze che costano soldi</label><input type="radio" name="risultato" id="v32_risultato_4" value="cambiamenti"><label for="v32_risultato_4">Gestire meglio assenze, cambi e traslochi</label><input type="radio" name="risultato" id="v32_risultato_5" value="altro" data-fisso><label for="v32_risultato_5">Un altro risultato</label><input type="radio" name="risultato" id="v32_risultato_6" value="non so" data-fisso><label for="v32_risultato_6">Non saprei ancora</label></div><div class="err" hidden></div></div>
+<div class="q" id="qmotivo" data-req="motivo" hidden><div class="t">Qual è il motivo principale?</div><div class="opts c1" data-mescola><input type="radio" name="motivo" id="v32_motivo_0" value="occasioni rare"><label for="v32_motivo_0">Avrei poche occasioni per usarlo</label><input type="radio" name="motivo" id="v32_motivo_1" value="semplice"><label for="v32_motivo_1">Riuscirei già a gestirlo senza</label><input type="radio" name="motivo" id="v32_motivo_2" value="nessun vantaggio"><label for="v32_motivo_2">Non vedo abbastanza vantaggio rispetto al gratuito</label><input type="radio" name="motivo" id="v32_motivo_3" value="accordi"><label for="v32_motivo_3">Il problema è rispettare gli accordi: l’app non basterebbe</label><input type="radio" name="motivo" id="v32_motivo_4" value="budget"><label for="v32_motivo_4">Preferirei spendere quei soldi per altro</label><input type="radio" name="motivo" id="v32_motivo_5" value="adozione"><label for="v32_motivo_5">Dipenderebbe da cosa fanno gli altri coinquilini</label><input type="radio" name="motivo" id="v32_motivo_6" value="prova"><label for="v32_motivo_6">Prima dovrei provarlo</label><input type="radio" name="motivo" id="v32_motivo_7" value="altro" data-fisso><label for="v32_motivo_7">Un altro motivo</label><input type="radio" name="motivo" id="v32_motivo_8" value="non so" data-fisso><label for="v32_motivo_8">Non so spiegarlo</label></div><div class="err" hidden></div></div>
+<div class="q" id="qnoextra" data-req="noextra" hidden><div class="t">Perché non sceglieresti un aiuto in più?</div><div class="opts c1" data-mescola><input type="radio" name="noextra" id="v32_noextra_0" value="semplice"><label for="v32_noextra_0">Le cose da gestire sono poche o semplici</label><input type="radio" name="noextra" id="v32_noextra_1" value="metodo sufficiente"><label for="v32_noextra_1">Il nostro modo di organizzarci basta già</label><input type="radio" name="noextra" id="v32_noextra_2" value="nessuno adatto"><label for="v32_noextra_2">Nessuno di questi aiuti risolve il mio problema</label><input type="radio" name="noextra" id="v32_noextra_3" value="situazione"><label for="v32_noextra_3">Non conosco ancora abbastanza la mia casa</label><input type="radio" name="noextra" id="v32_noextra_4" value="altra persona"><label for="v32_noextra_4">Se ne occuperebbe soprattutto un’altra persona</label><input type="radio" name="noextra" id="v32_noextra_5" value="altro" data-fisso><label for="v32_noextra_5">Un altro motivo</label><input type="radio" name="noextra" id="v32_noextra_6" value="non so" data-fisso><label for="v32_noextra_6">Non so spiegarlo</label></div><div class="err" hidden></div></div>
+<div class="navi"><button type="button" class="back">Indietro</button><button type="button" class="next">Avanti</button></div>
+</div>
 
       <div class="step s4 bleed" data-step="4" hidden>
         <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="sn">Passo 4 di 4</span></div>
         <h2 class="st">Ultime cose</h2>
-        <p class="ss">Quasi finito.</p>
+        <p class="ss">Qui è tutto facoltativo. Puoi anche arrivare direttamente alla fine.</p>
 
-        <div class="q" data-req="telefono"><div class="t">Che telefono hai?</div>
+        <div class="q"><div class="t">Che telefono hai?<span class="facolt">facoltativa</span></div>
           <div class="opts c3">
             <input type="radio" name="telefono" id="f1" value="iPhone"><label for="f1">iPhone</label>
             <input type="radio" name="telefono" id="f2" value="Android"><label for="f2">Android</label>
@@ -666,21 +753,21 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
             <input type="radio" name="nome" id="n2" value="nessuno dei due"><label for="n2">Nessuno dei due</label>
             <input type="radio" name="nome" id="n3" value="non so"><label for="n3">Non so</label>
           </div>
-          <div class="altro"><label for="altronome"><b>Hai un nome da proporre?</b><span class="facolt">facoltativo</span></label>
-            <input type="text" id="altronome" maxlength="40" placeholder="Scrivi il tuo nome per l'app"></div>
         </div>
 
-        <div class="q"><label class="t" for="racconto">Racconta l'ultima volta che in casa c'è stato un problema con soldi, bollette o faccende: cosa è successo e come è finita?<span class="facolt">facoltativa</span></label>
-          <textarea id="racconto" maxlength="800"></textarea></div>
+        <div class="q"><label class="t" for="racconto">C’è qualcosa che non abbiamo colto?<span class="facolt">facoltativa</span></label>
+          <p class="field-help" id="raccontonota">Puoi raccontare un episodio concreto, un aiuto che ti manca o spiegare meglio perché pagheresti oppure no. Non inserire nomi o dati personali.</p>
+          <textarea id="racconto" maxlength="800" aria-describedby="raccontonota"></textarea></div>
 
         <div class="q" id="emailq">
-          <div class="t">Vuoi provarla prima di tutti?</div>
+          <div class="t">Vuoi provarla in anteprima?<span class="facolt">facoltativo</span></div>
           <ul class="perks2">
-            <li><i style="background:var(--tu)">1</i><span><b>La provi in anteprima.</b> Ti mandiamo l'app prima che esca, prima di tutti gli altri.</span></li>
-            <li><i style="background:var(--giulia)">2</i><span><b>3 mesi di Premium in regalo.</b> Per i primi 100 iscritti, quando il Premium arriverà.</span></li>
-            <li><i style="background:var(--marco)">3</i><span><b>Decidi con noi.</b> Qualche volta ti chiediamo un parere su nome e funzioni.</span></li>
+            <li><span><b>Accesso in anteprima.</b> Provi l’app prima che esca.</span></li>
+            <li><span><b>12 mesi di Premium in regalo.</b> Per i primi 100 iscritti, quando il Premium arriverà.</span></li>
+            <li><span><b>Decidi con noi.</b> Qualche volta ti chiediamo un parere su nome e funzioni.</span></li>
           </ul>
-          <input type="email" id="email" autocomplete="email" inputmode="email" placeholder="La tua email (facoltativa)" aria-label="La tua email" aria-describedby="notaemail">
+          <label class="field-label" for="email">La tua email</label>
+          <input type="email" id="email" autocomplete="email" inputmode="email" placeholder="nome@esempio.it" aria-label="La tua email" aria-describedby="notaemail">
           <p class="notaemail" id="notaemail">Lasciando l'email accetti di ricevere da noi solo l'anteprima, l'avviso quando l'app esce e qualche richiesta di parere. Non la diamo a nessuno, resta separata dalle risposte e puoi cancellarti quando vuoi. <a href="privacy.html" target="_blank" rel="noopener">Informativa</a></p>
           <div class="err" id="emailerr" hidden></div>
         </div>
@@ -694,36 +781,47 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
   <div class="velo" id="velo" hidden>
     <div class="foglio" role="dialog" aria-modal="true" aria-labelledby="velotit">
-      <h2 id="velotit">Aspetta, un'ultima cosa 🙂</h2>
-      <p>Vuoi provare l'app prima che esca? Lasciaci l'email: ti mandiamo l'anteprima prima di tutti e, se sei tra i primi 100, 3 mesi di Premium in regalo quando arriverà.</p>
+      <h2 id="velotit">Vuoi ricevere l’anteprima?</h2>
+      <p>Vuoi provare l'app prima che esca? Lasciaci l'email: ti mandiamo l'anteprima prima di tutti e, se sei tra i primi 100, 12 mesi di Premium in regalo quando arriverà.</p>
+      <label class="field-label" for="email3">Email facoltativa</label>
       <input type="email" id="email3" autocomplete="email" inputmode="email" placeholder="La tua email" aria-label="La tua email">
       <p class="notaemail">Lasciando l'email accetti di ricevere da noi solo l'anteprima, l'avviso quando l'app esce e qualche richiesta di parere. Niente pubblicità, e puoi cancellarti quando vuoi. <a href="privacy.html" target="_blank" rel="noopener">Informativa</a></p>
       <div class="err" id="email3err" hidden></div>
       <button type="button" class="si" id="velosi">Sì, voglio provarla</button>
-      <button type="button" class="no" id="velono">No grazie, invia senza email</button>
+      <button type="button" class="no" id="velono">Continua senza email</button>
     </div>
   </div>
 
-  <section id="grazie" hidden>
-    <div class="done">
-      <svg width="74" height="60" aria-hidden="true"><use href="#casetta"/></svg>
-      <h2 id="grazietit">Grazie, le tue risposte sono arrivate.</h2>
-      <p style="margin:0;font-weight:600;color:var(--soft)" id="grazietxt">Ci aiutano a capire se quest'app serve davvero, e a chi.</p>
-      <p class="okmsg" id="postotenuto" style="margin:0" hidden>Fatto: sei in lista per l'anteprima. Ti scriviamo appena c'è qualcosa da provare.</p>
+  <section id="grazie" class="fin" hidden>
+    <div class="finsu">
+      <p class="finok"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="grazietit">Grazie, le tue risposte sono arrivate</span></p>
+      <p id="grazietxt" hidden></p>
+
+      <div class="done" id="correggi" hidden>
+        <h2>Controlla la tua email</h2>
+        <p style="margin:0;font-weight:600;color:var(--soft)">Le risposte sono arrivate, ma l'email che hai scritto non sembra giusta, quindi non l'abbiamo salvata. Vuoi correggerla?</p>
+        <div class="riga2"><input type="email" id="email2" autocomplete="email" inputmode="email" aria-label="La tua email"><button type="button" id="salvaemail">Salva</button></div>
+        <div class="err" id="email2err" hidden></div>
+      </div>
+
+      <div class="fincentro">
+        <p class="finlbl" id="finlbl" hidden></p>
+        <div class="finemo" id="finemo" aria-hidden="true"><svg width="120" height="97"><use href="#casetta"/></svg></div>
+        <h2 class="fintit" id="fintit">Grazie!</h2>
+        <p class="finsub" id="finsub">Ci aiuti a capire se quest'app serve davvero.</p>
+        <p class="finchip" id="finchip" hidden></p>
+        <p class="finlista" id="postotenuto" hidden>✓ Sei in lista per l'anteprima</p>
+      </div>
     </div>
 
-    <div class="done" id="correggi" hidden>
-      <h2>Controlla la tua email</h2>
-      <p style="margin:0;font-weight:600;color:var(--soft)">Le risposte sono arrivate, ma l'email che hai scritto non sembra giusta, quindi non l'abbiamo salvata. Vuoi correggerla?</p>
-      <div class="riga2"><input type="email" id="email2" autocomplete="email" inputmode="email" aria-label="La tua email"><button type="button" id="salvaemail">Salva</button></div>
-      <div class="err" id="email2err" hidden></div>
-    </div>
-
-    <div class="done">
-      <h2>Conosci altre persone che vivono con coinquilini?</h2>
-      <p style="margin:0;font-weight:600;color:var(--soft)">Mandagli il sondaggio: ci servono soprattutto le case che oggi non hanno problemi, per non sentire solo chi è già convinto.</p>
+    <div class="fingiu" id="passa">
+      <p class="finq" id="passatit">Conosci qualcuno che vive con coinquilini?</p>
+      <a class="wa" id="condividicasa" href="https://wa.me/" target="_blank" rel="noopener" hidden><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Manda nel gruppo di casa</a>
       <a class="wa" id="condividi" href="https://wa.me/" target="_blank" rel="noopener"><svg width="24" height="24" aria-hidden="true"><use href="#wa"/></svg>Condividi su WhatsApp</a>
-      <button type="button" class="copia" id="copia">Copia il link</button>
+      <div class="finlink">
+        <a class="copia" id="condividi2" href="https://wa.me/" target="_blank" rel="noopener" hidden>Altri amici</a>
+        <button type="button" class="copia" id="copia">Copia il link</button>
+      </div>
     </div>
   </section>
 
@@ -734,15 +832,9 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   // Indirizzo che riceve risposte ed email (foglio Google). Vuoto = anteprima: niente viene salvato.
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycby1qs01PSUihFugALWZBwwJSj_3lOkM2r6cEjR5CwZFmLYo_dscThdS4uAnLyDoOaHK/exec';
   // Versione delle domande: la 1 era il sondaggio del 4 novembre 2026, la 2 è quello rivisto il 5 novembre.
-  var VERSIONE = 2;
+  var VERSIONE = 3;
 
   function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e) { return null; } }
-
-  var variant = store('prezzo2');
-  if (variant !== 'A' && variant !== 'B') { variant = Math.random() < 0.5 ? 'A' : 'B'; store('prezzo2', variant); }
-  var P = variant === 'A' ? { month: '4,99 €', each: '1,25 €' } : { month: '6,99 €', each: '1,75 €' };
-  document.querySelectorAll('[data-p="month"]').forEach(function(el){ el.textContent = P.month; });
-  document.querySelectorAll('[data-p="each"]').forEach(function(el){ el.textContent = P.each; });
 
   function mescola(a){ for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
@@ -765,53 +857,138 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     primi.concat(mescola(coppie), ultimi).forEach(function(cp){ c.appendChild(cp[0]); c.appendChild(cp[1]); });
   });
 
-  // Schermate dell'app
-  var strip = document.querySelector('.strip'), pager = document.getElementById('pager');
+  // Schermate dell'app (passo 3): si aprono a tutto schermo e si scorrono in su, una alla volta, come su TikTok.
+  // Lo scatto da una schermata all'altra lo fa il telefono (scroll-snap), quindi è fluido come un'app.
+  // Si aprono da sole la prima volta che si arriva al passo 3; dopo si riaprono dal pulsante giallo.
+  var giro = document.getElementById('giro'), strip = giro.querySelector('.strip');
   var shots = strip.querySelectorAll('.shot');
-  shots.forEach(function(){ pager.appendChild(document.createElement('i')); });
-  function pagina(){
-    var w = shots[0].getBoundingClientRect().width + 14;
-    if (!w) return;
-    var k = Math.min(shots.length - 1, Math.round(strip.scrollLeft / w));
-    if (strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 4) k = shots.length - 1;
-    Array.prototype.forEach.call(pager.children, function(d, j){ d.className = j === k ? 'on' : ''; });
-  }
-  strip.addEventListener('scroll', pagina, { passive: true }); pagina();
+  var SLIDE = [
+    { bg: '#ffb020', fg: '#1e1d33', t: 'La casa', s: 'Cosa tocca a te, i conti e cosa manca. Tutto in una schermata.' },
+    { bg: '#22b8a7', fg: '#1e1d33', t: 'I soldi', s: 'Chi paga segna «Ho pagato». Chi riceve conferma «Ricevuto».' },
+    { bg: '#ff6fa8', fg: '#1e1d33', t: 'Le faccende', s: 'Un turno, una persona. Il calendario mostra a chi tocca.' },
+    { bg: '#6242d6', fg: '#ffffff', t: 'La lista', s: '«Lo prendo io»: tutti vedono chi compra cosa.' }
+  ];
+  var tt = null, ttScroll, ttSeg, ttHint, slides = [], visto = false, attiva = -1;
+  var MOSSA = !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 
-  // Giro delle schermate (nel passo 3): scendendo con il dito la sezione resta ferma e le schermate
-  // passano di lato, poi si arriva alle domande. Chi ha chiesto meno animazioni le scorre a mano.
-  var misuraGiro = (function(){
-    var giro = document.getElementById('giro'), pin = giro.querySelector('.pin');
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return function(){};
-    var dist = 0, largh = 0, alt = 0;
-    function visibile(){ return giro.offsetParent !== null; }
-    function misura(){
-      if (!visibile()) return;
-      giro.classList.add('on');
-      strip.style.setProperty('--z', '.85');
-      giro.style.height = '';
-      var dev = strip.querySelector('.dev').getBoundingClientRect().height;
-      var altro = pin.scrollHeight - dev;
-      var z = Math.max(.55, Math.min(.85, (pin.clientHeight - altro - 24) / 650));
-      strip.style.setProperty('--z', z.toFixed(3));
-      dist = Math.max(0, strip.scrollWidth - strip.clientWidth);
-      // un po' di pausa sulla prima e sull'ultima schermata
-      giro.style.height = (pin.clientHeight + dist * 1.15 + 160) + 'px';
-      largh = innerWidth; alt = innerHeight;
-      muovi();
-    }
-    function muovi(){
-      if (!dist || !visibile()) return;
-      var giu = -giro.getBoundingClientRect().top - 80;
-      var p = Math.max(0, Math.min(1, giu / (dist * 1.15)));
-      strip.scrollLeft = p * dist;
-    }
-    addEventListener('scroll', muovi, { passive: true });
-    // sull'iPhone l'altezza cambia quando compare o sparisce la barra di Safari: rimisura solo se cambia davvero
-    addEventListener('resize', function(){ if (innerWidth !== largh || Math.abs(innerHeight - alt) > 140) misura(); });
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(misura);
-    return misura;
-  })();
+  function costruisci(){
+    tt = document.createElement('div');
+    tt.className = 'tt'; tt.hidden = true;
+    tt.setAttribute('role', 'dialog'); tt.setAttribute('aria-modal', 'true'); tt.setAttribute('aria-label', "Schermate dell'app");
+    tt.innerHTML = '<div class="ttscroll"></div><div class="ttbar"><span class="ttcount" aria-live="polite"></span><div class="ttseg" aria-hidden="true"></div><button type="button" class="ttx">Torna alle domande <span aria-hidden="true">×</span></button></div>'
+      + '<div class="tthint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>Scorri in su</div>';
+    ttScroll = tt.querySelector('.ttscroll'); ttSeg = tt.querySelector('.ttseg'); ttHint = tt.querySelector('.tthint');
+    shots.forEach(function(sh, i){
+      var c = SLIDE[i] || SLIDE[0];
+      var sl = document.createElement('section');
+      sl.className = 'sl';
+      sl.style.setProperty('--bg', c.bg); sl.style.setProperty('--fg', c.fg);
+      sl.dataset.fg = c.fg;
+      var cap = document.createElement('div'); cap.className = 'slcap';
+      var b = document.createElement('b'); b.textContent = c.t;
+      var s = document.createElement('span'); s.textContent = c.s;
+      cap.appendChild(b); cap.appendChild(s);
+      var ph = document.createElement('div'); ph.className = 'slph';
+      ph.appendChild(sh.querySelector('.dev').cloneNode(true));
+      sl.appendChild(cap); sl.appendChild(ph);
+      ttScroll.appendChild(sl); slides.push(sl);
+      ttSeg.appendChild(document.createElement('i'));
+    });
+    // ultima schermata: si torna alle domande
+    var fine = document.createElement('section');
+    fine.className = 'sl fine';
+    fine.style.setProperty('--bg', '#1e1d33'); fine.style.setProperty('--fg', '#ffffff'); fine.dataset.fg = '#ffffff';
+    fine.innerHTML = '<svg width="112" height="91" aria-hidden="true"><use href="#casetta"/></svg>'
+      + '<div class="slcap"><b>Questa è l’idea</b><span>Ora ci interessa il tuo parere, anche se è un no.</span></div>'
+      + '<p class="slmanca"><span class="slmancatx"></span></p>'
+      + '<button type="button" class="ttgo">Continua il sondaggio</button><button type="button" class="ttdinuovo">Rivedi dall’inizio</button>';
+    ttScroll.appendChild(fine); slides.push(fine);
+    document.body.appendChild(tt);
+
+    tt.querySelector('.ttx').addEventListener('click', function(){ chiudi(true); });
+    fine.querySelector('.ttgo').addEventListener('click', function(){ chiudi(true); });
+    fine.querySelector('.ttdinuovo').addEventListener('click', function(){ ttScroll.scrollTo({ top: 0, behavior: 'smooth' }); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && tt && !tt.hidden) chiudi(false); });
+    // quale schermata si vede (da quanto si è scorso): fa partire le sue animazioni,
+    // aggiorna le barrette in alto e il colore dei controlli
+    ttScroll.addEventListener('scroll', function(){
+      if (ttScroll.scrollTop > 30) ttHint.classList.add('via');
+      var h = ttScroll.clientHeight || 1;
+      segna(Math.max(0, Math.min(slides.length - 1, Math.round(ttScroll.scrollTop / h))));
+    }, { passive: true });
+    addEventListener('resize', function(){ if (!tt.hidden) misura(); });
+  }
+
+  function segna(i){
+    if (i === attiva || i < 0) return;
+    attiva = i;
+    slides.forEach(function(sl, j){ sl.classList.toggle('on', j === i); });
+    // le barrette contano solo le schermate dell'app (la prima è l'avviso)
+    Array.prototype.forEach.call(ttSeg.children, function(d, j){ d.className = j <= i ? 'ok' : ''; });
+    tt.style.setProperty('--fgnow', slides[i].dataset.fg);
+    tt.querySelector('.ttcount').textContent = i < shots.length ? (i + 1) + ' / ' + shots.length : 'Fine anteprima';
+    if (i > 0) ttHint.classList.add('via');
+  }
+
+  // grandezza del telefono: il più grande possibile senza coprire titolo, barrette e indicazione in basso
+  function misura(){
+    var h = ttScroll.clientHeight, w = ttScroll.clientWidth, cap = 0;
+    slides.slice(0, shots.length).forEach(function(sl){ var c = sl.querySelector('.slcap'); if (c) cap = Math.max(cap, c.offsetHeight); });
+    var sl0 = getComputedStyle(slides[0]);
+    var libero = h - parseFloat(sl0.paddingTop) - parseFloat(sl0.paddingBottom) - cap - 16;
+    var z = Math.max(.35, Math.min(1, libero / 650, (w - 40) / 300));
+    tt.style.setProperty('--tz', z.toFixed(3));
+  }
+
+  // quante domande obbligatorie restano (passi 3 e 4), per dire che il sondaggio non è finito
+  function mancano(){
+    var n = 0;
+    document.querySelectorAll('.step.s3 .q[data-req], .step.s4 .q[data-req]').forEach(function(q){ if (!q.hidden && !q.querySelector('input:checked')) n++; });
+    return n;
+  }
+  function apri(){
+    if (!tt) costruisci();
+    visto = true;
+    var n = mancano(), frase = 'Da completare ora: ' + n + (n === 1 ? ' domanda' : ' domande') + '. Le domande si adattano alle tue risposte.';
+    tt.querySelector('.slmancatx').textContent = frase;
+    var ga = document.getElementById('giroavanti'); ga.textContent = frase; ga.hidden = false;
+    document.getElementById('lanciotit').textContent = 'Rivedi le schermate';
+    document.getElementById('lancio').classList.add('rivisto');
+    document.querySelector('#lancio small').textContent = '4 schermate dell’idea';
+    tt.classList.remove('esce');
+    tt.hidden = false;
+    document.querySelector('.wrap').inert = true;
+    document.documentElement.classList.add('tton');
+    attiva = -1;
+    ttScroll.scrollTop = 0;
+    ttHint.classList.remove('via');
+    misura();
+    segna(0);
+    tt.querySelector('.ttx').focus({ preventScroll: true });
+  }
+
+  function chiudi(versoDomande){
+    if (!tt || tt.hidden) return;
+    // la pagina si mette subito sotto le schermate al punto giusto, così quando scendono si vedono le domande
+    document.documentElement.classList.remove('tton');
+    var dove = versoDomande ? document.getElementById('giroavanti') : document.getElementById('lancio');
+    var y = dove.getBoundingClientRect().top + window.pageYOffset - (versoDomande ? 70 : innerHeight / 2 - 60);
+    window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
+    function fatto(){ tt.hidden = true; tt.classList.remove('esce'); document.querySelector('.wrap').inert = false; document.getElementById('lancio').focus({preventScroll:true}); }
+    if (MOSSA) { tt.classList.add('esce'); setTimeout(fatto, 340); } else fatto();
+  }
+
+  if (document.body.classList) {
+    giro.classList.add('js');
+    var lancio = document.getElementById('lancio');
+    lancio.hidden = false;
+    lancio.addEventListener('click', apri);
+  }
+  // Arrivando al passo 3 per la prima volta, le schermate si aprono da sole.
+  function misuraGiro(){
+    var s3 = document.querySelector('.step.s3');
+    if (giro.classList.contains('js') && s3 && !s3.hidden && !visto) setTimeout(apri, 350);
+  }
 
   // Da quale link è arrivata la persona (?da=amici, ?da=gruppi…). Senza etichetta resta vuoto.
   var DA = (function(){ try { return (new URLSearchParams(location.search).get('da') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 30); } catch(e) { return ''; } })();
@@ -824,15 +1001,52 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       body: JSON.stringify({ tipo: 'evento', evento: evento, da: DA, giorno: new Date().toISOString().slice(0, 10) }) }).catch(function(){}); } catch(e) {}
   }
   // Un'apertura per visita: se la persona ricarica la pagina non si conta di nuovo.
-  (function(){ var k = 'aperto'; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch(e) {} conta('apertura'); })();
+  (function(){ var k = 'sondaggio_v3_aperto'; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch(e) {} conta('apertura'); })();
 
   // Il link condiviso dal sondaggio ha l'etichetta "condivisione": così si vede chi arriva dal passaparola.
   var link = location.origin + location.pathname + '?da=condivisione';
   // Messaggio in righe brevi, con una riga vuota tra una frase e l'altra: su WhatsApp si legge meglio.
-  var MSG = 'Vivi con dei coinquilini? 🏠\n\nSondaggio anonimo di 2 minuti su soldi, bollette e faccende in casa.\n\n👀 Spoiler: dentro c’è un’anteprima dell’app che stiamo creando';
+  var MSG = 'Vivi con dei coinquilini, ci hai vissuto o ci andrai? 🏠\n\nSondaggio anonimo di circa 4 minuti su soldi, bollette e faccende in casa.\n\n👀 Spoiler: dentro c’è un’anteprima dell’app che stiamo creando';
   // Il pulsante apre WhatsApp con il messaggio già scritto, diviso in righe, e il link in fondo.
   document.getElementById('condividi').href = 'https://wa.me/?text=' + encodeURIComponent(MSG + '\n\n👉 ' + link);
   document.getElementById('condividi').addEventListener('click', function(){ conta('condividi_whatsapp'); });
+
+  // Per il gruppo di casa: messaggio in prima persona e un link con la sua etichetta,
+  // così nel pannello si vede quante persone arrivano dai coinquilini di chi ha risposto.
+  var linkCasa = location.origin + location.pathname + '?da=condivisione-casa';
+  document.getElementById('condividicasa').addEventListener('click', function(){ conta('condividi_whatsapp'); });
+  document.getElementById('condividi2').addEventListener('click', function(){ conta('condividi_whatsapp'); });
+  function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
+
+  // Riepilogo fedele della scelta, senza assegnare personalità alla casa.
+  var AREE = {soldi:'Conti condivisi', bolletta:'Bollette', faccende:'Faccende', spesa:'Spesa di casa'};
+  function riepilogo(casa, priorita){
+    var vissuta = casa === 'sì' || casa === "ci ho vissuto nell'ultimo anno";
+    return {
+      titolo: AREE[priorita] || (priorita === 'nessuna' ? 'Nessuna priorità particolare' : 'C’è ancora da capire'),
+      etichetta: vissuta ? 'La priorità che hai indicato' : 'Pensando a una futura convivenza',
+      dettaglio: vissuta ? 'È il tuo punto di vista, non un giudizio su tutta la casa.' : 'Hai raccontato un’aspettativa, non un’esperienza già vissuta.'
+    };
+  }
+  function preparaCarta(){
+    var c = riepilogo(val('casa'), val('priorita'));
+    document.getElementById('finlbl').textContent = c.etichetta;
+    document.getElementById('finlbl').hidden = false;
+    document.getElementById('fintit').textContent = c.titolo;
+    document.getElementById('finsub').textContent = c.dettaglio;
+    document.getElementById('finchip').hidden = true;
+  }
+  function personalizza(){
+    var vive = val('casa') === 'sì';
+    document.getElementById('passatit').textContent = vive ? 'Vuoi far provare il sondaggio ai tuoi coinquilini?' : 'Vuoi far provare il sondaggio a qualcuno?';
+    document.getElementById('condividicasa').hidden = !vive;
+    document.getElementById('condividi').hidden = vive;
+    document.getElementById('condividi2').hidden = !vive;
+    document.getElementById('condividicasa').href = wa(MSG, linkCasa);
+    document.getElementById('condividi').href = wa(MSG, link);
+    document.getElementById('condividi2').href = wa(MSG, link);
+  }
+
   document.getElementById('copia').addEventListener('click', function(){
     conta('copia_link');
     var b = this;
@@ -846,25 +1060,90 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   function tutti(name){ return Array.prototype.map.call(f.querySelectorAll('input[name="' + name + '"]:checked'), function(i){ return i.value; }); }
   function testo(id){ var el = document.getElementById(id); return el && !el.hidden ? el.value.trim() : ''; }
   var MESE = ['soldi', 'bolletta', 'faccende', 'spesa'];
-  function fuori(){ return val('casa') === 'no'; }
-  // La domanda sulle conseguenze compare solo se nell'ultimo mese è successo almeno qualcosa.
-  function qualcosa(){ return MESE.some(function(n){ var v = val(n); return v && v !== 'mai' && v !== 'non so'; }); }
+  function vissuta(){ return val('casa') === 'sì' || val('casa') === "ci ho vissuto nell'ultimo anno"; }
+  function resetGruppi(nomi){
+    nomi.forEach(function(n){ f.querySelectorAll('input[name="'+n+'"]:checked').forEach(function(i){i.checked=false;}); });
+  }
+  function visibilita(id, mostra){
+    var q = document.getElementById(id); q.hidden = !mostra;
+    if (!mostra) {
+      q.querySelectorAll('input:checked').forEach(function(i){ i.checked = false; });
+      q.querySelectorAll('input[type=text], textarea').forEach(function(i){ i.value = ''; });
+      q.querySelectorAll('.err').forEach(function(e){ e.hidden = true; });
+    }
+  }
+  function episodio(n){ return ['1 volta','2 o 3 volte','4 o più'].indexOf(val(n)) >= 0; }
+  document.querySelectorAll('.q[data-max]').forEach(function(q){
+    var count = document.createElement('span'); count.className = 'selection-count'; count.setAttribute('role', 'status');
+    q.querySelector('.hint').appendChild(count);
+  });
   function aggiorna(){
-    // Chi non vive in casa condivisa continua lo stesso: salta solo la domanda su quante persone siete.
-    var qp = document.getElementById('qpersone'); qp.hidden = fuori();
-    var nota = document.getElementById('casanota'), v = val('casa');
-    nota.hidden = !v || v === 'sì';
-    nota.textContent = fuori() ? 'Puoi rispondere lo stesso: pensa a una casa condivisa che conosci, o a come pensi che sarebbe viverci.' : 'Rispondi pensando alla tua ultima casa condivisa, o a come pensi che sarà.';
-    document.getElementById('qconseguenze').hidden = !qualcosa();
-    f.querySelectorAll('input[data-altro]').forEach(function(i){
-      var campo = document.getElementById(i.getAttribute('data-altro'));
-      var prima = campo.hidden; campo.hidden = !i.checked;
-      if (prima && !campo.hidden && i.matches(':focus-visible')) campo.focus();
+    var reale = vissuta(), casa = val('casa'), ultima = casa === "ci ho vissuto nell'ultimo anno";
+    visibilita('qpersone', reale);
+    visibilita('qmese', reale);
+    var nota = document.getElementById('casanota'); nota.hidden = !casa || casa === 'sì';
+    nota.textContent = ultima ? 'Pensa agli ultimi 30 giorni in cui hai vissuto nella tua ultima casa condivisa.' : casa === 'no' ? 'Immagina come sarebbe per te vivere con coinquilini. Terremo queste aspettative separate dalle esperienze reali.' : 'Pensa alla casa in cui andrai a vivere. Se non sai ancora come sarà, puoi dirlo.';
+    document.querySelector('#qpersone .t').innerHTML = (ultima ? 'Quante persone eravate, te compreso?' : 'Quante persone siete in casa, te compreso?') + '<span class="facolt">facoltativa</span>';
+    document.getElementById('esperienzanota').textContent = reale ? (ultima ? 'Pensa agli ultimi 30 giorni nella tua ultima casa condivisa.' : 'Pensa agli ultimi 30 giorni nella tua casa.') : 'Qui ci interessano le tue aspettative: non serve immaginare episodi già successi.';
+    document.querySelector('#qmese .t').textContent = ultima ? 'Negli ultimi 30 giorni in quella casa, quante volte è successo?' : 'Negli ultimi 30 giorni, quante volte è successo in casa?';
+    document.querySelector('#qpriorita .t').textContent = reale ? 'Tra le situazioni che hai incontrato, quale ti ha pesato di più?' : 'Pensando a quella convivenza, quale situazione ti preoccuperebbe di più?';
+    f.querySelectorAll('input[name=priorita]').forEach(function(i){
+      var disponibile = !reale || !AREE[i.value] || episodio(i.value);
+      i.hidden = !disponibile; i.nextElementSibling.hidden = !disponibile;
+      if (!disponibile) i.checked = false;
     });
+    document.querySelector('.s2 .st').textContent = reale ? 'Come vi organizzate' : 'Come immagini la casa';
+    document.querySelector('#qpriorita .hint').textContent = reale ? 'Una sola risposta. Non deve essere per forza la più frequente.' : 'Una sola risposta. Vanno bene anche nessuna o non so.';
+    var priorita = val('priorita'), concreta = reale && !!AREE[priorita];
+    visibilita('qcausa', concreta && priorita === 'faccende');
+    visibilita('qconseguenze', concreta);
+    document.querySelector('#qconseguenze .t').textContent = 'Ripensa all’ultimo episodio: ' + (AREE[priorita] || '').toLowerCase() + '. Cosa è successo?';
+    document.querySelector('#qmetodo .t').textContent = reale ? (ultima ? 'Come organizzavate le cose comuni di casa?' : 'Come organizzate oggi le cose comuni di casa?') : 'Come pensi che organizzeresti le cose comuni di casa?';
+    visibilita('qfunziona', reale);
+    document.querySelector('#qfunziona .t').textContent = ultima ? 'Quanto funzionava quel modo di organizzarvi?' : 'Quanto funziona questo modo di organizzarvi?';
+    visibilita('qbollette', concreta && priorita === 'bolletta');
+    var selezionati = tutti('extra');
+    var aiuti = selezionati.filter(function(x){return x !== 'nessuno' && x !== 'non so';});
+    visibilita('qextra_principale', aiuti.length > 1);
+    f.querySelectorAll('input[name=extra_principale]').forEach(function(i){
+      var presente = aiuti.includes(i.value);
+      i.hidden = !presente; i.nextElementSibling.hidden = !presente;
+      if (!presente) i.checked = false;
+      if (i.value === 'altro') i.nextElementSibling.textContent = testo('extraaltro') || 'Un aiuto diverso';
+    });
+    var extra = aiuti.length === 1 ? aiuti[0] : aiuti.length > 1 ? val('extra_principale') : (selezionati[0] || '');
+    var specifico = !!extra && extra !== 'nessuno' && extra !== 'non so';
+    visibilita('qpagamento', specifico);
+    var sceltaExtra = Array.from(f.querySelectorAll('input[name=extra]')).find(function(i){return i.value === extra;});
+    document.getElementById('aiutoscelto').textContent = specifico ? 'Parliamo di: ' + (extra === 'altro' && testo('extraaltro') ? testo('extraaltro') : sceltaExtra.nextElementSibling.textContent) + '. ' : '';
+    var pagamento = val('pagamento'), favorevole = pagamento === 'valuterei' || pagamento === 'dopo prova';
+    visibilita('qrisultato', specifico && favorevole);
+    visibilita('qmotivo', specifico && (pagamento === 'no' || pagamento === 'non so'));
+    document.querySelector('#qmotivo .t').textContent = pagamento === 'no' ? 'Perché non lo pagheresti?' : 'Cosa ti impedisce di capire se lo pagheresti?';
+    visibilita('qnoextra', !!extra && !specifico);
+    document.querySelector('#qnoextra .t').textContent = extra === 'nessuno' ? 'Perché non ti servirebbe un aiuto in più?' : 'Cosa ti rende difficile scegliere un aiuto in più?';
+    f.querySelectorAll('input[data-altro]').forEach(function(i){
+      var campo = document.getElementById(i.dataset.altro); campo.hidden = !i.checked;
+      if (!i.checked) campo.value = '';
+    });
+    document.getElementById('extraaltrolabel').hidden = !tutti('extra').includes('altro');
+    f.querySelectorAll('.q[data-max]').forEach(function(q){q.querySelector('.selection-count').textContent=q.querySelectorAll('input[type=checkbox]:checked').length+' di '+q.dataset.max+' selezionate';});
+    if (visto) {
+      var n = mancano(), restano = 'Da completare ora: ' + n + (n === 1 ? ' domanda' : ' domande') + '. Le domande si adattano alle tue risposte.';
+      document.getElementById('giroavanti').textContent = restano;
+      if (tt) tt.querySelector('.slmancatx').textContent = restano;
+    }
   }
 
   f.addEventListener('change', function(e){
     var i = e.target, q = i.closest('.q');
+    if (i.name === 'casa') {
+      f.querySelectorAll('.s2 input:checked, .s3 input:checked').forEach(function(x){x.checked=false;});
+      resetGruppi(['persone']);
+      document.getElementById('racconto').value = '';
+    }
+    if (i.name === 'priorita' || MESE.indexOf(i.name) >= 0) resetGruppi(['causa','conseguenze','bollette','extra','extra_principale','pagamento','risultato','motivo','noextra']);
+    if (i.name === 'pagamento') resetGruppi(['risultato','motivo']);
     if (q) { var er = q.querySelector(':scope > .err'); if (er) er.hidden = true; }
     if (i.type === 'checkbox' && i.checked) {
       var gruppo = f.querySelectorAll('input[name="' + i.name + '"]');
@@ -875,11 +1154,14 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
       if (max && f.querySelectorAll('input[name="' + i.name + '"]:checked').length > max) {
         i.checked = false;
         var er2 = q.querySelector(':scope > .err'); er2.textContent = 'Al massimo ' + max + ' risposte: togline una per sceglierne un\'altra'; er2.hidden = false;
+        aggiorna(); return;
       }
     }
+    if (i.name === 'extra') resetGruppi(['extra_principale','pagamento','risultato','motivo','noextra']);
+    if (i.name === 'extra_principale') resetGruppi(['pagamento','risultato','motivo']);
     aggiorna();
   });
-  f.addEventListener('input', function(e){ var q = e.target.closest('.q'); var er = q && q.querySelector(':scope > .err'); if (er && e.target.type === 'text') er.hidden = true; });
+  f.addEventListener('input', function(e){ if(e.target.id === 'extraaltro') aggiorna(); var q = e.target.closest('.q'); var er = q && q.querySelector(':scope > .err'); if (er && e.target.type === 'text') er.hidden = true; });
 
   // un passo alla volta
   var steps = f.querySelectorAll('.step'), cur = 0;
@@ -903,6 +1185,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   }
   function vai(n){
     steps[cur].hidden = true; cur = n; steps[cur].hidden = false; fondo();
+    // l'introduzione serve solo al primo passo: dopo, ogni passo parte pulito dal suo titolo
+    document.querySelector('.hero').hidden = cur > 0;
     document.getElementById('sondaggio').scrollIntoView({ block: 'start', behavior: 'smooth' });
     misuraGiro();
   }
@@ -919,7 +1203,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   // Il codice unico evita che un nuovo tentativo la scriva due volte.
   function nuovoId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
   // Il codice dell'email è solo casuale: non contiene l'ora, così non somiglia a quello delle risposte.
-  var ID_RISPOSTA = nuovoId(), ID_EMAIL = Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 8), CODA = 'da_inviare';
+  var ID_RISPOSTA = nuovoId(), ID_EMAIL = Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 8), CODA = 'sondaggio_v3_da_inviare';
   function leggiCoda(){ try { return JSON.parse(localStorage.getItem(CODA) || '[]'); } catch(e) { return []; } }
   function scriviCoda(c){ try { localStorage.setItem(CODA, JSON.stringify(c)); } catch(e) {} }
   function togliDallaCoda(id){ scriviCoda(leggiCoda().filter(function(x){ return x.id !== id; })); }
@@ -969,27 +1253,30 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
   });
 
   function riga(){
-    var r = { tipo: 'risposta', versione: VERSIONE, id: ID_RISPOSTA, giorno: oggi(), casa: val('casa'), da: DA };
-    var metodo = tutti('metodo');
-    return Object.assign(r, {
-      persone: val('persone'),
-      mese_soldi: val('soldi'), mese_bollette: val('bolletta'), mese_faccende: val('faccende'), mese_spesa: val('spesa'),
-      conseguenze: qualcosa() ? tutti('conseguenze').join(', ') : '', conseguenzealtro: testo('conseguenzealtro').slice(0, 80),
-      metodo: metodo.join(', '),
-      metodoapp: [testo('appspese'), testo('appcasa')].filter(Boolean).join(', ').slice(0, 120),
-      metodoaltro: testo('metodoaltro').slice(0, 80),
-      funziona: val('funziona'), bollette: val('bollette'),
-      azione: val('azione'), ostacoli: tutti('ostacoli').join(', '), ostacolialtro: testo('ostacolialtro').slice(0, 80),
-      funzione: val('funzione'), prezzo: variant + ' ' + P.month, premium: val('premium'),
-      telefono: val('telefono'), nome: val('nome'), ordinenomi: NOMI.join(' / '), altronome: testo('altronome').slice(0, 40),
-      racconto: document.getElementById('racconto').value.trim().slice(0, 800)
+    var r = {tipo:'risposta', versione:VERSIONE, revisione:'3.2', extraRiferimento: (tutti('extra').filter(function(x){return x !== 'nessuno' && x !== 'non so';}).length === 1 ? tutti('extra')[0] : val('extra_principale')), id:ID_RISPOSTA, giorno:oggi(), casa:val('casa'), da:DA,
+      percorso:vissuta() ? 'esperienza' : 'aspettativa', periodo:vissuta() ? (val('casa') === 'sì' ? 'ultimi 30 giorni' : 'ultimi 30 giorni ultima casa') : '',
+      risposte:{}, ordineExtra:Array.from(f.querySelectorAll('input[name=extra]')).map(function(i){return i.value;}),
+      telefono:val('telefono'), nome:val('nome'), ordinenomi:NOMI.slice(), racconto:testo('racconto').slice(0,800)};
+    f.querySelectorAll('.q').forEach(function(q){
+      if(q.hidden) return;
+      q.querySelectorAll('input[name]:checked').forEach(function(i){
+        if(i.hidden) return;
+        if(i.type === 'checkbox') { if(!r.risposte[i.name]) r.risposte[i.name]=[]; r.risposte[i.name].push(i.value); }
+        else r.risposte[i.name]=i.value;
+      });
     });
+    r.extraAltro = testo('extraaltro').slice(0,160);
+    return r;
   }
 
   function mostraGrazie(){
     var g = document.getElementById('grazie');
     Array.prototype.forEach.call(g.parentNode.children, function(el){ el.hidden = el !== g; });
-    g.hidden = false; document.documentElement.classList.remove('fascia'); window.scrollTo(0, 0);
+    g.hidden = false;
+    document.documentElement.classList.remove('fascia');
+    document.documentElement.classList.add('fineon');
+
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function invia(soloFiltro){
@@ -999,11 +1286,13 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
     var em = buona(scritta) ? scritta : '';
     btn.disabled = true; btn.textContent = 'Invio…'; er.hidden = true;
     send(riga()).then(function(){
-      store('inviato', '1');
+      store('sondaggio_v3_inviato', '1');
       if (soloFiltro) {
         document.getElementById('grazietit').textContent = 'Grazie!';
         document.getElementById('grazietxt').textContent = 'Questo sondaggio è pensato per chi vive con coinquilini, quindi per te finisce qui.';
       }
+      // pagina finale costruita sulle sue risposte: carta della casa, il suo problema principale, un solo invito a condividere
+      if (!soloFiltro) { preparaCarta(); personalizza(); }
       // L'email parte a parte, qualche secondo dopo e con un suo codice: nel foglio finisce in un'altra scheda
       // e l'ordine delle righe non basta a collegarla alle risposte.
       if (em) inviaEmail(em);
@@ -1026,12 +1315,20 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
   // Messaggio prima dell'invio: compare una volta sola, solo se l'email è vuota.
   // "Sì" usa l'email scritta nel messaggio; "No grazie" invia senza email; toccando fuori si torna al sondaggio.
+  document.addEventListener('keydown', function(e){
+    var dialog = tt && !tt.hidden ? tt : (velo && !velo.hidden ? velo : null);
+    if (!dialog || e.key !== 'Tab') return;
+    var focusable = Array.prototype.filter.call(dialog.querySelectorAll('button, input, a[href]'), function(el){ return !el.disabled && el.getClientRects().length; });
+    var first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !focusable.includes(document.activeElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   var giaChiesto = false, velo = document.getElementById('velo');
-  function apriVelo(){ velo.hidden = false; document.getElementById('email3err').hidden = true; setTimeout(function(){ document.getElementById('email3').focus(); }, 50); }
-  function chiudiVelo(){ velo.hidden = true; }
+  function apriVelo(){ velo.hidden = false; f.inert = true; document.querySelector('.hero').inert = true; document.getElementById('email3err').hidden = true; document.getElementById('velotit').setAttribute('tabindex', '-1'); document.getElementById('velotit').focus(); }
+  function chiudiVelo(){ velo.hidden = true; f.inert = false; document.querySelector('.hero').inert = false; document.getElementById('invia').focus({preventScroll:true}); }
   document.getElementById('velosi').addEventListener('click', function(){
     var em = document.getElementById('email3').value.trim(), er = document.getElementById('email3err');
-    if (!buona(em)) { er.textContent = em ? 'Questa email non sembra giusta: controllala' : 'Scrivi la tua email, oppure tocca "No grazie"'; er.hidden = false; return; }
+    if (!buona(em)) { er.textContent = em ? 'Questa email non sembra giusta: controllala' : 'Scrivi la tua email, oppure tocca "Continua senza email"'; er.hidden = false; return; }
     document.getElementById('email').value = em; giaChiesto = true; chiudiVelo(); invia(false);
   });
   document.getElementById('velono').addEventListener('click', function(){ giaChiesto = true; chiudiVelo(); invia(false); });
