@@ -86,7 +86,7 @@ html.tton,html.tton body{overflow:hidden;overscroll-behavior:none}
 .slbarra{display:flex;gap:5px}
 .slbarra i{width:34px;height:6px;border-radius:3px;background:#ffb020}
 .slbarra i.no{background:rgba(255,255,255,.25)}
-.giroavanti{margin:12px 0 0;text-align:center;font-weight:800;font-size:16px;color:#ffb020}
+.giroavanti{margin:12px 0 0;text-align:center;font-weight:800;font-size:16px;color:#fff}
 .ttgo{border:0;border-radius:999px;background:#ffb020;color:#1e1d33;font-family:var(--display);font-weight:600;font-size:19px;padding:16px 28px;box-shadow:0 5px 0 rgba(0,0,0,.3);cursor:pointer}
 .ttdinuovo{border:0;background:none;color:inherit;font:inherit;font-weight:800;text-decoration:underline;text-underline-offset:3px;opacity:.8;cursor:pointer}
 .ttbar{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 0;pointer-events:none}
@@ -232,9 +232,17 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .sub2{display:flex;flex-direction:column;gap:12px}
 .sub2[hidden]{display:none}
 /* fasce di colore */
-.bleed{box-shadow:0 0 0 100vmax var(--band);clip-path:inset(0 -100vmax);background:var(--band)}
-.hero{--band:#1e1d33;color:#fff;--ink:#fff;--soft:#c9c7dc;margin-top:-26px;padding:30px 0 38px}
-.hero .lead{color:#c9c7dc}
+.bleed{position:relative;isolation:isolate;clip-path:inset(0 -100vmax)}
+/* lo sfondo di ogni fascia ha la stessa luce della pagina finale */
+.bleed::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:-100vmax;right:-100vmax;background:radial-gradient(circle at calc(50% - 130px) 80px,rgba(255,255,255,.32),transparent 420px),radial-gradient(circle at calc(50% + 190px) calc(100% - 80px),rgba(255,255,255,.16),transparent 380px),var(--band)}
+.hero{--band:#7c5cff;color:#fff;--ink:#fff;--soft:rgba(255,255,255,.85);margin-top:-26px;padding:34px 0 42px;align-items:center;text-align:center}
+.hero .logo{margin:0}
+.hero .eyebrow{justify-content:center}
+.hero .lead{margin-left:auto;margin-right:auto;text-wrap:balance}
+.hero .meta{justify-content:center;gap:8px}
+.hero .meta span{background:rgba(255,255,255,.22);border-radius:999px;padding:6px 14px}
+.hero .meta span::before{display:none}
+.hero .lead{color:rgba(255,255,255,.88)}
 .hero h1{line-height:1.14}
 .hero mark{background:var(--tu);color:#1e1d33;padding:0 10px;border-radius:12px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .hero .meta span::before{background:var(--tu)}
@@ -244,18 +252,19 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .step[hidden]{display:none}
 #sondaggio{margin-top:-32px}
 .s2{--band:#ff6fa8}
-.s3{--band:#1e1d33;color:#fff;--ink:#fff;--soft:#c9c7dc;--line:rgba(255,255,255,.18);--sel:#ffb020;--sel-ink:#1e1d33;--err:#ffb3a6}
+.s3{--band:#3d8bff;color:#fff;--ink:#fff;--soft:rgba(255,255,255,.85);--line:rgba(255,255,255,.25);--sel:#ffb020;--sel-ink:#1e1d33;--err:#ffe0d9}
 .s4{--band:#22b8a7}
-.stephead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.stephead{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:4px}
+.stemo{font-size:64px;line-height:1;text-align:center;margin:6px 0 2px}
 .seg{display:flex;gap:5px}
 .seg i{width:28px;height:7px;border-radius:4px;background:currentColor;opacity:.22}
 .seg i.on{opacity:1}
 .sn{font-family:var(--display);font-weight:600;font-size:14px}
-.st{font-family:var(--display);font-weight:600;font-size:clamp(34px,10vw,46px);line-height:1;margin:0;letter-spacing:-.02em}
+.st{font-family:var(--display);font-weight:600;font-size:clamp(36px,11vw,50px);line-height:1;margin:0;letter-spacing:-.02em;text-align:center;text-wrap:balance}
 .ss{margin:6px 0 10px;font-family:var(--display);font-weight:600;font-size:17px;opacity:.85}
 /* ogni domanda in una scheda; risposte in una griglia di caselle uguali */
 .step{gap:12px}
-.step .ss{margin:0 0 6px}
+.step .ss{margin:0 auto 8px;text-align:center;text-wrap:balance;max-width:30em}
 .step .q{background:#fff;color:#1e1d33;border-radius:22px;padding:18px 16px;display:flex;flex-direction:column;gap:12px;--tile:#f3f2f7;--tile-ink:#1e1d33}
 .step .q .t{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.25}
 .step .q .hint{margin:-6px 0 0;font-size:14px;font-weight:600;color:#6b6a7d}
@@ -269,9 +278,9 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .step .q input[type=text],.step .q input[type=email],.step .q textarea{background:var(--tile);border-color:transparent;color:#1e1d33}
 .step .q input[type=text]:focus,.step .q input[type=email]:focus,.step .q textarea:focus{border-color:#1e1d33}
 .step .q .err{color:#c2301c}
-.s3 .q{background:rgba(255,255,255,.08);color:#fff;--tile:rgba(255,255,255,.1);--tile-ink:#fff}
+.s3 .q{background:rgba(255,255,255,.16);color:#fff;--tile:rgba(255,255,255,.18);--tile-ink:#fff}
 .s3 .q .err{color:#ffb3a6}
-.s3 .q .hint{color:#c9c7dc}
+.s3 .q .hint{color:rgba(255,255,255,.85)}
 /* nome: due schede grandi */
 .nomi{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .nomi input{position:absolute;opacity:0;pointer-events:none}
@@ -348,8 +357,8 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .s3 .next{background:#ffb020;color:#1e1d33}
 .next[disabled]{opacity:.6}
 .next:focus-visible,.back:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.s3 .plan{background:rgba(255,255,255,.08);color:#fff}
-.s3 .plan .ps{color:#c9c7dc}
+.s3 .plan{background:rgba(255,255,255,.16);color:#fff}
+.s3 .plan .ps{color:rgba(255,255,255,.85)}
 .s3 .plan.pro{background:#ffb020;color:#1e1d33;box-shadow:none}
 .s3 .plan.pro .ps{color:#5a4310}
 .s3 .plan.pro li::before{background:#1e1d33}
@@ -423,6 +432,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
       <div class="step s1 bleed" data-step="1">
         <div class="stephead"><span class="seg"><i class="on"></i><i></i><i></i><i></i></span><span class="sn">Passo 1 di 4</span></div>
+        <div class="stemo" aria-hidden="true">🏠</div>
         <h2 class="st">La tua casa</h2>
         <p class="ss">Partiamo dalle basi.</p>
 
@@ -450,6 +460,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
       <div class="step s2 bleed" data-step="2" hidden>
         <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="sn">Passo 2 di 4</span></div>
+        <div class="stemo" aria-hidden="true">🧩</div>
         <h2 class="st">Come vi organizzate</h2>
         <p class="ss">Come va davvero, non come dovrebbe andare.</p>
 
@@ -540,6 +551,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
       <div class="step s3 bleed" data-step="3" hidden>
         <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="sn">Passo 3 di 4</span></div>
+        <div class="stemo" aria-hidden="true">💡</div>
         <h2 class="st">Un'idea per la casa</h2>
         <p class="ss">Stiamo pensando a un'app per coinquilini: si segnano le spese e l'app calcola chi deve dare quanto a chi, ci sono i turni delle faccende e una lista della spesa comune. La base sarebbe gratis, senza pubblicità. Non esiste ancora: vogliamo capire se servirebbe davvero, anche se la risposta è no.</p>
 
@@ -727,6 +739,7 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 
       <div class="step s4 bleed" data-step="4" hidden>
         <div class="stephead"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="sn">Passo 4 di 4</span></div>
+        <div class="stemo" aria-hidden="true">🏁</div>
         <h2 class="st">Ultime cose</h2>
         <p class="ss">Quasi finito.</p>
 
