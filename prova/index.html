@@ -393,6 +393,31 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .nh span{font-size:10.5px;color:#6b6a7d;white-space:nowrap}
 .lockbtns{position:absolute;bottom:26px;left:30px;right:30px;display:flex;justify-content:space-between}
 .lockbtns span{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;color:#fff}
+/* domande con lo stile nuovo: riquadri bianchi "adesivo" con il numero nel colore del passo,
+   risposte grandi tinte del colore del passo, che si schiacciano al tocco; la scelta diventa blu scuro con la spunta */
+.step{counter-reset:dom}
+.s1{--acc:#ffb020}.s2{--acc:#ff6fa8}.s3{--acc:#3d8bff}.s4{--acc:#22b8a7}
+.step .q{position:relative;border-radius:28px;padding:22px 18px 18px;gap:14px;box-shadow:0 6px 0 rgba(30,29,51,.14);margin-top:8px}
+.s1 .q{--tile:#fff1d1}.s2 .q{--tile:#ffe3ef}.s4 .q{--tile:#d6f3ee}
+.s3 .q{background:#fff;color:#1e1d33;--tile:#e3eeff;--tile-ink:#1e1d33}
+.s3 .q .hint{color:#6b6a7d}.s3 .q .err{color:#c2301c}
+.step .q::before{counter-increment:dom;content:counter(dom);position:absolute;top:-13px;left:18px;width:32px;height:32px;border-radius:50%;background:var(--acc);color:#1e1d33;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;font-size:16px;box-shadow:0 3px 0 rgba(30,29,51,.2),0 0 0 3px #fff}
+.s3 .q::before{color:#fff}
+.step .q .t{font-size:20px;line-height:1.22}
+.step .opts{gap:10px}
+.step .opts label{border:0;border-radius:18px;min-height:56px;font-weight:800;box-shadow:0 3px 0 rgba(30,29,51,.1);transition:transform .12s,background .15s,color .15s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+.step .opts label:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(30,29,51,.1)}
+.step .opts input:checked+label{background:#1e1d33;color:#fff;border-color:#1e1d33;box-shadow:0 3px 0 var(--acc);animation:scelta .28s ease-out}
+@keyframes scelta{0%{transform:scale(.95)}60%{transform:scale(1.03)}100%{transform:none}}
+.step .opts.c1 label{gap:12px;padding:12px 14px;min-height:54px}
+.step .opts.c1 label::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 2px rgba(30,29,51,.22)}
+.step .opts.c1 input[type=checkbox]+label::before{border-radius:7px}
+.step .opts.c1 input:checked+label::before{background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%23ffffff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/15px no-repeat;box-shadow:none}
+.step .q input[type=text],.step .q input[type=email],.step .q textarea{border-radius:18px;border:2px solid transparent}
+.s3 .q.pro{box-shadow:0 6px 0 rgba(30,29,51,.18)}
+/* il riquadro giallo del prezzo è una spiegazione, non una domanda: niente numero */
+.step .q.pro::before{content:none}
+@media (prefers-reduced-motion:reduce){.step .opts input:checked+label{animation:none}}
 </style>
 </head>
 <body>
