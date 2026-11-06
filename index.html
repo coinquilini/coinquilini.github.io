@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="it" data-theme="light" data-edizione="v32-202611061438">
+<html lang="it" data-theme="light" data-edizione="v32-202611061524">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta name="description" content="Circa 4 minuti, anonimo: soldi, bollette e faccende tra coinquilini. Dentro c’è un’anteprima dell’app che stiamo creando 👀">
+<meta name="description" content="Circa 2 minuti, anonimo: soldi, bollette e faccende tra coinquilini. Dentro c’è un’anteprima dell’app che stiamo creando 👀">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Come si vive in una casa condivisa?">
-<meta property="og:description" content="Circa 4 minuti, anonimo: soldi, bollette e faccende tra coinquilini. Dentro c’è un’anteprima dell’app che stiamo creando 👀">
-<meta property="og:image" content="https://coinquilini.github.io/anteprima-whatsapp-2.png">
+<meta property="og:description" content="Circa 2 minuti, anonimo: soldi, bollette e faccende tra coinquilini. Dentro c’è un’anteprima dell’app che stiamo creando 👀">
+<meta property="og:image" content="https://coinquilini.github.io/anteprima-whatsapp-3.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://coinquilini.github.io/">
@@ -543,7 +543,7 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
     <p class="eyebrow"><i></i>Un sondaggio per chi divide casa</p>
     <h1>Come si vive in una <mark>casa condivisa</mark>?</h1>
     <p class="lead">Come vi organizzate con soldi, bollette e faccende? Ci interessa anche quando va tutto bene.</p>
-    <p class="meta"><span>circa 4 minuti</span><span>4 passi</span><span>anonimo</span></p>
+    <p class="meta"><span>circa 2 minuti</span><span>4 passi</span><span>anonimo</span></p>
   </header>
 
 
@@ -1006,7 +1006,7 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
   // Il link condiviso dal sondaggio ha l'etichetta "condivisione": così si vede chi arriva dal passaparola.
   var link = location.origin + location.pathname + '?da=condivisione';
   // Messaggio in righe brevi, con una riga vuota tra una frase e l'altra: su WhatsApp si legge meglio.
-  var MSG = 'Vivi con dei coinquilini, ci hai vissuto o ci andrai? 🏠\n\nSondaggio anonimo di circa 4 minuti su soldi, bollette e faccende in casa.\n\n👀 Spoiler: dentro c’è un’anteprima dell’app che stiamo creando';
+  var MSG = 'Vivi con dei coinquilini, ci hai vissuto o ci andrai? 🏠\n\nSondaggio anonimo di circa 2 minuti su soldi, bollette e faccende in casa.\n\n👀 Spoiler: dentro c’è un’anteprima dell’app che stiamo creando';
   // Il pulsante apre WhatsApp con il messaggio già scritto, diviso in righe, e il link in fondo.
   document.getElementById('condividi').href = 'https://wa.me/?text=' + encodeURIComponent(MSG + '\n\n👉 ' + link);
   document.getElementById('condividi').addEventListener('click', function(){ conta('condividi_whatsapp'); });
@@ -1014,6 +1014,8 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
   // Per il gruppo di casa: messaggio in prima persona e un link con la sua etichetta,
   // così nel pannello si vede quante persone arrivano dai coinquilini di chi ha risposto.
   var linkCasa = location.origin + location.pathname + '?da=condivisione-casa';
+  // Per i propri coinquilini: messaggio in prima persona, senza chiedere se vivono con altri.
+  var MSG_CASA = 'Ho appena fatto un sondaggio anonimo su come ci organizziamo in casa: soldi, bollette e faccende. 🏠\n\nCi vogliono circa 2 minuti, vi va di farlo anche voi?';
   document.getElementById('condividicasa').addEventListener('click', function(){ conta('condividi_whatsapp'); });
   document.getElementById('condividi2').addEventListener('click', function(){ conta('condividi_whatsapp'); });
   function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
@@ -1042,7 +1044,7 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
     document.getElementById('condividicasa').hidden = !vive;
     document.getElementById('condividi').hidden = vive;
     document.getElementById('condividi2').hidden = !vive;
-    document.getElementById('condividicasa').href = wa(MSG, linkCasa);
+    document.getElementById('condividicasa').href = wa(MSG_CASA, linkCasa);
     document.getElementById('condividi').href = wa(MSG, link);
     document.getElementById('condividi2').href = wa(MSG, link);
   }
