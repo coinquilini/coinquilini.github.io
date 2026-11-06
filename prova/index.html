@@ -543,7 +543,7 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
     <p class="preview-note">Versione di prova · risposte ed email non vengono salvate</p><p class="eyebrow"><i></i>Un sondaggio per chi divide casa</p>
     <h1>Come si vive in una <mark>casa condivisa</mark>?</h1>
     <p class="lead">Come vi organizzate con soldi, bollette e faccende? Ci interessa anche quando va tutto bene.</p>
-    <p class="meta"><span>circa 4 minuti</span><span>4 passi</span><span>anonimo</span></p>
+    <p class="meta"><span>circa 2 minuti</span><span>4 passi</span><span>anonimo</span></p>
   </header>
 
 
@@ -1008,7 +1008,7 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
   // Il link condiviso dal sondaggio ha l'etichetta "condivisione": così si vede chi arriva dal passaparola.
   var link = location.origin + location.pathname + '?da=condivisione';
   // Messaggio in righe brevi, con una riga vuota tra una frase e l'altra: su WhatsApp si legge meglio.
-  var MSG = 'Ti va di provare il nuovo sondaggio sulla vita tra coinquilini? 🏠\n\nCirca 4 minuti, anche se andrai a convivere o stai solo immaginando di farlo. Questa è la versione di prova: non salva risposte o email.';
+  var MSG = 'Ti va di provare il nuovo sondaggio sulla vita tra coinquilini? 🏠\n\nCirca 2 minuti, anche se andrai a convivere o stai solo immaginando di farlo. Questa è la versione di prova: non salva risposte o email.';
   // Il pulsante apre WhatsApp con il messaggio già scritto, diviso in righe, e il link in fondo.
   document.getElementById('condividi').href = 'https://wa.me/?text=' + encodeURIComponent(MSG + '\n\n👉 ' + link);
   document.getElementById('condividi').addEventListener('click', function(){ conta('condividi_whatsapp'); });
@@ -1016,6 +1016,8 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
   // Per il gruppo di casa: messaggio in prima persona e un link con la sua etichetta,
   // così nel pannello si vede quante persone arrivano dai coinquilini di chi ha risposto.
   var linkCasa = location.origin + location.pathname + '?da=condivisione-casa';
+  // Per i propri coinquilini: messaggio in prima persona, senza chiedere se vivono con altri.
+  var MSG_CASA = 'Ho appena fatto un sondaggio anonimo su come ci organizziamo in casa: soldi, bollette e faccende. 🏠\n\nCi vogliono circa 2 minuti, vi va di farlo anche voi?';
   document.getElementById('condividicasa').addEventListener('click', function(){ conta('condividi_whatsapp'); });
   document.getElementById('condividi2').addEventListener('click', function(){ conta('condividi_whatsapp'); });
   function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
@@ -1044,7 +1046,7 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
     document.getElementById('condividicasa').hidden = !vive;
     document.getElementById('condividi').hidden = vive;
     document.getElementById('condividi2').hidden = !vive;
-    document.getElementById('condividicasa').href = wa(MSG, linkCasa);
+    document.getElementById('condividicasa').href = wa(MSG_CASA, linkCasa);
     document.getElementById('condividi').href = wa(MSG, link);
     document.getElementById('condividi2').href = wa(MSG, link);
   }
