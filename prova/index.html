@@ -1230,14 +1230,34 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
     return tentativo(0);
   }
   if (ENDPOINT) leggiCoda().forEach(function(d){ prova(d).then(function(){ togliDallaCoda(d.id); }).catch(function(){}); });
+  // Quando la pagina va in secondo piano (per esempio si apre WhatsApp) o si chiude, quello che è ancora
+  // in coda parte subito, con un invio che il telefono completa anche a pagina chiusa.
+  // Il codice unico evita doppioni se poi parte anche l'invio normale.
+  function svuotaCoda(){
+    if (!ENDPOINT) return;
+    leggiCoda().forEach(function(d){
+      try {
+        fetch(ENDPOINT, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(d) })
+          .then(function(r){ return r.text(); })
+          .then(function(t){ t = t.trim(); if (t === 'ok' || t === 'email non valida') togliDallaCoda(d.id); })
+          .catch(function(){});
+      } catch(e) {}
+    });
+  }
+  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') svuotaCoda(); });
+  addEventListener('pagehide', svuotaCoda);
   function oggi(){ return new Date().toISOString().slice(0, 10); }
 
   // Email facoltativa, con un solo gesto: chi la scrive accetta quanto dice la frase sotto il campo.
   // Non blocca mai l'invio delle risposte: se sembra sbagliata, si corregge dopo, nel ringraziamento.
   function buona(em){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em); }
+  // L'email parte qualche secondo dopo le risposte, ma entra subito nella coda del telefono:
+  // se nel frattempo la persona apre WhatsApp o chiude la pagina, parte lo stesso (vedi svuotaCoda).
   function inviaEmail(em, poi){
+    var dato = { tipo: 'email', giorno: oggi(), email: em, id: ID_EMAIL };
+    if (ENDPOINT) { var coda = leggiCoda(); if (!coda.some(function(x){ return x.id === dato.id; })) { coda.push(dato); scriviCoda(coda); } }
     setTimeout(function(){
-      send({ tipo: 'email', giorno: oggi(), email: em, id: ID_EMAIL }).then(function(){ document.getElementById('postotenuto').textContent = 'Prova: email non registrata'; document.getElementById('postotenuto').hidden = false; if (poi) poi(true); }).catch(function(){ if (poi) poi(false); });
+      send(dato).then(function(){ document.getElementById('postotenuto').textContent = 'Prova: email non registrata'; document.getElementById('postotenuto').hidden = false; if (poi) poi(true); }).catch(function(){ if (poi) poi(false); });
     }, 2000 + Math.floor(Math.random() * 4000));
   }
   document.getElementById('email').addEventListener('blur', function(){
