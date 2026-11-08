@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it" data-theme="light" data-edizione="v32-202611061605">
+<html lang="it" data-theme="light" data-edizione="v32-202611081514">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -429,6 +429,13 @@ input[type=text],input[type=email],textarea{background:var(--card);border-color:
 .hero .lead{font-size:16px;line-height:1.45;margin-top:2px;max-width:30em;color:#fff}
 .hero .meta{margin:4px 0 0;gap:6px}
 .hero .meta span{padding:5px 10px;font-size:12px}
+.hero-share{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 10px;margin-top:6px;padding:9px 14px;border-radius:18px;background:rgba(30,29,51,.22);border:1px solid rgba(255,255,255,.22);font-size:13.5px;font-weight:700;color:rgba(255,255,255,.95);max-width:100%}
+.hero-share-btns{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.hs-wa,.hs-cp{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:6px 13px;border-radius:999px;font-size:13.5px;line-height:1;text-decoration:none;cursor:pointer;transition:transform .12s,background .15s}
+.hs-wa{background:#ffffff;color:#1e1d33;font-family:var(--display);font-weight:600;box-shadow:0 2px 0 rgba(0,0,0,.16)}
+.hs-cp{background:rgba(255,255,255,.16);color:#ffffff;border:1.5px solid rgba(255,255,255,.42);font-family:var(--body);font-weight:800}
+.hs-wa:active,.hs-cp:active{transform:translateY(1px)}
+.hs-wa:focus-visible,.hs-cp:focus-visible{outline:3px solid var(--tu);outline-offset:2px}
 .step{padding:22px 0 calc(36px + env(safe-area-inset-bottom,0px));gap:16px;margin-top:0}
 .stephead{margin-bottom:0}
 .st{font-size:clamp(28px,8vw,36px);line-height:1.12}
@@ -544,6 +551,13 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
     <h1>Come si vive in una <mark>casa condivisa</mark>?</h1>
     <p class="lead">Come vi organizzate con soldi, bollette e faccende? Ci interessa anche quando va tutto bene.</p>
     <p class="meta"><span>circa 2 minuti</span><span>4 passi</span><span>anonimo</span></p>
+    <div class="hero-share" id="herosha" hidden>
+      <span>Vuoi solo girarlo a qualcuno?</span>
+      <div class="hero-share-btns">
+        <a class="hs-wa" id="condividitop" href="https://wa.me/" target="_blank" rel="noopener"><svg width="16" height="16" aria-hidden="true"><use href="#wa"/></svg>Invia su WhatsApp</a>
+        <button type="button" class="hs-cp" id="copiatop">Copia link</button>
+      </div>
+    </div>
   </header>
 
 
@@ -1010,6 +1024,11 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
   // Il pulsante apre WhatsApp con il messaggio già scritto, diviso in righe, e il link in fondo.
   document.getElementById('condividi').href = 'https://wa.me/?text=' + encodeURIComponent(MSG + '\n\n👉 ' + link);
   document.getElementById('condividi').addEventListener('click', function(){ conta('condividi_whatsapp'); });
+  // La barra "Vuoi solo girarlo a qualcuno?" compare solo a chi arriva dalle storie Instagram:
+  // per tutti gli altri link il sondaggio resta identico all'originale.
+  if (DA === 'ig-storie') document.getElementById('herosha').hidden = false;
+  document.getElementById('condividitop').href = 'https://wa.me/?text=' + encodeURIComponent(MSG + '\n\n👉 ' + link);
+  document.getElementById('condividitop').addEventListener('click', function(){ conta('condividi_whatsapp'); });
 
   // Per il gruppo di casa: messaggio in prima persona e un link con la sua etichetta,
   // così nel pannello si vede quante persone arrivano dai coinquilini di chi ha risposto.
@@ -1049,13 +1068,16 @@ details.altro label{display:block;margin:10px 0 8px;font-size:14px}
     document.getElementById('condividi2').href = wa(MSG, link);
   }
 
-  document.getElementById('copia').addEventListener('click', function(){
-    conta('copia_link');
-    var b = this;
-    function fatto(){ b.textContent = 'Link copiato'; setTimeout(function(){ b.textContent = 'Copia il link'; }, 2500); }
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(fatto, function(){ window.prompt('Copia il link:', link); });
-    else window.prompt('Copia il link:', link);
-  });
+  function copiaLinkBtn(b, labelDefault){
+    b.addEventListener('click', function(){
+      conta('copia_link');
+      function fatto(){ b.textContent = 'Link copiato'; setTimeout(function(){ b.textContent = labelDefault; }, 2500); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(fatto, function(){ window.prompt('Copia il link:', link); });
+      else window.prompt('Copia il link:', link);
+    });
+  }
+  copiaLinkBtn(document.getElementById('copia'), 'Copia il link');
+  copiaLinkBtn(document.getElementById('copiatop'), 'Copia link');
 
   var f = document.getElementById('f');
   function val(name){ var el = f.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; }
