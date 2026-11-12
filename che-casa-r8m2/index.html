@@ -375,13 +375,13 @@
     </div>
   </section>
 
-  <section class="schermo" data-id="invito" data-tipo="uno" hidden>
-    <h2 tabindex="-1">Cosa aiuterebbe di più a farla usare a tutti in casa?</h2>
+  <section class="schermo" data-id="smettere" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Cosa ti farebbe smettere di usarla dopo una settimana?</h2>
     <div class="scelte" data-mescola>
-      <button type="button" class="scelta" data-v="senza scaricare">Che gli altri possano usarla dal link, senza scaricare niente</button>
-      <button type="button" class="scelta" data-v="pronta">Che la prepari uno e gli altri trovino tutto pronto</button>
-      <button type="button" class="scelta" data-v="solo quando tocca">Che gli avvisi arrivino solo a chi tocca, non a tutti</button>
-      <button type="button" class="scelta" data-v="senza app">Che chi non vuole l’app possa restarne fuori: le sue cose le segna un altro</button>
+      <button type="button" class="scelta" data-v="notifiche">Troppe notifiche</button>
+      <button type="button" class="scelta" data-v="altri non aggiornano">Gli altri non la aggiornano</button>
+      <button type="button" class="scelta" data-v="perdita di tempo">Segnare le cose è una perdita di tempo</button>
+      <button type="button" class="scelta" data-v="dimenticherei">Me ne dimenticherei</button>
       <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
     </div>
   </section>
@@ -468,8 +468,9 @@
   // Versione 6 (12 novembre 2026): ogni domanda collegata a una delle 7 decisioni (Sondaggio/Revisione domande v5.md).
   // Nuove: cosa usate adesso (strumenti), quale messaggio preferisci (tono). Cambiate: spese comuni, cosa veder crescere
   // (al posto di «chi pulisce di più»). Ritocchi: «nei prossimi mesi», promemoria senza «nel weekend» e con «non saprei».
-  // 6.1: tolta la domanda sulle 3 frasi (si provano con i post); al suo posto «Cosa aiuterebbe di più a farla usare a tutti in casa?» (invito).
-  var VERSIONE = 6, REVISIONE = '6.1', PRE = 'prova_v6_';
+  // 6.1: tolta la domanda sulle 3 frasi (si provano con i post).
+  // 6.2: al suo posto, scelta da Lorenzo, «Cosa ti farebbe smettere di usarla dopo una settimana?» (smettere).
+  var VERSIONE = 6, REVISIONE = '6.2', PRE = 'prova_v6_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
@@ -483,9 +484,9 @@
   var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi mesi', NO = 'no';
   var COLORI = ['#ffb020', '#ff6fa8', '#22b8a7', '#7c5cff'];
   var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, strumenti: 2, spese: 2,
-    primo: 3, crescere: 3, promemoria: 3, tono: 3, adozione: 4, perche: 4, invito: 4, frasecasa: 4 };
+    primo: 3, crescere: 3, promemoria: 3, tono: 3, adozione: 4, perche: 4, smettere: 4, frasecasa: 4 };
   var NOMI_PASSI = { 1: 'La tua casa', 2: 'Come va in casa', 3: 'L’app', 4: 'Tu e la tua casa' };
-  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'primo', 'crescere', 'promemoria', 'tono', 'adozione', 'perche', 'invito', 'frasecasa'];
+  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'primo', 'crescere', 'promemoria', 'tono', 'adozione', 'perche', 'smettere', 'frasecasa'];
   var BREVE = { faccenda: 'I piatti o il bagno lasciati lì', 'al posto': 'Fare io la parte di un altro', ricordare: 'Dover chiedere indietro i soldi',
     conti: 'Non sapere chi deve soldi a chi', finito: 'La carta finita e nessuno che la compra' };
 
@@ -524,7 +525,7 @@
       case 'racconto': return vissuta && (A.successo ? problemi().length >= 1 : !!stima);
       case 'strumenti': case 'spese': return vissuta && !conosce;
       case 'primo': case 'crescere': return dentro;
-      case 'invito': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
+      case 'smettere': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
       case 'promemoria': case 'adozione': return dentro && !conosce;
       case 'tono': return dentro && !conosce && (A.promemoria ? A.promemoria !== 'nessuno' : !!stima);
       case 'perche': return dentro && !conosce && A.adozione === 'non la useremmo';
