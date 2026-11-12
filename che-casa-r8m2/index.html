@@ -716,7 +716,7 @@
   }
 
   // Messaggio per chi non è della stessa casa (amici, o chi ha risposto «No» e lo gira).
-  var MSG_AMICO = 'Vivi con dei coinquilini? C’è un sondaggio di due minuti, anonimo, su spese, pulizie e lista della spesa.\n\nLo fa un team che sta finendo un’app per chi divide casa: se ti va di rispondere, gli dai una mano.';
+  var MSG_AMICO = 'Vivi con dei coinquilini? C’è un sondaggio di due minuti, anonimo, su spese, pulizie e lista della spesa.\n\nLo fa un gruppo di ragazzi che sta finendo un’app per chi divide casa: se ti va di rispondere, gli dai una mano.';
   function linkDa(et){ return location.origin + location.pathname + '?da=' + et; }
   function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
   function copia(url, b){
@@ -743,7 +743,7 @@
     chips.slice(0, 2).forEach(function(c){ var li = document.createElement('li'); li.textContent = c; ul.appendChild(li); });
 
     // Condivisione: ai coinquilini (stessa casa) e agli amici, ognuno con la sua etichetta.
-    var msgCasa = 'Ho risposto a un sondaggio per chi divide casa: spese, pulizie e lista della spesa. Lo fa un team che sta finendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
+    var msgCasa = 'Ho risposto a un sondaggio per chi divide casa: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta finendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
     var msgAmico = MSG_AMICO;
     var conCasa = A.casa === SI;
     $('s-tit').textContent = conCasa ? 'Giralo ai tuoi coinquilini' : 'Conosci qualcuno che vive con coinquilini?';
