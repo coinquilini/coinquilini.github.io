@@ -278,7 +278,7 @@
     <div class="riquadro"><b>Ora parliamo dell’app.</b> È gratis e fa tre cose: divide le spese, organizza i turni delle pulizie e tiene la lista della spesa. Ci aiuti a trovare le parole giuste per raccontarla?</div>
     <h2 tabindex="-1">Quale di queste frasi ti farebbe venire voglia di scaricarla?</h2>
     <div class="scelte frase" data-mescola id="scelte-frase">
-      <button type="button" class="scelta" data-v="sa a chi tocca" data-lettera="A">«In casa ognuno sa a chi tocca e chi deve cosa, senza dover chiedere»</button>
+      <button type="button" class="scelta" data-v="niente da chiedere" data-lettera="A">«Niente più “hai pagato?” o “hai pulito?”: ognuno lo sa già»</button>
       <button type="button" class="scelta" data-v="si organizza da sola" data-lettera="B">«La casa si organizza da sola, nessuno fa il rompiscatole»</button>
       <button type="button" class="scelta" data-v="turni e conti chiari" data-lettera="C">«Turni e conti di casa, chiari per tutti»</button>
       <button type="button" class="scelta" data-v="nessuna" data-fisso>Nessuna mi convince</button>
@@ -414,7 +414,8 @@
   // 5.2: testi, anteprima WhatsApp e messaggi di condivisione riscritti con la skill Humanizer.
   // 5.3: niente più «Che casa siete?» né ironia: alla fine il quadro della casa, messaggi più professionali.
   // 5.4: allineato alla copertina scelta («Chi paga cosa. A chi tocca. Cosa manca.», «Com’è davvero da voi? Raccontacelo.»).
-  var VERSIONE = 5, REVISIONE = '5.4', PRE = 'prova_v5_';
+  // 5.5: frase A riscritta perché somigliava troppo alla copertina (valore salvato: «niente da chiedere»).
+  var VERSIONE = 5, REVISIONE = '5.5', PRE = 'prova_v5_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
