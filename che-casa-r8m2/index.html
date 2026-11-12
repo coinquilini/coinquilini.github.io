@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sondaggio per chi divide casa</title>
+<title>Sondaggio per chi vive con dei coinquilini</title>
 <meta name="description" content="Versione di prova: sondaggio anonimo per chi divide casa. Le risposte non vengono salvate.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#15102a">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Vivi con dei coinquilini?">
+<meta property="og:title" content="Sondaggio per chi vive con dei coinquilini">
 <meta property="og:description" content="Versione di prova: sondaggio anonimo per chi divide casa. Le risposte non vengono salvate.">
 <meta property="og:image" content="https://inqui-sondaggio.pages.dev/anteprima-whatsapp-5.png">
 <meta property="og:url" content="https://inqui-sondaggio.pages.dev/che-casa-r8m2/">
@@ -180,7 +180,7 @@
 
 <main class="app" id="app">
   <header class="top">
-    <div class="marca"><svg viewBox="0 0 30 26" aria-hidden="true"><path d="M3 12 15 3l12 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="11" width="18" height="13" rx="2.5" fill="#fff"/><rect x="9" y="14" width="5" height="4" rx="1" fill="#ffb020"/><rect x="16" y="14" width="5" height="4" rx="1" fill="#ff6fa8"/><rect x="9" y="19.5" width="5" height="3" rx="1" fill="#22b8a7"/><rect x="16" y="19.5" width="5" height="3" rx="1" fill="#7c5cff"/></svg>Per chi divide casa</div>
+    <div class="marca"><svg viewBox="0 0 30 26" aria-hidden="true"><path d="M3 12 15 3l12 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="11" width="18" height="13" rx="2.5" fill="#fff"/><rect x="9" y="14" width="5" height="4" rx="1" fill="#ffb020"/><rect x="16" y="14" width="5" height="4" rx="1" fill="#ff6fa8"/><rect x="9" y="19.5" width="5" height="3" rx="1" fill="#22b8a7"/><rect x="16" y="19.5" width="5" height="3" rx="1" fill="#7c5cff"/></svg>Per chi vive con coinquilini</div>
     <span class="pill"><svg width="12" height="13" viewBox="0 0 12 13" aria-hidden="true"><rect x="1" y="5.5" width="10" height="7" rx="2" fill="currentColor"/><path d="M3.3 5.5V4a2.7 2.7 0 0 1 5.4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Anonimo</span>
   </header>
   <p class="prova" id="prova" hidden>Versione di prova · niente viene salvato</p>
@@ -199,9 +199,9 @@
   <section class="schermo" data-id="casa" data-tipo="uno">
     <div class="apertura">
       <div class="puntini" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <h1>Spese, pulizie, spesa: come va da voi?</h1>
+      <h1>Com’è davvero da voi?</h1>
       <p class="evid">2 minuti · anonimo</p>
-      <p class="lead">Stiamo finendo un’app per chi divide casa: spese da dividere, turni delle pulizie e lista della spesa. Prima degli ultimi ritocchi vogliamo sapere come vanno davvero le cose nelle case condivise, anche quando va tutto bene. Alla fine ti mostriamo il quadro della tua casa.</p>
+      <p class="lead">Siamo un gruppo di ragazzi e stiamo finendo un’app per chi vive con dei coinquilini: spese, turni delle pulizie, lista della spesa. Prima degli ultimi ritocchi vogliamo capire come si vive nelle vostre case, anche quando va tutto bene. Alla fine ti mostriamo il quadro della tua casa.</p>
     </div>
     <h2 tabindex="-1">Vivi con dei coinquilini?</h2>
     <div class="scelte">
@@ -392,9 +392,9 @@
   </section>
 
   <section class="schermo fuori" id="fuori" hidden>
-    <h2 tabindex="-1" id="f-tit">Questo sondaggio è per chi divide casa</h2>
-    <p class="lead">Se conosci qualcuno che vive con dei coinquilini, giraglielo: ci aiuti a rifinire l’app.</p>
-    <a class="wa" id="f-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Mandalo a chi vive con coinquilini</a>
+    <h2 tabindex="-1" id="f-tit">Questo sondaggio è per chi vive con dei coinquilini</h2>
+    <p class="lead">Se ne conosci qualcuno, giraglielo: ci aiuti a rifinire l’app.</p>
+    <a class="wa" id="f-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Giralo su WhatsApp</a>
     <button type="button" class="secondario" id="f-stesso">Fallo lo stesso, pensando a una casa che conosci</button>
     <button type="button" class="link" id="f-copia">Copia il link</button>
     <button type="button" class="salta" id="f-torna" style="width:100%">Ho sbagliato, vivo con dei coinquilini</button>
@@ -413,7 +413,8 @@
   // 5.1: spese al posto di «come vi organizzate», orario dei promemoria, passi contati, chi dice «No» può farlo lo stesso.
   // 5.2: testi, anteprima WhatsApp e messaggi di condivisione riscritti con la skill Humanizer.
   // 5.3: niente più «Che casa siete?» né ironia: alla fine il quadro della casa, messaggi più professionali.
-  var VERSIONE = 5, REVISIONE = '5.3', PRE = 'prova_v5_';
+  // 5.4: allineato alla copertina scelta («Chi paga cosa. A chi tocca. Cosa manca.», «Com’è davvero da voi? Raccontacelo.»).
+  var VERSIONE = 5, REVISIONE = '5.4', PRE = 'prova_v5_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
@@ -716,7 +717,7 @@
   }
 
   // Messaggio per chi non è della stessa casa (amici, o chi ha risposto «No» e lo gira).
-  var MSG_AMICO = 'Vivi con dei coinquilini? C’è un sondaggio di due minuti, anonimo, su spese, pulizie e lista della spesa.\n\nLo fa un gruppo di ragazzi che sta finendo un’app per chi divide casa: se ti va di rispondere, gli dai una mano.';
+  var MSG_AMICO = 'Vivi con dei coinquilini? C’è un sondaggio di due minuti, anonimo, su spese, pulizie e lista della spesa.\n\nLo fa un gruppo di ragazzi che sta finendo un’app proprio per questo: se ti va di rispondere, gli dai una mano.';
   function linkDa(et){ return location.origin + location.pathname + '?da=' + et; }
   function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
   function copia(url, b){
@@ -743,7 +744,7 @@
     chips.slice(0, 2).forEach(function(c){ var li = document.createElement('li'); li.textContent = c; ul.appendChild(li); });
 
     // Condivisione: ai coinquilini (stessa casa) e agli amici, ognuno con la sua etichetta.
-    var msgCasa = 'Ho risposto a un sondaggio per chi divide casa: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta finendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
+    var msgCasa = 'Ho risposto a un sondaggio per chi vive con dei coinquilini: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta finendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
     var msgAmico = MSG_AMICO;
     var conCasa = A.casa === SI;
     $('s-tit').textContent = conCasa ? 'Giralo ai tuoi coinquilini' : 'Conosci qualcuno che vive con coinquilini?';
