@@ -129,32 +129,61 @@
   .flash .em { font-size: 26px; line-height: 1; flex: none; }
   .flash small { display: block; font: 600 12px/1 Fredoka, Nunito, sans-serif; letter-spacing: .4px; text-transform: uppercase; color: #7a7790; margin-bottom: 4px; }
 
-  /* risultato */
-  /* schermata finale: tutta in una schermata del telefono */
-  .fine { display: grid; gap: 8px; margin-top: 6px; }
-  .ok-invio { margin: 2px 0 0; font-size: 13px; font-weight: 700; color: #8ff0e2; text-align: center; }
-  .carta { padding: 16px 16px 14px; border-radius: 22px; background: linear-gradient(160deg, #2b2050, #1c1536); border: 1px solid var(--line);
+  /* schermata finale: sempre in una schermata del telefono.
+     Il contenuto sta al centro e gli spazi crescono con lo schermo, così sui telefoni alti non resta tutto schiacciato in cima. */
+  .app.alla-fine { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+  .fine { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(12px, 2vh, 24px); padding: clamp(6px, 1.4vh, 18px) 0 0; }
+  /* il «grazie» si vede in alto a destra, al posto di «Anonimo»; il testo completo resta per chi usa la lettura dello schermo */
+  .ok-invio { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .pill.grazie { color: var(--ink); background: #8ff0e2; border-color: #8ff0e2; animation: spunta .35s cubic-bezier(.3,1.6,.5,1); }
+  .carta { padding: 18px 18px 16px; border-radius: 24px; background: linear-gradient(160deg, #2e2256, #1c1536); border: 1px solid var(--line);
     box-shadow: 0 14px 40px rgba(0,0,0,.35); }
   .carta .testa { display: flex; align-items: center; gap: 12px; }
-  .carta .casa { width: 76px; height: 66px; flex: none; }
+  .carta .casa { width: 44px; height: 38px; flex: none; }
   .carta .casa svg { width: 100%; height: 100%; display: block; }
-  .carta .titoli { min-width: 0; }
-  .carta .pre { margin: 0; font: 600 15px/1 Fredoka, Nunito, sans-serif; color: var(--soft); }
-  .carta h2 { margin: 6px 0 0; font-size: 23px; line-height: 1.15; }
-  .carta .nome { display: inline; padding: 1px 8px 3px; border-radius: 10px; background: var(--evid); color: var(--ink); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-  .carta .descr { margin: 10px 0 0; color: #e3ddfa; font-size: 15px; line-height: 1.35; }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
-  .chips li { padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid var(--line); font-size: 13px; font-weight: 700; }
-  .box { padding: 12px 16px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
-  .box h3 { margin: 0; font: 600 19px/1.15 Fredoka, Nunito, sans-serif; }
-  .box > p { margin: 4px 0 0; color: #e3ddfa; font-size: 15px; }
-  .due { display: flex; gap: 8px; margin-top: 10px; }
-  .due > * { flex: 1; min-width: 0; }
-  .link { display: block; width: 100%; margin-top: 4px; padding: 8px; background: none; border: 0; color: #c9bcff; font-weight: 800; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; }
-  .riga-email { display: flex; gap: 8px; margin-top: 10px; }
+  .carta .pre { margin: 0; font: 600 13px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: .6px; text-transform: uppercase; color: var(--rosa); }
+  .carta h2 { margin: 10px 0 0; font-size: 26px; line-height: 1.15; }
+  .carta .descr { margin: 6px 0 0; color: #e3ddfa; font-size: 16px; line-height: 1.4; }
+  .carta .dettagli { margin: 10px 0 0; padding-top: 10px; border-top: 1px dashed var(--line); color: var(--soft); font-size: 14px; font-weight: 700; }
+  .blocco h3 { margin: 0; font: 600 20px/1.2 Fredoka, Nunito, sans-serif; }
+  .blocco .wa { margin-top: 12px; }
+  .blocco + .blocco { padding-top: clamp(12px, 2vh, 24px); border-top: 1px solid var(--line); }
+  .riga-link { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 22px; margin-top: 6px; }
+  .riga-link .wa { flex-basis: 100%; margin-top: 6px; }
+  .link { display: inline-block; padding: 8px 2px; background: none; border: 0; color: #c9bcff; font-weight: 800; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; }
+  .fuori .link { display: block; width: 100%; }
+  .riga-email { display: flex; gap: 8px; margin-top: 12px; }
   .riga-email input { flex: 1; min-width: 0; padding: 12px 14px; }
-  .riga-email .avanti { width: auto; min-height: 48px; padding: 0 18px; font-size: 17px; box-shadow: 0 4px 0 var(--c); }
-  .notaemail { margin: 8px 0 0 !important; font-size: 11.5px !important; color: var(--soft) !important; line-height: 1.35; }
+  .riga-email .avanti { width: auto; min-height: 50px; padding: 0 20px; font-size: 17px; box-shadow: 0 4px 0 var(--c); }
+  .notaemail { margin: 10px 0 0 !important; font-size: 12px !important; color: var(--soft) !important; line-height: 1.4; }
+  /* telefoni bassi (iPhone SE e simili): stesso ordine, tutto un po' più stretto */
+  @media (max-height: 700px) {
+    .fine { gap: 10px; padding-top: 2px; }
+    .carta { padding: 14px 16px 12px; }
+    .carta .casa { width: 40px; height: 35px; }
+    .carta h2 { margin-top: 8px; font-size: 22px; }
+    .carta .descr { font-size: 15px; line-height: 1.3; }
+    .carta .dettagli { margin-top: 8px; padding-top: 8px; font-size: 13px; }
+    .blocco h3 { font-size: 18px; }
+    .blocco .wa { margin-top: 8px; min-height: 48px; }
+    .blocco + .blocco { padding-top: 10px; }
+    .riga-link { margin-top: 2px; }
+    .riga-email { margin-top: 8px; }
+    .riga-email .avanti, .riga-email input { min-height: 46px; }
+    .notaemail { margin-top: 6px !important; font-size: 11px !important; line-height: 1.3; }
+  }
+  /* telefoni molto bassi o con le barre del browser aperte: via la casetta e qualche spazio */
+  @media (max-height: 620px) {
+    .app { padding-top: max(8px, env(safe-area-inset-top)); padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+    .fine { gap: 8px; padding-top: 0; }
+    .carta .casa { display: none; }
+    .carta { padding: 12px 14px 10px; border-radius: 20px; }
+    .carta h2 { margin-top: 6px; font-size: 21px; }
+    .carta .descr { margin-top: 4px; }
+    .blocco .wa { min-height: 46px; }
+    .blocco + .blocco { padding-top: 8px; }
+    .link { padding: 6px 2px; }
+  }
   .notaemail a { color: #c9bcff; }
   .err { margin: 6px 0 0; color: #ffb3c9; font-size: 14px; font-weight: 700; }
   .fatto { margin: 10px 0 0; padding: 10px 12px; border-radius: 14px; background: rgba(34,184,167,.16); color: #b8fff3; font-weight: 700; }
@@ -181,7 +210,7 @@
 <main class="app" id="app">
   <header class="top">
     <div class="marca"><svg viewBox="0 0 30 26" aria-hidden="true"><path d="M3 12 15 3l12 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="11" width="18" height="13" rx="2.5" fill="#fff"/><rect x="9" y="14" width="5" height="4" rx="1" fill="#ffb020"/><rect x="16" y="14" width="5" height="4" rx="1" fill="#ff6fa8"/><rect x="9" y="19.5" width="5" height="3" rx="1" fill="#22b8a7"/><rect x="16" y="19.5" width="5" height="3" rx="1" fill="#7c5cff"/></svg>Per chi vive con coinquilini</div>
-    <span class="pill"><svg width="12" height="13" viewBox="0 0 12 13" aria-hidden="true"><rect x="1" y="5.5" width="10" height="7" rx="2" fill="currentColor"/><path d="M3.3 5.5V4a2.7 2.7 0 0 1 5.4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Anonimo</span>
+    <span class="pill" id="pill"><svg width="12" height="13" viewBox="0 0 12 13" aria-hidden="true"><rect x="1" y="5.5" width="10" height="7" rx="2" fill="currentColor"/><path d="M3.3 5.5V4a2.7 2.7 0 0 1 5.4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Anonimo</span>
   </header>
   <p class="prova" id="prova" hidden>Versione di prova · niente viene salvato</p>
 
@@ -207,7 +236,7 @@
     <div class="scelte">
       <button type="button" class="scelta" data-v="sì">Sì</button>
       <button type="button" class="scelta" data-v="ci ho vissuto nell'ultimo anno">Non più, ma nell’ultimo anno sì</button>
-      <button type="button" class="scelta" data-v="ci andrò nei prossimi 6 mesi">Non ancora, ma ci andrò a breve</button>
+      <button type="button" class="scelta" data-v="ci andrò nei prossimi mesi">Non ancora, ma ci andrò nei prossimi mesi</button>
       <button type="button" class="scelta" data-v="no">No</button>
     </div>
   </section>
@@ -262,14 +291,29 @@
     <div class="azioni"><button type="button" class="avanti">Avanti</button><button type="button" class="salta">Salta</button></div>
   </section>
 
+  <section class="schermo" data-id="strumenti" data-tipo="piu" hidden>
+    <h2 tabindex="-1" id="t-strumenti">Per tenere i conti o i turni, cosa usate adesso?</h2>
+    <p class="aiuto">Puoi segnarne più di una.</p>
+    <div class="scelte multi" data-mescola>
+      <button type="button" class="scelta" data-v="whatsapp">Il gruppo WhatsApp di casa</button>
+      <button type="button" class="scelta" data-v="app">Splitwise o un’altra app</button>
+      <button type="button" class="scelta" data-v="foglio">Un foglio, una lavagna o le note del telefono</button>
+      <button type="button" class="scelta" data-v="a voce">Niente di scritto, ce lo diciamo a voce</button>
+      <button type="button" class="scelta" data-v="nessuna" data-solo data-fisso>Niente, non serve</button>
+    </div>
+    <div class="azioni"><button type="button" class="avanti" disabled>Avanti</button></div>
+  </section>
+
   <section class="schermo" data-id="spese" data-tipo="uno" hidden>
-    <h2 tabindex="-1" id="t-spese">Come dividete le spese di casa?</h2>
-    <p class="aiuto">Bollette, detersivi, carta igienica…</p>
+    <h2 tabindex="-1" id="t-spese">Come dividete le spese comuni?</h2>
+    <p class="aiuto">Detersivi, carta igienica, spesa di casa…</p>
     <div class="scelte">
-      <button type="button" class="scelta" data-v="parti uguali">Tutto in parti uguali</button>
-      <button type="button" class="scelta" data-v="affitto diverso">L’affitto in parti diverse, il resto uguale</button>
+      <button type="button" class="scelta" data-v="parti uguali">Ogni volta in parti uguali</button>
+      <button type="button" class="scelta" data-v="cassa comune">Abbiamo una cassa comune: ognuno mette una cifra</button>
+      <button type="button" class="scelta" data-v="a turno">A turno: una volta compra uno, una volta un altro</button>
       <button type="button" class="scelta" data-v="ognuno il suo">Ognuno si compra le sue cose</button>
       <button type="button" class="scelta" data-v="a occhio">Senza una regola, un po’ a occhio</button>
+      <button type="button" class="scelta" data-v="altro">In un altro modo</button>
     </div>
   </section>
 
@@ -297,27 +341,36 @@
     </div>
   </section>
 
-  <section class="schermo" data-id="classifica" data-tipo="uno" hidden>
-    <h2 tabindex="-1">Se l’app mostrasse chi pulisce di più, come la prenderesti?</h2>
-    <div class="scelte">
-      <button type="button" class="scelta" data-v="mi sprona">Bene, mi darebbe una spinta</button>
-      <button type="button" class="scelta" data-v="indifferente">Mi sarebbe indifferente</button>
-      <button type="button" class="scelta" data-v="disagio">Mi metterebbe a disagio</button>
-      <button type="button" class="scelta" data-v="tensioni">Finiremmo per litigare</button>
-      <button type="button" class="scelta" data-v="non so">Non saprei</button>
+  <section class="schermo" data-id="crescere" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Nell’app, quale di questi ti farebbe piacere vedere?</h2>
+    <p class="aiuto">Pensa alle faccende di casa.</p>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="casa"><span>«Casa in ordine da 3 settimane»<small>Un traguardo di tutta la casa</small></span></button>
+      <button type="button" class="scelta" data-v="ognuno"><span>«Faccende del mese: Giulia 8, Luca 6, tu 7»<small>Il conto di ognuno</small></span></button>
+      <button type="button" class="scelta" data-v="nessun numero"><span>Nessun numero<small>Solo le cose da fare</small></span></button>
+      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
     </div>
   </section>
 
   <section class="schermo" data-id="promemoria" data-tipo="uno" hidden>
     <h2 tabindex="-1">Se l’app ti mandasse un promemoria, quando ti farebbe più comodo?</h2>
-    <p class="aiuto">Tipo «stasera tocca a te il bagno».</p>
+    <p class="aiuto">Per esempio quando tocca a te una faccenda.</p>
     <div class="scelte">
       <button type="button" class="scelta" data-v="mattina">La mattina, prima di uscire</button>
       <button type="button" class="scelta" data-v="pausa">Durante il giorno, in pausa</button>
       <button type="button" class="scelta" data-v="rientro">Quando torno a casa</button>
       <button type="button" class="scelta" data-v="sera">La sera, dopo cena</button>
-      <button type="button" class="scelta" data-v="weekend">Nel weekend</button>
+      <button type="button" class="scelta" data-v="non so">Non saprei</button>
       <button type="button" class="scelta" data-v="nessuno">Meglio di no, niente promemoria</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="tono" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Quale di questi due messaggi preferiresti ricevere?</h2>
+    <div class="scelte frase" data-mescola id="scelte-tono">
+      <button type="button" class="scelta" data-v="diretto" data-lettera="D">«Tocca a te il bagno: è da fare da 2 giorni.»</button>
+      <button type="button" class="scelta" data-v="leggero" data-lettera="L">«Il bagno ti aspetta da 2 giorni.»</button>
+      <button type="button" class="scelta" data-v="indifferente" data-fisso>Mi è indifferente</button>
     </div>
   </section>
 
@@ -359,26 +412,23 @@
     <div class="carta" id="carta">
       <div class="testa">
         <div class="casa" id="r-casa" aria-hidden="true"></div>
-        <div class="titoli">
-          <p class="pre" id="r-pre">Il quadro della tua casa</p>
-          <h2 tabindex="-1" id="r-tit"><span class="nome" id="r-nome"></span></h2>
-        </div>
+        <p class="pre" id="r-pre">Il quadro della tua casa</p>
       </div>
+      <h2 tabindex="-1" id="r-tit"><span class="nome" id="r-nome"></span></h2>
       <p class="descr" id="r-descr"></p>
-      <ul class="chips" id="r-chips"></ul>
+      <p class="dettagli" id="r-chips"></p>
     </div>
 
-    <div class="box">
+    <div class="blocco">
       <h3 id="s-tit">Giralo ai tuoi coinquilini</h3>
-      <p id="s-txt">Ci aiuti a rifinire l’app. Bastano due minuti.</p>
-      <div class="due">
-        <a class="wa" id="s-casa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Gruppo di casa</a>
-        <a class="wa alt" id="s-amico" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>A un amico</a>
+      <a class="wa" id="s-casa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Mandalo nel gruppo di casa</a>
+      <div class="riga-link">
+        <a class="link" id="s-amico" href="https://wa.me/" target="_blank" rel="noopener">Mandalo a un amico</a>
+        <button type="button" class="link" id="s-copia">Copia il link</button>
       </div>
-      <button type="button" class="link" id="s-copia">Copia il link</button>
     </div>
 
-    <div class="box" id="boxemail">
+    <div class="blocco" id="boxemail">
       <h3>Vuoi provarla prima degli altri?</h3>
       <form class="riga-email" id="femail" novalidate>
         <input type="email" id="email" inputmode="email" autocomplete="email" placeholder="La tua email" aria-label="La tua email">
@@ -386,9 +436,9 @@
       </form>
       <p class="err" id="emailerr" hidden></p>
       <p class="fatto" id="emailok" hidden>Fatto: ti scriviamo quando puoi provarla.</p>
-      <p class="notaemail">Ti scriviamo solo per farti provare l’app, per dirti quando esce e per qualche parere. Niente pubblicità. L’email resta separata dalle risposte, non la diamo a nessuno e ti cancelli quando vuoi. <a href="../privacy.html" target="_blank" rel="noopener">Informativa</a></p>
+      <p class="notaemail">Solo per farti provare l’app, dirti quando esce e a volte chiederti un parere. Niente pubblicità, mai ad altri. Resta separata dalle risposte e ti cancelli quando vuoi. <a href="../privacy.html" target="_blank" rel="noopener">Informativa</a></p>
     </div>
-    <p class="ok-invio" id="okinvio">Grazie, le tue risposte sono arrivate.</p>
+    <p class="ok-invio" id="okinvio" role="status">Grazie, le tue risposte sono arrivate</p>
   </section>
 
   <section class="schermo fuori" id="fuori" hidden>
@@ -415,7 +465,10 @@
   // 5.3: niente più «Che casa siete?» né ironia: alla fine il quadro della casa, messaggi più professionali.
   // 5.4: allineato alla copertina scelta («Chi paga cosa. A chi tocca. Cosa manca.», «Com’è davvero da voi? Raccontacelo.»).
   // 5.5: frase A riscritta perché somigliava troppo alla copertina (valore salvato: «niente da chiedere»).
-  var VERSIONE = 5, REVISIONE = '5.5', PRE = 'prova_v5_';
+  // Versione 6 (12 novembre 2026): ogni domanda collegata a una delle 7 decisioni (Sondaggio/Revisione domande v5.md).
+  // Nuove: cosa usate adesso (strumenti), quale messaggio preferisci (tono). Cambiate: spese comuni, cosa veder crescere
+  // (al posto di «chi pulisce di più»). Ritocchi: «nei prossimi mesi», promemoria senza «nel weekend» e con «non saprei».
+  var VERSIONE = 6, REVISIONE = '6.0', PRE = 'prova_v6_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
@@ -426,12 +479,12 @@
 
   if (!ENDPOINT) { $('prova').hidden = false; $('okinvio').textContent = 'Prova completata · niente è stato salvato'; }
 
-  var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi 6 mesi', NO = 'no';
+  var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi mesi', NO = 'no';
   var COLORI = ['#ffb020', '#ff6fa8', '#22b8a7', '#7c5cff'];
-  var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, spese: 2,
-    frase: 3, primo: 3, classifica: 3, promemoria: 3, adozione: 4, perche: 4, frasecasa: 4 };
+  var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, strumenti: 2, spese: 2,
+    frase: 3, primo: 3, crescere: 3, promemoria: 3, tono: 3, adozione: 4, perche: 4, frasecasa: 4 };
   var NOMI_PASSI = { 1: 'La tua casa', 2: 'Come va in casa', 3: 'L’app', 4: 'Tu e la tua casa' };
-  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'spese', 'frase', 'primo', 'classifica', 'promemoria', 'adozione', 'perche', 'frasecasa'];
+  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'frase', 'primo', 'crescere', 'promemoria', 'tono', 'adozione', 'perche', 'frasecasa'];
   var BREVE = { faccenda: 'I piatti o il bagno lasciati lì', 'al posto': 'Fare io la parte di un altro', ricordare: 'Dover chiedere indietro i soldi',
     conti: 'Non sapere chi deve soldi a chi', finito: 'La carta finita e nessuno che la compra' };
 
@@ -452,6 +505,7 @@
     mescola(mobili).concat(fissi).forEach(function(b){ c.appendChild(b); });
   });
   var ORDINE_FRASI = Array.prototype.map.call(document.querySelectorAll('#scelte-frase [data-lettera]'), function(b){ return b.getAttribute('data-lettera'); }).join(' ');
+  var ORDINE_TONO = Array.prototype.map.call(document.querySelectorAll('#scelte-tono [data-lettera]'), function(b){ return b.getAttribute('data-lettera'); }).join(' ');
 
   // ---------- quali domande vede la persona ----------
   function problemi(){ return (A.successo || []).filter(function(x){ return x !== 'nessuna'; }); }
@@ -468,9 +522,10 @@
       case 'paura': return casa === ANDRO;
       case 'pesa': return vissuta && (A.successo ? problemi().length >= 2 : !!stima);
       case 'racconto': return vissuta && (A.successo ? problemi().length >= 1 : !!stima);
-      case 'spese': return vissuta;
-      case 'frase': case 'primo': case 'classifica': return dentro;
+      case 'strumenti': case 'spese': return vissuta && !conosce;
+      case 'frase': case 'primo': case 'crescere': return dentro;
       case 'promemoria': case 'adozione': return dentro && !conosce;
+      case 'tono': return dentro && !conosce && (A.promemoria ? A.promemoria !== 'nessuno' : !!stima);
       case 'perche': return dentro && !conosce && A.adozione === 'non la useremmo';
       case 'frasecasa': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
     }
@@ -508,7 +563,8 @@
       $('nonsoancora').hidden = c !== ANDRO;
     }
     if (id === 'successo') $('t-successo').textContent = conosce ? 'Per quel che sai, nell’ultimo mese in quella casa è capitato che…' : c === SI ? 'Nell’ultimo mese ti è capitato che…' : 'Nell’ultimo mese passato in quella casa, ti è capitato che…';
-    if (id === 'spese') $('t-spese').textContent = conosce ? 'Come dividono le spese di casa?' : c === SI ? 'Come dividete le spese di casa?' : 'Come dividevate le spese di casa?';
+    if (id === 'strumenti') $('t-strumenti').textContent = c === SI ? 'Per tenere i conti o i turni, cosa usate adesso?' : 'Per tenere i conti o i turni, cosa usavate?';
+    if (id === 'spese') $('t-spese').textContent = c === SI ? 'Come dividete le spese comuni?' : 'Come dividevate le spese comuni?';
     if (id === 'adozione') $('t-adozione').textContent = c === SI ? 'Se uscisse domani, cosa succederebbe a casa tua?' : 'Se uscisse domani e vivessi con altri, cosa succederebbe?';
     if (id === 'frasecasa') {
       var aspetta = A.adozione === 'aspetto qualcun altro';
@@ -599,6 +655,7 @@
     A[id] = v;
     if (id === 'persone') disegnaCasa();
     if (id === 'frase') A.ordinefrasi = ORDINE_FRASI;
+    if (id === 'tono') A.ordinetono = ORDINE_TONO;
   }
   document.querySelectorAll('section[data-tipo="piu"] .avanti').forEach(function(b){
     b.addEventListener('click', function(){ if (!b.disabled) avanti(); });
@@ -705,14 +762,15 @@
     'paura accordo': ['Andare d’accordo', 'Quando spese e turni sono chiari per tutti, ci sono meno motivi per discutere.'],
     'paura niente': ['Niente in particolare', 'Un buon punto di partenza. Con spese, turni e lista della spesa in un posto solo è più facile che resti così.']
   };
-  var SPESE = { 'parti uguali': '➗ Tutto in parti uguali', 'affitto diverso': '🏷️ Affitto diverso, resto uguale', 'ognuno il suo': '🛒 Ognuno per conto suo', 'a occhio': '👀 Spese senza una regola' };
-  var PROMEMORIA = { mattina: '☀️ Promemoria la mattina', pausa: '☕ Promemoria in pausa', rientro: '🔑 Promemoria al rientro', sera: '🌙 Promemoria dopo cena', weekend: '🧺 Promemoria nel weekend', nessuno: '🔕 Niente promemoria' };
-  var ADOZIONE = { 'la propongo e la usiamo tutti': '🙋 La proporresti tu', 'la propongo ma qualcuno no': '🙋 La proporresti tu', 'aspetto qualcun altro': '⏳ Aspetteresti gli altri', 'non la useremmo': '🙅 Per ora non la usereste', 'non so': '🤔 Ancora da vedere' };
+  var SPESE = { 'parti uguali': 'Spese in parti uguali', 'cassa comune': 'Cassa comune', 'a turno': 'Spesa a turno', 'ognuno il suo': 'Ognuno per conto suo', 'a occhio': 'Spese senza una regola' };
+  var PROMEMORIA = { mattina: 'Promemoria la mattina', pausa: 'Promemoria in pausa', rientro: 'Promemoria al rientro', sera: 'Promemoria dopo cena', nessuno: 'Niente promemoria' };
+  var ADOZIONE = { 'la propongo e la usiamo tutti': 'La proporresti tu', 'la propongo ma qualcuno no': 'La proporresti tu', 'aspetto qualcun altro': 'Aspetteresti gli altri', 'non la useremmo': 'Per ora non la usereste', 'non so': 'Ancora da vedere' };
 
   function riga(){
     var r = { tipo: 'risposta', versione: VERSIONE, revisione: REVISIONE, id: ID_RISPOSTA, giorno: oggi(), da: DA };
     ORDINE.forEach(function(id){ if (visibile(id) && A[id] !== undefined) r[id] = A[id]; });
     if (r.frase !== undefined) r.ordinefrasi = A.ordinefrasi || ORDINE_FRASI;
+    if (r.tono !== undefined) r.ordinetono = A.ordinetono || ORDINE_TONO;
     if (A.casa !== NO || LOSTESSO) { var k = principale(); r.principale = k; r.profilo = (PROFILI[k] || [''])[0]; }
     return r;
   }
@@ -735,26 +793,28 @@
     $('r-casa').innerHTML = casetta(quanti());
     $('r-nome').textContent = p[0];
     $('r-descr').textContent = p[1];
+    // Due dettagli in una riga, senza simboli: in quanti siete e quante cose sono successe.
     var chips = [];
-    if (quanti()) chips.push('👥 In ' + (A.persone === '5 o più' ? '5 o più' : A.persone));
-    if (A.casa !== ANDRO) { var n = problemi().length; chips.push(n ? '⚠️ ' + n + (n === 1 ? ' problema' : ' problemi') + ' nell’ultimo mese' : '✅ Nessun problema'); }
+    if (quanti()) chips.push('In ' + (A.persone === '5 o più' ? '5 o più' : A.persone));
+    if (A.casa !== ANDRO) { var n = problemi().length; chips.push(n ? n + (n === 1 ? ' cosa successa' : ' cose successe') + ' nell’ultimo mese' : 'Niente di storto nell’ultimo mese'); }
     if (SPESE[A.spese]) chips.push(SPESE[A.spese]);
     if (PROMEMORIA[A.promemoria]) chips.push(PROMEMORIA[A.promemoria]);
     if (ADOZIONE[A.adozione]) chips.push(ADOZIONE[A.adozione]);
-    var ul = $('r-chips'); ul.textContent = '';
-    chips.slice(0, 2).forEach(function(c){ var li = document.createElement('li'); li.textContent = c; ul.appendChild(li); });
+    $('r-chips').textContent = chips.slice(0, 2).join(' · ');
+    $('r-chips').hidden = !chips.length;
 
     // Condivisione: ai coinquilini (stessa casa) e agli amici, ognuno con la sua etichetta.
     var msgCasa = 'Ho risposto a un sondaggio per chi vive con dei coinquilini: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta finendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
     var msgAmico = MSG_AMICO;
     var conCasa = A.casa === SI;
-    $('s-tit').textContent = conCasa ? 'Giralo ai tuoi coinquilini' : 'Conosci qualcuno che vive con coinquilini?';
-    $('s-txt').textContent = conCasa ? 'Ci aiuti a rifinire l’app. Bastano due minuti.' : 'Giraglielo: ci aiuti a rifinire l’app.';
+    $('s-tit').textContent = conCasa ? 'Giralo ai tuoi coinquilini' : 'Giralo a chi vive con coinquilini';
     $('s-casa').hidden = !conCasa;
     $('s-casa').href = wa(msgCasa, linkDa('condivisione-casa'));
     $('s-amico').href = wa(msgAmico, linkDa('condivisione'));
-    $('s-amico').className = conCasa ? 'wa alt' : 'wa';
-    $('s-amico').innerHTML = '<svg aria-hidden="true"><use href="#wa"/></svg>' + (conCasa ? 'A un amico' : 'Mandalo su WhatsApp');
+    // Chi vive in casa: il pulsante grande è per il gruppo di casa, l'amico è un link sotto.
+    // Gli altri: un solo pulsante grande, per l'amico.
+    $('s-amico').className = conCasa ? 'link' : 'wa';
+    $('s-amico').innerHTML = conCasa ? 'Mandalo a un amico' : '<svg aria-hidden="true"><use href="#wa"/></svg>Mandalo su WhatsApp';
   }
 
   function fine(){
@@ -765,6 +825,9 @@
     store(PRE + 'inviato', '1');
     nascondiTutto(); $('avanz').hidden = true; $('navi').hidden = true;
     document.documentElement.style.setProperty('--c', COLORI[3]);
+    $('app').classList.add('alla-fine');
+    $('pill').className = 'pill grazie';
+    $('pill').innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Grazie!';
     $('risultato').hidden = false;
     window.scrollTo(0, 0);
     $('r-tit').focus({ preventScroll: true });
