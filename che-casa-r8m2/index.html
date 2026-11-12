@@ -80,6 +80,8 @@
     font: 600 19px/1.1 Fredoka, Nunito, sans-serif; }
   .lead { margin: 26px 0 0; padding: 14px 16px 14px 18px; border-radius: 16px; background: var(--card); border: 1px solid var(--line);
     border-left: 4px solid var(--viola); color: #e3ddfa; font-size: 16px; }
+  .promessa { margin: 10px 0 0; padding: 12px 16px; border-radius: 16px; background: rgba(255,111,168,.12); border: 1px solid rgba(255,111,168,.4); color: #ffe3ef; font-size: 16px; }
+  .promessa b { color: #fff; }
   .meta { margin: 12px 0 0; font-size: 14px; font-weight: 700; color: var(--soft); }
 
   /* domande */
@@ -107,6 +109,19 @@
   .scelta small { display: block; font-weight: 600; font-size: 14px; opacity: .75; margin-top: 2px; }
   .frase .scelta { font-weight: 600; font-style: italic; }
   .frase .scelta[data-fisso] { font-style: normal; font-weight: 700; }
+
+  /* schermata di passaggio tra le domande sulla casa e quelle sull'app */
+  .ponte { padding-top: 6vh; }
+  .ponte h2 { font-size: 32px; }
+  .fatto-passo { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 6px 14px 6px 8px; border-radius: 999px;
+    background: rgba(34,184,167,.14); border: 1px solid rgba(34,184,167,.35); color: #8ff0e2; font-size: 14px; font-weight: 800; }
+  .fatto-passo::before { content: ""; width: 20px; height: 20px; border-radius: 50%; flex: none;
+    background: #22b8a7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%2315102a' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+  .lead-ponte { margin: 14px 0 0; color: #e3ddfa; font-size: 17px; }
+  .tre { display: grid; gap: 10px; margin: 12px 0 0; padding: 0; list-style: none; }
+  .tre li { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: var(--r); background: var(--card); border: 1.5px solid var(--line); font-weight: 700; font-size: 17px; }
+  .tre i { width: 14px; height: 14px; border-radius: 4px; flex: none; }
+  .ponte .azioni { margin-top: 24px; }
 
   .azioni { display: grid; gap: 8px; margin-top: 18px; }
   .avanti { width: 100%; min-height: 56px; border: 0; border-radius: 999px; background: #fff; color: var(--ink); font: 600 19px/1 Fredoka, Nunito, sans-serif;
@@ -144,9 +159,34 @@
   .carta .pre { margin: 0; font: 600 13px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: .6px; text-transform: uppercase; color: var(--rosa); }
   .carta h2 { margin: 10px 0 0; font-size: 26px; line-height: 1.15; }
   .carta .descr { margin: 6px 0 0; color: #e3ddfa; font-size: 16px; line-height: 1.4; }
-  .carta .dettagli { margin: 10px 0 0; padding-top: 10px; border-top: 1px dashed var(--line); color: var(--soft); font-size: 14px; font-weight: 700; }
+  /* la pagella: una riga per pulizie, soldi, spesa */
+  .pagella { display: grid; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
+  .pagella li { display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 10px; padding: 7px 10px 7px 12px; border-radius: 14px; background: rgba(255,255,255,.06); }
+  .pagella .voce { min-width: 0; font-weight: 800; font-size: 16px; line-height: 1.25; }
+  .pagella .perche { grid-column: 1 / -1; margin-top: 1px; font-weight: 600; font-size: 13px; line-height: 1.3; color: var(--soft); }
+  .pagella .stato { padding: 3px 9px; border-radius: 999px; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
+  /* nella v7 la casetta resta nella testata e nella barra: nella pagella si toglie, così tutto sta in una schermata */
+  .carta .casa { display: none; }
+  .carta { padding: 14px 16px 12px; }
+  .carta h2 { margin-top: 6px; }
+  .pagella { gap: 5px; }
+  .pagella li { padding-top: 5px; padding-bottom: 5px; }
+  .carta .descr { font-size: 15px; line-height: 1.35; margin-top: 8px; padding-top: 8px; }
+  .fine { gap: clamp(10px, 1.6vh, 24px); }
+  .blocco + .blocco { padding-top: clamp(10px, 1.6vh, 24px); }
+  .riga-link .link { padding: 6px 2px; }
+  .riga-email input, .riga-email .avanti { min-height: 46px; }
+  /* telefoni molto bassi: via la riga su cosa fa l'app, restano i voti e i motivi */
+  @media (max-height: 620px) { .carta .descr { display: none; } .carta h2 { font-size: 21px; } .blocco h3 { font-size: 17px; } .riga-email { margin-top: 6px; }
+    .alla-fine .top { min-height: 32px; } .alla-fine .prova { margin-top: 6px; padding: 4px 10px; font-size: 12px; } .pagella .perche { font-size: 12.5px; } .pagella li { padding-top: 4px; padding-bottom: 4px; } }
+  .app.alla-fine { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .notaemail { font-size: 11.5px !important; line-height: 1.35 !important; }
+  .pagella .ok .stato { background: rgba(34,184,167,.2); color: #8ff0e2; }
+  .pagella .no .stato { background: var(--giallo); color: var(--ink); }
+  .carta .descr { padding-top: 10px; margin-top: 10px; border-top: 1px dashed var(--line); }
   .blocco h3 { margin: 0; font: 600 20px/1.2 Fredoka, Nunito, sans-serif; }
   .blocco .wa { margin-top: 12px; }
+  .blocco h3[hidden] + .wa { margin-top: 0; }
   .blocco + .blocco { padding-top: clamp(12px, 2vh, 24px); border-top: 1px solid var(--line); }
   .riga-link { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 22px; margin-top: 6px; }
   .riga-link .wa { flex-basis: 100%; margin-top: 6px; }
@@ -230,7 +270,8 @@
       <div class="puntini" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <h1>Com’è davvero da voi?</h1>
       <p class="evid">2 minuti · anonimo</p>
-      <p class="lead">Siamo un gruppo di ragazzi e stiamo finendo un’app per chi vive con dei coinquilini: spese, turni delle pulizie, lista della spesa. Prima degli ultimi ritocchi vogliamo capire come si vive nelle vostre case, anche quando va tutto bene. Alla fine ti mostriamo il quadro della tua casa.</p>
+      <p class="lead">Siamo un gruppo di ragazzi e stiamo finendo un’app per chi vive con dei coinquilini. Prima degli ultimi ritocchi vogliamo capire come va nelle vostre case, anche quando va tutto bene.</p>
+      <p class="promessa"><b>Cosa ricevi:</b> alla fine, la pagella della tua casa su pulizie, soldi e spesa.</p>
     </div>
     <h2 tabindex="-1">Vivi con dei coinquilini?</h2>
     <div class="scelte">
@@ -318,8 +359,20 @@
   </section>
 
   <!-- PASSO 3 · L'APP -->
+  <section class="schermo ponte" data-id="ponte" data-tipo="ponte" hidden>
+    <p class="fatto-passo">Passo 2 fatto</p>
+    <h2 tabindex="-1">Ora parliamo dell’app</h2>
+    <p class="lead-ponte">È gratis e fa tre cose:</p>
+    <ul class="tre">
+      <li><i style="background:var(--giallo)"></i>Divide le spese</li>
+      <li><i style="background:var(--rosa)"></i>Organizza i turni delle pulizie</li>
+      <li><i style="background:var(--turchese)"></i>Tiene la lista della spesa</li>
+    </ul>
+    <p class="lead-ponte">Ora qualche domanda su come la useresti.</p>
+    <div class="azioni"><button type="button" class="avanti">Continua</button></div>
+  </section>
+
   <section class="schermo" data-id="primo" data-tipo="uno" hidden>
-    <div class="riquadro"><b>Ora parliamo dell’app.</b> È gratis e fa tre cose: divide le spese, organizza i turni delle pulizie e tiene la lista della spesa.</div>
     <h2 tabindex="-1">Appena scaricata, cosa faresti per prima cosa?</h2>
     <div class="scelte" data-mescola>
       <button type="button" class="scelta" data-v="turni">Metterei i turni delle pulizie</button>
@@ -415,8 +468,8 @@
         <p class="pre" id="r-pre">Il quadro della tua casa</p>
       </div>
       <h2 tabindex="-1" id="r-tit"><span class="nome" id="r-nome"></span></h2>
+      <ul class="pagella" id="r-pagella"></ul>
       <p class="descr" id="r-descr"></p>
-      <p class="dettagli" id="r-chips"></p>
     </div>
 
     <div class="blocco">
@@ -470,7 +523,9 @@
   // (al posto di «chi pulisce di più»). Ritocchi: «nei prossimi mesi», promemoria senza «nel weekend» e con «non saprei».
   // 6.1: tolta la domanda sulle 3 frasi (si provano con i post).
   // 6.2: al suo posto, scelta da Lorenzo, «Cosa ti farebbe smettere di usarla dopo una settimana?» (smettere).
-  var VERSIONE = 6, REVISIONE = '6.2', PRE = 'prova_v6_';
+  // Versione 7 (12 novembre 2026): i suggerimenti delle registrazioni. Apertura con «Cosa ricevi: in 2 minuti, la pagella della tua casa»,
+  // schermata di passaggio prima delle domande sull'app (ponte), alla fine la pagella della casa (pulizie, soldi, spesa). Domande uguali alla 6.2.
+  var VERSIONE = 7, REVISIONE = '7.0', PRE = 'prova_v7_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
@@ -484,9 +539,9 @@
   var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi mesi', NO = 'no';
   var COLORI = ['#ffb020', '#ff6fa8', '#22b8a7', '#7c5cff'];
   var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, strumenti: 2, spese: 2,
-    primo: 3, crescere: 3, promemoria: 3, tono: 3, adozione: 4, perche: 4, smettere: 4, frasecasa: 4 };
+    ponte: 3, primo: 3, crescere: 3, promemoria: 3, tono: 3, adozione: 4, perche: 4, smettere: 4, frasecasa: 4 };
   var NOMI_PASSI = { 1: 'La tua casa', 2: 'Come va in casa', 3: 'L’app', 4: 'Tu e la tua casa' };
-  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'primo', 'crescere', 'promemoria', 'tono', 'adozione', 'perche', 'smettere', 'frasecasa'];
+  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'ponte', 'primo', 'crescere', 'promemoria', 'tono', 'adozione', 'perche', 'smettere', 'frasecasa'];
   var BREVE = { faccenda: 'I piatti o il bagno lasciati lì', 'al posto': 'Fare io la parte di un altro', ricordare: 'Dover chiedere indietro i soldi',
     conti: 'Non sapere chi deve soldi a chi', finito: 'La carta finita e nessuno che la compra' };
 
@@ -524,7 +579,7 @@
       case 'pesa': return vissuta && (A.successo ? problemi().length >= 2 : !!stima);
       case 'racconto': return vissuta && (A.successo ? problemi().length >= 1 : !!stima);
       case 'strumenti': case 'spese': return vissuta && !conosce;
-      case 'primo': case 'crescere': return dentro;
+      case 'ponte': case 'primo': case 'crescere': return dentro;
       case 'smettere': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
       case 'promemoria': case 'adozione': return dentro && !conosce;
       case 'tono': return dentro && !conosce && (A.promemoria ? A.promemoria !== 'nessuno' : !!stima);
@@ -534,7 +589,7 @@
     return false;
   }
   function dopo(id){ for (var i = ORDINE.indexOf(id) + 1; i < ORDINE.length; i++) if (visibile(ORDINE[i])) return ORDINE[i]; return null; }
-  function mancano(id){ var n = 0; for (var i = ORDINE.indexOf(id) + 1; i < ORDINE.length; i++) if (visibile(ORDINE[i], true)) n++; return n; }
+  function mancano(id){ var n = 0; for (var i = ORDINE.indexOf(id) + 1; i < ORDINE.length; i++) if (ORDINE[i] !== 'ponte' && visibile(ORDINE[i], true)) n++; return n; }
   function quantiPassi(){ var m = 1; ORDINE.forEach(function(id){ if (visibile(id, true)) m = Math.max(m, PASSI[id]); }); return m; }
 
   // ---------- la casetta: una finestra per coinquilino ----------
@@ -658,7 +713,7 @@
     if (id === 'persone') disegnaCasa();
     if (id === 'tono') A.ordinetono = ORDINE_TONO;
   }
-  document.querySelectorAll('section[data-tipo="piu"] .avanti').forEach(function(b){
+  document.querySelectorAll('section[data-tipo="piu"] .avanti, section[data-tipo="ponte"] .avanti').forEach(function(b){
     b.addEventListener('click', function(){ if (!b.disabled) avanti(); });
   });
   function contaCaratteri(t){ var c = $('conta-' + t.id); if (c) c.textContent = t.value.length ? t.value.length + ' / ' + t.maxLength : ''; }
@@ -673,7 +728,7 @@
   var tFlash = null;
   function testoPremio(p){
     if (p === 1) return A.casa === ANDRO ? 'Ora qualche domanda su cosa ti aspetti.' : 'Ora qualche domanda su come vanno le cose in casa.';
-    if (p === 2) return 'Grazie. Ora qualche domanda sull’app.';
+    if (p === 2) return '';
     if (p === 3) return 'Ultime domande, poi vedi il quadro della tua casa.';
     return '';
   }
@@ -787,27 +842,56 @@
     conta('copia_link');
   }
 
+  // La pagella: per pulizie, soldi e spesa, «In ordine» se nell'ultimo mese non è successo niente di quell'area,
+  // altrimenti «Da sistemare» con quello che è successo. Si basa solo sulla domanda «Nell'ultimo mese ti è capitato che…».
+  var AREE = [['Pulizie', ['faccenda', 'al posto']], ['Soldi', ['ricordare', 'conti']], ['Spesa', ['finito']]];
+  var GIUDIZIO = { 3: 'Tutto in ordine', 2: 'Quasi tutto in ordine', 1: 'Qualcosa da sistemare', 0: 'Più cose da sistemare' };
+  // Sotto la pagella, cosa fa l'app per il punto principale (le stesse frasi del quadro della v6).
+  var APP = {
+    faccenda: 'Con i turni nell’app ognuno sa cosa gli tocca e quando.',
+    'al posto': 'Con i turni nell’app ognuno sa cosa gli tocca e quando.',
+    ricordare: 'Nell’app ogni spesa resta segnata: si vede chi deve cosa, senza chiedere.',
+    conti: 'Nell’app ogni spesa si divide appena la segni.',
+    finito: 'Con la lista della spesa comune, chi esce vede cosa manca.',
+    misto: 'Spese, pulizie e lista della spesa sono proprio le tre parti dell’app.',
+    nessuna: 'Nell’ultimo mese nessuno di questi problemi. Anche questo ci serve: capire cosa fa funzionare una casa.'
+  };
+
   function risultato(){
     var k = principale(), p = PROFILI[k] || PROFILI.nessuna;
-    $('r-pre').textContent = A.casa === SI ? 'Il quadro della tua casa' : A.casa === VISSUTO ? 'Il quadro della tua ultima casa' : A.casa === NO ? 'Il quadro di quella casa' : 'Ciò che ti preoccupa di più';
     $('r-casa').innerHTML = casetta(quanti());
-    $('r-nome').textContent = p[0];
-    $('r-descr').textContent = p[1];
-    // Due dettagli in una riga, senza simboli: in quanti siete e quante cose sono successe.
-    var chips = [];
-    if (quanti()) chips.push('In ' + (A.persone === '5 o più' ? '5 o più' : A.persone));
-    if (A.casa !== ANDRO) { var n = problemi().length; chips.push(n ? n + (n === 1 ? ' cosa successa' : ' cose successe') + ' nell’ultimo mese' : 'Niente di storto nell’ultimo mese'); }
-    if (SPESE[A.spese]) chips.push(SPESE[A.spese]);
-    if (PROMEMORIA[A.promemoria]) chips.push(PROMEMORIA[A.promemoria]);
-    if (ADOZIONE[A.adozione]) chips.push(ADOZIONE[A.adozione]);
-    $('r-chips').textContent = chips.slice(0, 2).join(' · ');
-    $('r-chips').hidden = !chips.length;
+    var ul = $('r-pagella'); ul.textContent = '';
+    if (A.casa === ANDRO) {
+      // chi ci andrà non ha ancora una casa da valutare: resta il quadro di ciò che lo preoccupa
+      $('r-pre').textContent = 'Ciò che ti preoccupa di più';
+      $('r-nome').textContent = p[0];
+      $('r-descr').textContent = p[1];
+      ul.hidden = true;
+    } else {
+      $('r-pre').textContent = A.casa === SI ? 'La pagella della tua casa' : A.casa === VISSUTO ? 'La pagella della tua ultima casa' : 'La pagella di quella casa';
+      var pr = problemi(), inOrdine = 0;
+      AREE.forEach(function(a){
+        var successe = pr.filter(function(x){ return a[1].indexOf(x) >= 0; });
+        if (!successe.length) inOrdine++;
+        var li = document.createElement('li'); li.className = successe.length ? 'no' : 'ok';
+        var voce = document.createElement('span'); voce.className = 'voce'; voce.textContent = a[0];
+        var stato = document.createElement('span'); stato.className = 'stato'; stato.textContent = successe.length ? 'Da sistemare' : 'In ordine';
+        li.appendChild(voce); li.appendChild(stato);
+        if (successe.length) { var sm = document.createElement('small'); sm.className = 'perche'; sm.textContent = successe.map(function(x){ return BREVE[x]; }).join(' · '); li.appendChild(sm); }
+        ul.appendChild(li);
+      });
+      $('r-nome').textContent = GIUDIZIO[inOrdine];
+      $('r-descr').textContent = APP[k] || APP.nessuna;
+      ul.hidden = false;
+    }
 
     // Condivisione: ai coinquilini (stessa casa) e agli amici, ognuno con la sua etichetta.
     var msgCasa = 'Ho risposto a un sondaggio per chi vive con dei coinquilini: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta finendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
     var msgAmico = MSG_AMICO;
     var conCasa = A.casa === SI;
-    $('s-tit').textContent = conCasa ? 'Giralo ai tuoi coinquilini' : 'Giralo a chi vive con coinquilini';
+    // Chi vive in casa: il pulsante dice già tutto («Mandalo nel gruppo di casa»), il titolo sopra non serve.
+    $('s-tit').textContent = 'Giralo a chi vive con coinquilini';
+    $('s-tit').hidden = conCasa;
     $('s-casa').hidden = !conCasa;
     $('s-casa').href = wa(msgCasa, linkDa('condivisione-casa'));
     $('s-amico').href = wa(msgAmico, linkDa('condivisione'));
