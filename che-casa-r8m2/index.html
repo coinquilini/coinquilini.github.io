@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Che casa siete? · Sondaggio per chi divide casa</title>
+<meta name="description" content="Versione di prova: sondaggio anonimo per chi divide casa. Le risposte non vengono salvate.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#15102a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Che casa siete?">
+<meta property="og:description" content="Versione di prova: sondaggio anonimo per chi divide casa. Le risposte non vengono salvate.">
+<meta property="og:url" content="https://inqui-sondaggio.pages.dev/che-casa-r8m2/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg1: #15102a; --bg2: #2a1b45;
+    --ink: #1e1d33; --txt: #f6f3ff; --soft: #bdb6da;
+    --card: rgba(255,255,255,.07); --card2: rgba(255,255,255,.11); --line: rgba(255,255,255,.16);
+    --giallo: #ffb020; --rosa: #ff6fa8; --turchese: #22b8a7; --viola: #7c5cff; --evid: #ff7eb3;
+    --c: var(--giallo);
+    --r: 20px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; min-height: 100vh; min-height: 100dvh; color: var(--txt);
+    font: 400 17px/1.45 Nunito, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(circle at 85% 8%, rgba(255,111,168,.20), transparent 42%),
+      radial-gradient(circle at 5% 95%, rgba(124,92,255,.26), transparent 48%),
+      linear-gradient(165deg, var(--bg1), #1d1535 55%, var(--bg2));
+    background-attachment: fixed;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1.2px);
+    background-size: 22px 22px;
+  }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  [hidden] { display: none !important; }
+  .app { position: relative; z-index: 1; max-width: 540px; margin: 0 auto; padding: max(14px, env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom)); }
+
+  /* testata */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 40px; }
+  .marca { display: flex; align-items: center; gap: 9px; font: 600 15px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: .1px; }
+  .marca svg { width: 30px; height: 26px; flex: none; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; font-size: 13px; font-weight: 700;
+    color: #8ff0e2; background: rgba(34,184,167,.12); border: 1px solid rgba(34,184,167,.35); white-space: nowrap; }
+  .prova { margin: 10px 0 0; padding: 7px 12px; border-radius: 12px; font-size: 13px; font-weight: 700; text-align: center;
+    color: var(--ink); background: var(--giallo); }
+
+  /* progresso */
+  .avanz { display: flex; align-items: center; gap: 12px; margin: 16px 0 4px; }
+  .casamini { width: 46px; height: 38px; flex: none; }
+  .casamini svg { width: 100%; height: 100%; display: block; }
+  .barra { flex: 1; height: 10px; border-radius: 99px; background: rgba(255,255,255,.10); overflow: hidden; }
+  .barra i { display: block; height: 100%; width: 8%; border-radius: 99px;
+    background: linear-gradient(90deg, var(--giallo), var(--rosa) 40%, var(--turchese) 70%, var(--viola)); background-size: 540px 100%;
+    transition: width .45s cubic-bezier(.2,.8,.2,1); }
+  .mancano { font-size: 13px; font-weight: 800; color: var(--soft); white-space: nowrap; min-width: 98px; text-align: right; }
+
+  .navi { display: flex; justify-content: space-between; align-items: center; min-height: 34px; margin-top: 4px; }
+  .indietro { background: none; border: 0; padding: 6px 2px; color: var(--soft); font-weight: 700; font-size: 15px; }
+  .passo { font: 600 14px/1 Fredoka, Nunito, sans-serif; letter-spacing: .3px; color: var(--c); text-transform: uppercase; }
+
+  /* apertura */
+  .apertura { margin: 26px 0 6px; }
+  .puntini { display: flex; gap: 6px; margin-bottom: 18px; }
+  .puntini i { width: 9px; height: 9px; border-radius: 3px; }
+  .puntini i:nth-child(1) { background: var(--giallo); } .puntini i:nth-child(2) { background: var(--rosa); }
+  .puntini i:nth-child(3) { background: var(--turchese); } .puntini i:nth-child(4) { background: var(--viola); }
+  h1 { font: 700 44px/1.02 Fredoka, Nunito, sans-serif; margin: 0; letter-spacing: -.5px; }
+  .evid { display: inline-block; margin: 14px 0 0; padding: 6px 16px 8px; border-radius: 14px; background: var(--evid); color: var(--ink);
+    font: 700 24px/1.1 Fredoka, Nunito, sans-serif; box-shadow: 0 6px 0 var(--viola); transform: rotate(-1.2deg); }
+  .lead { margin: 26px 0 0; padding: 14px 16px 14px 18px; border-radius: 16px; background: var(--card); border: 1px solid var(--line);
+    border-left: 4px solid var(--viola); color: #e3ddfa; font-size: 16px; }
+  .meta { margin: 12px 0 0; font-size: 14px; font-weight: 700; color: var(--soft); }
+
+  /* domande */
+  .schermo { animation: entra .35s cubic-bezier(.2,.8,.2,1); }
+  @keyframes entra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  h2 { font: 600 27px/1.15 Fredoka, Nunito, sans-serif; margin: 18px 0 6px; letter-spacing: -.2px; outline: none; }
+  .apertura + h2 { margin-top: 30px; font-size: 23px; }
+  .aiuto { margin: 0 0 4px; color: var(--soft); font-size: 15px; font-weight: 600; }
+  .riquadro { margin: 18px 0 4px; padding: 14px 16px; border-radius: 16px; background: rgba(34,184,167,.12); border: 1px solid rgba(34,184,167,.38); color: #dff8f4; font-size: 16px; }
+  .riquadro b { color: #fff; }
+  .scelte { display: grid; gap: 10px; margin-top: 16px; }
+  .scelta { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; min-height: 58px; padding: 14px 52px 14px 18px;
+    text-align: left; border-radius: var(--r); background: var(--card); border: 1.5px solid var(--line); font-weight: 700; font-size: 17px; line-height: 1.3;
+    transition: background .18s, border-color .18s, transform .12s, color .18s; }
+  .scelta:hover { background: var(--card2); }
+  .scelta:active { transform: scale(.985); }
+  .scelta:focus-visible { outline: 3px solid var(--c); outline-offset: 2px; }
+  .scelta::after { content: ""; position: absolute; right: 16px; top: 50%; width: 24px; height: 24px; margin-top: -12px; border-radius: 50%;
+    border: 2px solid var(--line); transition: all .2s; }
+  .multi .scelta::after { border-radius: 7px; }
+  .scelta[aria-pressed="true"] { background: var(--c); border-color: var(--c); color: var(--ink); }
+  .scelta[aria-pressed="true"]::after { border-color: var(--ink); background: var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;
+    animation: spunta .32s cubic-bezier(.3,1.6,.5,1); }
+  @keyframes spunta { from { transform: scale(.3); } to { transform: scale(1); } }
+  .scelta small { display: block; font-weight: 600; font-size: 14px; opacity: .75; margin-top: 2px; }
+  .frase .scelta { font-weight: 600; font-style: italic; }
+  .frase .scelta[data-fisso] { font-style: normal; font-weight: 700; }
+
+  .azioni { display: grid; gap: 8px; margin-top: 18px; }
+  .avanti { width: 100%; min-height: 56px; border: 0; border-radius: 999px; background: #fff; color: var(--ink); font: 600 19px/1 Fredoka, Nunito, sans-serif;
+    box-shadow: 0 6px 0 var(--c); transition: opacity .2s, transform .12s; }
+  .avanti:active { transform: translateY(3px); box-shadow: 0 3px 0 var(--c); }
+  .avanti:disabled { opacity: .35; cursor: default; transform: none; }
+  .salta { background: none; border: 0; padding: 10px; color: var(--soft); font-weight: 700; font-size: 15px; }
+  textarea, input[type="email"] { width: 100%; border-radius: 16px; border: 1.5px solid var(--line); background: rgba(0,0,0,.18); padding: 14px 16px; font-size: 17px; }
+  textarea { min-height: 128px; margin-top: 16px; resize: vertical; line-height: 1.4; }
+  textarea:focus, input[type="email"]:focus { outline: none; border-color: var(--c); }
+  ::placeholder { color: rgba(255,255,255,.38); }
+  .conta { margin: 6px 4px 0; text-align: right; font-size: 13px; color: var(--soft); }
+
+  /* ricompensa a fine passo */
+  .flash { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 20; width: min(500px, calc(100% - 28px));
+    transform: translate(-50%, 140%); display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 18px;
+    background: #fff; color: var(--ink); box-shadow: 0 14px 40px rgba(0,0,0,.45); border: 0; text-align: left; font-weight: 700; font-size: 16px;
+    transition: transform .45s cubic-bezier(.2,1.2,.3,1); }
+  .flash.su { transform: translate(-50%, 0); }
+  .flash .em { font-size: 26px; line-height: 1; flex: none; }
+  .flash small { display: block; font: 600 12px/1 Fredoka, Nunito, sans-serif; letter-spacing: .4px; text-transform: uppercase; color: #7a7790; margin-bottom: 4px; }
+
+  /* risultato */
+  /* schermata finale: tutta in una schermata del telefono */
+  .fine { display: grid; gap: 10px; margin-top: 10px; }
+  .ok-invio { margin: 2px 0 0; font-size: 13px; font-weight: 700; color: #8ff0e2; text-align: center; }
+  .carta { padding: 16px 16px 14px; border-radius: 22px; background: linear-gradient(160deg, #2b2050, #1c1536); border: 1px solid var(--line);
+    box-shadow: 0 14px 40px rgba(0,0,0,.35); }
+  .carta .testa { display: flex; align-items: center; gap: 12px; }
+  .carta .casa { width: 76px; height: 66px; flex: none; }
+  .carta .casa svg { width: 100%; height: 100%; display: block; }
+  .carta .titoli { min-width: 0; }
+  .carta .pre { margin: 0; font: 600 15px/1 Fredoka, Nunito, sans-serif; color: var(--soft); }
+  .carta h2 { margin: 6px 0 0; font-size: 23px; line-height: 1.15; }
+  .carta .nome { display: inline; padding: 1px 8px 3px; border-radius: 10px; background: var(--evid); color: var(--ink); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .carta .descr { margin: 12px 0 0; color: #e3ddfa; font-size: 16px; line-height: 1.35; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
+  .chips li { padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid var(--line); font-size: 13px; font-weight: 700; }
+  .box { padding: 14px 16px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
+  .box h3 { margin: 0; font: 600 19px/1.15 Fredoka, Nunito, sans-serif; }
+  .box > p { margin: 4px 0 0; color: #e3ddfa; font-size: 15px; }
+  .due { display: flex; gap: 8px; margin-top: 10px; }
+  .due > * { flex: 1; min-width: 0; }
+  .link { display: block; width: 100%; margin-top: 4px; padding: 8px; background: none; border: 0; color: #c9bcff; font-weight: 800; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; }
+  .riga-email { display: flex; gap: 8px; margin-top: 10px; }
+  .riga-email input { flex: 1; min-width: 0; padding: 12px 14px; }
+  .riga-email .avanti { width: auto; min-height: 48px; padding: 0 18px; font-size: 17px; box-shadow: 0 4px 0 var(--c); }
+  .notaemail { margin: 8px 0 0 !important; font-size: 11.5px !important; color: var(--soft) !important; line-height: 1.35; }
+  .notaemail a { color: #c9bcff; }
+  .err { margin: 6px 0 0; color: #ffb3c9; font-size: 14px; font-weight: 700; }
+  .fatto { margin: 10px 0 0; padding: 10px 12px; border-radius: 14px; background: rgba(34,184,167,.16); color: #b8fff3; font-weight: 700; }
+  .wa { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; border-radius: 999px;
+    background: #25d366; color: #0b2e18; text-decoration: none; font: 600 17px/1 Fredoka, Nunito, sans-serif; border: 0; }
+  .wa.alt { background: transparent; color: #7ff0a8; border: 1.5px solid #25d366; }
+  .wa svg { width: 22px; height: 22px; flex: none; }
+  .fuori .wa { margin-top: 14px; }
+  .secondario { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; margin-top: 10px; border-radius: 999px;
+    background: transparent; border: 1.5px solid var(--line); color: var(--txt); text-decoration: none; font-weight: 800; font-size: 16px; }
+  .fuori .evid { font-size: 22px; }
+
+  @media (max-width: 380px) { h1 { font-size: 38px; } h2 { font-size: 24px; } .evid { font-size: 21px; } .mancano { min-width: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.3-.5-.5-1-1.1-1.3-1.7-.1-.2 0-.4.1-.5l.4-.5.3-.5v-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.6.6-.9 1.4-.9 2.2.1.9.4 1.8 1 2.6 1.1 1.6 2.5 2.9 4.2 3.7.6.3 1.1.4 1.7.5.6.1 1.3 0 1.8-.3.4-.3.7-.7.8-1.1.1-.4.1-.8 0-.9l-.5-.2z"/></symbol>
+</svg>
+
+<main class="app" id="app">
+  <header class="top">
+    <div class="marca"><svg viewBox="0 0 30 26" aria-hidden="true"><path d="M3 12 15 3l12 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="11" width="18" height="13" rx="2.5" fill="#fff"/><rect x="9" y="14" width="5" height="4" rx="1" fill="#ffb020"/><rect x="16" y="14" width="5" height="4" rx="1" fill="#ff6fa8"/><rect x="9" y="19.5" width="5" height="3" rx="1" fill="#22b8a7"/><rect x="16" y="19.5" width="5" height="3" rx="1" fill="#7c5cff"/></svg>Per chi divide casa</div>
+    <span class="pill"><svg width="12" height="13" viewBox="0 0 12 13" aria-hidden="true"><rect x="1" y="5.5" width="10" height="7" rx="2" fill="currentColor"/><path d="M3.3 5.5V4a2.7 2.7 0 0 1 5.4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Anonimo</span>
+  </header>
+  <p class="prova" id="prova" hidden>Versione di prova · niente viene salvato</p>
+
+  <div class="avanz" id="avanz" hidden>
+    <div class="casamini" id="casamini" aria-hidden="true"></div>
+    <div class="barra" role="progressbar" aria-label="Avanzamento" aria-valuemin="0" aria-valuemax="100" id="barrawrap"><i id="barra"></i></div>
+    <span class="mancano" id="mancano" aria-live="polite"></span>
+  </div>
+  <div class="navi" id="navi" hidden>
+    <button type="button" class="indietro" id="indietro">‹ Indietro</button>
+    <span class="passo" id="passo"></span>
+  </div>
+
+  <!-- PASSO 1 · LA TUA CASA -->
+  <section class="schermo" data-id="casa" data-tipo="uno">
+    <div class="apertura">
+      <div class="puntini" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <h1>Che casa siete?</h1>
+      <p class="evid">Scoprilo in 2 minuti.</p>
+      <p class="lead">Stiamo finendo un’app per chi vive con dei coinquilini. Prima però vogliamo sapere come va davvero da voi, anche se va tutto bene. Alla fine ti diciamo che tipo di casa siete.</p>
+    </div>
+    <h2 tabindex="-1">Vivi con dei coinquilini?</h2>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="sì">Sì</button>
+      <button type="button" class="scelta" data-v="ci ho vissuto nell'ultimo anno">Non più, ma fino a quest’anno sì</button>
+      <button type="button" class="scelta" data-v="ci andrò nei prossimi 6 mesi">Non ancora, ma ci andrò a breve</button>
+      <button type="button" class="scelta" data-v="no">No</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="persone" data-tipo="uno" hidden>
+    <h2 tabindex="-1" id="t-persone">Quanti siete in casa, tu compreso?</h2>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="2">2</button>
+      <button type="button" class="scelta" data-v="3">3</button>
+      <button type="button" class="scelta" data-v="4">4</button>
+      <button type="button" class="scelta" data-v="5 o più">5 o più</button>
+      <button type="button" class="scelta" data-v="non so ancora" id="nonsoancora">Non lo so ancora</button>
+    </div>
+  </section>
+
+  <!-- PASSO 2 · COME VA IN CASA -->
+  <section class="schermo" data-id="successo" data-tipo="piu" hidden>
+    <h2 tabindex="-1" id="t-successo">Nell’ultimo mese ti è capitato che…</h2>
+    <p class="aiuto">Segna tutte quelle che ti sono capitate.</p>
+    <div class="scelte multi" data-mescola>
+      <button type="button" class="scelta" data-v="faccenda">I piatti (o il bagno) sono rimasti lì per giorni</button>
+      <button type="button" class="scelta" data-v="al posto">Hai fatto tu una cosa che toccava a qualcun altro</button>
+      <button type="button" class="scelta" data-v="ricordare">Qualcuno ha dovuto chiedere indietro dei soldi</button>
+      <button type="button" class="scelta" data-v="conti">Non si capiva più chi doveva soldi a chi</button>
+      <button type="button" class="scelta" data-v="finito">È finita la carta igienica (o il detersivo) e nessuno l’aveva presa</button>
+      <button type="button" class="scelta" data-v="nessuna" data-solo data-fisso>Niente di tutto questo</button>
+    </div>
+    <div class="azioni"><button type="button" class="avanti" disabled>Avanti</button></div>
+  </section>
+
+  <section class="schermo" data-id="paura" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Cosa ti preoccupa di più del vivere con altri?</h2>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="faccende">Le pulizie e i turni</button>
+      <button type="button" class="scelta" data-v="soldi">I soldi e le spese da dividere</button>
+      <button type="button" class="scelta" data-v="spesa">Chi compra le cose di casa</button>
+      <button type="button" class="scelta" data-v="accordo">Andare d’accordo</button>
+      <button type="button" class="scelta" data-v="niente" data-fisso>Niente in particolare</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="pesa" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Quale ti ha dato più fastidio?</h2>
+    <div class="scelte" id="scelte-pesa"></div>
+  </section>
+
+  <section class="schermo" data-id="racconto" data-tipo="testo" hidden>
+    <h2 tabindex="-1">Raccontaci com’è andata</h2>
+    <p class="aiuto">Anche due righe. Se non ti va, salta.</p>
+    <textarea id="racconto" maxlength="600" placeholder="Scrivi qui…" aria-label="Raccontaci com’è andata"></textarea>
+    <p class="conta" id="conta-racconto"></p>
+    <div class="azioni"><button type="button" class="avanti">Avanti</button><button type="button" class="salta">Salta</button></div>
+  </section>
+
+  <section class="schermo" data-id="metodo" data-tipo="uno" hidden>
+    <h2 tabindex="-1" id="t-metodo">Come vi organizzate adesso per soldi, pulizie e spesa?</h2>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="chat o voce">Ce lo diciamo a voce o nel gruppo WhatsApp</button>
+      <button type="button" class="scelta" data-v="app spese">Usiamo un’app tipo Splitwise o Tricount</button>
+      <button type="button" class="scelta" data-v="foglio o lavagna">Abbiamo un foglio, una lavagna o un calendario</button>
+      <button type="button" class="scelta" data-v="a occhio" data-fisso>Non ci organizziamo, si va a occhio</button>
+      <button type="button" class="scelta" data-v="altro" data-fisso>In un altro modo</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="momento" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Quando ti capita di pensare alle cose di casa?</h2>
+    <p class="aiuto">Turni, soldi, cosa comprare.</p>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="mattina">La mattina, prima di uscire</button>
+      <button type="button" class="scelta" data-v="pausa">Durante il giorno, in pausa</button>
+      <button type="button" class="scelta" data-v="rientro">Quando rientro</button>
+      <button type="button" class="scelta" data-v="sera">La sera, dopo cena</button>
+      <button type="button" class="scelta" data-v="weekend">Nel weekend</button>
+      <button type="button" class="scelta" data-v="solo se serve">Solo quando c’è un problema</button>
+    </div>
+  </section>
+
+  <!-- PASSO 3 · L'APP -->
+  <section class="schermo" data-id="frase" data-tipo="uno" hidden>
+    <div class="riquadro"><b>Ok, ora l’app.</b> È gratis e serve a tre cose: dividere le spese, fare i turni delle pulizie e tenere la lista della spesa. Ci aiuti a trovare le parole per spiegarla?</div>
+    <h2 tabindex="-1">Quale di queste frasi ti farebbe venire voglia di scaricarla?</h2>
+    <div class="scelte frase" data-mescola id="scelte-frase">
+      <button type="button" class="scelta" data-v="sa a chi tocca" data-lettera="A">«In casa ognuno sa a chi tocca e chi deve cosa, senza dover chiedere»</button>
+      <button type="button" class="scelta" data-v="si organizza da sola" data-lettera="B">«La casa si organizza da sola, nessuno fa il rompiscatole»</button>
+      <button type="button" class="scelta" data-v="turni e conti chiari" data-lettera="C">«Turni e conti di casa, chiari per tutti»</button>
+      <button type="button" class="scelta" data-v="nessuna" data-fisso>Nessuna mi convince</button>
+      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="primo" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Appena scaricata, cosa faresti per prima cosa?</h2>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="turni">Metterei i turni delle pulizie</button>
+      <button type="button" class="scelta" data-v="spesa da dividere">Segnerei una spesa da dividere</button>
+      <button type="button" class="scelta" data-v="lista">Scriverei cosa manca da comprare</button>
+      <button type="button" class="scelta" data-v="chi deve cosa">Guarderei chi deve soldi a chi</button>
+      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="classifica" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Se l’app facesse vedere chi pulisce di più, a te come starebbe?</h2>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="mi sprona">Bene, mi darebbe la spinta</button>
+      <button type="button" class="scelta" data-v="indifferente">Mi sarebbe indifferente</button>
+      <button type="button" class="scelta" data-v="disagio">Mi metterebbe a disagio</button>
+      <button type="button" class="scelta" data-v="tensioni">Finiremmo per litigare</button>
+      <button type="button" class="scelta" data-v="non so">Non saprei</button>
+    </div>
+  </section>
+
+  <!-- PASSO 4 · TU E LA TUA CASA -->
+  <section class="schermo" data-id="adozione" data-tipo="uno" hidden>
+    <h2 tabindex="-1" id="t-adozione">Se uscisse domani, cosa succederebbe a casa tua?</h2>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="la propongo e la usiamo tutti">La proporrei io e la useremmo tutti</button>
+      <button type="button" class="scelta" data-v="la propongo ma qualcuno no">La proporrei io, ma qualcuno non la userebbe</button>
+      <button type="button" class="scelta" data-v="aspetto qualcun altro">Aspetterei che la proponga qualcun altro</button>
+      <button type="button" class="scelta" data-v="non la useremmo">Non la useremmo</button>
+      <button type="button" class="scelta" data-v="non so">Non saprei</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="perche" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Come mai?</h2>
+    <p class="aiuto">Scegli quella che conta di più.</p>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="ci basta il nostro modo">Ci va bene come facciamo adesso</button>
+      <button type="button" class="scelta" data-v="non voglio altre app">Non voglio un’altra app</button>
+      <button type="button" class="scelta" data-v="gli altri no">Gli altri non la userebbero</button>
+      <button type="button" class="scelta" data-v="conti in app no">Non mi va di mettere i soldi in un’app</button>
+      <button type="button" class="scelta" data-v="nessun problema">Da noi non ci sono problemi</button>
+      <button type="button" class="scelta" data-v="altro" data-fisso>Altro</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="frasecasa" data-tipo="testo" hidden>
+    <h2 tabindex="-1" id="t-frasecasa">Cosa scriveresti nel gruppo di casa per proporla?</h2>
+    <p class="aiuto" id="a-frasecasa">Scrivilo come lo scriveresti davvero. Se non ti va, salta.</p>
+    <textarea id="frasecasa" maxlength="300" placeholder="Scrivi qui…" aria-label="Il tuo messaggio"></textarea>
+    <p class="conta" id="conta-frasecasa"></p>
+    <div class="azioni"><button type="button" class="avanti">Vedi il profilo della tua casa</button><button type="button" class="salta">Salta e vedi il profilo</button></div>
+  </section>
+
+  <!-- FINE -->
+  <section class="schermo fine" id="risultato" hidden>
+    <div class="carta" id="carta">
+      <div class="testa">
+        <div class="casa" id="r-casa" aria-hidden="true"></div>
+        <div class="titoli">
+          <p class="pre" id="r-pre">Siete una</p>
+          <h2 tabindex="-1" id="r-tit"><span class="nome" id="r-nome"></span></h2>
+        </div>
+      </div>
+      <p class="descr" id="r-descr"></p>
+      <ul class="chips" id="r-chips"></ul>
+    </div>
+
+    <div class="box">
+      <h3 id="s-tit">Fallo fare ai tuoi coinquilini</h3>
+      <p id="s-txt">Vediamo se a loro esce lo stesso.</p>
+      <div class="due">
+        <a class="wa" id="s-casa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Gruppo di casa</a>
+        <a class="wa alt" id="s-amico" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>A un amico</a>
+      </div>
+      <button type="button" class="link" id="s-copia">Copia il link</button>
+    </div>
+
+    <div class="box" id="boxemail">
+      <h3>Vuoi provarla prima degli altri?</h3>
+      <form class="riga-email" id="femail" novalidate>
+        <input type="email" id="email" inputmode="email" autocomplete="email" placeholder="La tua email" aria-label="La tua email">
+        <button type="submit" class="avanti" id="salvaemail">Avvisami</button>
+      </form>
+      <p class="err" id="emailerr" hidden></p>
+      <p class="fatto" id="emailok" hidden>Fatto: ti scriviamo quando puoi provarla.</p>
+      <p class="notaemail">Ti scriviamo solo per farti provare l’app, per dirti quando esce e per qualche parere. Niente pubblicità. L’email resta separata dalle risposte, non la diamo a nessuno e ti cancelli quando vuoi. <a href="../privacy.html" target="_blank" rel="noopener">Informativa</a></p>
+    </div>
+    <p class="ok-invio" id="okinvio">Grazie, le tue risposte sono arrivate.</p>
+  </section>
+
+  <section class="schermo fuori" id="fuori" hidden>
+    <h2 tabindex="-1" id="f-tit">Allora per te finisce qui.</h2>
+    <p class="evid">E va benissimo.</p>
+    <p class="lead">Questo sondaggio è per chi vive con dei coinquilini. Se conosci qualcuno, mandaglielo: ci dai una mano lo stesso.</p>
+    <a class="wa" id="f-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Mandalo su WhatsApp</a>
+    <button type="button" class="secondario" id="f-copia">Copia il link</button>
+    <button type="button" class="salta" id="f-torna" style="width:100%;margin-top:10px">Ho sbagliato, torna indietro</button>
+  </section>
+</main>
+
+<button type="button" class="flash" id="flash" aria-live="polite" hidden><span class="em" id="flash-em">✨</span><span><small id="flash-tit"></small><span id="flash-txt"></span></span></button>
+
+<script>
+(function(){
+  'use strict';
+
+  // Indirizzo che riceve risposte ed email (foglio Google). Vuoto = prova: niente viene salvato.
+  var ENDPOINT = '';
+  // Versione 5 (12 novembre 2026): rifatta da zero con le 7 decisioni di Giovanni.
+  var VERSIONE = 5, REVISIONE = '5.0', PRE = 'prova_v5_';
+
+  function $(id){ return document.getElementById(id); }
+  function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
+  function oggi(){ return new Date().toISOString().slice(0, 10); }
+  function mescola(a){ for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function uno(a){ return a[Math.floor(Math.random() * a.length)]; }
+  function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e) { return null; } }
+
+  if (!ENDPOINT) { $('prova').hidden = false; $('okinvio').textContent = 'Prova completata · niente è stato salvato'; }
+
+  var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi 6 mesi', NO = 'no';
+  var COLORI = ['#ffb020', '#ff6fa8', '#22b8a7', '#7c5cff'];
+  var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, metodo: 2, momento: 2,
+    frase: 3, primo: 3, classifica: 3, adozione: 4, perche: 4, frasecasa: 4 };
+  var NOMI_PASSI = { 1: 'La tua casa', 2: 'Come va in casa', 3: 'L’app', 4: 'Tu e la tua casa' };
+  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'metodo', 'momento', 'frase', 'primo', 'classifica', 'adozione', 'perche', 'frasecasa'];
+  var BREVE = { faccenda: 'I piatti o il bagno lasciati lì', 'al posto': 'Fare io la parte di un altro', ricordare: 'Dover chiedere indietro i soldi',
+    conti: 'Non sapere chi deve soldi a chi', finito: 'La carta finita e nessuno che la compra' };
+
+  var A = {};          // risposte
+  var storia = [];     // domande già passate, per tornare indietro
+  var cur = 'casa';
+
+  // Da quale link è arrivata la persona (?da=amici, ?da=gruppi…). Senza etichetta resta vuoto.
+  var DA = (function(){ try { return (new URLSearchParams(location.search).get('da') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 30); } catch(e) { return ''; } })();
+
+  // Ordine casuale dove serve: le risposte con data-fisso restano in fondo.
+  document.querySelectorAll('[data-mescola]').forEach(function(c){
+    var tutti = Array.prototype.slice.call(c.children);
+    var mobili = tutti.filter(function(b){ return !b.hasAttribute('data-fisso'); });
+    var fissi = tutti.filter(function(b){ return b.hasAttribute('data-fisso'); });
+    mescola(mobili).concat(fissi).forEach(function(b){ c.appendChild(b); });
+  });
+  var ORDINE_FRASI = Array.prototype.map.call(document.querySelectorAll('#scelte-frase [data-lettera]'), function(b){ return b.getAttribute('data-lettera'); }).join(' ');
+
+  // ---------- quali domande vede la persona ----------
+  function problemi(){ return (A.successo || []).filter(function(x){ return x !== 'nessuna'; }); }
+  // stima = per contare quelle che mancano: quello che non si sa ancora conta come "sì", così il numero scende sempre.
+  function visibile(id, stima){
+    var casa = A.casa || (stima ? SI : '');
+    var dentro = casa !== '' && casa !== NO, vissuta = casa === SI || casa === VISSUTO;
+    switch (id) {
+      case 'casa': return true;
+      case 'persone': return dentro;
+      case 'successo': return vissuta;
+      case 'paura': return casa === ANDRO;
+      case 'pesa': return vissuta && (A.successo ? problemi().length >= 2 : !!stima);
+      case 'racconto': return vissuta && (A.successo ? problemi().length >= 1 : !!stima);
+      case 'metodo': return vissuta;
+      case 'momento': case 'frase': case 'primo': case 'classifica': case 'adozione': return dentro;
+      case 'perche': return dentro && A.adozione === 'non la useremmo';
+      case 'frasecasa': return dentro && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
+    }
+    return false;
+  }
+  function dopo(id){ for (var i = ORDINE.indexOf(id) + 1; i < ORDINE.length; i++) if (visibile(ORDINE[i])) return ORDINE[i]; return null; }
+  function mancano(id){ var n = 0; for (var i = ORDINE.indexOf(id) + 1; i < ORDINE.length; i++) if (visibile(ORDINE[i], true)) n++; return n; }
+
+  // ---------- la casetta: una finestra per coinquilino ----------
+  function quanti(){ var p = A.persone; if (!p || p === 'non so ancora') return 0; return p === '5 o più' ? 5 : Number(p); }
+  function casetta(n){
+    var vuota = !n; n = n || 4;
+    var cols = n <= 4 ? 2 : 3, rows = Math.ceil(n / cols), w = cols === 2 ? 24 : 19, h = 17;
+    var bx = 22, bw = 76, by = 46, bh = 50;
+    var s = '<svg viewBox="0 0 120 104" xmlns="http://www.w3.org/2000/svg">';
+    s += '<path d="M12 52 60 12l48 40" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>';
+    s += '<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="8" fill="rgba(255,255,255,.08)" stroke="#fff" stroke-width="5"/>';
+    for (var i = 0; i < n; i++) {
+      var r = Math.floor(i / cols), inRiga = Math.min(cols, n - r * cols), c = i % cols;
+      var gx = (bw - inRiga * w) / (inRiga + 1), gy = (bh - rows * h) / (rows + 1);
+      var x = bx + gx + (w + gx) * c, y = by + gy + (h + gy) * r;
+      s += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w + '" height="' + h + '" rx="4" fill="' + COLORI[i % 4] + '"' + (vuota ? ' opacity=".35"' : '') + '/>';
+    }
+    return s + '</svg>';
+  }
+  function disegnaCasa(){ $('casamini').innerHTML = casetta(quanti()); }
+  disegnaCasa();
+
+  // ---------- testi che cambiano con la situazione ----------
+  function testi(id){
+    var c = A.casa;
+    if (id === 'persone') {
+      $('t-persone').textContent = c === ANDRO ? 'Quanti sarete in casa, tu compreso?' : c === VISSUTO ? 'Quanti eravate in casa, tu compreso?' : 'Quanti siete in casa, tu compreso?';
+      $('nonsoancora').hidden = c !== ANDRO;
+    }
+    if (id === 'successo') $('t-successo').textContent = c === SI ? 'Nell’ultimo mese ti è capitato che…' : 'Nell’ultimo mese in quella casa, ti è capitato che…';
+    if (id === 'metodo') $('t-metodo').textContent = c === SI ? 'Come vi organizzate adesso per soldi, pulizie e spesa?' : 'Come vi organizzavate per soldi, pulizie e spesa?';
+    if (id === 'adozione') $('t-adozione').textContent = c === SI ? 'Se uscisse domani, cosa succederebbe a casa tua?' : 'Se uscisse domani e vivessi con altri, cosa succederebbe?';
+    if (id === 'frasecasa') {
+      var aspetta = A.adozione === 'aspetto qualcun altro';
+      $('t-frasecasa').textContent = aspetta ? 'Cosa ti dovrebbero dire per convincerti a usarla?' : 'Cosa scriveresti nel gruppo di casa per proporla?';
+      $('a-frasecasa').textContent = aspetta ? 'Con parole tue. Se non ti va, salta.' : 'Scrivilo come lo scriveresti davvero. Se non ti va, salta.';
+    }
+    if (id === 'pesa') {
+      var box = $('scelte-pesa'); box.textContent = '';
+      problemi().concat(['nessuna in particolare']).forEach(function(k){
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'scelta'; b.setAttribute('data-v', k);
+        b.textContent = BREVE[k] || 'Nessuna in particolare'; box.appendChild(b);
+      });
+    }
+  }
+
+  // ---------- mostrare una domanda ----------
+  function nascondiTutto(){ document.querySelectorAll('main > section').forEach(function(s){ s.hidden = true; }); }
+  function aggiornaProgresso(){
+    var resto = mancano(cur), fatte = storia.length;
+    var p = 8 + 92 * fatte / (fatte + resto + 1);
+    $('barra').style.width = p.toFixed(1) + '%';
+    $('barrawrap').setAttribute('aria-valuenow', Math.round(p));
+    $('mancano').textContent = resto === 0 ? 'ultima domanda!' : resto === 1 ? 'ancora 1 domanda' : 'ancora ' + resto + ' domande';
+  }
+  function mostra(id){
+    cur = id; nascondiTutto();
+    var s = sez(id), passo = PASSI[id];
+    document.documentElement.style.setProperty('--c', COLORI[passo - 1]);
+    testi(id);
+    s.querySelectorAll('.scelta').forEach(function(b){
+      var v = b.getAttribute('data-v'), r = A[id];
+      b.setAttribute('aria-pressed', Array.isArray(r) ? String(r.indexOf(v) >= 0) : String(r === v));
+    });
+    if (s.getAttribute('data-tipo') === 'piu') s.querySelector('.avanti').disabled = !(A[id] && A[id].length);
+    if (s.getAttribute('data-tipo') === 'testo') { var t = s.querySelector('textarea'); t.value = A[id] || ''; contaCaratteri(t); }
+    var inizio = id === 'casa';
+    $('avanz').hidden = inizio; $('navi').hidden = inizio;
+    $('passo').textContent = passo + ' di 4 · ' + NOMI_PASSI[passo];
+    aggiornaProgresso();
+    s.hidden = false; s.style.animation = 'none'; void s.offsetWidth; s.style.animation = '';
+    window.scrollTo(0, 0);
+    var h = s.querySelector('h2'); if (h && !inizio) h.focus({ preventScroll: true });
+  }
+
+  function avanti(){
+    if (cur === 'casa' && A.casa === NO) { storia.push(cur); fuori(); return; }
+    var prossima = dopo(cur);
+    storia.push(cur);
+    if (!prossima) { fine(); return; }
+    if (PASSI[prossima] !== PASSI[cur]) premio(PASSI[cur]);
+    mostra(prossima);
+  }
+  $('indietro').addEventListener('click', function(){ if (storia.length) mostra(storia.pop()); });
+
+  // ---------- il gesto: un tocco, riscontro subito ----------
+  var inCorso = false;
+  function vibra(){ try { if (navigator.vibrate) navigator.vibrate(12); } catch(e) {} }
+  document.querySelector('main').addEventListener('click', function(e){
+    var b = e.target.closest('.scelta'); if (!b) return;
+    var s = b.closest('section'), id = s.getAttribute('data-id'), tipo = s.getAttribute('data-tipo'), v = b.getAttribute('data-v');
+    if (tipo === 'uno') {
+      if (inCorso) return;
+      if (A[id] !== v) cambia(id, v);
+      s.querySelectorAll('.scelta').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      vibra(); inCorso = true;
+      setTimeout(function(){ inCorso = false; avanti(); }, 380);
+    } else if (tipo === 'piu') {
+      var sel = (A[id] || []).slice(), i = sel.indexOf(v);
+      if (b.hasAttribute('data-solo')) sel = i >= 0 ? [] : [v];
+      else { sel = sel.filter(function(x){ return x !== 'nessuna'; }); if (i >= 0) sel.splice(sel.indexOf(v), 1); else sel.push(v); }
+      cambia(id, sel);
+      s.querySelectorAll('.scelta').forEach(function(x){ x.setAttribute('aria-pressed', String(sel.indexOf(x.getAttribute('data-v')) >= 0)); });
+      s.querySelector('.avanti').disabled = !sel.length;
+      vibra();
+    }
+  });
+  // Se cambia una risposta da cui dipendono altre domande, quelle vecchie si cancellano.
+  function cambia(id, v){
+    if (id === 'casa') { A = {}; disegnaCasa(); }
+    if (id === 'successo') delete A.pesa;
+    A[id] = v;
+    if (id === 'persone') disegnaCasa();
+    if (id === 'frase') A.ordinefrasi = ORDINE_FRASI;
+  }
+  document.querySelectorAll('section[data-tipo="piu"] .avanti').forEach(function(b){
+    b.addEventListener('click', function(){ if (!b.disabled) avanti(); });
+  });
+  function contaCaratteri(t){ var c = $('conta-' + t.id); if (c) c.textContent = t.value.length ? t.value.length + ' / ' + t.maxLength : ''; }
+  document.querySelectorAll('section[data-tipo="testo"]').forEach(function(s){
+    var t = s.querySelector('textarea'), id = s.getAttribute('data-id');
+    t.addEventListener('input', function(){ contaCaratteri(t); });
+    s.querySelector('.avanti').addEventListener('click', function(){ A[id] = t.value.trim().slice(0, t.maxLength); avanti(); });
+    s.querySelector('.salta').addEventListener('click', function(){ A[id] = ''; t.value = ''; avanti(); });
+  });
+
+  // ---------- la ricompensa: a fine passo, frase a sorpresa ----------
+  var tFlash = null;
+  function testoPremio(p){
+    if (p === 1) {
+      var n = A.persone;
+      if (n === '2') return uno(['In due: o si va d’accordo, o si va d’accordo.', 'In due: zero scuse, si sa sempre chi è stato.']);
+      if (n === '3') return uno(['In tre: perfetto per decidere a maggioranza.', 'In tre: c’è sempre qualcuno che fa da arbitro.']);
+      if (n === '4') return uno(['In quattro: un bagno, quattro idee diverse di «pulito».', 'In quattro: il gruppo WhatsApp di casa non dorme mai.']);
+      if (n === '5 o più') return uno(['Praticamente un condominio. Rispetto.', 'Così tanti? Il frigo è un campo di battaglia.']);
+      return 'Una casa ancora da scoprire: il momento giusto per partire bene.';
+    }
+    if (p === 2) {
+      if (A.casa === ANDRO) return uno(['Pensarci prima è già metà del lavoro.', 'Chi ci pensa prima, poi litiga meno.']);
+      var pool = [], P = {
+        faccenda: ['Il bagno ringrazia per la sincerità.', 'I piatti non scappano. Purtroppo.'],
+        'al posto': ['Fare anche la parte degli altri stanca. Lo sappiamo.'],
+        ricordare: ['Chiedere indietro i soldi: il lavoro meno pagato del mondo.'],
+        conti: ['I conti a occhio funzionano. Finché non funzionano più.'],
+        finito: ['La carta igienica finisce sempre quando tocca a qualcun altro comprarla.']
+      };
+      problemi().forEach(function(k){ pool = pool.concat(P[k] || []); });
+      return pool.length ? uno(pool) : uno(['Zero intoppi? Ci avete incuriosito.', 'Una casa tranquilla. Prendiamo appunti.']);
+    }
+    if (p === 3) {
+      return { 'mi sprona': 'Ok, un po’ di sfida ti piace.', indifferente: 'Ok, a te basta che le cose siano fatte.',
+        disagio: 'Ok, niente gare per te.', tensioni: 'Ok, meglio non mettervi in gara.' }[A.classifica]
+        || 'Anche «non saprei» ci aiuta.';
+    }
+    return '';
+  }
+  function premio(p){
+    var t = testoPremio(p); if (!t) return;
+    var f = $('flash');
+    $('flash-tit').textContent = 'Passo ' + p + ' fatto';
+    $('flash-em').textContent = ['🏠', '✨', '🎯'][p - 1] || '✨';
+    $('flash-txt').textContent = t;
+    f.hidden = false; f.classList.remove('su'); void f.offsetWidth; f.classList.add('su');
+    clearTimeout(tFlash); tFlash = setTimeout(chiudiPremio, 2800);
+  }
+  function chiudiPremio(){ var f = $('flash'); f.classList.remove('su'); setTimeout(function(){ if (!f.classList.contains('su')) f.hidden = true; }, 450); }
+  $('flash').addEventListener('click', chiudiPremio);
+
+  // ---------- invio sicuro (come la versione 3) ----------
+  // Aspetta l'"ok" del foglio, riprova da solo e, se non riesce, conserva la risposta sul telefono
+  // e la rimanda alla visita successiva. Il codice unico evita che un nuovo tentativo la scriva due volte.
+  function nuovoId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
+  // Il codice dell'email è solo casuale: non contiene l'ora, così non somiglia a quello delle risposte.
+  var ID_RISPOSTA = nuovoId(), ID_EMAIL = Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 8), CODA = PRE + 'da_inviare';
+  function leggiCoda(){ try { return JSON.parse(localStorage.getItem(CODA) || '[]'); } catch(e) { return []; } }
+  function scriviCoda(c){ try { localStorage.setItem(CODA, JSON.stringify(c)); } catch(e) {} }
+  function inCoda(d){ var c = leggiCoda(); if (!c.some(function(x){ return x.id === d.id; })) { c.push(d); scriviCoda(c); } }
+  function togliDallaCoda(id){ scriviCoda(leggiCoda().filter(function(x){ return x.id !== id; })); }
+  function prova(data){
+    return fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+      .then(function(r){ return r.text(); })
+      .then(function(t){ t = t.trim(); if (t === 'ok' || t === 'email non valida') return t; throw new Error(t); });
+  }
+  function send(data){
+    if (!ENDPOINT) return Promise.resolve('ok');
+    inCoda(data);
+    var attese = [0, 1500, 4000, 8000];
+    function tentativo(i){
+      return new Promise(function(res){ setTimeout(res, attese[i]); })
+        .then(function(){ return prova(data); })
+        .then(function(t){ togliDallaCoda(data.id); return t; })
+        .catch(function(err){ if (i + 1 < attese.length) return tentativo(i + 1); throw err; });
+    }
+    return tentativo(0);
+  }
+  if (ENDPOINT) leggiCoda().forEach(function(d){ prova(d).then(function(){ togliDallaCoda(d.id); }).catch(function(){}); });
+  // Quando la pagina va in secondo piano (si apre WhatsApp) o si chiude, quello che è in coda parte subito.
+  function svuotaCoda(){
+    if (!ENDPOINT) return;
+    leggiCoda().forEach(function(d){
+      try {
+        fetch(ENDPOINT, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(d) })
+          .then(function(r){ return r.text(); })
+          .then(function(t){ t = t.trim(); if (t === 'ok' || t === 'email non valida') togliDallaCoda(d.id); })
+          .catch(function(){});
+      } catch(e) {}
+    });
+  }
+  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') svuotaCoda(); });
+  addEventListener('pagehide', svuotaCoda);
+
+  // Conteggi anonimi: aperture della pagina e tocchi sui pulsanti di condivisione, con l'etichetta del link.
+  function conta(evento){
+    if (!ENDPOINT) return;
+    try { fetch(ENDPOINT, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ tipo: 'evento', evento: evento, da: DA, giorno: oggi() }) }).catch(function(){}); } catch(e) {}
+  }
+  (function(){ var k = PRE + 'aperto'; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch(e) {} conta('apertura'); })();
+
+  // ---------- il profilo della casa ----------
+  function principale(){
+    if (A.casa === ANDRO) return 'paura ' + (A.paura || 'niente');
+    var p = problemi();
+    if (!p.length) return 'nessuna';
+    if (p.length === 1) return p[0];
+    return A.pesa && A.pesa !== 'nessuna in particolare' ? A.pesa : 'misto';
+  }
+  var PROFILI = {
+    faccenda: ['Casa «lo faccio dopo»', 'Da voi i piatti aspettano. A volte per giorni.'],
+    'al posto': ['Casa «ci penso io»', 'C’è sempre qualcuno che fa anche la parte degli altri. E di solito sei tu.'],
+    ricordare: ['Casa «poi ti do»', 'I soldi tornano, prima o poi. Il problema è doverli chiedere.'],
+    conti: ['Casa «facciamo a occhio»', 'Chi deve quanto a chi? Da voi si va a occhio. Finché regge.'],
+    finito: ['Casa «chi ha finito la carta?»', 'La carta igienica finisce sempre nel momento sbagliato. E nessuno l’ha comprata.'],
+    misto: ['Casa «un po’ di tutto»', 'Un po’ di piatti, un po’ di soldi, un po’ di carta finita. Da voi non ci si annoia.'],
+    nessuna: ['Casa orologio svizzero', 'Da voi fila tutto liscio. Siete rari, e ci servite anche voi.'],
+    'paura faccende': ['Casa «ci penso prima»', 'Non ci sei ancora e pensi già a chi pulirà il bagno. Ottimo inizio.'],
+    'paura soldi': ['Casa «ci penso prima»', 'Non ci sei ancora e pensi già a come dividere le spese. Ottimo inizio.'],
+    'paura spesa': ['Casa «ci penso prima»', 'Non ci sei ancora e pensi già a chi comprerà la carta igienica. Ottimo inizio.'],
+    'paura accordo': ['Casa «ci penso prima»', 'Non ci sei ancora e per te conta soprattutto andare d’accordo.'],
+    'paura niente': ['Casa «ci penso prima»', 'Non ci sei ancora e non ti spaventa niente. Ci piace.']
+  };
+  var METODO = { 'chat o voce': '💬 Gruppo WhatsApp e voce', 'app spese': '📱 App per le spese', 'foglio o lavagna': '📝 Foglio o lavagna', 'a occhio': '👀 Tutto a occhio', altro: '🛠️ A modo vostro' };
+  var MOMENTO = { mattina: '☀️ Ci pensi la mattina', pausa: '☕ Ci pensi in pausa', rientro: '🔑 Ci pensi rientrando', sera: '🌙 Ci pensi dopo cena', weekend: '🧺 Ci pensi nel weekend', 'solo se serve': '🚨 Ci pensi solo se serve' };
+  var ADOZIONE = { 'la propongo e la usiamo tutti': '🙋 La proporresti tu', 'la propongo ma qualcuno no': '🙋 La proporresti tu', 'aspetto qualcun altro': '⏳ Aspetteresti gli altri', 'non la useremmo': '🙅 Per ora, no grazie', 'non so': '🤔 Ancora da vedere' };
+
+  function riga(){
+    var r = { tipo: 'risposta', versione: VERSIONE, revisione: REVISIONE, id: ID_RISPOSTA, giorno: oggi(), da: DA };
+    ORDINE.forEach(function(id){ if (visibile(id) && A[id] !== undefined) r[id] = A[id]; });
+    if (r.frase !== undefined) r.ordinefrasi = A.ordinefrasi || ORDINE_FRASI;
+    if (A.casa !== NO) { var k = principale(); r.principale = k; r.profilo = (PROFILI[k] || [''])[0].replace(/^Casa /, '').replace(/[«»]/g, ''); }
+    return r;
+  }
+
+  function linkDa(et){ return location.origin + location.pathname + '?da=' + et; }
+  function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
+  function copia(url, b){
+    var fatto = function(){ var t = b.textContent; b.textContent = 'Link copiato ✓'; setTimeout(function(){ b.textContent = t; }, 1800); };
+    var amano = function(){ try { prompt('Copia il link:', url); } catch(e) {} };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(fatto, amano);
+    else amano();
+    conta('copia_link');
+  }
+
+  function risultato(){
+    var k = principale(), p = PROFILI[k] || PROFILI.nessuna;
+    $('r-pre').textContent = A.casa === SI ? 'Siete una' : A.casa === VISSUTO ? 'Eravate una' : 'Sarà una';
+    $('r-casa').innerHTML = casetta(quanti());
+    $('r-nome').textContent = p[0];
+    $('r-descr').textContent = p[1];
+    var chips = [];
+    if (quanti()) chips.push('👥 In ' + (A.persone === '5 o più' ? '5 o più' : A.persone));
+    if (A.casa !== ANDRO) { var n = problemi().length; chips.push(n ? '⚡ ' + n + (n === 1 ? ' intoppo' : ' intoppi') + ' in un mese' : '✨ Zero intoppi'); }
+    if (METODO[A.metodo]) chips.push(METODO[A.metodo]);
+    if (MOMENTO[A.momento]) chips.push(MOMENTO[A.momento]);
+    if (ADOZIONE[A.adozione]) chips.push(ADOZIONE[A.adozione]);
+    var ul = $('r-chips'); ul.textContent = '';
+    chips.slice(0, 3).forEach(function(c){ var li = document.createElement('li'); li.textContent = c; ul.appendChild(li); });
+
+    // Condivisione: ai coinquilini (stessa casa) e agli amici, ognuno con la sua etichetta.
+    var nome = p[0];
+    var msgCasa = 'Ho fatto questo sondaggio sulla vita tra coinquilini e mi è uscito che siamo una ' + nome + ' 😅\n\nSono 2 minuti ed è anonimo. Fatelo anche voi, vediamo se esce lo stesso 👀';
+    var msgAmico = 'Vivi con dei coinquilini? 🏠\n\nC’è questo sondaggio anonimo di 2 minuti, alla fine ti dice che casa siete. A me è uscita ' + nome + ' 😅';
+    var conCasa = A.casa === SI;
+    $('s-tit').textContent = conCasa ? 'Fallo fare ai tuoi coinquilini' : 'Conosci qualcuno che vive con coinquilini?';
+    $('s-txt').textContent = conCasa ? 'Vediamo se a loro esce lo stesso.' : 'Mandaglielo, ci dai una mano.';
+    $('s-casa').hidden = !conCasa;
+    $('s-casa').href = wa(msgCasa, linkDa('condivisione-casa'));
+    $('s-amico').href = wa(msgAmico, linkDa('condivisione'));
+    $('s-amico').className = conCasa ? 'wa alt' : 'wa';
+    $('s-amico').innerHTML = '<svg aria-hidden="true"><use href="#wa"/></svg>' + (conCasa ? 'A un amico' : 'Mandalo su WhatsApp');
+  }
+
+  function fine(){
+    risultato();
+    send(riga()).catch(function(){ /* resta nella coda del telefono e riparte alla prossima visita */ });
+    store(PRE + 'inviato', '1');
+    nascondiTutto(); $('avanz').hidden = true; $('navi').hidden = true;
+    document.documentElement.style.setProperty('--c', COLORI[3]);
+    $('risultato').hidden = false;
+    window.scrollTo(0, 0);
+    $('r-tit').focus({ preventScroll: true });
+  }
+
+  // Chi non vive in casa condivisa: finisce qui. La risposta "no" parte dopo qualche secondo,
+  // così se ha sbagliato e torna indietro non resta una riga in più.
+  var tFuori = null, rigaFuori = null;
+  function fuori(){
+    nascondiTutto(); $('avanz').hidden = true; $('navi').hidden = true;
+    rigaFuori = riga();
+    if (ENDPOINT) { inCoda(rigaFuori); tFuori = setTimeout(function(){ send(rigaFuori).catch(function(){}); }, 6000); }
+    var msg = 'Vivi con dei coinquilini? 🏠\n\nC’è questo sondaggio anonimo di 2 minuti, alla fine ti dice che casa siete.';
+    $('f-wa').href = wa(msg, linkDa('condivisione'));
+    $('fuori').hidden = false; window.scrollTo(0, 0); $('f-tit').focus({ preventScroll: true });
+  }
+  $('f-torna').addEventListener('click', function(){
+    clearTimeout(tFuori); if (rigaFuori) togliDallaCoda(rigaFuori.id);
+    ID_RISPOSTA = nuovoId(); storia = []; delete A.casa; mostra('casa');
+  });
+
+  ['s-casa', 's-amico', 'f-wa'].forEach(function(id){ $(id).addEventListener('click', function(){ conta('condividi_whatsapp'); }); });
+  $('s-copia').addEventListener('click', function(){ copia(linkDa('condivisione'), this); });
+  $('f-copia').addEventListener('click', function(){ copia(linkDa('condivisione'), this); });
+
+  // ---------- email: facoltativa, separata dalle risposte ----------
+  function buona(em){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em); }
+  $('femail').addEventListener('submit', function(e){
+    e.preventDefault();
+    var em = $('email').value.trim(), er = $('emailerr'), b = $('salvaemail');
+    if (!buona(em)) { er.textContent = 'Questa email non sembra giusta: controlla la @ e il punto.'; er.hidden = false; return; }
+    er.hidden = true; b.disabled = true; b.textContent = 'Invio…';
+    var dato = { tipo: 'email', giorno: oggi(), email: em, id: ID_EMAIL };
+    if (ENDPOINT) inCoda(dato);
+    // Parte qualche secondo dopo, con un suo codice: nel foglio non si collega alle risposte.
+    setTimeout(function(){
+      send(dato).then(function(){
+        $('femail').hidden = true;
+        $('emailok').textContent = ENDPOINT ? 'Fatto: ti scriviamo quando puoi provarla.' : 'Prova: email non registrata.';
+        $('emailok').hidden = false;
+      }).catch(function(){ b.disabled = false; b.textContent = 'Avvisami'; er.textContent = 'Invio non riuscito, riprova tra poco.'; er.hidden = false; });
+    }, ENDPOINT ? 1500 + Math.floor(Math.random() * 3000) : 600);
+  });
+  $('email').addEventListener('input', function(){ $('emailerr').hidden = true; });
+
+  mostra('casa');
+  window.scrollTo(0, 0);
+})();
+</script>
+</body>
+</html>
