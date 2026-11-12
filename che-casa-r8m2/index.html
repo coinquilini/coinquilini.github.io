@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Che casa siete? · Sondaggio per chi divide casa</title>
+<title>Che casa siete? 🏠</title>
 <meta name="description" content="Versione di prova: sondaggio anonimo per chi divide casa. Le risposte non vengono salvate.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#15102a">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Che casa siete?">
+<meta property="og:title" content="Che casa siete? 🏠">
 <meta property="og:description" content="Versione di prova: sondaggio anonimo per chi divide casa. Le risposte non vengono salvate.">
+<meta property="og:image" content="https://inqui-sondaggio.pages.dev/anteprima-whatsapp-5.png">
 <meta property="og:url" content="https://inqui-sondaggio.pages.dev/che-casa-r8m2/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -200,12 +201,12 @@
       <div class="puntini" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <h1>Che casa siete?</h1>
       <p class="evid">Scoprilo in 2 minuti.</p>
-      <p class="lead">Stiamo finendo un’app per chi vive con dei coinquilini. Prima però vogliamo sapere come va davvero da voi, anche se va tutto bene. Alla fine ti diciamo che tipo di casa siete.</p>
+      <p class="lead">Stiamo finendo un’app per chi vive con dei coinquilini. Prima degli ultimi ritocchi vogliamo sapere come va davvero da voi, anche se fila tutto liscio. Alla fine ti diciamo che casa siete.</p>
     </div>
     <h2 tabindex="-1">Vivi con dei coinquilini?</h2>
     <div class="scelte">
       <button type="button" class="scelta" data-v="sì">Sì</button>
-      <button type="button" class="scelta" data-v="ci ho vissuto nell'ultimo anno">Non più, ma fino a quest’anno sì</button>
+      <button type="button" class="scelta" data-v="ci ho vissuto nell'ultimo anno">Non più, ma nell’ultimo anno sì</button>
       <button type="button" class="scelta" data-v="ci andrò nei prossimi 6 mesi">Non ancora, ma ci andrò a breve</button>
       <button type="button" class="scelta" data-v="no">No</button>
     </div>
@@ -225,13 +226,13 @@
   <!-- PASSO 2 · COME VA IN CASA -->
   <section class="schermo" data-id="successo" data-tipo="piu" hidden>
     <h2 tabindex="-1" id="t-successo">Nell’ultimo mese ti è capitato che…</h2>
-    <p class="aiuto">Segna tutte quelle che ti sono capitate.</p>
+    <p class="aiuto">Puoi segnarne più di una.</p>
     <div class="scelte multi" data-mescola>
-      <button type="button" class="scelta" data-v="faccenda">I piatti (o il bagno) sono rimasti lì per giorni</button>
+      <button type="button" class="scelta" data-v="faccenda">I piatti o il bagno sono rimasti da fare per giorni</button>
       <button type="button" class="scelta" data-v="al posto">Hai fatto tu una cosa che toccava a qualcun altro</button>
       <button type="button" class="scelta" data-v="ricordare">Qualcuno ha dovuto chiedere indietro dei soldi</button>
       <button type="button" class="scelta" data-v="conti">Non si capiva più chi doveva soldi a chi</button>
-      <button type="button" class="scelta" data-v="finito">È finita la carta igienica (o il detersivo) e nessuno l’aveva presa</button>
+      <button type="button" class="scelta" data-v="finito">È finita la carta igienica (o il detersivo) e nessuno l’aveva ricomprata</button>
       <button type="button" class="scelta" data-v="nessuna" data-solo data-fisso>Niente di tutto questo</button>
     </div>
     <div class="azioni"><button type="button" class="avanti" disabled>Avanti</button></div>
@@ -274,7 +275,7 @@
 
   <!-- PASSO 3 · L'APP -->
   <section class="schermo" data-id="frase" data-tipo="uno" hidden>
-    <div class="riquadro"><b>Ok, ora l’app.</b> È gratis e serve a tre cose: dividere le spese, fare i turni delle pulizie e tenere la lista della spesa. Ci aiuti a trovare le parole per spiegarla?</div>
+    <div class="riquadro"><b>Ora parliamo dell’app.</b> È gratis e fa tre cose: divide le spese, organizza i turni delle pulizie e tiene la lista della spesa. Ci aiuti a trovare le parole giuste per raccontarla?</div>
     <h2 tabindex="-1">Quale di queste frasi ti farebbe venire voglia di scaricarla?</h2>
     <div class="scelte frase" data-mescola id="scelte-frase">
       <button type="button" class="scelta" data-v="sa a chi tocca" data-lettera="A">«In casa ognuno sa a chi tocca e chi deve cosa, senza dover chiedere»</button>
@@ -297,9 +298,9 @@
   </section>
 
   <section class="schermo" data-id="classifica" data-tipo="uno" hidden>
-    <h2 tabindex="-1">Se l’app facesse vedere chi pulisce di più, a te come starebbe?</h2>
+    <h2 tabindex="-1">Se l’app mostrasse chi pulisce di più, come la prenderesti?</h2>
     <div class="scelte">
-      <button type="button" class="scelta" data-v="mi sprona">Bene, mi darebbe la spinta</button>
+      <button type="button" class="scelta" data-v="mi sprona">Bene, mi darebbe una spinta</button>
       <button type="button" class="scelta" data-v="indifferente">Mi sarebbe indifferente</button>
       <button type="button" class="scelta" data-v="disagio">Mi metterebbe a disagio</button>
       <button type="button" class="scelta" data-v="tensioni">Finiremmo per litigare</button>
@@ -392,7 +393,7 @@
 
   <section class="schermo fuori" id="fuori" hidden>
     <h2 tabindex="-1" id="f-tit">Ok, allora ci fai un favore?</h2>
-    <p class="lead">Il sondaggio è per chi vive con dei coinquilini. Se conosci qualcuno, mandaglielo: ci aiuti tantissimo.</p>
+    <p class="lead">Questo sondaggio è per chi vive con dei coinquilini. Se ne conosci qualcuno, giraglielo: ci dai una bella mano.</p>
     <a class="wa" id="f-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Mandalo a chi vive con coinquilini</a>
     <button type="button" class="secondario" id="f-stesso">Fallo lo stesso, pensando a una casa che conosci</button>
     <button type="button" class="link" id="f-copia">Copia il link</button>
@@ -410,7 +411,8 @@
   var ENDPOINT = '';
   // Versione 5 (12 novembre 2026): rifatta da zero con le 7 decisioni di Giovanni.
   // 5.1: spese al posto di «come vi organizzate», orario dei promemoria, passi contati, chi dice «No» può farlo lo stesso.
-  var VERSIONE = 5, REVISIONE = '5.1', PRE = 'prova_v5_';
+  // 5.2: testi, anteprima WhatsApp e messaggi di condivisione riscritti con la skill Humanizer.
+  var VERSIONE = 5, REVISIONE = '5.2', PRE = 'prova_v5_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
@@ -502,7 +504,7 @@
       $('t-persone').textContent = conosce ? 'Pensa a quella casa: quanti sono?' : c === ANDRO ? 'Quanti sarete in casa, tu compreso?' : c === VISSUTO ? 'Quanti eravate in casa, tu compreso?' : 'Quanti siete in casa, tu compreso?';
       $('nonsoancora').hidden = c !== ANDRO;
     }
-    if (id === 'successo') $('t-successo').textContent = conosce ? 'Nell’ultimo mese, in quella casa è capitato che…' : c === SI ? 'Nell’ultimo mese ti è capitato che…' : 'Nell’ultimo mese in quella casa, ti è capitato che…';
+    if (id === 'successo') $('t-successo').textContent = conosce ? 'Per quel che sai, nell’ultimo mese in quella casa è capitato che…' : c === SI ? 'Nell’ultimo mese ti è capitato che…' : 'Nell’ultimo mese passato in quella casa, ti è capitato che…';
     if (id === 'spese') $('t-spese').textContent = conosce ? 'Come dividono le spese di casa?' : c === SI ? 'Come dividete le spese di casa?' : 'Come dividevate le spese di casa?';
     if (id === 'adozione') $('t-adozione').textContent = c === SI ? 'Se uscisse domani, cosa succederebbe a casa tua?' : 'Se uscisse domani e vivessi con altri, cosa succederebbe?';
     if (id === 'frasecasa') {
@@ -615,7 +617,7 @@
       if (n === '3') return uno(['In tre: perfetto per decidere a maggioranza.', 'In tre: c’è sempre qualcuno che fa da arbitro.']);
       if (n === '4') return uno(['In quattro: un bagno, quattro idee diverse di «pulito».', 'In quattro: il gruppo WhatsApp di casa non dorme mai.']);
       if (n === '5 o più') return uno(['Praticamente un condominio. Rispetto.', 'Così tanti? Il frigo è un campo di battaglia.']);
-      return 'Una casa ancora da scoprire: il momento giusto per partire bene.';
+      return 'Ancora non sai con chi vivrai? Ci sta.';
     }
     if (p === 2) {
       if (A.casa === ANDRO) return uno(['Pensarci prima è già metà del lavoro.', 'Chi ci pensa prima, poi litiga meno.']);
@@ -759,9 +761,10 @@
     chips.slice(0, 3).forEach(function(c){ var li = document.createElement('li'); li.textContent = c; ul.appendChild(li); });
 
     // Condivisione: ai coinquilini (stessa casa) e agli amici, ognuno con la sua etichetta.
-    var nome = p[0];
-    var msgCasa = 'Ho fatto questo sondaggio sulla vita tra coinquilini e mi è uscito che siamo una ' + nome + ' 😅\n\nSono 2 minuti ed è anonimo. Fatelo anche voi, vediamo se esce lo stesso 👀';
-    var msgAmico = 'Vivi con dei coinquilini? 🏠\n\nC’è questo sondaggio anonimo di 2 minuti, alla fine ti dice che casa siete. A me è uscita ' + nome + ' 😅';
+    // nel messaggio il nome va con la minuscola: «siamo una casa “poi ti do”»
+    var nome = p[0].charAt(0).toLowerCase() + p[0].slice(1);
+    var msgCasa = 'Ho fatto un sondaggio sulla vita tra coinquilini e dice che siamo una ' + nome + ' 😅\n\nSono due minuti ed è anonimo. Fatelo anche voi, vediamo se vi esce uguale 👀';
+    var msgAmico = 'Tu che vivi con dei coinquilini: fai questo sondaggio, sono due minuti ed è anonimo 🏠\n\nAlla fine ti dice che casa siete. A me è uscita ' + nome + ' 😂';
     var conCasa = A.casa === SI;
     $('s-tit').textContent = conCasa ? 'Fallo fare ai tuoi coinquilini' : 'Conosci qualcuno che vive con coinquilini?';
     $('s-txt').textContent = conCasa ? 'Vediamo se a loro esce lo stesso.' : 'Mandaglielo, ci dai una mano.';
@@ -792,7 +795,7 @@
     nascondiTutto(); $('avanz').hidden = true; $('navi').hidden = true;
     rigaFuori = riga();
     if (ENDPOINT) { inCoda(rigaFuori); tFuori = setTimeout(function(){ send(rigaFuori).catch(function(){}); }, 6000); }
-    var msg = 'Vivi con dei coinquilini? 🏠\n\nC’è questo sondaggio anonimo di 2 minuti, alla fine ti dice che casa siete.';
+    var msg = 'Vivi con dei coinquilini? 🏠\n\nC’è un sondaggio di due minuti, anonimo, che alla fine ti dice che casa siete. Lo fanno quelli che stanno finendo un’app per chi divide casa, mi hanno chiesto di girarlo 🙂';
     $('f-wa').href = wa(msg, linkDa('condivisione'));
     $('fuori').hidden = false; window.scrollTo(0, 0); $('f-tit').focus({ preventScroll: true });
   }
