@@ -162,8 +162,8 @@
   .wa.alt { background: transparent; color: #7ff0a8; border: 1.5px solid #25d366; }
   .wa svg { width: 22px; height: 22px; flex: none; }
   .fuori .wa { margin-top: 14px; }
-  .secondario { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; margin-top: 10px; border-radius: 999px;
-    background: transparent; border: 1.5px solid var(--line); color: var(--txt); text-decoration: none; font-weight: 800; font-size: 16px; }
+  .secondario { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; margin-top: 10px; padding: 10px 18px; border-radius: 999px;
+    background: transparent; border: 1.5px solid var(--line); color: var(--txt); text-decoration: none; font-weight: 800; font-size: 16px; line-height: 1.25; text-align: center; }
   .fuori .evid { font-size: 22px; }
 
   @media (max-width: 380px) { h1 { font-size: 38px; } h2 { font-size: 24px; } .evid { font-size: 21px; } .mancano { min-width: 0; } }
@@ -261,27 +261,14 @@
     <div class="azioni"><button type="button" class="avanti">Avanti</button><button type="button" class="salta">Salta</button></div>
   </section>
 
-  <section class="schermo" data-id="metodo" data-tipo="uno" hidden>
-    <h2 tabindex="-1" id="t-metodo">Come vi organizzate adesso per soldi, pulizie e spesa?</h2>
-    <div class="scelte" data-mescola>
-      <button type="button" class="scelta" data-v="chat o voce">Ce lo diciamo a voce o nel gruppo WhatsApp</button>
-      <button type="button" class="scelta" data-v="app spese">Usiamo un’app tipo Splitwise o Tricount</button>
-      <button type="button" class="scelta" data-v="foglio o lavagna">Abbiamo un foglio, una lavagna o un calendario</button>
-      <button type="button" class="scelta" data-v="a occhio" data-fisso>Non ci organizziamo, si va a occhio</button>
-      <button type="button" class="scelta" data-v="altro" data-fisso>In un altro modo</button>
-    </div>
-  </section>
-
-  <section class="schermo" data-id="momento" data-tipo="uno" hidden>
-    <h2 tabindex="-1">Quando ti capita di pensare alle cose di casa?</h2>
-    <p class="aiuto">Turni, soldi, cosa comprare.</p>
+  <section class="schermo" data-id="spese" data-tipo="uno" hidden>
+    <h2 tabindex="-1" id="t-spese">Come dividete le spese di casa?</h2>
+    <p class="aiuto">Bollette, detersivi, carta igienica…</p>
     <div class="scelte">
-      <button type="button" class="scelta" data-v="mattina">La mattina, prima di uscire</button>
-      <button type="button" class="scelta" data-v="pausa">Durante il giorno, in pausa</button>
-      <button type="button" class="scelta" data-v="rientro">Quando rientro</button>
-      <button type="button" class="scelta" data-v="sera">La sera, dopo cena</button>
-      <button type="button" class="scelta" data-v="weekend">Nel weekend</button>
-      <button type="button" class="scelta" data-v="solo se serve">Solo quando c’è un problema</button>
+      <button type="button" class="scelta" data-v="parti uguali">Tutto in parti uguali</button>
+      <button type="button" class="scelta" data-v="affitto diverso">L’affitto in parti diverse, il resto uguale</button>
+      <button type="button" class="scelta" data-v="ognuno il suo">Ognuno si compra le sue cose</button>
+      <button type="button" class="scelta" data-v="a occhio">Senza una regola, un po’ a occhio</button>
     </div>
   </section>
 
@@ -317,6 +304,19 @@
       <button type="button" class="scelta" data-v="disagio">Mi metterebbe a disagio</button>
       <button type="button" class="scelta" data-v="tensioni">Finiremmo per litigare</button>
       <button type="button" class="scelta" data-v="non so">Non saprei</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="promemoria" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Se l’app ti mandasse un promemoria, quando ti farebbe più comodo?</h2>
+    <p class="aiuto">Tipo «stasera tocca a te il bagno».</p>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="mattina">La mattina, prima di uscire</button>
+      <button type="button" class="scelta" data-v="pausa">Durante il giorno, in pausa</button>
+      <button type="button" class="scelta" data-v="rientro">Quando torno a casa</button>
+      <button type="button" class="scelta" data-v="sera">La sera, dopo cena</button>
+      <button type="button" class="scelta" data-v="weekend">Nel weekend</button>
+      <button type="button" class="scelta" data-v="nessuno">Meglio di no, niente promemoria</button>
     </div>
   </section>
 
@@ -391,12 +391,12 @@
   </section>
 
   <section class="schermo fuori" id="fuori" hidden>
-    <h2 tabindex="-1" id="f-tit">Allora per te finisce qui.</h2>
-    <p class="evid">E va benissimo.</p>
-    <p class="lead">Questo sondaggio è per chi vive con dei coinquilini. Se conosci qualcuno, mandaglielo: ci dai una mano lo stesso.</p>
-    <a class="wa" id="f-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Mandalo su WhatsApp</a>
-    <button type="button" class="secondario" id="f-copia">Copia il link</button>
-    <button type="button" class="salta" id="f-torna" style="width:100%;margin-top:10px">Ho sbagliato, torna indietro</button>
+    <h2 tabindex="-1" id="f-tit">Ok, allora ci fai un favore?</h2>
+    <p class="lead">Il sondaggio è per chi vive con dei coinquilini. Se conosci qualcuno, mandaglielo: ci aiuti tantissimo.</p>
+    <a class="wa" id="f-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Mandalo a chi vive con coinquilini</a>
+    <button type="button" class="secondario" id="f-stesso">Fallo lo stesso, pensando a una casa che conosci</button>
+    <button type="button" class="link" id="f-copia">Copia il link</button>
+    <button type="button" class="salta" id="f-torna" style="width:100%">Ho sbagliato, vivo con dei coinquilini</button>
   </section>
 </main>
 
@@ -409,7 +409,8 @@
   // Indirizzo che riceve risposte ed email (foglio Google). Vuoto = prova: niente viene salvato.
   var ENDPOINT = '';
   // Versione 5 (12 novembre 2026): rifatta da zero con le 7 decisioni di Giovanni.
-  var VERSIONE = 5, REVISIONE = '5.0', PRE = 'prova_v5_';
+  // 5.1: spese al posto di «come vi organizzate», orario dei promemoria, passi contati, chi dice «No» può farlo lo stesso.
+  var VERSIONE = 5, REVISIONE = '5.1', PRE = 'prova_v5_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
@@ -422,16 +423,18 @@
 
   var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi 6 mesi', NO = 'no';
   var COLORI = ['#ffb020', '#ff6fa8', '#22b8a7', '#7c5cff'];
-  var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, metodo: 2, momento: 2,
-    frase: 3, primo: 3, classifica: 3, adozione: 4, perche: 4, frasecasa: 4 };
+  var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, spese: 2,
+    frase: 3, primo: 3, classifica: 3, promemoria: 3, adozione: 4, perche: 4, frasecasa: 4 };
   var NOMI_PASSI = { 1: 'La tua casa', 2: 'Come va in casa', 3: 'L’app', 4: 'Tu e la tua casa' };
-  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'metodo', 'momento', 'frase', 'primo', 'classifica', 'adozione', 'perche', 'frasecasa'];
+  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'spese', 'frase', 'primo', 'classifica', 'promemoria', 'adozione', 'perche', 'frasecasa'];
   var BREVE = { faccenda: 'I piatti o il bagno lasciati lì', 'al posto': 'Fare io la parte di un altro', ricordare: 'Dover chiedere indietro i soldi',
     conti: 'Non sapere chi deve soldi a chi', finito: 'La carta finita e nessuno che la compra' };
 
   var A = {};          // risposte
   var storia = [];     // domande già passate, per tornare indietro
   var cur = 'casa';
+  var LOSTESSO = false; // ha risposto «No» ma lo fa lo stesso, pensando a una casa che conosce
+  var tFuori = null, rigaFuori = null; // la riga del «No», in attesa di partire
 
   // Da quale link è arrivata la persona (?da=amici, ?da=gruppi…). Senza etichetta resta vuoto.
   var DA = (function(){ try { return (new URLSearchParams(location.search).get('da') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 30); } catch(e) { return ''; } })();
@@ -450,7 +453,9 @@
   // stima = per contare quelle che mancano: quello che non si sa ancora conta come "sì", così il numero scende sempre.
   function visibile(id, stima){
     var casa = A.casa || (stima ? SI : '');
-    var dentro = casa !== '' && casa !== NO, vissuta = casa === SI || casa === VISSUTO;
+    // Chi ha detto «No» e lo fa lo stesso risponde pensando a una casa che conosce: salta le domande sulla sua casa.
+    var conosce = casa === NO && LOSTESSO;
+    var dentro = (casa !== '' && casa !== NO) || conosce, vissuta = casa === SI || casa === VISSUTO || conosce;
     switch (id) {
       case 'casa': return true;
       case 'persone': return dentro;
@@ -458,15 +463,17 @@
       case 'paura': return casa === ANDRO;
       case 'pesa': return vissuta && (A.successo ? problemi().length >= 2 : !!stima);
       case 'racconto': return vissuta && (A.successo ? problemi().length >= 1 : !!stima);
-      case 'metodo': return vissuta;
-      case 'momento': case 'frase': case 'primo': case 'classifica': case 'adozione': return dentro;
-      case 'perche': return dentro && A.adozione === 'non la useremmo';
-      case 'frasecasa': return dentro && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
+      case 'spese': return vissuta;
+      case 'frase': case 'primo': case 'classifica': return dentro;
+      case 'promemoria': case 'adozione': return dentro && !conosce;
+      case 'perche': return dentro && !conosce && A.adozione === 'non la useremmo';
+      case 'frasecasa': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
     }
     return false;
   }
   function dopo(id){ for (var i = ORDINE.indexOf(id) + 1; i < ORDINE.length; i++) if (visibile(ORDINE[i])) return ORDINE[i]; return null; }
   function mancano(id){ var n = 0; for (var i = ORDINE.indexOf(id) + 1; i < ORDINE.length; i++) if (visibile(ORDINE[i], true)) n++; return n; }
+  function quantiPassi(){ var m = 1; ORDINE.forEach(function(id){ if (visibile(id, true)) m = Math.max(m, PASSI[id]); }); return m; }
 
   // ---------- la casetta: una finestra per coinquilino ----------
   function quanti(){ var p = A.persone; if (!p || p === 'non so ancora') return 0; return p === '5 o più' ? 5 : Number(p); }
@@ -490,13 +497,13 @@
 
   // ---------- testi che cambiano con la situazione ----------
   function testi(id){
-    var c = A.casa;
+    var c = A.casa, conosce = c === NO;
     if (id === 'persone') {
-      $('t-persone').textContent = c === ANDRO ? 'Quanti sarete in casa, tu compreso?' : c === VISSUTO ? 'Quanti eravate in casa, tu compreso?' : 'Quanti siete in casa, tu compreso?';
+      $('t-persone').textContent = conosce ? 'Pensa a quella casa: quanti sono?' : c === ANDRO ? 'Quanti sarete in casa, tu compreso?' : c === VISSUTO ? 'Quanti eravate in casa, tu compreso?' : 'Quanti siete in casa, tu compreso?';
       $('nonsoancora').hidden = c !== ANDRO;
     }
-    if (id === 'successo') $('t-successo').textContent = c === SI ? 'Nell’ultimo mese ti è capitato che…' : 'Nell’ultimo mese in quella casa, ti è capitato che…';
-    if (id === 'metodo') $('t-metodo').textContent = c === SI ? 'Come vi organizzate adesso per soldi, pulizie e spesa?' : 'Come vi organizzavate per soldi, pulizie e spesa?';
+    if (id === 'successo') $('t-successo').textContent = conosce ? 'Nell’ultimo mese, in quella casa è capitato che…' : c === SI ? 'Nell’ultimo mese ti è capitato che…' : 'Nell’ultimo mese in quella casa, ti è capitato che…';
+    if (id === 'spese') $('t-spese').textContent = conosce ? 'Come dividono le spese di casa?' : c === SI ? 'Come dividete le spese di casa?' : 'Come dividevate le spese di casa?';
     if (id === 'adozione') $('t-adozione').textContent = c === SI ? 'Se uscisse domani, cosa succederebbe a casa tua?' : 'Se uscisse domani e vivessi con altri, cosa succederebbe?';
     if (id === 'frasecasa') {
       var aspetta = A.adozione === 'aspetto qualcun altro';
@@ -534,7 +541,7 @@
     if (s.getAttribute('data-tipo') === 'testo') { var t = s.querySelector('textarea'); t.value = A[id] || ''; contaCaratteri(t); }
     var inizio = id === 'casa';
     $('avanz').hidden = inizio; $('navi').hidden = inizio;
-    $('passo').textContent = passo + ' di 4 · ' + NOMI_PASSI[passo];
+    $('passo').textContent = passo + ' di ' + quantiPassi() + ' · ' + NOMI_PASSI[passo];
     aggiornaProgresso();
     s.hidden = false; s.style.animation = 'none'; void s.offsetWidth; s.style.animation = '';
     window.scrollTo(0, 0);
@@ -542,13 +549,16 @@
   }
 
   function avanti(){
-    if (cur === 'casa' && A.casa === NO) { storia.push(cur); fuori(); return; }
+    if (cur === 'casa' && A.casa === NO && !LOSTESSO) { storia.push(cur); fuori(); return; }
     var prossima = dopo(cur);
     storia.push(cur);
+    if (!prossima || PASSI[prossima] !== PASSI[cur]) passoFatto(PASSI[cur]);
     if (!prossima) { fine(); return; }
     if (PASSI[prossima] !== PASSI[cur]) premio(PASSI[cur]);
     mostra(prossima);
   }
+  // Conteggio anonimo a fine di ogni passo (una volta sola per visita): dice dove le persone si fermano.
+  function passoFatto(p){ if (LOSTESSO) return; var k = PRE + 'passo_' + p; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch(e) {} conta('passo_' + p); }
   $('indietro').addEventListener('click', function(){ if (storia.length) mostra(storia.pop()); });
 
   // ---------- il gesto: un tocco, riscontro subito ----------
@@ -575,7 +585,11 @@
   });
   // Se cambia una risposta da cui dipendono altre domande, quelle vecchie si cancellano.
   function cambia(id, v){
-    if (id === 'casa') { A = {}; disegnaCasa(); }
+    if (id === 'casa') {
+      A = {}; LOSTESSO = false; disegnaCasa();
+      // aveva detto «No» ed è tornato indietro: la riga del «No» non parte più
+      clearTimeout(tFuori); if (rigaFuori) { togliDallaCoda(rigaFuori.id); rigaFuori = null; }
+    }
     if (id === 'successo') delete A.pesa;
     A[id] = v;
     if (id === 'persone') disegnaCasa();
@@ -707,15 +721,15 @@
     'paura accordo': ['Casa «ci penso prima»', 'Non ci sei ancora e per te conta soprattutto andare d’accordo.'],
     'paura niente': ['Casa «ci penso prima»', 'Non ci sei ancora e non ti spaventa niente. Ci piace.']
   };
-  var METODO = { 'chat o voce': '💬 Gruppo WhatsApp e voce', 'app spese': '📱 App per le spese', 'foglio o lavagna': '📝 Foglio o lavagna', 'a occhio': '👀 Tutto a occhio', altro: '🛠️ A modo vostro' };
-  var MOMENTO = { mattina: '☀️ Ci pensi la mattina', pausa: '☕ Ci pensi in pausa', rientro: '🔑 Ci pensi rientrando', sera: '🌙 Ci pensi dopo cena', weekend: '🧺 Ci pensi nel weekend', 'solo se serve': '🚨 Ci pensi solo se serve' };
+  var SPESE = { 'parti uguali': '➗ Tutto in parti uguali', 'affitto diverso': '🏷️ Affitto diverso, resto uguale', 'ognuno il suo': '🛒 Ognuno per conto suo', 'a occhio': '👀 Spese a occhio' };
+  var PROMEMORIA = { mattina: '☀️ Promemoria la mattina', pausa: '☕ Promemoria in pausa', rientro: '🔑 Promemoria al rientro', sera: '🌙 Promemoria dopo cena', weekend: '🧺 Promemoria nel weekend', nessuno: '🔕 Niente promemoria' };
   var ADOZIONE = { 'la propongo e la usiamo tutti': '🙋 La proporresti tu', 'la propongo ma qualcuno no': '🙋 La proporresti tu', 'aspetto qualcun altro': '⏳ Aspetteresti gli altri', 'non la useremmo': '🙅 Per ora, no grazie', 'non so': '🤔 Ancora da vedere' };
 
   function riga(){
     var r = { tipo: 'risposta', versione: VERSIONE, revisione: REVISIONE, id: ID_RISPOSTA, giorno: oggi(), da: DA };
     ORDINE.forEach(function(id){ if (visibile(id) && A[id] !== undefined) r[id] = A[id]; });
     if (r.frase !== undefined) r.ordinefrasi = A.ordinefrasi || ORDINE_FRASI;
-    if (A.casa !== NO) { var k = principale(); r.principale = k; r.profilo = (PROFILI[k] || [''])[0].replace(/^Casa /, '').replace(/[«»]/g, ''); }
+    if (A.casa !== NO || LOSTESSO) { var k = principale(); r.principale = k; r.profilo = (PROFILI[k] || [''])[0].replace(/^Casa /, '').replace(/[«»]/g, ''); }
     return r;
   }
 
@@ -731,15 +745,15 @@
 
   function risultato(){
     var k = principale(), p = PROFILI[k] || PROFILI.nessuna;
-    $('r-pre').textContent = A.casa === SI ? 'Siete una' : A.casa === VISSUTO ? 'Eravate una' : 'Sarà una';
+    $('r-pre').textContent = A.casa === SI ? 'Siete una' : A.casa === VISSUTO ? 'Eravate una' : A.casa === NO ? 'Quella casa è una' : 'Sarà una';
     $('r-casa').innerHTML = casetta(quanti());
     $('r-nome').textContent = p[0];
     $('r-descr').textContent = p[1];
     var chips = [];
     if (quanti()) chips.push('👥 In ' + (A.persone === '5 o più' ? '5 o più' : A.persone));
     if (A.casa !== ANDRO) { var n = problemi().length; chips.push(n ? '⚡ ' + n + (n === 1 ? ' intoppo' : ' intoppi') + ' in un mese' : '✨ Zero intoppi'); }
-    if (METODO[A.metodo]) chips.push(METODO[A.metodo]);
-    if (MOMENTO[A.momento]) chips.push(MOMENTO[A.momento]);
+    if (SPESE[A.spese]) chips.push(SPESE[A.spese]);
+    if (PROMEMORIA[A.promemoria]) chips.push(PROMEMORIA[A.promemoria]);
     if (ADOZIONE[A.adozione]) chips.push(ADOZIONE[A.adozione]);
     var ul = $('r-chips'); ul.textContent = '';
     chips.slice(0, 3).forEach(function(c){ var li = document.createElement('li'); li.textContent = c; ul.appendChild(li); });
@@ -760,6 +774,8 @@
 
   function fine(){
     risultato();
+    // chi aveva detto «No» e l'ha fatto lo stesso: parte la riga completa al posto di quella del solo «No»
+    if (rigaFuori) { togliDallaCoda(rigaFuori.id); rigaFuori = null; }
     send(riga()).catch(function(){ /* resta nella coda del telefono e riparte alla prossima visita */ });
     store(PRE + 'inviato', '1');
     nascondiTutto(); $('avanz').hidden = true; $('navi').hidden = true;
@@ -769,9 +785,9 @@
     $('r-tit').focus({ preventScroll: true });
   }
 
-  // Chi non vive in casa condivisa: finisce qui. La risposta "no" parte dopo qualche secondo,
-  // così se ha sbagliato e torna indietro non resta una riga in più.
-  var tFuori = null, rigaFuori = null;
+  // Chi non vive in casa condivisa: gli chiediamo di passare il link, oppure può farlo lo stesso.
+  // La risposta "no" parte dopo qualche secondo, così se ha sbagliato e torna indietro non resta una riga in più.
+  // Se sceglie di farlo lo stesso, la riga resta in coda (parte se chiude a metà) e alla fine viene sostituita da quella completa.
   function fuori(){
     nascondiTutto(); $('avanz').hidden = true; $('navi').hidden = true;
     rigaFuori = riga();
@@ -781,8 +797,12 @@
     $('fuori').hidden = false; window.scrollTo(0, 0); $('f-tit').focus({ preventScroll: true });
   }
   $('f-torna').addEventListener('click', function(){
-    clearTimeout(tFuori); if (rigaFuori) togliDallaCoda(rigaFuori.id);
+    clearTimeout(tFuori); if (rigaFuori) togliDallaCoda(rigaFuori.id); rigaFuori = null;
     ID_RISPOSTA = nuovoId(); storia = []; delete A.casa; mostra('casa');
+  });
+  $('f-stesso').addEventListener('click', function(){
+    clearTimeout(tFuori); LOSTESSO = true; conta('no_lo_stesso');
+    mostra(dopo('casa'));
   });
 
   ['s-casa', 's-amico', 'f-wa'].forEach(function(id){ $(id).addEventListener('click', function(){ conta('condividi_whatsapp'); }); });
