@@ -318,19 +318,8 @@
   </section>
 
   <!-- PASSO 3 · L'APP -->
-  <section class="schermo" data-id="frase" data-tipo="uno" hidden>
-    <div class="riquadro"><b>Ora parliamo dell’app.</b> È gratis e fa tre cose: divide le spese, organizza i turni delle pulizie e tiene la lista della spesa. Ci aiuti a trovare le parole giuste per raccontarla?</div>
-    <h2 tabindex="-1">Quale di queste frasi ti farebbe venire voglia di scaricarla?</h2>
-    <div class="scelte frase" data-mescola id="scelte-frase">
-      <button type="button" class="scelta" data-v="niente da chiedere" data-lettera="A">«Niente più “hai pagato?” o “hai pulito?”: ognuno lo sa già»</button>
-      <button type="button" class="scelta" data-v="si organizza da sola" data-lettera="B">«La casa si organizza da sola, nessuno fa il rompiscatole»</button>
-      <button type="button" class="scelta" data-v="turni e conti chiari" data-lettera="C">«Turni e conti di casa, chiari per tutti»</button>
-      <button type="button" class="scelta" data-v="nessuna" data-fisso>Nessuna mi convince</button>
-      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
-    </div>
-  </section>
-
   <section class="schermo" data-id="primo" data-tipo="uno" hidden>
+    <div class="riquadro"><b>Ora parliamo dell’app.</b> È gratis e fa tre cose: divide le spese, organizza i turni delle pulizie e tiene la lista della spesa.</div>
     <h2 tabindex="-1">Appena scaricata, cosa faresti per prima cosa?</h2>
     <div class="scelte" data-mescola>
       <button type="button" class="scelta" data-v="turni">Metterei i turni delle pulizie</button>
@@ -383,6 +372,17 @@
       <button type="button" class="scelta" data-v="aspetto qualcun altro">Aspetterei che la proponga qualcun altro</button>
       <button type="button" class="scelta" data-v="non la useremmo">Non la useremmo</button>
       <button type="button" class="scelta" data-v="non so">Non saprei</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="invito" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Cosa aiuterebbe di più a farla usare a tutti in casa?</h2>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="senza scaricare">Che gli altri possano usarla dal link, senza scaricare niente</button>
+      <button type="button" class="scelta" data-v="pronta">Che la prepari uno e gli altri trovino tutto pronto</button>
+      <button type="button" class="scelta" data-v="solo quando tocca">Che gli avvisi arrivino solo a chi tocca, non a tutti</button>
+      <button type="button" class="scelta" data-v="senza app">Che chi non vuole l’app possa restarne fuori: le sue cose le segna un altro</button>
+      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
     </div>
   </section>
 
@@ -468,7 +468,8 @@
   // Versione 6 (12 novembre 2026): ogni domanda collegata a una delle 7 decisioni (Sondaggio/Revisione domande v5.md).
   // Nuove: cosa usate adesso (strumenti), quale messaggio preferisci (tono). Cambiate: spese comuni, cosa veder crescere
   // (al posto di «chi pulisce di più»). Ritocchi: «nei prossimi mesi», promemoria senza «nel weekend» e con «non saprei».
-  var VERSIONE = 6, REVISIONE = '6.0', PRE = 'prova_v6_';
+  // 6.1: tolta la domanda sulle 3 frasi (si provano con i post); al suo posto «Cosa aiuterebbe di più a farla usare a tutti in casa?» (invito).
+  var VERSIONE = 6, REVISIONE = '6.1', PRE = 'prova_v6_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
@@ -482,9 +483,9 @@
   var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi mesi', NO = 'no';
   var COLORI = ['#ffb020', '#ff6fa8', '#22b8a7', '#7c5cff'];
   var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, strumenti: 2, spese: 2,
-    frase: 3, primo: 3, crescere: 3, promemoria: 3, tono: 3, adozione: 4, perche: 4, frasecasa: 4 };
+    primo: 3, crescere: 3, promemoria: 3, tono: 3, adozione: 4, perche: 4, invito: 4, frasecasa: 4 };
   var NOMI_PASSI = { 1: 'La tua casa', 2: 'Come va in casa', 3: 'L’app', 4: 'Tu e la tua casa' };
-  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'frase', 'primo', 'crescere', 'promemoria', 'tono', 'adozione', 'perche', 'frasecasa'];
+  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'primo', 'crescere', 'promemoria', 'tono', 'adozione', 'perche', 'invito', 'frasecasa'];
   var BREVE = { faccenda: 'I piatti o il bagno lasciati lì', 'al posto': 'Fare io la parte di un altro', ricordare: 'Dover chiedere indietro i soldi',
     conti: 'Non sapere chi deve soldi a chi', finito: 'La carta finita e nessuno che la compra' };
 
@@ -504,7 +505,6 @@
     var fissi = tutti.filter(function(b){ return b.hasAttribute('data-fisso'); });
     mescola(mobili).concat(fissi).forEach(function(b){ c.appendChild(b); });
   });
-  var ORDINE_FRASI = Array.prototype.map.call(document.querySelectorAll('#scelte-frase [data-lettera]'), function(b){ return b.getAttribute('data-lettera'); }).join(' ');
   var ORDINE_TONO = Array.prototype.map.call(document.querySelectorAll('#scelte-tono [data-lettera]'), function(b){ return b.getAttribute('data-lettera'); }).join(' ');
 
   // ---------- quali domande vede la persona ----------
@@ -523,7 +523,8 @@
       case 'pesa': return vissuta && (A.successo ? problemi().length >= 2 : !!stima);
       case 'racconto': return vissuta && (A.successo ? problemi().length >= 1 : !!stima);
       case 'strumenti': case 'spese': return vissuta && !conosce;
-      case 'frase': case 'primo': case 'crescere': return dentro;
+      case 'primo': case 'crescere': return dentro;
+      case 'invito': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
       case 'promemoria': case 'adozione': return dentro && !conosce;
       case 'tono': return dentro && !conosce && (A.promemoria ? A.promemoria !== 'nessuno' : !!stima);
       case 'perche': return dentro && !conosce && A.adozione === 'non la useremmo';
@@ -654,7 +655,6 @@
     if (id === 'successo') delete A.pesa;
     A[id] = v;
     if (id === 'persone') disegnaCasa();
-    if (id === 'frase') A.ordinefrasi = ORDINE_FRASI;
     if (id === 'tono') A.ordinetono = ORDINE_TONO;
   }
   document.querySelectorAll('section[data-tipo="piu"] .avanti').forEach(function(b){
@@ -673,7 +673,7 @@
   function testoPremio(p){
     if (p === 1) return A.casa === ANDRO ? 'Ora qualche domanda su cosa ti aspetti.' : 'Ora qualche domanda su come vanno le cose in casa.';
     if (p === 2) return 'Grazie. Ora qualche domanda sull’app.';
-    if (p === 3) return 'Ultime due domande, poi vedi il quadro della tua casa.';
+    if (p === 3) return 'Ultime domande, poi vedi il quadro della tua casa.';
     return '';
   }
   function premio(p){
@@ -769,7 +769,6 @@
   function riga(){
     var r = { tipo: 'risposta', versione: VERSIONE, revisione: REVISIONE, id: ID_RISPOSTA, giorno: oggi(), da: DA };
     ORDINE.forEach(function(id){ if (visibile(id) && A[id] !== undefined) r[id] = A[id]; });
-    if (r.frase !== undefined) r.ordinefrasi = A.ordinefrasi || ORDINE_FRASI;
     if (r.tono !== undefined) r.ordinetono = A.ordinetono || ORDINE_TONO;
     if (A.casa !== NO || LOSTESSO) { var k = principale(); r.principale = k; r.profilo = (PROFILI[k] || [''])[0]; }
     return r;
