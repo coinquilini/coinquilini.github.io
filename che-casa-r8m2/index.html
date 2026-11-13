@@ -498,6 +498,17 @@
   .pagella li.ok .voce { align-self: center; }
   .pagella .perche { grid-column: 2 / -1 !important; }
 
+  /* «i fuorisede che condividono casa» resta sempre tutto su una riga */
+  .benvenuto .lead .segno { white-space: nowrap; }
+  /* finestra dell'email al centro dello schermo, con un'entrata morbida: lo sfondo sfuma, la finestra cresce appena */
+  .velo { align-items: center !important; padding-top: max(16px, env(safe-area-inset-top)) !important; animation: appare .45s ease-out both !important; }
+  .finestra { box-shadow: 0 20px 60px rgba(0,0,0,.5) !important; animation: entraFinestra .55s cubic-bezier(.22,1,.36,1) .05s both !important; }
+  @keyframes entraFinestra { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
+  .velo.esce { animation: sparisce .3s ease-in both !important; }
+  .velo.esce .finestra { animation: esceFinestra .3s ease-in both !important; }
+  @keyframes sparisce { to { opacity: 0; } }
+  @keyframes esceFinestra { to { opacity: 0; transform: translateY(8px) scale(.97); } }
+
   @media (max-width: 380px) { h1 { font-size: 34px; } h2 { font-size: 24px; } .evid { font-size: 18px; } .mancano { min-width: 0; } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -1193,7 +1204,10 @@
   }
   // L'email si chiede in una finestra sopra il risultato, prima di vederlo: si può lasciare o dire «No grazie».
   function apriEmail(){ $('velo').hidden = false; document.body.classList.add('con-velo'); $('v-tit').focus({ preventScroll: true }); }
-  function chiudiEmail(){ $('velo').hidden = true; document.body.classList.remove('con-velo'); $('r-tit').focus({ preventScroll: true }); }
+  function chiudiEmail(){
+    var v = $('velo'); v.classList.add('esce');
+    setTimeout(function(){ v.hidden = true; v.classList.remove('esce'); document.body.classList.remove('con-velo'); $('r-tit').focus({ preventScroll: true }); }, 300);
+  }
   $('v-no').addEventListener('click', chiudiEmail);
 
   // Chi non vive in casa condivisa: gli chiediamo di passare il link, oppure può farlo lo stesso.
