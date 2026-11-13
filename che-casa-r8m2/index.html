@@ -509,6 +509,46 @@
   @keyframes sparisce { to { opacity: 0; } }
   @keyframes esceFinestra { to { opacity: 0; transform: translateY(8px) scale(.97); } }
 
+  /* 7.2 (13 novembre 2026, sera): apertura in forma di chat, scelta da Lorenzo e dal team.
+     Barra come WhatsApp («Il team · sta scrivendo…», iniziali L M L), titolo, il testo in quattro messaggi, l'ultimo in viola. */
+  .benvenuto .cornice.chatapre { padding: 28px 12px 14px; }
+  .chatapre .gruppo { display: flex; align-items: center; gap: 10px; width: calc(100% + 24px); margin: -28px -12px 16px; padding: 12px 16px; text-align: left;
+    background: rgba(255,255,255,.06); border-bottom: 1px solid var(--line); }
+  .chatapre .gruppo b { display: block; font: 600 16px/1.2 Fredoka, Nunito, sans-serif; color: #fff; }
+  .chatapre .gruppo small { display: block; font-size: 12.5px; font-weight: 700; font-style: italic; color: #8ff0e2; }
+  .chatapre .pallini { display: flex; flex: none; }
+  .chatapre .pallini i { display: grid; place-items: center; width: 30px; height: 30px; margin-left: -5px; border-radius: 50%; border: 2px solid #3a2d5e;
+    font: normal 700 13px/1 Fredoka, Nunito, sans-serif; color: var(--ink); }
+  .chatapre .pallini i:first-child { margin-left: 0; }
+  .chatapre .pallini .p1 { background: var(--giallo); } .chatapre .pallini .p2 { background: var(--rosa); } .chatapre .pallini .p3 { background: var(--viola); color: #fff; }
+  .benvenuto .cornice.chatapre h1 { font-size: 34px; margin: 4px 0 16px; }
+  .chatapre h1 .intero { display: block; }
+  .chatapre .chat { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; text-align: left; }
+  .chatapre .bolla { margin: 0; max-width: 100%; padding: 10px 14px; border-radius: 18px 18px 18px 6px; background: rgba(255,255,255,.09);
+    font-size: 16px; line-height: 1.4; color: #e9e4fb; text-wrap: pretty; }
+  .chatapre .bolla .chi { font-weight: 800; color: #fff; }
+  .chatapre .bolla .segno { color: #fff; font-weight: 600; background: linear-gradient(transparent 58%, rgba(255,111,168,.45) 58%, rgba(255,111,168,.45) 92%, transparent 92%);
+    -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .chatapre .bolla.viola { background: rgba(124,92,255,.32); color: #fff; font-weight: 600; font-size: 15px; }
+  .chatapre .tema { font-weight: 800; } .chatapre .t1 { color: var(--giallo); } .chatapre .t2 { color: var(--rosa); } .chatapre .t3 { color: #5fe3d3; }
+  @media (max-height: 740px) {
+    .benvenuto .cornice.chatapre { padding-top: 22px; }
+    .chatapre .gruppo { margin-top: -22px; margin-bottom: 12px; padding: 9px 14px; }
+    .benvenuto .cornice.chatapre h1 { font-size: 30px; margin-bottom: 12px; }
+    .chatapre .bolla { padding: 8px 12px; font-size: 15px; }
+    .chatapre .bolla.viola { font-size: 14px; }
+  }
+  @media (max-height: 640px) {
+    .benvenuto .cornice.chatapre { padding: 18px 10px 10px; }
+    .chatapre .gruppo { width: calc(100% + 20px); margin: -18px -10px 10px; padding: 7px 12px; }
+    .chatapre .pallini i { width: 26px; height: 26px; font-size: 12px; }
+    .benvenuto .cornice.chatapre h1 { font-size: 26px; margin: 0 0 10px; }
+    .chatapre h1 .intero { display: inline; }
+    .chatapre .chat { gap: 4px; }
+    .chatapre .bolla { padding: 6px 11px; font-size: 14px; line-height: 1.35; }
+    .chatapre .bolla.viola { font-size: 13.5px; }
+  }
+
   @media (max-width: 380px) { h1 { font-size: 34px; } h2 { font-size: 24px; } .evid { font-size: 18px; } .mancano { min-width: 0; } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -539,14 +579,17 @@
 
   <!-- PASSO 1 · LA TUA CASA -->
   <section class="schermo benvenuto" id="benvenuto">
-    <div class="apertura cornice">
-      <svg class="casagrande" viewBox="0 0 120 104" aria-hidden="true"><path d="M10 50 60 10l50 40" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><rect x="22" y="44" width="76" height="54" rx="9" fill="#fff"/><rect x="33" y="54" width="24" height="17" rx="4" fill="#ffb020"/><rect x="63" y="54" width="24" height="17" rx="4" fill="#ff6fa8"/><rect x="33" y="76" width="24" height="14" rx="4" fill="#22b8a7"/><rect x="63" y="76" width="24" height="14" rx="4" fill="#7c5cff"/></svg>
-      <p class="evid">2 minuti</p>
+    <div class="apertura cornice chatapre">
+      <div class="gruppo" aria-hidden="true"><span class="pallini"><i class="p1">L</i><i class="p2">M</i><i class="p3">L</i></span><div><b>Il team</b><small>sta scrivendo…</small></div></div>
       <h1>Tra coinquilini, <span class="intero">come va?</span></h1>
-      <p class="lead">Siamo <b class="chi">un gruppo di ragazzi</b> e abbiamo quasi finito di sviluppare un’app per <span class="segno">i fuorisede che condividono casa</span>.<span class="stacco"></span>Per rifinirla al meglio, ci serve la vostra esperienza.</p>
-            <p class="prom">A fine sondaggio vedrai cosa va e cosa no su <span class="tema t1">pulizie</span>, <span class="tema t2">soldi</span> e <span class="tema t3">spesa</span>, e come potrai risolverlo con l’app.</p>
+      <div class="chat">
+        <p class="bolla"><span aria-hidden="true">👋</span> Ciao, e grazie per aver aperto il link!</p>
+        <p class="bolla">Siamo <b class="chi">un gruppo di ragazzi</b> e abbiamo quasi finito di sviluppare un’app per <span class="segno">i&nbsp;fuorisede che condividono casa</span>.</p>
+        <p class="bolla">Per rifinirla al meglio, ci serve la vostra esperienza.</p>
+        <p class="bolla viola">A fine sondaggio vedrai cosa va e cosa no su <span class="tema t1">pulizie</span>, <span class="tema t2">soldi</span> e <span class="tema t3">spesa</span>, e come potrai risolverlo con l’app.</p>
+      </div>
     </div>
-    <div class="azioni"><button type="button" class="avanti" id="inizia">Inizia</button></div>
+    <div class="azioni"><button type="button" class="avanti" id="inizia">Inizia · 2 minuti</button></div>
   </section>
 
   <section class="schermo" data-id="casa" data-tipo="uno" hidden>
@@ -808,7 +851,7 @@
   // schermata di passaggio prima delle domande sull'app (ponte), alla fine la pagella della casa (pulizie, soldi, spesa). Domande uguali alla 6.2.
   // 7.1 (13 novembre 2026): «pagella» diventa «la situazione della tua casa»; al posto dei due messaggi, cosa deve fare l'app
   // se uno non pulisce la cucina (avviso); ultima schermata in tre riquadri uguali che partono dall'alto.
-  var VERSIONE = 7, REVISIONE = '7.1', PRE = 'prova_v7_';
+  var VERSIONE = 7, REVISIONE = '7.2', PRE = 'prova_v7_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
