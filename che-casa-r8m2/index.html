@@ -288,7 +288,55 @@
   .benvenuto .apertura { margin: 0; }
   .benvenuto .azioni { margin-top: 24px; }
   .marca { font-size: 21px; letter-spacing: .2px; }
-  .fine { justify-content: center; padding-bottom: 2vh; }
+  /* 7.1: l'ultima schermata ha lo stesso aspetto delle domande: niente riquadri intorno ai blocchi,
+     titolo grande, le tre voci come le risposte, il riquadro turchese per l'app, pulsanti pieni; parte dall'alto come le domande. */
+  .fine { justify-content: center; gap: 24px; padding: 22px 0 3vh; }
+  .carta, .blocco, .blocco + .blocco { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+  .carta .pre { font: 600 14px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: .3px; color: var(--rosa); }
+  .carta h2 { margin: 10px 0 0; font-size: 27px; }
+  .pagella { gap: 10px; margin-top: 16px; }
+  .pagella li { min-height: 54px; padding: 10px 12px 10px 16px; border-radius: var(--r); background: var(--card); border: 1.5px solid var(--line); }
+  .pagella .voce { font-size: 17px; }
+  .pagella .perche { font-size: 14px; margin-top: 2px; }
+  .pagella .stato { padding: 4px 10px; font-size: 13px; }
+  .carta .descr { margin-top: 14px; padding: 12px 16px; border-radius: 16px; background: rgba(34,184,167,.12); border: 1px solid rgba(34,184,167,.38); color: #dff8f4; font-size: 15.5px; line-height: 1.4; }
+  .blocco h3 { font-size: 20px; }
+  .blocco .wa { margin-top: 12px; min-height: 56px; }
+  .riga-link { margin-top: 4px; }
+  .riga-email { margin-top: 12px; }
+  .riga-email input, .riga-email .avanti { min-height: 54px; }
+  .notaemail { margin-top: 8px !important; }
+  @media (max-height: 760px) {
+    .fine { gap: 18px; padding-top: 14px; padding-bottom: 1vh; }
+    .carta h2 { margin-top: 8px; font-size: 25px; }
+    .pagella { gap: 8px; margin-top: 12px; }
+    .pagella li { min-height: 48px; padding-top: 7px; padding-bottom: 7px; }
+    .pagella .perche { font-size: 13.5px; }
+    .carta .descr { margin-top: 12px; padding: 9px 14px; font-size: 15px; }
+    .blocco h3 { font-size: 18px; }
+    .blocco .wa { margin-top: 10px; min-height: 50px; }
+    .riga-email { margin-top: 10px; }
+    .riga-email input, .riga-email .avanti { min-height: 50px; }
+  }
+  @media (max-height: 700px) {
+    .fine { gap: 14px; padding-top: 8px; padding-bottom: 0; }
+    .carta h2 { font-size: 23px; }
+    .pagella { gap: 6px; margin-top: 10px; }
+    .pagella li { min-height: 42px; padding-top: 5px; padding-bottom: 5px; }
+    .carta .descr { margin-top: 10px; padding: 7px 12px; font-size: 14.5px; }
+    .blocco h3 { font-size: 17px; }
+    .blocco .wa, .riga-email { margin-top: 8px; }
+    .blocco .wa, .riga-email input, .riga-email .avanti { min-height: 46px; }
+    .riga-link .link { padding: 4px 2px; }
+    .notaemail { margin-top: 6px !important; }
+  }
+  @media (max-height: 620px) {
+    .fine { gap: 10px; padding-top: 4px; }
+    .carta h2 { margin-top: 4px; font-size: 21px; }
+    .pagella { gap: 5px; margin-top: 8px; }
+    .pagella li { min-height: 38px; padding-top: 3px; padding-bottom: 3px; }
+    .blocco .wa, .riga-email input, .riga-email .avanti { min-height: 44px; }
+  }
 
   @media (max-width: 380px) { h1 { font-size: 34px; } h2 { font-size: 24px; } .evid { font-size: 18px; } .mancano { min-width: 0; } }
   @media (prefers-reduced-motion: reduce) {
