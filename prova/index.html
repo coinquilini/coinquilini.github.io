@@ -1269,8 +1269,8 @@
   }
 
   // Messaggio per chi non è della stessa casa (amici, o chi ha risposto «No» e lo gira).
-  var MSG_AMICO = 'Vivi con dei coinquilini? C’è un sondaggio di due minuti, anonimo, su spese, pulizie e lista della spesa.\n\nLo fa un gruppo di ragazzi che sta finendo un’app proprio per questo: se ti va di rispondere, gli dai una mano.';
-  function linkDa(et){ return location.origin + location.pathname + '?da=' + et; }
+  var MSG_AMICO = 'Vivi con dei coinquilini? C’è un sondaggio di due minuti, anonimo, su spese, pulizie e lista della spesa.\n\nLo fa un gruppo di ragazzi che sta rifinendo un’app proprio per questo: se ti va di rispondere, gli dai una mano.';
+  function linkDa(et){ return 'https://sondaggio.inqui.eu/?da=' + et; }
   function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
   function copia(url, b){
     var fatto = function(){ var t = b.textContent; b.textContent = 'Link copiato ✓'; setTimeout(function(){ b.textContent = t; }, 1800); };
@@ -1373,7 +1373,7 @@
     }
 
     // Condivisione: ai coinquilini (stessa casa) e agli amici, ognuno con la sua etichetta.
-    var msgCasa = 'Ho risposto a un sondaggio per chi vive con dei coinquilini: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta finendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
+    var msgCasa = 'Ho risposto a un sondaggio per chi vive con dei coinquilini: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta rifinendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
     var msgAmico = MSG_AMICO;
     var conCasa = A.casa === SI;
     $('s-casa').hidden = !conCasa;

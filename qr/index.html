@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="it">
 <head>
+<script id="dominio-ufficiale">
+// Anche i link e i promemoria gia condivisi conservano percorso ed etichetta.
+if (location.hostname === 'coinquilini.github.io' || location.hostname === 'inqui-sondaggio.pages.dev') {
+  location.replace('https://sondaggio.inqui.eu' + location.pathname + location.search + location.hash);
+}
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
@@ -2404,7 +2410,7 @@ var qrcode = function() {
 
     if (modalita === 'web') {
       document.getElementById('status-pill').textContent = 'Modalità Link Web · Tocca per Offline';
-      return 'https://coinquilini.github.io/serata/';
+      return 'https://sondaggio.inqui.eu/serata/';
     }
 
     document.getElementById('status-pill').textContent = 'Calendario Offline · ' + etichettaData;
@@ -2416,8 +2422,8 @@ var qrcode = function() {
       'DTSTART:' + toICSDateUTC(start),
       'DTEND:' + toICSDateUTC(end),
       "SUMMARY:👋 Sono Lorenzo! (il ragazzo dell'app di ieri sera)",
-      'URL:https://coinquilini.github.io/ciao/',
-      "DESCRIPTION:Ora che sei a mente lucida 😄 Ecco l'idea dell'app per coinquilini di cui parlavamo: dimmi che ne pensi in 2 min (o girala a un amico fuori sede): https://coinquilini.github.io/ciao/",
+      'URL:https://sondaggio.inqui.eu/ciao/',
+      "DESCRIPTION:Ora che sei a mente lucida 😄 Ecco l'idea dell'app per coinquilini di cui parlavamo: dimmi che ne pensi in 2 min (o girala a un amico fuori sede): https://sondaggio.inqui.eu/ciao/",
       'BEGIN:VALARM',
       'TRIGGER:PT0S',
       'ACTION:DISPLAY',

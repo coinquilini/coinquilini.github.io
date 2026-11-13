@@ -1,4 +1,4 @@
-const CACHE = 'qr-serata-v2';
+const CACHE = 'qr-serata-v3';
 const ASSETS = ['/qr/', '/qr/index.html', '/qr/manifest.webmanifest', '/qr/icona.png'];
 
 self.addEventListener('install', event => {
