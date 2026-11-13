@@ -406,16 +406,22 @@
     border-top: 1px solid var(--line); background: rgba(124,92,255,.16); font-size: 16px; line-height: 1.45; font-weight: 600; color: #fff; text-wrap: balance; }
   .benvenuto .cornice .tema { font-weight: 800; }
   .benvenuto .azioni { margin-top: 22px; }
+  /* spazi rifatti: un solo blocco di testo largo come il titolo, ritmo regolare tra casetta, etichetta, titolo e testo */
+  .benvenuto .cornice { padding: 28px 22px 0; }
+  .benvenuto .cornice .casagrande { width: 68px; margin: 0 0 18px; }
+  .benvenuto .cornice .evid { margin: 0 0 10px; }
+  .benvenuto .cornice .lead { max-width: 34ch; margin-top: 18px; font-size: 17px; line-height: 1.55; text-wrap: pretty; }
+  .benvenuto .cornice .prom { width: calc(100% + 44px); margin: 26px -22px 0; padding: 16px 24px 18px; }
   @media (max-height: 740px) {
     .benvenuto { padding-top: 6px; padding-bottom: 10px; }
     .benvenuto .cornice { padding-top: 20px; }
-    .benvenuto .cornice .casagrande { width: 64px; margin-bottom: 12px; }
+    .benvenuto .cornice .casagrande { width: 56px; margin-bottom: 14px; }
     .benvenuto .cornice .evid { margin-bottom: 10px; font-size: 14px; }
     .benvenuto .cornice h1 { font-size: 34px; }
     .benvenuto .cornice .lead, .benvenuto .cornice .lead2 { font-size: 16px; line-height: 1.45; }
-    .benvenuto .cornice .lead { margin-top: 12px; }
+    .benvenuto .cornice .lead { margin-top: 14px; }
     .benvenuto .cornice .lead2 { margin-top: 6px; }
-    .benvenuto .cornice .prom { margin-top: 18px; padding: 13px 20px 15px; font-size: 15px; }
+    .benvenuto .cornice .prom { margin-top: 20px; padding: 13px 22px 15px; font-size: 15px; }
     .benvenuto .azioni { margin-top: 16px; }
   }
   @media (max-height: 620px) {
@@ -429,6 +435,27 @@
     .benvenuto .azioni { margin-top: 12px; }
     .benvenuto .azioni .avanti { min-height: 50px; }
   }
+
+  /* 7.1: alla fine l'email è in una finestra sopra il risultato; la condivisione resta fissa in basso */
+  .app.alla-fine .fine { justify-content: flex-start; padding-bottom: 0; }
+  .app.alla-fine .carta { margin-top: auto; margin-bottom: auto; padding-bottom: 20px; }
+  .blocco.condividi { position: sticky; bottom: 0; z-index: 5; margin-top: auto; padding: 14px 0 calc(8px + env(safe-area-inset-bottom)) !important;
+    border-top: 1px solid var(--line) !important; background: linear-gradient(180deg, rgba(35,24,62,.92), #2a1d47) !important; }
+  .blocco.condividi { margin-left: -18px; margin-right: -18px; padding-left: max(18px, env(safe-area-inset-left, 0px)) !important; padding-right: max(18px, env(safe-area-inset-right, 0px)) !important; }
+  .app.alla-fine { padding-bottom: 0 !important; }
+  .velo { position: fixed; inset: 0; z-index: 40; display: flex; align-items: flex-end; justify-content: center;
+    padding: 16px max(12px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left, 0px));
+    background: rgba(12,8,26,.62); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); animation: appare .25s ease-out; }
+  .finestra { width: 100%; max-width: 500px; padding: 22px 20px 10px; border-radius: 26px; background: #261b45; border: 1px solid var(--line);
+    box-shadow: 0 -10px 40px rgba(0,0,0,.45); animation: sale .38s cubic-bezier(.2,.9,.25,1); }
+  .finestra h3 { margin: 0; font: 600 23px/1.2 Fredoka, Nunito, sans-serif; outline: none; }
+  .finestra .riga-email { margin-top: 14px; }
+  .finestra .riga-email input, .finestra .riga-email .avanti { min-height: 52px; }
+  .finestra .notaemail { margin-top: 10px !important; font-size: 12px !important; }
+  .finestra .salta { display: block; width: 100%; margin-top: 6px; padding: 12px; color: #c9bcff; text-decoration: underline; text-underline-offset: 3px; }
+  @keyframes appare { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes sale { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+  body.con-velo { overflow: hidden; }
 
   @media (max-width: 380px) { h1 { font-size: 34px; } h2 { font-size: 24px; } .evid { font-size: 18px; } .mancano { min-width: 0; } }
   @media (prefers-reduced-motion: reduce) {
@@ -464,8 +491,7 @@
       <svg class="casagrande" viewBox="0 0 120 104" aria-hidden="true"><path d="M10 50 60 10l50 40" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><rect x="22" y="44" width="76" height="54" rx="9" fill="#fff"/><rect x="33" y="54" width="24" height="17" rx="4" fill="#ffb020"/><rect x="63" y="54" width="24" height="17" rx="4" fill="#ff6fa8"/><rect x="33" y="76" width="24" height="14" rx="4" fill="#22b8a7"/><rect x="63" y="76" width="24" height="14" rx="4" fill="#7c5cff"/></svg>
       <p class="evid">2 minuti</p>
       <h1>Tra coinquilini, <span class="intero">come va?</span></h1>
-      <p class="lead">Siamo un gruppo di ragazzi e abbiamo quasi finito di sviluppare un’app per gestire la casa insieme.</p>
-      <p class="lead2">Prima di farla uscire vogliamo sapere com’è la vita a casa vostra, nel bene e nel male.</p>
+      <p class="lead">Siamo un gruppo di ragazzi e abbiamo quasi finito di sviluppare un’app per gestire la casa insieme. Prima di farla uscire vogliamo sapere com’è la vita a casa vostra, nel bene e nel male.</p>
             <p class="prom">Alla fine vedi cosa va e cosa no su <span class="tema t1">pulizie</span>, <span class="tema t2">soldi</span> e <span class="tema t3">spesa</span>, e come sistemarlo con l’app.</p>
     </div>
     <div class="azioni"><button type="button" class="avanti" id="inizia">Inizia</button></div>
@@ -672,7 +698,7 @@
       <p class="descr" id="r-descr"></p>
     </div>
 
-    <div class="blocco">
+    <div class="blocco condividi" id="boxcondividi">
       <h3 id="s-tit">Giralo ai tuoi coinquilini</h3>
       <a class="wa" id="s-casa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Mandalo nel gruppo di casa</a>
       <div class="riga-link">
@@ -681,8 +707,9 @@
       </div>
     </div>
 
-    <div class="blocco" id="boxemail">
-      <h3>Vuoi provarla prima degli altri?</h3>
+    <div class="velo" id="velo" hidden>
+      <div class="finestra" id="boxemail" role="dialog" aria-modal="true" aria-labelledby="v-tit">
+      <h3 id="v-tit" tabindex="-1">Vuoi provarla prima degli altri?</h3>
       <form class="riga-email" id="femail" novalidate>
         <input type="email" id="email" inputmode="email" autocomplete="email" placeholder="La tua email" aria-label="La tua email">
         <button type="submit" class="avanti" id="salvaemail">Avvisami</button>
@@ -690,6 +717,8 @@
       <p class="err" id="emailerr" hidden></p>
       <p class="fatto" id="emailok" hidden>Fatto: ti scriviamo quando puoi provarla.</p>
       <p class="notaemail">Solo per farti provare l’app, dirti quando esce e a volte chiederti un parere. Niente pubblicità, mai ad altri. Resta separata dalle risposte e ti cancelli quando vuoi. <a href="../privacy.html" target="_blank" rel="noopener">Informativa</a></p>
+        <button type="button" class="salta" id="v-no">No grazie, vedi il risultato</button>
+      </div>
     </div>
     <p class="ok-invio" id="okinvio" role="status">Grazie, le tue risposte sono arrivate</p>
   </section>
@@ -1119,8 +1148,12 @@
     $('pill').innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Grazie!';
     $('risultato').hidden = false;
     window.scrollTo(0, 0);
-    $('r-tit').focus({ preventScroll: true });
+    apriEmail();
   }
+  // L'email si chiede in una finestra sopra il risultato, prima di vederlo: si può lasciare o dire «No grazie».
+  function apriEmail(){ $('velo').hidden = false; document.body.classList.add('con-velo'); $('v-tit').focus({ preventScroll: true }); }
+  function chiudiEmail(){ $('velo').hidden = true; document.body.classList.remove('con-velo'); $('r-tit').focus({ preventScroll: true }); }
+  $('v-no').addEventListener('click', chiudiEmail);
 
   // Chi non vive in casa condivisa: gli chiediamo di passare il link, oppure può farlo lo stesso.
   // La risposta "no" parte dopo qualche secondo, così se ha sbagliato e torna indietro non resta una riga in più.
@@ -1160,6 +1193,8 @@
         $('femail').hidden = true;
         $('emailok').textContent = ENDPOINT ? 'Fatto: ti scriviamo quando puoi provarla.' : 'Prova: email non registrata.';
         $('emailok').hidden = false;
+        $('v-no').textContent = 'Vedi il risultato';
+        setTimeout(chiudiEmail, 1800);
       }).catch(function(){ b.disabled = false; b.textContent = 'Avvisami'; er.textContent = 'Invio non riuscito, riprova tra poco.'; er.hidden = false; });
     }, ENDPOINT ? 1500 + Math.floor(Math.random() * 3000) : 600);
   });
