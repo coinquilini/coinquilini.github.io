@@ -391,6 +391,45 @@
     .blocco .wa, .riga-email input, .riga-email .avanti { min-height: 44px; }
   }
 
+  /* Apertura definitiva (scelta da Lorenzo il 13 novembre 2026): tutto in una cornice sottile,
+     «2 minuti» sopra il titolo, testo in un solo blocco, la frase finale nel fondo colorato della cornice, «Inizia» sotto. */
+  .benvenuto .cornice { padding: 26px 20px 0; border: 1px solid var(--line); border-radius: 28px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,0) 60%); }
+  .benvenuto .cornice .casagrande { width: 84px; margin: 0 0 16px; }
+  .benvenuto .cornice .evid { margin: 0 0 12px; padding: 4px 12px 5px; font-size: 15px; }
+  .benvenuto .cornice h1 { font-size: 40px; line-height: 1.05; }
+  .benvenuto .cornice .lead, .benvenuto .cornice .lead2 { max-width: 28ch; margin-left: auto; margin-right: auto; padding: 0; border: 0; background: none;
+    font-size: 17px; line-height: 1.5; font-weight: 400; color: #e9e4fb; text-wrap: balance; }
+  .benvenuto .cornice .lead { margin-top: 16px; }
+  .benvenuto .cornice .lead2 { margin-top: 8px; }
+  .benvenuto .cornice .prom { width: calc(100% + 40px); max-width: none; margin: 22px -20px 0; padding: 16px 22px 18px;
+    border-top: 1px solid var(--line); background: rgba(124,92,255,.16); font-size: 16px; line-height: 1.45; font-weight: 600; color: #fff; text-wrap: balance; }
+  .benvenuto .cornice .tema { font-weight: 800; }
+  .benvenuto .azioni { margin-top: 22px; }
+  @media (max-height: 740px) {
+    .benvenuto { padding-top: 6px; padding-bottom: 10px; }
+    .benvenuto .cornice { padding-top: 20px; }
+    .benvenuto .cornice .casagrande { width: 64px; margin-bottom: 12px; }
+    .benvenuto .cornice .evid { margin-bottom: 10px; font-size: 14px; }
+    .benvenuto .cornice h1 { font-size: 34px; }
+    .benvenuto .cornice .lead, .benvenuto .cornice .lead2 { font-size: 16px; line-height: 1.45; }
+    .benvenuto .cornice .lead { margin-top: 12px; }
+    .benvenuto .cornice .lead2 { margin-top: 6px; }
+    .benvenuto .cornice .prom { margin-top: 18px; padding: 13px 20px 15px; font-size: 15px; }
+    .benvenuto .azioni { margin-top: 16px; }
+  }
+  @media (max-height: 620px) {
+    .benvenuto .cornice { padding-top: 14px; border-radius: 22px; }
+    .benvenuto .cornice .casagrande { width: 48px; margin-bottom: 8px; }
+    .benvenuto .cornice .evid { margin-bottom: 8px; }
+    .benvenuto .cornice h1 { font-size: 28px; }
+    .benvenuto .cornice .lead, .benvenuto .cornice .lead2 { font-size: 15px; line-height: 1.4; max-width: 32ch; }
+    .benvenuto .cornice .lead { margin-top: 10px; }
+    .benvenuto .cornice .prom { margin-top: 14px; padding: 10px 18px 12px; font-size: 14.5px; }
+    .benvenuto .azioni { margin-top: 12px; }
+    .benvenuto .azioni .avanti { min-height: 50px; }
+  }
+
   @media (max-width: 380px) { h1 { font-size: 34px; } h2 { font-size: 24px; } .evid { font-size: 18px; } .mancano { min-width: 0; } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -421,10 +460,10 @@
 
   <!-- PASSO 1 · LA TUA CASA -->
   <section class="schermo benvenuto" id="benvenuto">
-    <div class="apertura">
+    <div class="apertura cornice">
       <svg class="casagrande" viewBox="0 0 120 104" aria-hidden="true"><path d="M10 50 60 10l50 40" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><rect x="22" y="44" width="76" height="54" rx="9" fill="#fff"/><rect x="33" y="54" width="24" height="17" rx="4" fill="#ffb020"/><rect x="63" y="54" width="24" height="17" rx="4" fill="#ff6fa8"/><rect x="33" y="76" width="24" height="14" rx="4" fill="#22b8a7"/><rect x="63" y="76" width="24" height="14" rx="4" fill="#7c5cff"/></svg>
-      <h1>Tra coinquilini, <span class="intero">come va?</span></h1>
       <p class="evid">2 minuti</p>
+      <h1>Tra coinquilini, <span class="intero">come va?</span></h1>
       <p class="lead">Siamo un gruppo di ragazzi e abbiamo quasi finito di sviluppare un’app per gestire la casa insieme.</p>
       <p class="lead2">Prima di farla uscire vogliamo sapere com’è la vita a casa vostra, nel bene e nel male.</p>
             <p class="prom">Alla fine vedi cosa va e cosa no su <span class="tema t1">pulizie</span>, <span class="tema t2">soldi</span> e <span class="tema t3">spesa</span>, e come sistemarlo con l’app.</p>
