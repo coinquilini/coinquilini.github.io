@@ -236,6 +236,52 @@
     background: transparent; border: 1.5px solid var(--line); color: var(--txt); text-decoration: none; font-weight: 800; font-size: 16px; line-height: 1.25; text-align: center; }
   .fuori .evid { font-size: 22px; }
 
+  /* 7.1: schermata finale omogenea. Tutto parte dall'alto, in tre riquadri uguali:
+     la situazione della casa (con cosa fa l'app), la condivisione, l'email. */
+  .fine { justify-content: flex-start; gap: 8px; padding-top: 8px; }
+  .carta, .blocco, .blocco + .blocco { padding: 12px 14px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); box-shadow: none; }
+  .carta { background: linear-gradient(160deg, #2e2256, #1c1536); }
+  .carta h2 { margin: 3px 0 0; font-size: 23px; }
+  .pagella { gap: 4px; margin-top: 8px; }
+  .pagella li { grid-template-columns: auto 1fr auto; padding: 5px 8px 5px 12px; }
+  .pagella li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--turchese); }
+  .pagella li.no::before { background: var(--giallo); }
+  .pagella .perche { grid-column: 2 / -1; }
+  .carta .descr { margin-top: 8px; padding: 8px 12px; border: 0; border-radius: 14px; background: rgba(124,92,255,.22); color: #ece7ff; font-size: 14.5px; line-height: 1.35; }
+  .blocco h3 { font-size: 17px; }
+  .blocco .wa { margin-top: 8px; min-height: 48px; }
+  .riga-link { margin-top: 2px; }
+  .riga-link .link { padding: 5px 2px; }
+  .riga-email { margin-top: 8px; }
+  .riga-email input { min-height: 48px; background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.32); }
+  .riga-email .avanti { min-height: 48px; }
+  .notaemail { margin-top: 6px !important; }
+  @media (max-height: 700px) {
+    .fine { gap: 6px; padding-top: 6px; }
+    .carta, .blocco, .blocco + .blocco { padding: 10px 12px; border-radius: 18px; }
+    .carta h2 { font-size: 20px; }
+    .pagella li { padding-top: 4px; padding-bottom: 4px; }
+    .carta .descr { font-size: 14px; padding: 6px 10px; }
+    .blocco h3 { font-size: 16px; }
+    .blocco .wa, .riga-email input, .riga-email .avanti { min-height: 44px; }
+    .blocco .wa, .riga-email { margin-top: 6px; }
+    .riga-link .link { padding: 3px 2px; }
+    .fine { padding-top: 4px; }
+    .carta h2 { margin-top: 1px; }
+    .pagella .voce { font-size: 15px; }
+    .pagella .stato { padding: 2px 8px; font-size: 12px; }
+    .pagella .perche { font-size: 12.5px; line-height: 1.25; margin-top: 0; }
+    .carta .descr { margin-top: 6px; padding: 5px 10px; }
+    .notaemail { margin-top: 4px !important; }
+  }
+  @media (max-height: 620px) {
+    .fine { gap: 4px; padding-top: 3px; }
+    .pagella { margin-top: 5px; gap: 3px; }
+    .pagella li { padding-top: 3px; padding-bottom: 3px; }
+    .carta h2 { font-size: 19px; }
+    .blocco .wa, .riga-email input, .riga-email .avanti { min-height: 42px; }
+  }
+
   @media (max-width: 380px) { h1 { font-size: 34px; } h2 { font-size: 24px; } .evid { font-size: 18px; } .mancano { min-width: 0; } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -271,7 +317,7 @@
       <h1>Com’è davvero da voi?</h1>
       <p class="evid">2 minuti · anonimo</p>
       <p class="lead">Siamo un gruppo di ragazzi e stiamo finendo un’app per chi vive con dei coinquilini. Prima degli ultimi ritocchi vogliamo capire come va nelle vostre case, anche quando va tutto bene.</p>
-      <p class="promessa"><b>Cosa ricevi:</b> alla fine, la pagella della tua casa su pulizie, soldi e spesa.</p>
+      <p class="promessa"><b>Cosa ricevi:</b> alla fine, la situazione della tua casa su pulizie, soldi e spesa.</p>
     </div>
     <h2 tabindex="-1">Vivi con dei coinquilini?</h2>
     <div class="scelte">
@@ -407,12 +453,13 @@
     </div>
   </section>
 
-  <section class="schermo" data-id="tono" data-tipo="uno" hidden>
-    <h2 tabindex="-1">Quale di questi due messaggi preferiresti ricevere?</h2>
-    <div class="scelte frase" data-mescola id="scelte-tono">
-      <button type="button" class="scelta" data-v="diretto" data-lettera="D">«Tocca a te il bagno: è da fare da 2 giorni.»</button>
-      <button type="button" class="scelta" data-v="leggero" data-lettera="L">«Il bagno ti aspetta da 2 giorni.»</button>
-      <button type="button" class="scelta" data-v="indifferente" data-fisso>Mi è indifferente</button>
+  <section class="schermo" data-id="avviso" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Se tocca a un coinquilino pulire la cucina e non lo fa da 3 giorni, cosa dovrebbe fare l’app?</h2>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="solo a chi tocca">Ricordarlo solo a chi tocca</button>
+      <button type="button" class="scelta" data-v="a tutta la casa">Dirlo anche al resto della casa</button>
+      <button type="button" class="scelta" data-v="niente" data-fisso>Niente, ci pensiamo da soli</button>
+      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
     </div>
   </section>
 
@@ -525,7 +572,9 @@
   // 6.2: al suo posto, scelta da Lorenzo, «Cosa ti farebbe smettere di usarla dopo una settimana?» (smettere).
   // Versione 7 (12 novembre 2026): i suggerimenti delle registrazioni. Apertura con «Cosa ricevi: in 2 minuti, la pagella della tua casa»,
   // schermata di passaggio prima delle domande sull'app (ponte), alla fine la pagella della casa (pulizie, soldi, spesa). Domande uguali alla 6.2.
-  var VERSIONE = 7, REVISIONE = '7.0', PRE = 'prova_v7_';
+  // 7.1 (13 novembre 2026): «pagella» diventa «la situazione della tua casa»; al posto dei due messaggi, cosa deve fare l'app
+  // se uno non pulisce la cucina (avviso); ultima schermata in tre riquadri uguali che partono dall'alto.
+  var VERSIONE = 7, REVISIONE = '7.1', PRE = 'prova_v7_';
 
   function $(id){ return document.getElementById(id); }
   function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
@@ -539,9 +588,9 @@
   var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi mesi', NO = 'no';
   var COLORI = ['#ffb020', '#ff6fa8', '#22b8a7', '#7c5cff'];
   var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, strumenti: 2, spese: 2,
-    ponte: 3, primo: 3, crescere: 3, promemoria: 3, tono: 3, adozione: 4, perche: 4, smettere: 4, frasecasa: 4 };
+    ponte: 3, primo: 3, crescere: 3, promemoria: 3, avviso: 3, adozione: 4, perche: 4, smettere: 4, frasecasa: 4 };
   var NOMI_PASSI = { 1: 'La tua casa', 2: 'Come va in casa', 3: 'L’app', 4: 'Tu e la tua casa' };
-  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'ponte', 'primo', 'crescere', 'promemoria', 'tono', 'adozione', 'perche', 'smettere', 'frasecasa'];
+  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'ponte', 'primo', 'crescere', 'promemoria', 'avviso', 'adozione', 'perche', 'smettere', 'frasecasa'];
   var BREVE = { faccenda: 'I piatti o il bagno lasciati lì', 'al posto': 'Fare io la parte di un altro', ricordare: 'Dover chiedere indietro i soldi',
     conti: 'Non sapere chi deve soldi a chi', finito: 'La carta finita e nessuno che la compra' };
 
@@ -561,7 +610,6 @@
     var fissi = tutti.filter(function(b){ return b.hasAttribute('data-fisso'); });
     mescola(mobili).concat(fissi).forEach(function(b){ c.appendChild(b); });
   });
-  var ORDINE_TONO = Array.prototype.map.call(document.querySelectorAll('#scelte-tono [data-lettera]'), function(b){ return b.getAttribute('data-lettera'); }).join(' ');
 
   // ---------- quali domande vede la persona ----------
   function problemi(){ return (A.successo || []).filter(function(x){ return x !== 'nessuna'; }); }
@@ -581,8 +629,7 @@
       case 'strumenti': case 'spese': return vissuta && !conosce;
       case 'ponte': case 'primo': case 'crescere': return dentro;
       case 'smettere': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
-      case 'promemoria': case 'adozione': return dentro && !conosce;
-      case 'tono': return dentro && !conosce && (A.promemoria ? A.promemoria !== 'nessuno' : !!stima);
+      case 'promemoria': case 'avviso': case 'adozione': return dentro && !conosce;
       case 'perche': return dentro && !conosce && A.adozione === 'non la useremmo';
       case 'frasecasa': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
     }
@@ -711,7 +758,6 @@
     if (id === 'successo') delete A.pesa;
     A[id] = v;
     if (id === 'persone') disegnaCasa();
-    if (id === 'tono') A.ordinetono = ORDINE_TONO;
   }
   document.querySelectorAll('section[data-tipo="piu"] .avanti, section[data-tipo="ponte"] .avanti').forEach(function(b){
     b.addEventListener('click', function(){ if (!b.disabled) avanti(); });
@@ -825,7 +871,6 @@
   function riga(){
     var r = { tipo: 'risposta', versione: VERSIONE, revisione: REVISIONE, id: ID_RISPOSTA, giorno: oggi(), da: DA };
     ORDINE.forEach(function(id){ if (visibile(id) && A[id] !== undefined) r[id] = A[id]; });
-    if (r.tono !== undefined) r.ordinetono = A.ordinetono || ORDINE_TONO;
     if (A.casa !== NO || LOSTESSO) { var k = principale(); r.principale = k; r.profilo = (PROFILI[k] || [''])[0]; }
     return r;
   }
@@ -868,7 +913,7 @@
       $('r-descr').textContent = p[1];
       ul.hidden = true;
     } else {
-      $('r-pre').textContent = A.casa === SI ? 'La pagella della tua casa' : A.casa === VISSUTO ? 'La pagella della tua ultima casa' : 'La pagella di quella casa';
+      $('r-pre').textContent = A.casa === SI ? 'La situazione della tua casa' : A.casa === VISSUTO ? 'La situazione della tua ultima casa' : 'La situazione di quella casa';
       var pr = problemi(), inOrdine = 0;
       AREE.forEach(function(a){
         var successe = pr.filter(function(x){ return a[1].indexOf(x) >= 0; });
@@ -889,9 +934,8 @@
     var msgCasa = 'Ho risposto a un sondaggio per chi vive con dei coinquilini: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta finendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
     var msgAmico = MSG_AMICO;
     var conCasa = A.casa === SI;
-    // Chi vive in casa: il pulsante dice già tutto («Mandalo nel gruppo di casa»), il titolo sopra non serve.
-    $('s-tit').textContent = 'Giralo a chi vive con coinquilini';
-    $('s-tit').hidden = conCasa;
+      $('s-tit').textContent = conCasa ? 'Giralo ai tuoi coinquilini' : 'Giralo a chi vive con coinquilini';
+    $('s-tit').hidden = false;
     $('s-casa').hidden = !conCasa;
     $('s-casa').href = wa(msgCasa, linkDa('condivisione-casa'));
     $('s-amico').href = wa(msgAmico, linkDa('condivisione'));
