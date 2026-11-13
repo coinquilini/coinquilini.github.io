@@ -16,7 +16,7 @@ if (location.hostname === 'coinquilini.github.io' || location.hostname === 'inqu
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sondaggio per chi vive con dei coinquilini">
 <meta property="og:description" content="Alla fine vedi cosa va e cosa no a casa tua.">
-<meta property="og:image" content="https://sondaggio.inqui.eu/anteprima-whatsapp-74-chat.png">
+<meta property="og:image" content="https://sondaggio.inqui.eu/anteprima-whatsapp-74b.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Queste chat, le conosci? Sondaggio anonimo di 2 minuti per chi vive con dei coinquilini.">
@@ -1277,7 +1277,7 @@ if (location.hostname === 'coinquilini.github.io' || location.hostname === 'inqu
   }
 
   // Messaggio per chi non è della stessa casa (amici, o chi ha risposto «No» e lo gira).
-  var MSG_AMICO = 'Vivi con dei coinquilini? C’è un sondaggio di due minuti, anonimo, su spese, pulizie e lista della spesa.\n\nLo fa un gruppo di ragazzi che sta rifinendo un’app proprio per questo: se ti va di rispondere, gli dai una mano.';
+  var MSG_AMICO = 'Ehi, vivi con dei coinquilini? Fai questo sondaggio, sono 2 minuti ed è anonimo 👀\n\nAlla fine ti dice cosa va e cosa no a casa tua. Lo fanno dei ragazzi che stanno rifinendo un’app per chi vive fuorisede.';
   function linkDa(et){ return 'https://sondaggio.inqui.eu/?da=' + et; }
   function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
   function copia(url, b){
@@ -1381,7 +1381,7 @@ if (location.hostname === 'coinquilini.github.io' || location.hostname === 'inqu
     }
 
     // Condivisione: ai coinquilini (stessa casa) e agli amici, ognuno con la sua etichetta.
-    var msgCasa = 'Ho risposto a un sondaggio per chi vive con dei coinquilini: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta rifinendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
+    var msgCasa = 'Raga, ho fatto questo sondaggio su come va tra coinquilini: pulizie, soldi, spesa 👀\n\nSono 2 minuti ed è anonimo. Fatelo anche voi, voglio vedere se la pensiamo uguale 😄';
     var msgAmico = MSG_AMICO;
     var conCasa = A.casa === SI;
     $('s-casa').hidden = !conCasa;
