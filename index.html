@@ -606,7 +606,7 @@ if (location.hostname === 'coinquilini.github.io' || location.hostname === 'inqu
      per ogni problema l'area (etichetta gialla), la frase tra virgolette, tre punte animate verso il logo di Inqui, la soluzione in viola. */
   .fine .esito { width: 100%; padding: 22px 14px 16px; border: 1px solid var(--line); border-radius: 28px; text-align: center;
     background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,0) 60%); }
-  .esito .tit { margin: 0 0 16px; font: 700 28px/1.08 Fredoka, Nunito, sans-serif; letter-spacing: -.3px; outline: none; }
+  .esito .tit { margin: 0 0 16px; font: 700 28px/1.08 Fredoka, Nunito, sans-serif; letter-spacing: -.3px; outline: none; font-size: min(28px, 7.3vw); }
   .esito .tit span { display: block; }
   .esito .sopra { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 0 0 12px; padding: 0 4px; text-align: left;
     font: 600 13px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: .6px; text-transform: uppercase; color: var(--soft); }
@@ -677,6 +677,13 @@ if (location.hostname === 'coinquilini.github.io' || location.hostname === 'inqu
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
+  /* A capo (13 novembre 2026): «i fuorisede che condividono casa» sempre su una riga anche nella chat d'apertura,
+     e niente parole rimaste da sole sull'ultima riga (le regole già scritte per i singoli blocchi restano valide) */
+  .chatapre .bolla .segno { white-space: nowrap; }
+  .chatapre .bolla:has(.segno) { text-wrap: balance; }
+  :where(h1, h2, h3, p, li, button, label, .bolla) { text-wrap: pretty; }
+  :where(h1, h2, h3) > span, .scelta { text-wrap: balance; }
+  .esito .pb .prob, .esito .sol-tutte p { text-wrap: balance; }
 </style>
 </head>
 <body>
@@ -726,7 +733,7 @@ if (location.hostname === 'coinquilini.github.io' || location.hostname === 'inqu
   </section>
 
   <section class="schermo" data-id="persone" data-tipo="uno" hidden>
-    <h2 tabindex="-1" id="t-persone">Quanti siete in casa, tu compreso?</h2>
+    <h2 tabindex="-1" id="t-persone">Quanti siete in casa, tu&nbsp;compreso?</h2>
     <div class="scelte">
       <button type="button" class="scelta" data-v="2">2</button>
       <button type="button" class="scelta" data-v="3">3</button>
@@ -1057,7 +1064,7 @@ if (location.hostname === 'coinquilini.github.io' || location.hostname === 'inqu
   function testi(id){
     var c = A.casa, conosce = c === NO;
     if (id === 'persone') {
-      $('t-persone').textContent = conosce ? 'Pensa a quella casa: quanti sono?' : c === ANDRO ? 'Quanti sarete in casa, tu compreso?' : c === VISSUTO ? 'Quanti eravate in casa, tu compreso?' : 'Quanti siete in casa, tu compreso?';
+      $('t-persone').textContent = conosce ? 'Pensa a quella casa: quanti sono?' : c === ANDRO ? 'Quanti sarete in casa, tu compreso?' : c === VISSUTO ? 'Quanti eravate in casa, tu compreso?' : 'Quanti siete in casa, tu compreso?';
       $('nonsoancora').hidden = c !== ANDRO;
     }
     if (id === 'successo') $('t-successo').textContent = conosce ? 'Per quel che sai, nell’ultimo mese in quella casa è capitato che…' : c === SI ? 'Nell’ultimo mese ti è capitato che…' : 'Nell’ultimo mese passato in quella casa, ti è capitato che…';
