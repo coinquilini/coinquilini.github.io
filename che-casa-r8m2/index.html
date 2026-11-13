@@ -487,6 +487,17 @@
   }
   @media (max-height: 620px) { .app.alla-fine .carta .descr { display: none !important; } .app.alla-fine .carta { padding-bottom: 14px !important; } }
 
+  /* Voci del risultato (scelta di Lorenzo, versione A): icona gialla «!» se è da sistemare, verde «✓» se è in ordine; niente etichetta a destra */
+  .pagella .stato { display: none !important; }
+  .pagella li { grid-template-columns: auto 1fr !important; column-gap: 12px !important; }
+  .pagella li::before { width: 26px !important; height: 26px !important; display: grid; place-items: center; font: 800 15px/1 Nunito, sans-serif; color: var(--ink);
+    grid-row: 1 / span 2; align-self: center; }
+  .pagella li.no::before { content: "!" !important; background: var(--giallo) !important; }
+  .pagella li.ok::before { content: "✓" !important; background: var(--turchese) !important; }
+  .pagella li.ok::before { grid-row: 1; }
+  .pagella li.ok .voce { align-self: center; }
+  .pagella .perche { grid-column: 2 / -1 !important; }
+
   @media (max-width: 380px) { h1 { font-size: 34px; } h2 { font-size: 24px; } .evid { font-size: 18px; } .mancano { min-width: 0; } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
