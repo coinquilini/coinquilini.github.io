@@ -307,19 +307,26 @@
   .benvenuto .parliamo { margin-top: 26px; font-size: 12px; letter-spacing: 1.2px; color: #8f87b8; }
   .benvenuto .prom { margin-top: 16px; font-weight: 700; font-size: 15.5px; color: #fff; }
   .benvenuto .lead2 { max-width: 34ch; }
+  /* 7.1: i tre temi dentro la frase finale, con il contorno delle etichette; le due frasi del testo vicine, come un solo blocco */
+  .benvenuto .lead2 { margin-top: 6px; color: #e3ddfa; font-size: 18px; line-height: 1.5; max-width: 32ch; }
+  .benvenuto .lead, .benvenuto .lead2 { text-wrap: balance; }
+  .benvenuto .prom { margin-top: 24px; max-width: 30ch; line-height: 2; }
+  .benvenuto .tema { display: inline-block; padding: 0 9px; border: 1.5px solid; border-radius: 999px; line-height: 1.55; font-weight: 800; }
+  .benvenuto .tema.t1 { color: var(--giallo); } .benvenuto .tema.t2 { color: var(--rosa); } .benvenuto .tema.t3 { color: #5fe3d3; }
+  @media (max-height: 700px) { .benvenuto .lead2 { margin-top: 4px; font-size: 16.5px; line-height: 1.45; } .benvenuto .prom { margin-top: 18px; } }
   @media (max-height: 640px) {
     .benvenuto { padding-top: 4px; padding-bottom: 8px; }
     .benvenuto .casagrande { width: 58px; margin-bottom: 8px; }
     .benvenuto h1 { font-size: 27px; }
     .benvenuto .evid { margin-top: 8px; font-size: 16px; padding: 4px 12px 5px; }
     .benvenuto .lead { margin-top: 10px; font-size: 15px; line-height: 1.4; }
-    .benvenuto .lead2 { margin-top: 6px; font-size: 14.5px; line-height: 1.4; }
+    .benvenuto .lead2 { margin-top: 3px; font-size: 15px; line-height: 1.4; }
     .benvenuto .parliamo { margin-top: 12px; }
     .benvenuto .temi span { padding: 5px 12px; font-size: 14px; }
     .benvenuto .prom { margin-top: 10px; font-size: 14.5px; }
     .benvenuto .azioni { margin-top: 14px; }
   }
-  @media (max-height: 700px) { .benvenuto .lead2 { margin-top: 8px; font-size: 15.5px; } .benvenuto .parliamo { margin-top: 14px; } }
+  @media (max-height: 700px) { .benvenuto .lead2 { margin-top: 4px; font-size: 16.5px; } }
   .benvenuto .lead, .benvenuto .prom { text-wrap: pretty; max-width: 32ch; }
   @media (max-height: 700px) {
     .benvenuto .casagrande { width: 92px; margin-bottom: 14px; }
@@ -420,9 +427,7 @@
       <p class="evid">2 minuti</p>
       <p class="lead">Siamo un gruppo di ragazzi e abbiamo quasi finito di sviluppare un’app per gestire la casa insieme.</p>
       <p class="lead2">Prima di farla uscire vogliamo sapere com’è la vita a casa vostra, nel bene e nel male.</p>
-      <p class="parliamo">Parliamo di</p>
-      <p class="temi"><span class="t1">Pulizie</span><span class="t2">Soldi</span><span class="t3">Spesa</span></p>
-      <p class="prom">Alla fine vedi cosa va, cosa no e come sistemarlo con l’app.</p>
+            <p class="prom">Alla fine vedi cosa va e cosa no su <span class="tema t1">pulizie</span>, <span class="tema t2">soldi</span> e <span class="tema t3">spesa</span>, e come sistemarlo con l’app.</p>
     </div>
     <div class="azioni"><button type="button" class="avanti" id="inizia">Inizia</button></div>
   </section>
