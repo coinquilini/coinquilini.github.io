@@ -1,0 +1,1366 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sondaggio per chi vive con dei coinquilini</title>
+<meta name="description" content="Versione di prova: sondaggio anonimo per chi divide casa. Le risposte non vengono salvate.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#15102a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sondaggio per chi vive con dei coinquilini">
+<meta property="og:description" content="Versione di prova: sondaggio anonimo per chi divide casa. Le risposte non vengono salvate.">
+<meta property="og:image" content="https://inqui-sondaggio.pages.dev/anteprima-whatsapp-5.png">
+<meta property="og:url" content="https://inqui-sondaggio.pages.dev/prova-fine-7q4m/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg1: #15102a; --bg2: #2a1b45;
+    --ink: #1e1d33; --txt: #f6f3ff; --soft: #bdb6da;
+    --card: rgba(255,255,255,.07); --card2: rgba(255,255,255,.11); --line: rgba(255,255,255,.16);
+    --giallo: #ffb020; --rosa: #ff6fa8; --turchese: #22b8a7; --viola: #7c5cff; --evid: #ff7eb3;
+    --c: var(--giallo);
+    --r: 20px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; min-height: 100vh; min-height: 100dvh; color: var(--txt);
+    font: 400 17px/1.45 Nunito, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(circle at 85% 8%, rgba(255,111,168,.20), transparent 42%),
+      radial-gradient(circle at 5% 95%, rgba(124,92,255,.26), transparent 48%),
+      linear-gradient(165deg, var(--bg1), #1d1535 55%, var(--bg2));
+    background-attachment: fixed;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1.2px);
+    background-size: 22px 22px;
+  }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  [hidden] { display: none !important; }
+  .app { position: relative; z-index: 1; max-width: 540px; margin: 0 auto; padding: max(14px, env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom)); }
+
+  /* testata */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 40px; }
+  .marca { display: flex; align-items: center; gap: 9px; font: 600 15px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: .1px; }
+  .marca svg { width: 30px; height: 26px; flex: none; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; font-size: 13px; font-weight: 700;
+    color: #8ff0e2; background: rgba(34,184,167,.12); border: 1px solid rgba(34,184,167,.35); white-space: nowrap; }
+  .prova { margin: 10px 0 0; padding: 7px 12px; border-radius: 12px; font-size: 13px; font-weight: 700; text-align: center;
+    color: var(--ink); background: var(--giallo); }
+
+  /* progresso */
+  .avanz { display: flex; align-items: center; gap: 12px; margin: 16px 0 4px; }
+  .casamini { width: 46px; height: 38px; flex: none; }
+  .casamini svg { width: 100%; height: 100%; display: block; }
+  .barra { flex: 1; height: 10px; border-radius: 99px; background: rgba(255,255,255,.10); overflow: hidden; }
+  .barra i { display: block; height: 100%; width: 8%; border-radius: 99px;
+    background: linear-gradient(90deg, var(--giallo), var(--rosa) 40%, var(--turchese) 70%, var(--viola)); background-size: 540px 100%;
+    transition: width .45s cubic-bezier(.2,.8,.2,1); }
+  .mancano { font-size: 13px; font-weight: 800; color: var(--soft); white-space: nowrap; min-width: 98px; text-align: right; }
+
+  .navi { display: flex; justify-content: space-between; align-items: center; min-height: 34px; margin-top: 4px; }
+  .indietro { background: none; border: 0; padding: 6px 2px; color: var(--soft); font-weight: 700; font-size: 15px; }
+  .passo { font: 600 14px/1 Fredoka, Nunito, sans-serif; letter-spacing: .3px; color: var(--c); text-transform: uppercase; }
+
+  /* apertura */
+  .apertura { margin: 26px 0 6px; }
+  .puntini { display: flex; gap: 6px; margin-bottom: 18px; }
+  .puntini i { width: 9px; height: 9px; border-radius: 3px; }
+  .puntini i:nth-child(1) { background: var(--giallo); } .puntini i:nth-child(2) { background: var(--rosa); }
+  .puntini i:nth-child(3) { background: var(--turchese); } .puntini i:nth-child(4) { background: var(--viola); }
+  h1 { font: 700 38px/1.08 Fredoka, Nunito, sans-serif; margin: 0; letter-spacing: -.4px; }
+  .evid { display: inline-block; margin: 16px 0 0; padding: 6px 14px 7px; border-radius: 12px; background: var(--evid); color: var(--ink);
+    font: 600 19px/1.1 Fredoka, Nunito, sans-serif; }
+  .lead { margin: 26px 0 0; padding: 14px 16px 14px 18px; border-radius: 16px; background: var(--card); border: 1px solid var(--line);
+    border-left: 4px solid var(--viola); color: #e3ddfa; font-size: 16px; }
+  .promessa { margin: 10px 0 0; padding: 12px 16px; border-radius: 16px; background: rgba(255,111,168,.12); border: 1px solid rgba(255,111,168,.4); color: #ffe3ef; font-size: 16px; }
+  .promessa b { color: #fff; }
+  .meta { margin: 12px 0 0; font-size: 14px; font-weight: 700; color: var(--soft); }
+
+  /* domande */
+  .schermo { animation: entra .35s cubic-bezier(.2,.8,.2,1); }
+  @keyframes entra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  h2 { font: 600 27px/1.15 Fredoka, Nunito, sans-serif; margin: 18px 0 6px; letter-spacing: -.2px; outline: none; }
+  .apertura + h2 { margin-top: 30px; font-size: 23px; }
+  .aiuto { margin: 0 0 4px; color: var(--soft); font-size: 15px; font-weight: 600; }
+  .riquadro { margin: 18px 0 4px; padding: 14px 16px; border-radius: 16px; background: rgba(34,184,167,.12); border: 1px solid rgba(34,184,167,.38); color: #dff8f4; font-size: 16px; }
+  .riquadro b { color: #fff; }
+  .scelte { display: grid; gap: 10px; margin-top: 16px; }
+  .scelta { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; min-height: 58px; padding: 14px 52px 14px 18px;
+    text-align: left; border-radius: var(--r); background: var(--card); border: 1.5px solid var(--line); font-weight: 700; font-size: 17px; line-height: 1.3;
+    transition: background .18s, border-color .18s, transform .12s, color .18s; }
+  .scelta:hover { background: var(--card2); }
+  .scelta:active { transform: scale(.985); }
+  .scelta:focus-visible { outline: 3px solid var(--c); outline-offset: 2px; }
+  .scelta::after { content: ""; position: absolute; right: 16px; top: 50%; width: 24px; height: 24px; margin-top: -12px; border-radius: 50%;
+    border: 2px solid var(--line); transition: all .2s; }
+  .multi .scelta::after { border-radius: 7px; }
+  .scelta[aria-pressed="true"] { background: var(--c); border-color: var(--c); color: var(--ink); }
+  .scelta[aria-pressed="true"]::after { border-color: var(--ink); background: var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;
+    animation: spunta .32s cubic-bezier(.3,1.6,.5,1); }
+  @keyframes spunta { from { transform: scale(.3); } to { transform: scale(1); } }
+  .scelta small { display: block; font-weight: 600; font-size: 14px; opacity: .75; margin-top: 2px; }
+  .frase .scelta { font-weight: 600; font-style: italic; }
+  .frase .scelta[data-fisso] { font-style: normal; font-weight: 700; }
+
+  /* schermata di passaggio tra le domande sulla casa e quelle sull'app */
+  .ponte { padding-top: 6vh; }
+  .ponte h2 { font-size: 32px; }
+  .fatto-passo { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 6px 14px 6px 8px; border-radius: 999px;
+    background: rgba(34,184,167,.14); border: 1px solid rgba(34,184,167,.35); color: #8ff0e2; font-size: 14px; font-weight: 800; }
+  .fatto-passo::before { content: ""; width: 20px; height: 20px; border-radius: 50%; flex: none;
+    background: #22b8a7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%2315102a' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+  .lead-ponte { margin: 14px 0 0; color: #e3ddfa; font-size: 17px; }
+  .tre { display: grid; gap: 10px; margin: 12px 0 0; padding: 0; list-style: none; }
+  .tre li { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: var(--r); background: var(--card); border: 1.5px solid var(--line); font-weight: 700; font-size: 17px; }
+  .tre i { width: 14px; height: 14px; border-radius: 4px; flex: none; }
+  .ponte .azioni { margin-top: 24px; }
+
+  .azioni { display: grid; gap: 8px; margin-top: 18px; }
+  .avanti { width: 100%; min-height: 56px; border: 0; border-radius: 999px; background: #fff; color: var(--ink); font: 600 19px/1 Fredoka, Nunito, sans-serif;
+    box-shadow: 0 6px 0 var(--c); transition: opacity .2s, transform .12s; }
+  .avanti:active { transform: translateY(3px); box-shadow: 0 3px 0 var(--c); }
+  .avanti:disabled { opacity: .35; cursor: default; transform: none; }
+  .salta { background: none; border: 0; padding: 10px; color: var(--soft); font-weight: 700; font-size: 15px; }
+  textarea, input[type="email"] { width: 100%; border-radius: 16px; border: 1.5px solid var(--line); background: rgba(0,0,0,.18); padding: 14px 16px; font-size: 17px; }
+  textarea { min-height: 128px; margin-top: 16px; resize: vertical; line-height: 1.4; }
+  textarea:focus, input[type="email"]:focus { outline: none; border-color: var(--c); }
+  ::placeholder { color: rgba(255,255,255,.38); }
+  .conta { margin: 6px 4px 0; text-align: right; font-size: 13px; color: var(--soft); }
+
+  /* ricompensa a fine passo */
+  .flash { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 20; width: min(500px, calc(100% - 28px));
+    transform: translate(-50%, 140%); display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 18px;
+    background: #fff; color: var(--ink); box-shadow: 0 14px 40px rgba(0,0,0,.45); border: 0; text-align: left; font-weight: 700; font-size: 16px;
+    transition: transform .45s cubic-bezier(.2,1.2,.3,1); }
+  .flash.su { transform: translate(-50%, 0); }
+  .flash .em { font-size: 26px; line-height: 1; flex: none; }
+  .flash small { display: block; font: 600 12px/1 Fredoka, Nunito, sans-serif; letter-spacing: .4px; text-transform: uppercase; color: #7a7790; margin-bottom: 4px; }
+
+  /* schermata finale: sempre in una schermata del telefono.
+     Il contenuto sta al centro e gli spazi crescono con lo schermo, così sui telefoni alti non resta tutto schiacciato in cima. */
+  .app.alla-fine { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+  .fine { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(12px, 2vh, 24px); padding: clamp(6px, 1.4vh, 18px) 0 0; }
+  /* il «grazie» si vede in alto a destra, al posto di «Anonimo»; il testo completo resta per chi usa la lettura dello schermo */
+  .ok-invio { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .pill.grazie { color: var(--ink); background: #8ff0e2; border-color: #8ff0e2; animation: spunta .35s cubic-bezier(.3,1.6,.5,1); }
+  .carta { padding: 18px 18px 16px; border-radius: 24px; background: linear-gradient(160deg, #2e2256, #1c1536); border: 1px solid var(--line);
+    box-shadow: 0 14px 40px rgba(0,0,0,.35); }
+  .carta .testa { display: flex; align-items: center; gap: 12px; }
+  .carta .casa { width: 44px; height: 38px; flex: none; }
+  .carta .casa svg { width: 100%; height: 100%; display: block; }
+  .carta .pre { margin: 0; font: 600 13px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: .6px; text-transform: uppercase; color: var(--rosa); }
+  .carta h2 { margin: 10px 0 0; font-size: 26px; line-height: 1.15; }
+  .carta .descr { margin: 6px 0 0; color: #e3ddfa; font-size: 16px; line-height: 1.4; }
+  /* la pagella: una riga per pulizie, soldi, spesa */
+  .pagella { display: grid; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
+  .pagella li { display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 10px; padding: 7px 10px 7px 12px; border-radius: 14px; background: rgba(255,255,255,.06); }
+  .pagella .voce { min-width: 0; font-weight: 800; font-size: 16px; line-height: 1.25; }
+  .pagella .perche { grid-column: 1 / -1; margin-top: 1px; font-weight: 600; font-size: 13px; line-height: 1.3; color: var(--soft); }
+  .pagella .stato { padding: 3px 9px; border-radius: 999px; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
+  /* nella v7 la casetta resta nella testata e nella barra: nella pagella si toglie, così tutto sta in una schermata */
+  .carta .casa { display: none; }
+  .carta { padding: 14px 16px 12px; }
+  .carta h2 { margin-top: 6px; }
+  .pagella { gap: 5px; }
+  .pagella li { padding-top: 5px; padding-bottom: 5px; }
+  .carta .descr { font-size: 15px; line-height: 1.35; margin-top: 8px; padding-top: 8px; }
+  .fine { gap: clamp(10px, 1.6vh, 24px); }
+  .blocco + .blocco { padding-top: clamp(10px, 1.6vh, 24px); }
+  .riga-link .link { padding: 6px 2px; }
+  .riga-email input, .riga-email .avanti { min-height: 46px; }
+  /* telefoni molto bassi: via la riga su cosa fa l'app, restano i voti e i motivi */
+  @media (max-height: 620px) { .carta .descr { display: none; } .carta h2 { font-size: 21px; } .blocco h3 { font-size: 17px; } .riga-email { margin-top: 6px; }
+    .alla-fine .top { min-height: 32px; } .alla-fine .prova { margin-top: 6px; padding: 4px 10px; font-size: 12px; } .pagella .perche { font-size: 12.5px; } .pagella li { padding-top: 4px; padding-bottom: 4px; } }
+  .app.alla-fine { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .notaemail { font-size: 11.5px !important; line-height: 1.35 !important; }
+  .pagella .ok .stato { background: rgba(34,184,167,.2); color: #8ff0e2; }
+  .pagella .no .stato { background: var(--giallo); color: var(--ink); }
+  .carta .descr { padding-top: 10px; margin-top: 10px; border-top: 1px dashed var(--line); }
+  .blocco h3 { margin: 0; font: 600 20px/1.2 Fredoka, Nunito, sans-serif; }
+  .blocco .wa { margin-top: 12px; }
+  .blocco h3[hidden] + .wa { margin-top: 0; }
+  .blocco + .blocco { padding-top: clamp(12px, 2vh, 24px); border-top: 1px solid var(--line); }
+  .riga-link { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 22px; margin-top: 6px; }
+  .riga-link .wa { flex-basis: 100%; margin-top: 6px; }
+  .link { display: inline-block; padding: 8px 2px; background: none; border: 0; color: #c9bcff; font-weight: 800; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; }
+  .fuori .link { display: block; width: 100%; }
+  .riga-email { display: flex; gap: 8px; margin-top: 12px; }
+  .riga-email input { flex: 1; min-width: 0; padding: 12px 14px; }
+  .riga-email .avanti { width: auto; min-height: 50px; padding: 0 20px; font-size: 17px; box-shadow: 0 4px 0 var(--c); }
+  .notaemail { margin: 10px 0 0 !important; font-size: 12px !important; color: var(--soft) !important; line-height: 1.4; }
+  /* telefoni bassi (iPhone SE e simili): stesso ordine, tutto un po' più stretto */
+  @media (max-height: 700px) {
+    .fine { gap: 10px; padding-top: 2px; }
+    .carta { padding: 14px 16px 12px; }
+    .carta .casa { width: 40px; height: 35px; }
+    .carta h2 { margin-top: 8px; font-size: 22px; }
+    .carta .descr { font-size: 15px; line-height: 1.3; }
+    .carta .dettagli { margin-top: 8px; padding-top: 8px; font-size: 13px; }
+    .blocco h3 { font-size: 18px; }
+    .blocco .wa { margin-top: 8px; min-height: 48px; }
+    .blocco + .blocco { padding-top: 10px; }
+    .riga-link { margin-top: 2px; }
+    .riga-email { margin-top: 8px; }
+    .riga-email .avanti, .riga-email input { min-height: 46px; }
+    .notaemail { margin-top: 6px !important; font-size: 11px !important; line-height: 1.3; }
+  }
+  /* telefoni molto bassi o con le barre del browser aperte: via la casetta e qualche spazio */
+  @media (max-height: 620px) {
+    .app { padding-top: max(8px, env(safe-area-inset-top)); padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+    .fine { gap: 8px; padding-top: 0; }
+    .carta .casa { display: none; }
+    .carta { padding: 12px 14px 10px; border-radius: 20px; }
+    .carta h2 { margin-top: 6px; font-size: 21px; }
+    .carta .descr { margin-top: 4px; }
+    .blocco .wa { min-height: 46px; }
+    .blocco + .blocco { padding-top: 8px; }
+    .link { padding: 6px 2px; }
+  }
+  .notaemail a { color: #c9bcff; }
+  .err { margin: 6px 0 0; color: #ffb3c9; font-size: 14px; font-weight: 700; }
+  .fatto { margin: 10px 0 0; padding: 10px 12px; border-radius: 14px; background: rgba(34,184,167,.16); color: #b8fff3; font-weight: 700; }
+  .wa { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; border-radius: 999px;
+    background: #25d366; color: #0b2e18; text-decoration: none; font: 600 17px/1 Fredoka, Nunito, sans-serif; border: 0; }
+  .wa.alt { background: transparent; color: #7ff0a8; border: 1.5px solid #25d366; }
+  .wa svg { width: 22px; height: 22px; flex: none; }
+  .fuori .wa { margin-top: 14px; }
+  .secondario { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; margin-top: 10px; padding: 10px 18px; border-radius: 999px;
+    background: transparent; border: 1.5px solid var(--line); color: var(--txt); text-decoration: none; font-weight: 800; font-size: 16px; line-height: 1.25; text-align: center; }
+  .fuori .evid { font-size: 22px; }
+
+  /* 7.1: schermata finale omogenea. Tutto parte dall'alto, in tre riquadri uguali:
+     la situazione della casa (con cosa fa l'app), la condivisione, l'email. */
+  .fine { justify-content: flex-start; gap: 8px; padding-top: 8px; }
+  .carta, .blocco, .blocco + .blocco { padding: 12px 14px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); box-shadow: none; }
+  .carta { background: linear-gradient(160deg, #2e2256, #1c1536); }
+  .carta h2 { margin: 3px 0 0; font-size: 23px; }
+  .pagella { gap: 4px; margin-top: 8px; }
+  .pagella li { grid-template-columns: auto 1fr auto; padding: 5px 8px 5px 12px; }
+  .pagella li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--turchese); }
+  .pagella li.no::before { background: var(--giallo); }
+  .pagella .perche { grid-column: 2 / -1; }
+  .carta .descr { margin-top: 8px; padding: 8px 12px; border: 0; border-radius: 14px; background: rgba(124,92,255,.22); color: #ece7ff; font-size: 14.5px; line-height: 1.35; }
+  .blocco h3 { font-size: 17px; }
+  .blocco .wa { margin-top: 8px; min-height: 48px; }
+  .riga-link { margin-top: 2px; }
+  .riga-link .link { padding: 5px 2px; }
+  .riga-email { margin-top: 8px; }
+  .riga-email input { min-height: 48px; background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.32); }
+  .riga-email .avanti { min-height: 48px; }
+  .notaemail { margin-top: 6px !important; }
+  @media (max-height: 700px) {
+    .fine { gap: 6px; padding-top: 6px; }
+    .carta, .blocco, .blocco + .blocco { padding: 10px 12px; border-radius: 18px; }
+    .carta h2 { font-size: 20px; }
+    .pagella li { padding-top: 4px; padding-bottom: 4px; }
+    .carta .descr { font-size: 14px; padding: 6px 10px; }
+    .blocco h3 { font-size: 16px; }
+    .blocco .wa, .riga-email input, .riga-email .avanti { min-height: 44px; }
+    .blocco .wa, .riga-email { margin-top: 6px; }
+    .riga-link .link { padding: 3px 2px; }
+    .fine { padding-top: 4px; }
+    .carta h2 { margin-top: 1px; }
+    .pagella .voce { font-size: 15px; }
+    .pagella .stato { padding: 2px 8px; font-size: 12px; }
+    .pagella .perche { font-size: 12.5px; line-height: 1.25; margin-top: 0; }
+    .carta .descr { margin-top: 6px; padding: 5px 10px; }
+    .notaemail { margin-top: 4px !important; }
+  }
+  @media (max-height: 620px) {
+    .fine { gap: 4px; padding-top: 3px; }
+    .pagella { margin-top: 5px; gap: 3px; }
+    .pagella li { padding-top: 3px; padding-bottom: 3px; }
+    .carta h2 { font-size: 19px; }
+    .blocco .wa, .riga-email input, .riga-email .avanti { min-height: 42px; }
+  }
+
+  /* 7.1: l'apertura ha una schermata sua, al centro dello schermo; anche l'ultima schermata sta al centro */
+  .app.al-inizio { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+  .benvenuto { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 10px 0 3vh; }
+  .benvenuto .apertura { margin: 0; }
+  .benvenuto .azioni { margin-top: 24px; }
+  .marca { font-size: 21px; letter-spacing: .2px; }
+  /* apertura scelta da Lorenzo (proposta 4): casetta grande, tutto centrato, testo libero, tre etichette colorate */
+  .benvenuto .apertura { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .benvenuto .casagrande { width: 120px; height: auto; margin: 0 0 22px; }
+  .benvenuto .evid { margin-top: 16px; }
+  .benvenuto .lead { margin: 22px 0 0; padding: 0; border: 0; background: none; max-width: 30ch; font-size: 18px; line-height: 1.5; color: #e3ddfa; }
+  .benvenuto .temi { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 20px 0 0; }
+  .benvenuto .temi span { padding: 7px 14px; border-radius: 999px; border: 1.5px solid; font-weight: 800; font-size: 15px; line-height: 1.2; }
+  .benvenuto .temi .t1 { color: var(--giallo); } .benvenuto .temi .t2 { color: var(--rosa); } .benvenuto .temi .t3 { color: #5fe3d3; }
+  .benvenuto .prom { margin: 10px 0 0; font-size: 15px; color: var(--soft); max-width: 32ch; }
+  .benvenuto .azioni { margin-top: 26px; }
+  .benvenuto .intero { white-space: nowrap; }
+  .benvenuto .lead2 { margin: 12px 0 0; max-width: 32ch; font-size: 16.5px; line-height: 1.45; color: var(--soft); text-wrap: pretty; }
+  .benvenuto .parliamo { margin: 22px 0 0; font: 600 13px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: .5px; text-transform: uppercase; color: var(--soft); }
+  .benvenuto .parliamo + .temi { margin-top: 8px; }
+  /* tre livelli ben distinti: testo, etichetta «Parliamo di», promessa finale */
+  .benvenuto .lead2 { color: #ddd6f7; }
+  .benvenuto .parliamo { margin-top: 26px; font-size: 12px; letter-spacing: 1.2px; color: #8f87b8; }
+  .benvenuto .prom { margin-top: 16px; font-weight: 700; font-size: 15.5px; color: #fff; }
+  .benvenuto .lead2 { max-width: 34ch; }
+  /* 7.1: i tre temi dentro la frase finale, con il contorno delle etichette; le due frasi del testo vicine, come un solo blocco */
+  .benvenuto .lead2 { margin-top: 6px; color: #e3ddfa; font-size: 18px; line-height: 1.5; max-width: 32ch; }
+  .benvenuto .lead, .benvenuto .lead2 { text-wrap: balance; }
+  .benvenuto .prom { margin-top: 22px; max-width: 30ch; }
+  .benvenuto .tema { font-weight: 800; }
+  .benvenuto .tema.t1 { color: var(--giallo); } .benvenuto .tema.t2 { color: var(--rosa); } .benvenuto .tema.t3 { color: #5fe3d3; }
+  @media (max-height: 700px) { .benvenuto .lead2 { margin-top: 4px; font-size: 16.5px; line-height: 1.45; } .benvenuto .prom { margin-top: 18px; } }
+  @media (max-height: 640px) {
+    .benvenuto { padding-top: 4px; padding-bottom: 8px; }
+    .benvenuto .casagrande { width: 58px; margin-bottom: 8px; }
+    .benvenuto h1 { font-size: 27px; }
+    .benvenuto .evid { margin-top: 8px; font-size: 16px; padding: 4px 12px 5px; }
+    .benvenuto .lead { margin-top: 10px; font-size: 15px; line-height: 1.4; }
+    .benvenuto .lead2 { margin-top: 3px; font-size: 15px; line-height: 1.4; }
+    .benvenuto .parliamo { margin-top: 12px; }
+    .benvenuto .temi span { padding: 5px 12px; font-size: 14px; }
+    .benvenuto .prom { margin-top: 10px; font-size: 14.5px; }
+    .benvenuto .azioni { margin-top: 14px; }
+  }
+  @media (max-height: 700px) { .benvenuto .lead2 { margin-top: 4px; font-size: 16.5px; } }
+  .benvenuto .lead, .benvenuto .prom { text-wrap: pretty; max-width: 32ch; }
+  @media (max-height: 700px) {
+    .benvenuto .casagrande { width: 92px; margin-bottom: 14px; }
+    .benvenuto h1 { font-size: 32px; }
+    .benvenuto .lead { margin-top: 16px; font-size: 16.5px; line-height: 1.45; }
+    .benvenuto .temi { margin-top: 14px; }
+    .benvenuto .azioni { margin-top: 20px; }
+  }
+  @media (max-height: 600px) {
+    .benvenuto .casagrande { width: 70px; margin-bottom: 10px; }
+    .benvenuto h1 { font-size: 28px; }
+    .benvenuto .evid { margin-top: 10px; font-size: 17px; }
+    .benvenuto .lead { margin-top: 12px; font-size: 15.5px; }
+  }
+  /* 7.1: l'ultima schermata ha lo stesso aspetto delle domande: niente riquadri intorno ai blocchi,
+     titolo grande, le tre voci come le risposte, il riquadro turchese per l'app, pulsanti pieni; parte dall'alto come le domande. */
+  .fine { justify-content: center; gap: 24px; padding: 22px 0 3vh; }
+  .carta, .blocco, .blocco + .blocco { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+  .carta .pre { font: 600 14px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: .3px; color: var(--rosa); }
+  .carta h2 { margin: 10px 0 0; font-size: 27px; }
+  .pagella { gap: 10px; margin-top: 16px; }
+  .pagella li { min-height: 54px; padding: 10px 12px 10px 16px; border-radius: var(--r); background: var(--card); border: 1.5px solid var(--line); }
+  .pagella .voce { font-size: 17px; }
+  .pagella .perche { font-size: 14px; margin-top: 2px; }
+  .pagella .stato { padding: 4px 10px; font-size: 13px; }
+  .carta .descr { margin-top: 14px; padding: 12px 16px; border-radius: 16px; background: rgba(34,184,167,.12); border: 1px solid rgba(34,184,167,.38); color: #dff8f4; font-size: 15.5px; line-height: 1.4; }
+  .blocco h3 { font-size: 20px; }
+  .blocco .wa { margin-top: 12px; min-height: 56px; }
+  .riga-link { margin-top: 4px; }
+  .riga-email { margin-top: 12px; }
+  .riga-email input, .riga-email .avanti { min-height: 54px; }
+  .notaemail { margin-top: 8px !important; }
+  @media (max-height: 760px) {
+    .fine { gap: 18px; padding-top: 14px; padding-bottom: 1vh; }
+    .carta h2 { margin-top: 8px; font-size: 25px; }
+    .pagella { gap: 8px; margin-top: 12px; }
+    .pagella li { min-height: 48px; padding-top: 7px; padding-bottom: 7px; }
+    .pagella .perche { font-size: 13.5px; }
+    .carta .descr { margin-top: 12px; padding: 9px 14px; font-size: 15px; }
+    .blocco h3 { font-size: 18px; }
+    .blocco .wa { margin-top: 10px; min-height: 50px; }
+    .riga-email { margin-top: 10px; }
+    .riga-email input, .riga-email .avanti { min-height: 50px; }
+  }
+  @media (max-height: 700px) {
+    .fine { gap: 14px; padding-top: 8px; padding-bottom: 0; }
+    .carta h2 { font-size: 23px; }
+    .pagella { gap: 6px; margin-top: 10px; }
+    .pagella li { min-height: 42px; padding-top: 5px; padding-bottom: 5px; }
+    .carta .descr { margin-top: 10px; padding: 7px 12px; font-size: 14.5px; }
+    .blocco h3 { font-size: 17px; }
+    .blocco .wa, .riga-email { margin-top: 8px; }
+    .blocco .wa, .riga-email input, .riga-email .avanti { min-height: 46px; }
+    .riga-link .link { padding: 4px 2px; }
+    .notaemail { margin-top: 6px !important; }
+  }
+  @media (max-height: 620px) {
+    .fine { gap: 10px; padding-top: 4px; }
+    .carta h2 { margin-top: 4px; font-size: 21px; }
+    .pagella { gap: 5px; margin-top: 8px; }
+    .pagella li { min-height: 38px; padding-top: 3px; padding-bottom: 3px; }
+    .blocco .wa, .riga-email input, .riga-email .avanti { min-height: 44px; }
+  }
+
+  /* Apertura definitiva (scelta da Lorenzo il 13 novembre 2026): tutto in una cornice sottile,
+     «2 minuti» sopra il titolo, testo in un solo blocco, la frase finale nel fondo colorato della cornice, «Inizia» sotto. */
+  .benvenuto .cornice { padding: 26px 20px 0; border: 1px solid var(--line); border-radius: 28px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,0) 60%); }
+  .benvenuto .cornice .casagrande { width: 84px; margin: 0 0 16px; }
+  .benvenuto .cornice .evid { margin: 0 0 12px; padding: 4px 12px 5px; font-size: 15px; }
+  .benvenuto .cornice h1 { font-size: 40px; line-height: 1.05; }
+  .benvenuto .cornice .lead, .benvenuto .cornice .lead2 { max-width: 28ch; margin-left: auto; margin-right: auto; padding: 0; border: 0; background: none;
+    font-size: 17px; line-height: 1.5; font-weight: 400; color: #e9e4fb; text-wrap: balance; }
+  .benvenuto .cornice .lead { margin-top: 16px; }
+  .benvenuto .cornice .lead2 { margin-top: 8px; }
+  .benvenuto .cornice .prom { width: calc(100% + 40px); max-width: none; margin: 22px -20px 0; padding: 16px 22px 18px;
+    border-top: 1px solid var(--line); background: rgba(124,92,255,.16); font-size: 16px; line-height: 1.45; font-weight: 600; color: #fff; text-wrap: balance; }
+  .benvenuto .cornice .tema { font-weight: 800; }
+  .benvenuto .azioni { margin-top: 22px; }
+  /* due punti in risalto nel testo: chi siamo (bianco) e per chi è l'app (evidenziatore rosa); le due frasi su righe separate */
+  .benvenuto .lead .chi { font-weight: 800; color: #fff; text-shadow: 0 0 14px rgba(255,255,255,.35); }
+  .benvenuto .cornice .lead { color: #c4bce2; }
+  .benvenuto .lead .segno { color: #fff; font-weight: 600; background: linear-gradient(transparent 58%, rgba(255,111,168,.45) 58%, rgba(255,111,168,.45) 92%, transparent 92%);
+    -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 2px; }
+  .benvenuto .lead .stacco { display: block; height: 10px; }
+  /* frase in basso un po' più piccola */
+  .benvenuto .cornice .prom { font-size: 13.5px; line-height: 1.45; padding-top: 13px; padding-bottom: 15px; }
+  @media (max-height: 620px) { .benvenuto .cornice .prom { font-size: 13px; padding-top: 10px; padding-bottom: 12px; } }
+  /* spazi rifatti: un solo blocco di testo largo come il titolo, ritmo regolare tra casetta, etichetta, titolo e testo */
+  .benvenuto .cornice { padding: 28px 22px 0; }
+  .benvenuto .cornice .casagrande { width: 68px; margin: 0 0 18px; }
+  .benvenuto .cornice .evid { margin: 0 0 10px; }
+  .benvenuto .cornice .lead { max-width: 34ch; margin-top: 18px; font-size: 17px; line-height: 1.55; text-wrap: pretty; }
+  .benvenuto .cornice .prom { width: calc(100% + 44px); margin: 26px -22px 0; padding: 16px 24px 18px; }
+  @media (max-height: 740px) {
+    .benvenuto { padding-top: 6px; padding-bottom: 10px; }
+    .benvenuto .cornice { padding-top: 20px; }
+    .benvenuto .cornice .casagrande { width: 56px; margin-bottom: 14px; }
+    .benvenuto .cornice .evid { margin-bottom: 10px; font-size: 14px; }
+    .benvenuto .cornice h1 { font-size: 34px; }
+    .benvenuto .cornice .lead, .benvenuto .cornice .lead2 { font-size: 16px; line-height: 1.45; }
+    .benvenuto .cornice .lead { margin-top: 14px; }
+    .benvenuto .cornice .lead2 { margin-top: 6px; }
+    .benvenuto .cornice .prom { margin-top: 20px; padding: 13px 22px 15px; font-size: 15px; }
+    .benvenuto .azioni { margin-top: 16px; }
+  }
+  @media (max-height: 620px) {
+    .benvenuto .cornice { padding-top: 14px; border-radius: 22px; }
+    .benvenuto .cornice .casagrande { width: 48px; margin-bottom: 8px; }
+    .benvenuto .cornice .evid { margin-bottom: 8px; }
+    .benvenuto .cornice h1 { font-size: 28px; }
+    .benvenuto .cornice .lead, .benvenuto .cornice .lead2 { font-size: 15px; line-height: 1.4; max-width: 32ch; }
+    .benvenuto .cornice .lead { margin-top: 10px; }
+    .benvenuto .cornice .prom { margin-top: 14px; padding: 10px 18px 12px; font-size: 14.5px; }
+    .benvenuto .azioni { margin-top: 12px; }
+    .benvenuto .azioni .avanti { min-height: 50px; }
+  }
+
+  /* 7.1: alla fine l'email è in una finestra sopra il risultato; la condivisione resta fissa in basso */
+  .app.alla-fine .fine { justify-content: flex-start; padding-bottom: 0; }
+  .app.alla-fine .carta { margin-top: auto; margin-bottom: auto; padding-bottom: 20px; }
+  .blocco.condividi { position: sticky; bottom: 0; z-index: 5; margin-top: auto; padding: 14px 0 calc(8px + env(safe-area-inset-bottom)) !important;
+    border-top: 1px solid var(--line) !important; background: linear-gradient(180deg, rgba(35,24,62,.92), #2a1d47) !important; }
+  .blocco.condividi { margin-left: -18px; margin-right: -18px; padding-left: max(18px, env(safe-area-inset-left, 0px)) !important; padding-right: max(18px, env(safe-area-inset-right, 0px)) !important; }
+  .app.alla-fine { padding-bottom: 0 !important; }
+  .velo { position: fixed; inset: 0; z-index: 40; display: flex; align-items: flex-end; justify-content: center;
+    padding: 16px max(12px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left, 0px));
+    background: rgba(12,8,26,.62); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); animation: appare .25s ease-out; }
+  .finestra { width: 100%; max-width: 500px; padding: 22px 20px 10px; border-radius: 26px; background: #261b45; border: 1px solid var(--line);
+    box-shadow: 0 -10px 40px rgba(0,0,0,.45); animation: sale .38s cubic-bezier(.2,.9,.25,1); }
+  .finestra h3 { margin: 0; font: 600 23px/1.2 Fredoka, Nunito, sans-serif; outline: none; }
+  .finestra .riga-email { margin-top: 14px; }
+  .finestra .riga-email input, .finestra .riga-email .avanti { min-height: 52px; }
+  .finestra .notaemail { margin-top: 10px !important; font-size: 12px !important; }
+  .finestra .salta { display: block; width: 100%; margin-top: 6px; padding: 12px; color: #c9bcff; text-decoration: underline; text-underline-offset: 3px; }
+  @keyframes appare { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes sale { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+  body.con-velo { overflow: hidden; }
+
+  /* Ultima schermata (13 novembre 2026, sera): il risultato nella cornice sottile, come l'apertura, con cosa fa l'app nel fondo viola;
+     sotto, la condivisione senza fascia scura. Risultato e condivisione stanno insieme al centro: niente buchi quando le risposte sono poche. */
+  .app.alla-fine .fine { justify-content: center !important; padding: 10px 0 3vh !important; gap: 0 !important; }
+  .app.alla-fine .carta { margin: 0 !important; padding: 22px 20px 0 !important; border: 1px solid var(--line) !important; border-radius: 28px !important; overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,0) 60%) !important; text-align: center; }
+  .app.alla-fine .carta .testa { justify-content: center; }
+  .app.alla-fine .carta h2 { margin-top: 8px; }
+  .app.alla-fine .pagella { text-align: left; margin-top: 16px; }
+  .app.alla-fine .carta .descr { display: block; width: calc(100% + 40px); margin: 18px -20px 0 !important; padding: 14px 22px 16px !important; border: 0 !important;
+    border-top: 1px solid var(--line) !important; border-radius: 0 !important; background: rgba(124,92,255,.16) !important; color: #fff !important;
+    font-size: 14.5px !important; line-height: 1.45 !important; font-weight: 600; text-wrap: balance; }
+  .blocco.condividi { position: static !important; margin: 22px 0 0 !important; padding: 0 !important; border: 0 !important; background: none !important; text-align: center; }
+  .blocco.condividi h3 { font-size: 18px !important; }
+  @media (max-height: 700px) {
+    .app.alla-fine .fine { padding: 4px 0 1vh !important; }
+    .app.alla-fine .carta { padding-top: 16px !important; }
+    .app.alla-fine .carta .descr { margin-top: 12px !important; padding: 10px 20px 12px !important; font-size: 14px !important; }
+    .blocco.condividi { margin-top: 14px !important; }
+  }
+  @media (max-height: 620px) { .app.alla-fine .carta .descr { display: none !important; } .app.alla-fine .carta { padding-bottom: 14px !important; } }
+
+  /* Voci del risultato (scelta di Lorenzo, versione A): icona gialla «!» se è da sistemare, verde «✓» se è in ordine; niente etichetta a destra */
+  .pagella .stato { display: none !important; }
+  .pagella li { grid-template-columns: auto 1fr !important; column-gap: 12px !important; }
+  .pagella li::before { width: 26px !important; height: 26px !important; display: grid; place-items: center; font: 800 15px/1 Nunito, sans-serif; color: var(--ink);
+    grid-row: 1 / span 2; align-self: center; }
+  .pagella li.no::before { content: "!" !important; background: var(--giallo) !important; }
+  .pagella li.ok::before { content: "✓" !important; background: var(--turchese) !important; }
+  .pagella li.ok::before { grid-row: 1; }
+  .pagella li.ok .voce { align-self: center; }
+  .pagella .perche { grid-column: 2 / -1 !important; }
+
+  /* «i fuorisede che condividono casa» resta sempre tutto su una riga */
+  .benvenuto .lead .segno { white-space: nowrap; }
+  /* finestra dell'email al centro dello schermo, con un'entrata morbida: lo sfondo sfuma, la finestra cresce appena */
+  .velo { align-items: center !important; padding-top: max(16px, env(safe-area-inset-top)) !important; animation: appare .45s ease-out both !important; }
+  .finestra { box-shadow: 0 20px 60px rgba(0,0,0,.5) !important; animation: entraFinestra .55s cubic-bezier(.22,1,.36,1) .05s both !important; }
+  @keyframes entraFinestra { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
+  .velo.esce { animation: sparisce .3s ease-in both !important; }
+  .velo.esce .finestra { animation: esceFinestra .3s ease-in both !important; }
+  @keyframes sparisce { to { opacity: 0; } }
+  @keyframes esceFinestra { to { opacity: 0; transform: translateY(8px) scale(.97); } }
+
+  /* 7.2 (13 novembre 2026, sera): apertura in forma di chat, scelta da Lorenzo e dal team.
+     Barra come WhatsApp («Il team · sta scrivendo…», iniziali L M L), titolo, il testo in quattro messaggi, l'ultimo in viola. */
+  .benvenuto .cornice.chatapre { padding: 28px 12px 14px; }
+  .chatapre .gruppo { display: flex; align-items: center; gap: 10px; width: calc(100% + 24px); margin: -28px -12px 16px; padding: 12px 16px; text-align: left;
+    background: rgba(255,255,255,.06); border-bottom: 1px solid var(--line); }
+  .chatapre .gruppo b { display: block; font: 600 16px/1.2 Fredoka, Nunito, sans-serif; color: #fff; }
+  .chatapre .gruppo small { display: block; font-size: 12.5px; font-weight: 700; font-style: italic; color: #8ff0e2; }
+  .chatapre .pallini { display: flex; flex: none; }
+  .chatapre .pallini i { display: grid; place-items: center; width: 30px; height: 30px; margin-left: -5px; border-radius: 50%; border: 2px solid #3a2d5e;
+    font: normal 700 13px/1 Fredoka, Nunito, sans-serif; color: var(--ink); }
+  .chatapre .pallini i:first-child { margin-left: 0; }
+  .chatapre .pallini .p1 { background: var(--giallo); } .chatapre .pallini .p2 { background: var(--rosa); } .chatapre .pallini .p3 { background: var(--viola); color: #fff; }
+  .benvenuto .cornice.chatapre h1 { font-size: 34px; margin: 4px 0 16px; }
+  .chatapre h1 .intero { display: block; }
+  .chatapre .chat { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; text-align: left; }
+  .chatapre .bolla { margin: 0; max-width: 100%; padding: 10px 14px; border-radius: 18px 18px 18px 6px; background: rgba(255,255,255,.09);
+    font-size: 16px; line-height: 1.4; color: #e9e4fb; text-wrap: pretty; }
+  .chatapre .bolla .chi { font-weight: 800; color: #fff; }
+  .chatapre .bolla .segno { color: #fff; font-weight: 600; background: linear-gradient(transparent 58%, rgba(255,111,168,.45) 58%, rgba(255,111,168,.45) 92%, transparent 92%);
+    -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .chatapre .bolla.viola { background: rgba(124,92,255,.32); color: #fff; font-weight: 600; font-size: 15px; }
+  .chatapre .tema { font-weight: 800; } .chatapre .t1 { color: var(--giallo); } .chatapre .t2 { color: var(--rosa); } .chatapre .t3 { color: #5fe3d3; }
+  @media (max-height: 740px) {
+    .benvenuto .cornice.chatapre { padding-top: 22px; }
+    .chatapre .gruppo { margin-top: -22px; margin-bottom: 12px; padding: 9px 14px; }
+    .benvenuto .cornice.chatapre h1 { font-size: 30px; margin-bottom: 12px; }
+    .chatapre .bolla { padding: 8px 12px; font-size: 15px; }
+    .chatapre .bolla.viola { font-size: 14px; }
+  }
+  @media (max-height: 640px) {
+    .benvenuto .cornice.chatapre { padding: 18px 10px 10px; }
+    .chatapre .gruppo { width: calc(100% + 20px); margin: -18px -10px 10px; padding: 7px 12px; }
+    .chatapre .pallini i { width: 26px; height: 26px; font-size: 12px; }
+    .benvenuto .cornice.chatapre h1 { font-size: 26px; margin: 0 0 10px; }
+    .chatapre h1 .intero { display: inline; }
+    .chatapre .chat { gap: 4px; }
+    .chatapre .bolla { padding: 6px 11px; font-size: 14px; line-height: 1.35; }
+    .chatapre .bolla.viola { font-size: 13.5px; }
+  }
+
+  /* 7.3 (13 novembre 2026, sera): ultima schermata in forma di chat, scelta da Lorenzo. Cornice sottile come l'apertura, senza la barra «Il team»;
+     titolo su due righe con la virgola, le voci in un messaggio, le soluzioni dell'app in viola, la condivisione dentro la chat. */
+  .fine .cornice.chatfine { width: 100%; padding: 22px 12px 14px; border: 1px solid var(--line); border-radius: 28px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,0) 60%); }
+  .chatfine .tit-v { margin: 0 0 16px; text-align: center; font: 700 30px/1.08 Fredoka, Nunito, sans-serif; letter-spacing: -.3px; outline: none; }
+  .chatfine .tit-v .riga2 { display: block; }
+  .chatfine .soluz { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; }
+  .chatfine .soluz:empty { display: none; }
+  .chatfine .scheda { display: grid; gap: 10px; padding: 12px 14px 12px 10px; }
+  .chatfine .vb { display: flex; align-items: center; gap: 12px; }
+  .chatfine .vb i { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: normal 800 15px/1 Nunito, sans-serif; color: var(--ink); }
+  .chatfine .vb.no i, .chatfine .vb.nota i { background: var(--giallo); } .chatfine .vb.ok i { background: var(--turchese); }
+  .chatfine .vb b { display: block; color: #fff; font-weight: 800; }
+  .chatfine .vb small { display: block; font-size: 14px; color: var(--soft); font-weight: 600; line-height: 1.3; }
+  .chatfine .bolla.viola b { color: #fff; font-weight: 800; }
+  .chatfine .bolla.viola.forte { font-size: 16px; font-weight: 700; }
+  .chatfine .wa { margin-top: 2px; width: 100%; min-height: 50px; }
+  .chatfine .dentro-link { width: 100%; display: flex; justify-content: center; gap: 22px; }
+  .chatfine .dentro-link .link { padding: 6px 2px; }
+  .chatfine .dentro-link { flex-wrap: wrap; row-gap: 4px; }
+  .chatfine .dentro-link .wa { flex: 0 0 100%; margin-top: 0; }
+  @media (max-height: 740px) {
+    .fine .cornice.chatfine { padding: 16px 10px 10px; border-radius: 24px; }
+    .chatfine .tit-v { font-size: 26px; margin-bottom: 12px; }
+    .chatfine .bolla { padding: 8px 12px; font-size: 15px; }
+    .chatfine .bolla.viola, .chatfine .bolla.viola.forte { font-size: 14px; }
+    .chatfine .scheda { gap: 6px; padding: 9px 12px 9px 9px; }
+    .chatfine .vb small { font-size: 13px; }
+    .chatfine .wa { min-height: 46px; }
+    .chatfine .dentro-link .link { padding: 4px 2px; }
+  }
+  @media (max-height: 640px) {
+    .fine .cornice.chatfine { padding: 12px 8px 8px; }
+    .chatfine .tit-v { font-size: 22px; margin-bottom: 8px; }
+    .chatfine .chat { gap: 4px; }
+    .chatfine .bolla { padding: 6px 10px; font-size: 14px; line-height: 1.3; }
+    .chatfine .bolla.viola, .chatfine .bolla.viola.forte { font-size: 13px; }
+    .chatfine .scheda { gap: 4px; padding: 7px 10px 7px 8px; }
+    .chatfine .vb { gap: 9px; } .chatfine .vb i { width: 22px; height: 22px; font-size: 13px; }
+    .chatfine .vb small { font-size: 12px; }
+    .chatfine .wa { min-height: 42px; font-size: 16px; }
+    .chatfine .dentro-link .link { padding: 2px; font-size: 14px; }
+  }
+
+  @media (max-width: 380px) { h1 { font-size: 34px; } h2 { font-size: 24px; } .evid { font-size: 18px; } .mancano { min-width: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.3-.5-.5-1-1.1-1.3-1.7-.1-.2 0-.4.1-.5l.4-.5.3-.5v-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.6.6-.9 1.4-.9 2.2.1.9.4 1.8 1 2.6 1.1 1.6 2.5 2.9 4.2 3.7.6.3 1.1.4 1.7.5.6.1 1.3 0 1.8-.3.4-.3.7-.7.8-1.1.1-.4.1-.8 0-.9l-.5-.2z"/></symbol>
+</svg>
+
+<main class="app" id="app">
+  <header class="top">
+    <div class="marca"><svg viewBox="0 0 30 26" aria-hidden="true"><path d="M3 12 15 3l12 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="11" width="18" height="13" rx="2.5" fill="#fff"/><rect x="9" y="14" width="5" height="4" rx="1" fill="#ffb020"/><rect x="16" y="14" width="5" height="4" rx="1" fill="#ff6fa8"/><rect x="9" y="19.5" width="5" height="3" rx="1" fill="#22b8a7"/><rect x="16" y="19.5" width="5" height="3" rx="1" fill="#7c5cff"/></svg>Inqui</div>
+    <span class="pill" id="pill"><svg width="12" height="13" viewBox="0 0 12 13" aria-hidden="true"><rect x="1" y="5.5" width="10" height="7" rx="2" fill="currentColor"/><path d="M3.3 5.5V4a2.7 2.7 0 0 1 5.4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Anonimo</span>
+  </header>
+  <p class="prova" id="prova" hidden>Versione di prova · niente viene salvato</p>
+
+  <div class="avanz" id="avanz" hidden>
+    <div class="casamini" id="casamini" aria-hidden="true"></div>
+    <div class="barra" role="progressbar" aria-label="Avanzamento" aria-valuemin="0" aria-valuemax="100" id="barrawrap"><i id="barra"></i></div>
+    <span class="mancano" id="mancano" aria-live="polite"></span>
+  </div>
+  <div class="navi" id="navi" hidden>
+    <button type="button" class="indietro" id="indietro">‹ Indietro</button>
+    <span class="passo" id="passo"></span>
+  </div>
+
+  <!-- PASSO 1 · LA TUA CASA -->
+  <section class="schermo benvenuto" id="benvenuto">
+    <div class="apertura cornice chatapre">
+      <div class="gruppo" aria-hidden="true"><span class="pallini"><i class="p1">L</i><i class="p2">M</i><i class="p3">L</i></span><div><b>Il team</b><small>sta scrivendo…</small></div></div>
+      <h1>Tra coinquilini, <span class="intero">come va?</span></h1>
+      <div class="chat">
+        <p class="bolla"><span aria-hidden="true">👋</span> Ciao, e grazie per aver aperto il link!</p>
+        <p class="bolla">Siamo <b class="chi">un gruppo di ragazzi</b> e abbiamo quasi finito di sviluppare un’app per <span class="segno">i&nbsp;fuorisede che condividono casa</span>.</p>
+        <p class="bolla">Per rifinirla al meglio, ci serve la vostra esperienza.</p>
+        <p class="bolla viola">A fine sondaggio vedrai cosa va e cosa no su <span class="tema t1">pulizie</span>, <span class="tema t2">soldi</span> e <span class="tema t3">spesa</span>, e come potrai risolverlo con l’app.</p>
+      </div>
+    </div>
+    <div class="azioni"><button type="button" class="avanti" id="inizia">Inizia · 2 minuti</button></div>
+  </section>
+
+  <section class="schermo" data-id="casa" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Vivi con dei coinquilini?</h2>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="sì">Sì</button>
+      <button type="button" class="scelta" data-v="ci ho vissuto nell'ultimo anno">Non più, ma nell’ultimo anno sì</button>
+      <button type="button" class="scelta" data-v="ci andrò nei prossimi mesi">Non ancora, ma ci andrò nei prossimi mesi</button>
+      <button type="button" class="scelta" data-v="no">No</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="persone" data-tipo="uno" hidden>
+    <h2 tabindex="-1" id="t-persone">Quanti siete in casa, tu compreso?</h2>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="2">2</button>
+      <button type="button" class="scelta" data-v="3">3</button>
+      <button type="button" class="scelta" data-v="4">4</button>
+      <button type="button" class="scelta" data-v="5 o più">5 o più</button>
+      <button type="button" class="scelta" data-v="non so ancora" id="nonsoancora">Non lo so ancora</button>
+    </div>
+  </section>
+
+  <!-- PASSO 2 · COME VA IN CASA -->
+  <section class="schermo" data-id="successo" data-tipo="piu" hidden>
+    <h2 tabindex="-1" id="t-successo">Nell’ultimo mese ti è capitato che…</h2>
+    <p class="aiuto">Puoi segnarne più di una.</p>
+    <div class="scelte multi" data-mescola>
+      <button type="button" class="scelta" data-v="faccenda">I piatti o il bagno sono rimasti da fare per giorni</button>
+      <button type="button" class="scelta" data-v="al posto">Hai fatto tu una cosa che toccava a qualcun altro</button>
+      <button type="button" class="scelta" data-v="ricordare">Qualcuno ha dovuto chiedere indietro dei soldi</button>
+      <button type="button" class="scelta" data-v="conti">Non si capiva più chi doveva soldi a chi</button>
+      <button type="button" class="scelta" data-v="finito">È finita la carta igienica (o il detersivo) e nessuno l’aveva ricomprata</button>
+      <button type="button" class="scelta" data-v="nessuna" data-solo data-fisso>Niente di tutto questo</button>
+    </div>
+    <div class="azioni"><button type="button" class="avanti" disabled>Avanti</button></div>
+  </section>
+
+  <section class="schermo" data-id="paura" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Cosa ti preoccupa di più del vivere con altri?</h2>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="faccende">Le pulizie e i turni</button>
+      <button type="button" class="scelta" data-v="soldi">I soldi e le spese da dividere</button>
+      <button type="button" class="scelta" data-v="spesa">Chi compra le cose di casa</button>
+      <button type="button" class="scelta" data-v="accordo">Andare d’accordo</button>
+      <button type="button" class="scelta" data-v="niente" data-fisso>Niente in particolare</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="pesa" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Quale ti ha dato più fastidio?</h2>
+    <div class="scelte" id="scelte-pesa"></div>
+  </section>
+
+  <section class="schermo" data-id="racconto" data-tipo="testo" hidden>
+    <h2 tabindex="-1">Raccontaci com’è andata</h2>
+    <p class="aiuto">Anche due righe. Se non ti va, salta.</p>
+    <textarea id="racconto" maxlength="600" placeholder="Scrivi qui…" aria-label="Raccontaci com’è andata"></textarea>
+    <p class="conta" id="conta-racconto"></p>
+    <div class="azioni"><button type="button" class="avanti">Avanti</button><button type="button" class="salta">Salta</button></div>
+  </section>
+
+  <section class="schermo" data-id="strumenti" data-tipo="piu" hidden>
+    <h2 tabindex="-1" id="t-strumenti">Per tenere i conti o i turni, cosa usate adesso?</h2>
+    <p class="aiuto">Puoi segnarne più di una.</p>
+    <div class="scelte multi" data-mescola>
+      <button type="button" class="scelta" data-v="whatsapp">Il gruppo WhatsApp di casa</button>
+      <button type="button" class="scelta" data-v="app">Splitwise o un’altra app</button>
+      <button type="button" class="scelta" data-v="foglio">Un foglio, una lavagna o le note del telefono</button>
+      <button type="button" class="scelta" data-v="a voce">Niente di scritto, ce lo diciamo a voce</button>
+      <button type="button" class="scelta" data-v="nessuna" data-solo data-fisso>Niente, non serve</button>
+    </div>
+    <div class="azioni"><button type="button" class="avanti" disabled>Avanti</button></div>
+  </section>
+
+  <section class="schermo" data-id="spese" data-tipo="uno" hidden>
+    <h2 tabindex="-1" id="t-spese">Come dividete le spese comuni?</h2>
+    <p class="aiuto">Detersivi, carta igienica, spesa di casa…</p>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="parti uguali">Ogni volta in parti uguali</button>
+      <button type="button" class="scelta" data-v="cassa comune">Abbiamo una cassa comune: ognuno mette una cifra</button>
+      <button type="button" class="scelta" data-v="a turno">A turno: una volta compra uno, una volta un altro</button>
+      <button type="button" class="scelta" data-v="ognuno il suo">Ognuno si compra le sue cose</button>
+      <button type="button" class="scelta" data-v="a occhio">Senza una regola, un po’ a occhio</button>
+      <button type="button" class="scelta" data-v="altro">In un altro modo</button>
+    </div>
+  </section>
+
+  <!-- PASSO 3 · L'APP -->
+  <section class="schermo ponte" data-id="ponte" data-tipo="ponte" hidden>
+    <p class="fatto-passo">Passo 2 fatto</p>
+    <h2 tabindex="-1">Ora parliamo dell’app</h2>
+    <p class="lead-ponte">È gratis e fa tre cose:</p>
+    <ul class="tre">
+      <li><i style="background:var(--giallo)"></i>Divide le spese</li>
+      <li><i style="background:var(--rosa)"></i>Organizza i turni delle pulizie</li>
+      <li><i style="background:var(--turchese)"></i>Tiene la lista della spesa</li>
+    </ul>
+    <p class="lead-ponte">Ora qualche domanda su come la useresti.</p>
+    <div class="azioni"><button type="button" class="avanti">Continua</button></div>
+  </section>
+
+  <section class="schermo" data-id="primo" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Appena scaricata, cosa faresti per prima cosa?</h2>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="turni">Metterei i turni delle pulizie</button>
+      <button type="button" class="scelta" data-v="spesa da dividere">Segnerei una spesa da dividere</button>
+      <button type="button" class="scelta" data-v="lista">Scriverei cosa manca da comprare</button>
+      <button type="button" class="scelta" data-v="chi deve cosa">Guarderei chi deve soldi a chi</button>
+      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="crescere" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Nell’app, quale di questi ti farebbe piacere vedere?</h2>
+    <p class="aiuto">Pensa alle faccende di casa.</p>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="casa"><span>«Casa in ordine da 3 settimane»<small>Un traguardo di tutta la casa</small></span></button>
+      <button type="button" class="scelta" data-v="ognuno"><span>«Faccende del mese: Giulia 8, Luca 6, tu 7»<small>Il conto di ognuno</small></span></button>
+      <button type="button" class="scelta" data-v="nessun numero"><span>Nessun numero<small>Solo le cose da fare</small></span></button>
+      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="promemoria" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Se l’app ti mandasse un promemoria, quando ti farebbe più comodo?</h2>
+    <p class="aiuto">Per esempio quando tocca a te una faccenda.</p>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="mattina">La mattina, prima di uscire</button>
+      <button type="button" class="scelta" data-v="pausa">Durante il giorno, in pausa</button>
+      <button type="button" class="scelta" data-v="rientro">Quando torno a casa</button>
+      <button type="button" class="scelta" data-v="sera">La sera, dopo cena</button>
+      <button type="button" class="scelta" data-v="non so">Non saprei</button>
+      <button type="button" class="scelta" data-v="nessuno">Meglio di no, niente promemoria</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="avviso" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Se tocca a un coinquilino pulire la cucina e non lo fa da 3 giorni, cosa dovrebbe fare l’app?</h2>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="solo a chi tocca">Ricordarlo solo a chi tocca</button>
+      <button type="button" class="scelta" data-v="a tutta la casa">Dirlo anche al resto della casa</button>
+      <button type="button" class="scelta" data-v="niente" data-fisso>Niente, ci pensiamo da soli</button>
+      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
+    </div>
+  </section>
+
+  <!-- PASSO 4 · TU E LA TUA CASA -->
+  <section class="schermo" data-id="adozione" data-tipo="uno" hidden>
+    <h2 tabindex="-1" id="t-adozione">Se uscisse domani, cosa succederebbe a casa tua?</h2>
+    <div class="scelte">
+      <button type="button" class="scelta" data-v="la propongo e la usiamo tutti">La proporrei io e la useremmo tutti</button>
+      <button type="button" class="scelta" data-v="la propongo ma qualcuno no">La proporrei io, ma qualcuno non la userebbe</button>
+      <button type="button" class="scelta" data-v="aspetto qualcun altro">Aspetterei che la proponga qualcun altro</button>
+      <button type="button" class="scelta" data-v="non la useremmo">Non la useremmo</button>
+      <button type="button" class="scelta" data-v="non so">Non saprei</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="smettere" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Cosa ti farebbe smettere di usarla dopo una settimana?</h2>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="notifiche">Troppe notifiche</button>
+      <button type="button" class="scelta" data-v="altri non aggiornano">Gli altri non la aggiornano</button>
+      <button type="button" class="scelta" data-v="perdita di tempo">Segnare le cose è una perdita di tempo</button>
+      <button type="button" class="scelta" data-v="dimenticherei">Me ne dimenticherei</button>
+      <button type="button" class="scelta" data-v="non so" data-fisso>Non saprei</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="perche" data-tipo="uno" hidden>
+    <h2 tabindex="-1">Come mai?</h2>
+    <p class="aiuto">Scegli quella che conta di più.</p>
+    <div class="scelte" data-mescola>
+      <button type="button" class="scelta" data-v="ci basta il nostro modo">Ci va bene come facciamo adesso</button>
+      <button type="button" class="scelta" data-v="non voglio altre app">Non voglio un’altra app</button>
+      <button type="button" class="scelta" data-v="gli altri no">Gli altri non la userebbero</button>
+      <button type="button" class="scelta" data-v="conti in app no">Non mi va di mettere i soldi in un’app</button>
+      <button type="button" class="scelta" data-v="nessun problema">Da noi non ci sono problemi</button>
+      <button type="button" class="scelta" data-v="altro" data-fisso>Altro</button>
+    </div>
+  </section>
+
+  <section class="schermo" data-id="frasecasa" data-tipo="testo" hidden>
+    <h2 tabindex="-1" id="t-frasecasa">Cosa scriveresti nel gruppo di casa per proporla?</h2>
+    <p class="aiuto" id="a-frasecasa">Scrivilo come lo scriveresti davvero. Se non ti va, salta.</p>
+    <textarea id="frasecasa" maxlength="300" placeholder="Scrivi qui…" aria-label="Il tuo messaggio"></textarea>
+    <p class="conta" id="conta-frasecasa"></p>
+    <div class="azioni"><button type="button" class="avanti">Vedi il quadro della tua casa</button><button type="button" class="salta">Salta e vedi il quadro</button></div>
+  </section>
+
+  <!-- FINE -->
+  <section class="schermo fine" id="risultato" hidden>
+    <div class="cornice chatapre chatfine" id="carta">
+      <h2 tabindex="-1" id="r-tit" class="tit-v"></h2>
+      <div class="chat">
+        <div class="bolla scheda" id="r-pagella"></div>
+        <div class="soluz" id="r-app"></div>
+        <p class="bolla" id="s-tit">Più risposte arrivano, meglio riusciamo a rifinire l’app. Ci dai una mano? <span aria-hidden="true">👇</span></p>
+        <a class="wa" id="s-casa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Mandalo nel gruppo di casa</a>
+        <div class="dentro-link">
+          <a class="link" id="s-amico" href="https://wa.me/" target="_blank" rel="noopener">Mandalo a un amico</a>
+          <button type="button" class="link" id="s-copia">Copia il link</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="velo" id="velo" hidden>
+      <div class="finestra" id="boxemail" role="dialog" aria-modal="true" aria-labelledby="v-tit">
+      <h3 id="v-tit" tabindex="-1">Vuoi provarla prima degli altri?</h3>
+      <form class="riga-email" id="femail" novalidate>
+        <input type="email" id="email" inputmode="email" autocomplete="email" placeholder="La tua email" aria-label="La tua email">
+        <button type="submit" class="avanti" id="salvaemail">Avvisami</button>
+      </form>
+      <p class="err" id="emailerr" hidden></p>
+      <p class="fatto" id="emailok" hidden>Fatto: ti scriviamo quando puoi provarla.</p>
+      <p class="notaemail">Solo per farti provare l’app, dirti quando esce e a volte chiederti un parere. Niente pubblicità, mai ad altri. Resta separata dalle risposte e ti cancelli quando vuoi. <a href="../privacy.html" target="_blank" rel="noopener">Informativa</a></p>
+        <button type="button" class="salta" id="v-no">No grazie, vedi il risultato</button>
+      </div>
+    </div>
+    <p class="ok-invio" id="okinvio" role="status">Grazie, le tue risposte sono arrivate</p>
+  </section>
+
+  <section class="schermo fuori" id="fuori" hidden>
+    <h2 tabindex="-1" id="f-tit">Questo sondaggio è per chi vive con dei coinquilini</h2>
+    <p class="lead">Se ne conosci qualcuno, giraglielo: ci aiuti a rifinire l’app.</p>
+    <a class="wa" id="f-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Giralo su WhatsApp</a>
+    <button type="button" class="secondario" id="f-stesso">Fallo lo stesso, pensando a una casa che conosci</button>
+    <button type="button" class="link" id="f-copia">Copia il link</button>
+    <button type="button" class="salta" id="f-torna" style="width:100%">Ho sbagliato, vivo con dei coinquilini</button>
+  </section>
+</main>
+
+<button type="button" class="flash" id="flash" aria-live="polite" hidden><span class="em" id="flash-em">✨</span><span><small id="flash-tit"></small><span id="flash-txt"></span></span></button>
+
+<script>
+(function(){
+  'use strict';
+
+  // Indirizzo che riceve risposte ed email (foglio Google). Vuoto = prova: niente viene salvato.
+  var ENDPOINT = '';
+  // Versione 5 (12 novembre 2026): rifatta da zero con le 7 decisioni di Giovanni.
+  // 5.1: spese al posto di «come vi organizzate», orario dei promemoria, passi contati, chi dice «No» può farlo lo stesso.
+  // 5.2: testi, anteprima WhatsApp e messaggi di condivisione riscritti con la skill Humanizer.
+  // 5.3: niente più «Che casa siete?» né ironia: alla fine il quadro della casa, messaggi più professionali.
+  // 5.4: allineato alla copertina scelta («Chi paga cosa. A chi tocca. Cosa manca.», «Com’è davvero da voi? Raccontacelo.»).
+  // 5.5: frase A riscritta perché somigliava troppo alla copertina (valore salvato: «niente da chiedere»).
+  // Versione 6 (12 novembre 2026): ogni domanda collegata a una delle 7 decisioni (Sondaggio/Revisione domande v5.md).
+  // Nuove: cosa usate adesso (strumenti), quale messaggio preferisci (tono). Cambiate: spese comuni, cosa veder crescere
+  // (al posto di «chi pulisce di più»). Ritocchi: «nei prossimi mesi», promemoria senza «nel weekend» e con «non saprei».
+  // 6.1: tolta la domanda sulle 3 frasi (si provano con i post).
+  // 6.2: al suo posto, scelta da Lorenzo, «Cosa ti farebbe smettere di usarla dopo una settimana?» (smettere).
+  // Versione 7 (12 novembre 2026): i suggerimenti delle registrazioni. Apertura con «Cosa ricevi: in 2 minuti, la pagella della tua casa»,
+  // schermata di passaggio prima delle domande sull'app (ponte), alla fine la pagella della casa (pulizie, soldi, spesa). Domande uguali alla 6.2.
+  // 7.1 (13 novembre 2026): «pagella» diventa «la situazione della tua casa»; al posto dei due messaggi, cosa deve fare l'app
+  // se uno non pulisce la cucina (avviso); ultima schermata in tre riquadri uguali che partono dall'alto.
+  var VERSIONE = 7, REVISIONE = '7.3', PRE = 'prova_v7_';
+
+  function $(id){ return document.getElementById(id); }
+  function sez(id){ return document.querySelector('section[data-id="' + id + '"]'); }
+  function oggi(){ return new Date().toISOString().slice(0, 10); }
+  function mescola(a){ for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function uno(a){ return a[Math.floor(Math.random() * a.length)]; }
+  function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e) { return null; } }
+
+  // 7.1: la fascia «Versione di prova» non si mostra più (Lorenzo, 13 novembre 2026). Se qualcuno lascia l'email, la pagina dice che non è registrata.
+  if (!ENDPOINT) { $('okinvio').textContent = 'Prova completata · niente è stato salvato'; }
+
+  var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi mesi', NO = 'no';
+  var COLORI = ['#ffb020', '#ff6fa8', '#22b8a7', '#7c5cff'];
+  var PASSI = { casa: 1, persone: 1, successo: 2, paura: 2, pesa: 2, racconto: 2, strumenti: 2, spese: 2,
+    ponte: 3, primo: 3, crescere: 3, promemoria: 3, avviso: 3, adozione: 4, perche: 4, smettere: 4, frasecasa: 4 };
+  var NOMI_PASSI = { 1: 'La tua casa', 2: 'Come va in casa', 3: 'L’app', 4: 'Tu e la tua casa' };
+  var ORDINE = ['casa', 'persone', 'successo', 'paura', 'pesa', 'racconto', 'strumenti', 'spese', 'ponte', 'primo', 'crescere', 'promemoria', 'avviso', 'adozione', 'perche', 'smettere', 'frasecasa'];
+  var BREVE = { faccenda: 'I piatti o il bagno lasciati lì', 'al posto': 'Fare io la parte di un altro', ricordare: 'Dover chiedere indietro i soldi',
+    conti: 'Non sapere chi deve soldi a chi', finito: 'La carta finita e nessuno che la compra' };
+
+  var A = {};          // risposte
+  var storia = [];     // domande già passate, per tornare indietro
+  var cur = 'casa';
+  var LOSTESSO = false; // ha risposto «No» ma lo fa lo stesso, pensando a una casa che conosce
+  var tFuori = null, rigaFuori = null; // la riga del «No», in attesa di partire
+
+  // Da quale link è arrivata la persona (?da=amici, ?da=gruppi…). Senza etichetta resta vuoto.
+  var DA = (function(){ try { return (new URLSearchParams(location.search).get('da') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 30); } catch(e) { return ''; } })();
+
+  // Ordine casuale dove serve: le risposte con data-fisso restano in fondo.
+  document.querySelectorAll('[data-mescola]').forEach(function(c){
+    var tutti = Array.prototype.slice.call(c.children);
+    var mobili = tutti.filter(function(b){ return !b.hasAttribute('data-fisso'); });
+    var fissi = tutti.filter(function(b){ return b.hasAttribute('data-fisso'); });
+    mescola(mobili).concat(fissi).forEach(function(b){ c.appendChild(b); });
+  });
+
+  // ---------- quali domande vede la persona ----------
+  function problemi(){ return (A.successo || []).filter(function(x){ return x !== 'nessuna'; }); }
+  // stima = per contare quelle che mancano: quello che non si sa ancora conta come "sì", così il numero scende sempre.
+  function visibile(id, stima){
+    var casa = A.casa || (stima ? SI : '');
+    // Chi ha detto «No» e lo fa lo stesso risponde pensando a una casa che conosce: salta le domande sulla sua casa.
+    var conosce = casa === NO && LOSTESSO;
+    var dentro = (casa !== '' && casa !== NO) || conosce, vissuta = casa === SI || casa === VISSUTO || conosce;
+    switch (id) {
+      case 'casa': return true;
+      case 'persone': return dentro;
+      case 'successo': return vissuta;
+      case 'paura': return casa === ANDRO;
+      case 'pesa': return vissuta && (A.successo ? problemi().length >= 2 : !!stima);
+      case 'racconto': return vissuta && (A.successo ? problemi().length >= 1 : !!stima);
+      case 'strumenti': case 'spese': return vissuta && !conosce;
+      case 'ponte': case 'primo': case 'crescere': return dentro;
+      case 'smettere': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
+      case 'promemoria': case 'avviso': case 'adozione': return dentro && !conosce;
+      case 'perche': return dentro && !conosce && A.adozione === 'non la useremmo';
+      case 'frasecasa': return dentro && !conosce && (A.adozione ? A.adozione !== 'non la useremmo' : !!stima);
+    }
+    return false;
+  }
+  function dopo(id){ for (var i = ORDINE.indexOf(id) + 1; i < ORDINE.length; i++) if (visibile(ORDINE[i])) return ORDINE[i]; return null; }
+  function mancano(id){ var n = 0; for (var i = ORDINE.indexOf(id) + 1; i < ORDINE.length; i++) if (ORDINE[i] !== 'ponte' && visibile(ORDINE[i], true)) n++; return n; }
+  function quantiPassi(){ var m = 1; ORDINE.forEach(function(id){ if (visibile(id, true)) m = Math.max(m, PASSI[id]); }); return m; }
+
+  // ---------- la casetta: una finestra per coinquilino ----------
+  function quanti(){ var p = A.persone; if (!p || p === 'non so ancora') return 0; return p === '5 o più' ? 5 : Number(p); }
+  function casetta(n){
+    var vuota = !n; n = n || 4;
+    var cols = n <= 4 ? 2 : 3, rows = Math.ceil(n / cols), w = cols === 2 ? 24 : 19, h = 17;
+    var bx = 22, bw = 76, by = 46, bh = 50;
+    var s = '<svg viewBox="0 0 120 104" xmlns="http://www.w3.org/2000/svg">';
+    s += '<path d="M12 52 60 12l48 40" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>';
+    s += '<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="8" fill="rgba(255,255,255,.08)" stroke="#fff" stroke-width="5"/>';
+    for (var i = 0; i < n; i++) {
+      var r = Math.floor(i / cols), inRiga = Math.min(cols, n - r * cols), c = i % cols;
+      var gx = (bw - inRiga * w) / (inRiga + 1), gy = (bh - rows * h) / (rows + 1);
+      var x = bx + gx + (w + gx) * c, y = by + gy + (h + gy) * r;
+      s += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w + '" height="' + h + '" rx="4" fill="' + COLORI[i % 4] + '"' + (vuota ? ' opacity=".35"' : '') + '/>';
+    }
+    return s + '</svg>';
+  }
+  function disegnaCasa(){ $('casamini').innerHTML = casetta(quanti()); }
+  disegnaCasa();
+
+  // ---------- testi che cambiano con la situazione ----------
+  function testi(id){
+    var c = A.casa, conosce = c === NO;
+    if (id === 'persone') {
+      $('t-persone').textContent = conosce ? 'Pensa a quella casa: quanti sono?' : c === ANDRO ? 'Quanti sarete in casa, tu compreso?' : c === VISSUTO ? 'Quanti eravate in casa, tu compreso?' : 'Quanti siete in casa, tu compreso?';
+      $('nonsoancora').hidden = c !== ANDRO;
+    }
+    if (id === 'successo') $('t-successo').textContent = conosce ? 'Per quel che sai, nell’ultimo mese in quella casa è capitato che…' : c === SI ? 'Nell’ultimo mese ti è capitato che…' : 'Nell’ultimo mese passato in quella casa, ti è capitato che…';
+    if (id === 'strumenti') $('t-strumenti').textContent = c === SI ? 'Per tenere i conti o i turni, cosa usate adesso?' : 'Per tenere i conti o i turni, cosa usavate?';
+    if (id === 'spese') $('t-spese').textContent = c === SI ? 'Come dividete le spese comuni?' : 'Come dividevate le spese comuni?';
+    if (id === 'adozione') $('t-adozione').textContent = c === SI ? 'Se uscisse domani, cosa succederebbe a casa tua?' : 'Se uscisse domani e vivessi con altri, cosa succederebbe?';
+    if (id === 'frasecasa') {
+      var aspetta = A.adozione === 'aspetto qualcun altro';
+      $('t-frasecasa').textContent = aspetta ? 'Cosa ti dovrebbero dire per convincerti a usarla?' : 'Cosa scriveresti nel gruppo di casa per proporla?';
+      $('a-frasecasa').textContent = aspetta ? 'Con parole tue. Se non ti va, salta.' : 'Scrivilo come lo scriveresti davvero. Se non ti va, salta.';
+    }
+    if (id === 'pesa') {
+      var box = $('scelte-pesa'); box.textContent = '';
+      problemi().concat(['nessuna in particolare']).forEach(function(k){
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'scelta'; b.setAttribute('data-v', k);
+        b.textContent = BREVE[k] || 'Nessuna in particolare'; box.appendChild(b);
+      });
+    }
+  }
+
+  // ---------- mostrare una domanda ----------
+  function nascondiTutto(){ document.querySelectorAll('main > section').forEach(function(s){ s.hidden = true; }); }
+  function aggiornaProgresso(){
+    var resto = mancano(cur), fatte = storia.length;
+    var p = 8 + 92 * fatte / (fatte + resto + 1);
+    $('barra').style.width = p.toFixed(1) + '%';
+    $('barrawrap').setAttribute('aria-valuenow', Math.round(p));
+    $('mancano').textContent = resto === 0 ? 'ultima domanda!' : resto === 1 ? 'ancora 1 domanda' : 'ancora ' + resto + ' domande';
+  }
+  function mostra(id){
+    cur = id; nascondiTutto();
+    var s = sez(id), passo = PASSI[id];
+    document.documentElement.style.setProperty('--c', COLORI[passo - 1]);
+    testi(id);
+    s.querySelectorAll('.scelta').forEach(function(b){
+      var v = b.getAttribute('data-v'), r = A[id];
+      b.setAttribute('aria-pressed', Array.isArray(r) ? String(r.indexOf(v) >= 0) : String(r === v));
+    });
+    if (s.getAttribute('data-tipo') === 'piu') s.querySelector('.avanti').disabled = !(A[id] && A[id].length);
+    if (s.getAttribute('data-tipo') === 'testo') { var t = s.querySelector('textarea'); t.value = A[id] || ''; contaCaratteri(t); }
+    var inizio = false;
+    $('app').classList.remove('al-inizio');
+    $('avanz').hidden = false; $('navi').hidden = false;
+    $('passo').textContent = passo + ' di ' + quantiPassi() + ' · ' + NOMI_PASSI[passo];
+    aggiornaProgresso();
+    s.hidden = false; s.style.animation = 'none'; void s.offsetWidth; s.style.animation = '';
+    window.scrollTo(0, 0);
+    var h = s.querySelector('h2'); if (h && !inizio) h.focus({ preventScroll: true });
+  }
+
+  function avanti(){
+    if (cur === 'casa' && A.casa === NO && !LOSTESSO) { storia.push(cur); fuori(); return; }
+    var prossima = dopo(cur);
+    storia.push(cur);
+    if (!prossima || PASSI[prossima] !== PASSI[cur]) passoFatto(PASSI[cur]);
+    if (!prossima) { fine(); return; }
+    if (PASSI[prossima] !== PASSI[cur]) premio(PASSI[cur]);
+    mostra(prossima);
+  }
+  // Conteggio anonimo a fine di ogni passo (una volta sola per visita): dice dove le persone si fermano.
+  function passoFatto(p){ if (LOSTESSO) return; var k = PRE + 'passo_' + p; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch(e) {} conta('passo_' + p); }
+  $('indietro').addEventListener('click', function(){ if (storia.length) mostra(storia.pop()); else apertura(); });
+  function apertura(){
+    nascondiTutto(); $('avanz').hidden = true; $('navi').hidden = true;
+    $('app').classList.add('al-inizio');
+    $('benvenuto').hidden = false; window.scrollTo(0, 0);
+  }
+  $('inizia').addEventListener('click', function(){ mostra('casa'); });
+
+  // ---------- il gesto: un tocco, riscontro subito ----------
+  var inCorso = false;
+  function vibra(){ try { if (navigator.vibrate) navigator.vibrate(12); } catch(e) {} }
+  document.querySelector('main').addEventListener('click', function(e){
+    var b = e.target.closest('.scelta'); if (!b) return;
+    var s = b.closest('section'), id = s.getAttribute('data-id'), tipo = s.getAttribute('data-tipo'), v = b.getAttribute('data-v');
+    if (tipo === 'uno') {
+      if (inCorso) return;
+      if (A[id] !== v) cambia(id, v);
+      s.querySelectorAll('.scelta').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      vibra(); inCorso = true;
+      setTimeout(function(){ inCorso = false; avanti(); }, 380);
+    } else if (tipo === 'piu') {
+      var sel = (A[id] || []).slice(), i = sel.indexOf(v);
+      if (b.hasAttribute('data-solo')) sel = i >= 0 ? [] : [v];
+      else { sel = sel.filter(function(x){ return x !== 'nessuna'; }); if (i >= 0) sel.splice(sel.indexOf(v), 1); else sel.push(v); }
+      cambia(id, sel);
+      s.querySelectorAll('.scelta').forEach(function(x){ x.setAttribute('aria-pressed', String(sel.indexOf(x.getAttribute('data-v')) >= 0)); });
+      s.querySelector('.avanti').disabled = !sel.length;
+      vibra();
+    }
+  });
+  // Se cambia una risposta da cui dipendono altre domande, quelle vecchie si cancellano.
+  function cambia(id, v){
+    if (id === 'casa') {
+      A = {}; LOSTESSO = false; disegnaCasa();
+      // aveva detto «No» ed è tornato indietro: la riga del «No» non parte più
+      clearTimeout(tFuori); if (rigaFuori) { togliDallaCoda(rigaFuori.id); rigaFuori = null; }
+    }
+    if (id === 'successo') delete A.pesa;
+    A[id] = v;
+    if (id === 'persone') disegnaCasa();
+  }
+  document.querySelectorAll('section[data-tipo="piu"] .avanti, section[data-tipo="ponte"] .avanti').forEach(function(b){
+    b.addEventListener('click', function(){ if (!b.disabled) avanti(); });
+  });
+  function contaCaratteri(t){ var c = $('conta-' + t.id); if (c) c.textContent = t.value.length ? t.value.length + ' / ' + t.maxLength : ''; }
+  document.querySelectorAll('section[data-tipo="testo"]').forEach(function(s){
+    var t = s.querySelector('textarea'), id = s.getAttribute('data-id');
+    t.addEventListener('input', function(){ contaCaratteri(t); });
+    s.querySelector('.avanti').addEventListener('click', function(){ A[id] = t.value.trim().slice(0, t.maxLength); avanti(); });
+    s.querySelector('.salta').addEventListener('click', function(){ A[id] = ''; t.value = ''; avanti(); });
+  });
+
+  // ---------- a fine passo: un avviso breve su cosa viene dopo ----------
+  var tFlash = null;
+  function testoPremio(p){
+    if (p === 1) return A.casa === ANDRO ? 'Ora qualche domanda su cosa ti aspetti.' : 'Ora qualche domanda su come vanno le cose in casa.';
+    if (p === 2) return '';
+    if (p === 3) return 'Ultime domande, poi vedi il quadro della tua casa.';
+    return '';
+  }
+  function premio(p){
+    var t = testoPremio(p); if (!t) return;
+    var f = $('flash');
+    $('flash-tit').textContent = 'Passo ' + p + ' fatto';
+    $('flash-em').textContent = '✓';
+    $('flash-txt').textContent = t;
+    f.hidden = false; f.classList.remove('su'); void f.offsetWidth; f.classList.add('su');
+    clearTimeout(tFlash); tFlash = setTimeout(chiudiPremio, 2800);
+  }
+  function chiudiPremio(){ var f = $('flash'); f.classList.remove('su'); setTimeout(function(){ if (!f.classList.contains('su')) f.hidden = true; }, 450); }
+  $('flash').addEventListener('click', chiudiPremio);
+
+  // ---------- invio sicuro (come la versione 3) ----------
+  // Aspetta l'"ok" del foglio, riprova da solo e, se non riesce, conserva la risposta sul telefono
+  // e la rimanda alla visita successiva. Il codice unico evita che un nuovo tentativo la scriva due volte.
+  function nuovoId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
+  // Il codice dell'email è solo casuale: non contiene l'ora, così non somiglia a quello delle risposte.
+  var ID_RISPOSTA = nuovoId(), ID_EMAIL = Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 8), CODA = PRE + 'da_inviare';
+  function leggiCoda(){ try { return JSON.parse(localStorage.getItem(CODA) || '[]'); } catch(e) { return []; } }
+  function scriviCoda(c){ try { localStorage.setItem(CODA, JSON.stringify(c)); } catch(e) {} }
+  function inCoda(d){ var c = leggiCoda(); if (!c.some(function(x){ return x.id === d.id; })) { c.push(d); scriviCoda(c); } }
+  function togliDallaCoda(id){ scriviCoda(leggiCoda().filter(function(x){ return x.id !== id; })); }
+  function prova(data){
+    return fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+      .then(function(r){ return r.text(); })
+      .then(function(t){ t = t.trim(); if (t === 'ok' || t === 'email non valida') return t; throw new Error(t); });
+  }
+  function send(data){
+    if (!ENDPOINT) return Promise.resolve('ok');
+    inCoda(data);
+    var attese = [0, 1500, 4000, 8000];
+    function tentativo(i){
+      return new Promise(function(res){ setTimeout(res, attese[i]); })
+        .then(function(){ return prova(data); })
+        .then(function(t){ togliDallaCoda(data.id); return t; })
+        .catch(function(err){ if (i + 1 < attese.length) return tentativo(i + 1); throw err; });
+    }
+    return tentativo(0);
+  }
+  if (ENDPOINT) leggiCoda().forEach(function(d){ prova(d).then(function(){ togliDallaCoda(d.id); }).catch(function(){}); });
+  // Quando la pagina va in secondo piano (si apre WhatsApp) o si chiude, quello che è in coda parte subito.
+  function svuotaCoda(){
+    if (!ENDPOINT) return;
+    leggiCoda().forEach(function(d){
+      try {
+        fetch(ENDPOINT, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(d) })
+          .then(function(r){ return r.text(); })
+          .then(function(t){ t = t.trim(); if (t === 'ok' || t === 'email non valida') togliDallaCoda(d.id); })
+          .catch(function(){});
+      } catch(e) {}
+    });
+  }
+  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') svuotaCoda(); });
+  addEventListener('pagehide', svuotaCoda);
+
+  // Conteggi anonimi: aperture della pagina e tocchi sui pulsanti di condivisione, con l'etichetta del link.
+  function conta(evento){
+    if (!ENDPOINT) return;
+    try { fetch(ENDPOINT, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ tipo: 'evento', evento: evento, da: DA, giorno: oggi() }) }).catch(function(){}); } catch(e) {}
+  }
+  (function(){ var k = PRE + 'aperto'; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch(e) {} conta('apertura'); })();
+
+  // ---------- il profilo della casa ----------
+  function principale(){
+    if (A.casa === ANDRO) return 'paura ' + (A.paura || 'niente');
+    var p = problemi();
+    if (!p.length) return 'nessuna';
+    if (p.length === 1) return p[0];
+    return A.pesa && A.pesa !== 'nessuna in particolare' ? A.pesa : 'misto';
+  }
+  // Il quadro della casa: il punto principale, detto in modo semplice, e cosa fa l'app per quel punto.
+  var PROFILI = {
+    faccenda: ['Le pulizie restano indietro', 'Piatti o bagno sono rimasti da fare per giorni. Con i turni nell’app ognuno sa cosa gli tocca e quando.'],
+    'al posto': ['Le faccende non sono divise bene', 'C’è chi ha fatto cose che toccavano ad altri. Con i turni nell’app ognuno sa cosa gli tocca e quando.'],
+    ricordare: ['I soldi da chiedere indietro', 'Qualcuno ha dovuto chiedere indietro dei soldi. Nell’app ogni spesa resta segnata: si vede chi deve cosa, senza chiedere.'],
+    conti: ['I conti di casa non sono chiari', 'Non si capiva più chi doveva soldi a chi. Nell’app ogni spesa si divide appena la segni.'],
+    finito: ['Le cose di casa finiscono', 'Qualcosa è finito e nessuno l’aveva ricomprato. Con la lista della spesa comune, chi esce vede cosa manca.'],
+    misto: ['Più di un punto da sistemare', 'Più di un problema nell’ultimo mese. Spese, pulizie e lista della spesa sono proprio le tre parti dell’app.'],
+    nessuna: ['Una casa che funziona', 'Nell’ultimo mese nessuno di questi problemi. Anche questo ci serve: capire cosa fa funzionare una casa.'],
+    'paura faccende': ['Le pulizie e i turni', 'Nell’app ci sono i turni delle pulizie: ognuno sa cosa gli tocca e quando, fin dal primo giorno.'],
+    'paura soldi': ['I soldi e le spese', 'Nell’app ogni spesa si divide appena la segni e si vede sempre chi deve cosa.'],
+    'paura spesa': ['Le cose da comprare', 'Nell’app c’è una lista della spesa comune: chi passa dal supermercato vede cosa manca.'],
+    'paura accordo': ['Andare d’accordo', 'Quando spese e turni sono chiari per tutti, ci sono meno motivi per discutere.'],
+    'paura niente': ['Niente in particolare', 'Un buon punto di partenza. Con spese, turni e lista della spesa in un posto solo è più facile che resti così.']
+  };
+  var SPESE = { 'parti uguali': 'Spese in parti uguali', 'cassa comune': 'Cassa comune', 'a turno': 'Spesa a turno', 'ognuno il suo': 'Ognuno per conto suo', 'a occhio': 'Spese senza una regola' };
+  var PROMEMORIA = { mattina: 'Promemoria la mattina', pausa: 'Promemoria in pausa', rientro: 'Promemoria al rientro', sera: 'Promemoria dopo cena', nessuno: 'Niente promemoria' };
+  var ADOZIONE = { 'la propongo e la usiamo tutti': 'La proporresti tu', 'la propongo ma qualcuno no': 'La proporresti tu', 'aspetto qualcun altro': 'Aspetteresti gli altri', 'non la useremmo': 'Per ora non la usereste', 'non so': 'Ancora da vedere' };
+
+  function riga(){
+    var r = { tipo: 'risposta', versione: VERSIONE, revisione: REVISIONE, id: ID_RISPOSTA, giorno: oggi(), da: DA };
+    ORDINE.forEach(function(id){ if (visibile(id) && A[id] !== undefined) r[id] = A[id]; });
+    if (A.casa !== NO || LOSTESSO) { var k = principale(); r.principale = k; r.profilo = (PROFILI[k] || [''])[0]; }
+    return r;
+  }
+
+  // Messaggio per chi non è della stessa casa (amici, o chi ha risposto «No» e lo gira).
+  var MSG_AMICO = 'Vivi con dei coinquilini? C’è un sondaggio di due minuti, anonimo, su spese, pulizie e lista della spesa.\n\nLo fa un gruppo di ragazzi che sta finendo un’app proprio per questo: se ti va di rispondere, gli dai una mano.';
+  function linkDa(et){ return location.origin + location.pathname + '?da=' + et; }
+  function wa(testo, url){ return 'https://wa.me/?text=' + encodeURIComponent(testo + '\n\n👉 ' + url); }
+  function copia(url, b){
+    var fatto = function(){ var t = b.textContent; b.textContent = 'Link copiato ✓'; setTimeout(function(){ b.textContent = t; }, 1800); };
+    var amano = function(){ try { prompt('Copia il link:', url); } catch(e) {} };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(fatto, amano);
+    else amano();
+    conta('copia_link');
+  }
+
+  // La pagella: per pulizie, soldi e spesa, «In ordine» se nell'ultimo mese non è successo niente di quell'area,
+  // altrimenti «Da sistemare» con quello che è successo. Si basa solo sulla domanda «Nell'ultimo mese ti è capitato che…».
+  var AREE = [['Pulizie', ['faccenda', 'al posto']], ['Soldi', ['ricordare', 'conti']], ['Spesa', ['finito']]];
+  var GIUDIZIO = { 3: 'Tutto in ordine', 2: 'Quasi tutto in ordine', 1: 'Qualcosa da sistemare', 0: 'Più cose da sistemare' };
+  // Sotto la pagella, cosa fa l'app per il punto principale (le stesse frasi del quadro della v6).
+  var APP = {
+    faccenda: 'Con i turni nell’app ognuno sa cosa gli tocca e quando.',
+    'al posto': 'Con i turni nell’app ognuno sa cosa gli tocca e quando.',
+    ricordare: 'Nell’app ogni spesa resta segnata: si vede chi deve cosa, senza chiedere.',
+    conti: 'Nell’app ogni spesa si divide appena la segni.',
+    finito: 'Con la lista della spesa comune, chi esce vede cosa manca.',
+    misto: 'Spese, pulizie e lista della spesa sono proprio le tre parti dell’app.',
+    nessuna: 'Nell’ultimo mese nessuno di questi problemi. Anche questo ci serve: capire cosa fa funzionare una casa.'
+  };
+
+  // 7.3 (13 novembre 2026, sera): il risultato in forma di chat, scelto da Lorenzo. Titolo su due righe con la virgola;
+  // le tre voci in un messaggio; per ogni area con problemi un messaggio viola con la soluzione dell'app.
+  var SOLUZ = {
+    Pulizie: ['🧽', 'Pulizie:', ' i turni girano da soli e la sera chi ha il turno riceve un promemoria.'],
+    Soldi: ['💸', 'Soldi:', ' ogni spesa si divide appena la segni e si vede chi deve cosa, senza chiedere.'],
+    Spesa: ['🛒', 'Spesa:', ' la lista è di tutta la casa, chi passa al supermercato vede subito cosa manca.']
+  };
+  function titolo(a, b){
+    var h = $('r-tit'); h.textContent = a + ' ';
+    var r = document.createElement('span'); r.className = 'riga2'; r.textContent = b; h.appendChild(r);
+  }
+  function bollaViola(testo, forte){ var p = document.createElement('p'); p.className = 'bolla viola' + (forte ? ' forte' : ''); p.textContent = testo; return p; }
+  function voce(stato, nome, sotto, sopra){
+    var r = document.createElement('div'); r.className = 'vb ' + stato;
+    var i = document.createElement('i'); i.setAttribute('aria-hidden', 'true'); i.textContent = stato === 'ok' ? '✓' : '!';
+    var t = document.createElement('div');
+    if (sopra) { var su = document.createElement('small'); su.textContent = sopra; t.appendChild(su); }
+    var b = document.createElement('b'); b.textContent = nome; t.appendChild(b);
+    if (stato !== 'nota') { var sr = document.createElement('span'); sr.className = 'ok-invio'; sr.textContent = stato === 'ok' ? ': in ordine' : ': da sistemare'; t.appendChild(sr); }
+    if (sotto) { var sm = document.createElement('small'); sm.textContent = sotto; t.appendChild(sm); }
+    r.appendChild(i); r.appendChild(t); return r;
+  }
+
+  function risultato(){
+    var k = principale(), p = PROFILI[k] || PROFILI.nessuna;
+    var box = $('r-pagella'), app = $('r-app'); box.textContent = ''; app.textContent = '';
+    if (A.casa === ANDRO) {
+      // chi ci andrà non ha ancora una casa da valutare: resta ciò che lo preoccupa, con cosa fa l'app
+      titolo('La tua prossima casa,', 'può partire bene');
+      box.appendChild(voce('nota', p[0], '', 'Ciò che ti preoccupa di più'));
+      app.appendChild(bollaViola(p[1]));
+    } else {
+      var pr = problemi(), inOrdine = 0;
+      AREE.forEach(function(a){
+        var successe = pr.filter(function(x){ return a[1].indexOf(x) >= 0; });
+        if (!successe.length) { inOrdine++; box.appendChild(voce('ok', a[0])); return; }
+        box.appendChild(voce('no', a[0], successe.map(function(x){ return BREVE[x]; }).join(' · ')));
+        var so = SOLUZ[a[0]], pv = document.createElement('p'), bb = document.createElement('b');
+        pv.className = 'bolla viola'; pv.textContent = so[0] + ' '; bb.textContent = so[1]; pv.appendChild(bb); pv.appendChild(document.createTextNode(so[2]));
+        app.appendChild(pv);
+      });
+      if (inOrdine === 3) {
+        if (A.casa === SI) {
+          titolo('Wow,', 'siete proprio organizzati');
+          app.appendChild(bollaViola('Oggi tenete tutto a mente voi. Con l’app i turni girano da soli e i conti si fanno da soli: restate così con molta meno fatica.', true));
+        } else {
+          titolo('Wow,', 'che casa organizzata');
+          app.appendChild(bollaViola('Con l’app i turni girano da soli e i conti si fanno da soli: restare così costa molta meno fatica.', true));
+        }
+      } else titolo('Ecco come va,', 'e come può migliorare');
+    }
+
+    // Condivisione: ai coinquilini (stessa casa) e agli amici, ognuno con la sua etichetta.
+    var msgCasa = 'Ho risposto a un sondaggio per chi vive con dei coinquilini: spese, pulizie e lista della spesa. Lo fa un gruppo di ragazzi che sta finendo un’app proprio per questo.\n\nSono due minuti ed è anonimo: se vi va di rispondere anche voi, li aiutate parecchio.';
+    var msgAmico = MSG_AMICO;
+    var conCasa = A.casa === SI;
+    $('s-casa').hidden = !conCasa;
+    $('s-casa').href = wa(msgCasa, linkDa('condivisione-casa'));
+    $('s-amico').href = wa(msgAmico, linkDa('condivisione'));
+    // Chi vive in casa: il pulsante grande è per il gruppo di casa, l'amico è un link sotto.
+    // Gli altri: un solo pulsante grande, per l'amico.
+    $('s-amico').className = conCasa ? 'link' : 'wa';
+    $('s-amico').innerHTML = conCasa ? 'Mandalo a un amico' : '<svg aria-hidden="true"><use href="#wa"/></svg>Mandalo su WhatsApp';
+  }
+
+  function fine(){
+    risultato();
+    // chi aveva detto «No» e l'ha fatto lo stesso: parte la riga completa al posto di quella del solo «No»
+    if (rigaFuori) { togliDallaCoda(rigaFuori.id); rigaFuori = null; }
+    send(riga()).catch(function(){ /* resta nella coda del telefono e riparte alla prossima visita */ });
+    store(PRE + 'inviato', '1');
+    nascondiTutto(); $('avanz').hidden = true; $('navi').hidden = true;
+    document.documentElement.style.setProperty('--c', COLORI[3]);
+    $('app').classList.add('alla-fine');
+    $('pill').className = 'pill grazie';
+    $('pill').innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Grazie!';
+    $('risultato').hidden = false;
+    window.scrollTo(0, 0);
+    apriEmail();
+  }
+  // L'email si chiede in una finestra sopra il risultato, prima di vederlo: si può lasciare o dire «No grazie».
+  function apriEmail(){ $('velo').hidden = false; document.body.classList.add('con-velo'); $('v-tit').focus({ preventScroll: true }); }
+  function chiudiEmail(){
+    var v = $('velo'); v.classList.add('esce');
+    setTimeout(function(){ v.hidden = true; v.classList.remove('esce'); document.body.classList.remove('con-velo'); $('r-tit').focus({ preventScroll: true }); }, 300);
+  }
+  $('v-no').addEventListener('click', chiudiEmail);
+
+  // Chi non vive in casa condivisa: gli chiediamo di passare il link, oppure può farlo lo stesso.
+  // La risposta "no" parte dopo qualche secondo, così se ha sbagliato e torna indietro non resta una riga in più.
+  // Se sceglie di farlo lo stesso, la riga resta in coda (parte se chiude a metà) e alla fine viene sostituita da quella completa.
+  function fuori(){
+    nascondiTutto(); $('avanz').hidden = true; $('navi').hidden = true;
+    rigaFuori = riga();
+    if (ENDPOINT) { inCoda(rigaFuori); tFuori = setTimeout(function(){ send(rigaFuori).catch(function(){}); }, 6000); }
+    $('f-wa').href = wa(MSG_AMICO, linkDa('condivisione'));
+    $('fuori').hidden = false; window.scrollTo(0, 0); $('f-tit').focus({ preventScroll: true });
+  }
+  $('f-torna').addEventListener('click', function(){
+    clearTimeout(tFuori); if (rigaFuori) togliDallaCoda(rigaFuori.id); rigaFuori = null;
+    ID_RISPOSTA = nuovoId(); storia = []; delete A.casa; mostra('casa');
+  });
+  $('f-stesso').addEventListener('click', function(){
+    clearTimeout(tFuori); LOSTESSO = true; conta('no_lo_stesso');
+    mostra(dopo('casa'));
+  });
+
+  ['s-casa', 's-amico', 'f-wa'].forEach(function(id){ $(id).addEventListener('click', function(){ conta('condividi_whatsapp'); }); });
+  $('s-copia').addEventListener('click', function(){ copia(linkDa('condivisione'), this); });
+  $('f-copia').addEventListener('click', function(){ copia(linkDa('condivisione'), this); });
+
+  // ---------- email: facoltativa, separata dalle risposte ----------
+  function buona(em){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em); }
+  $('femail').addEventListener('submit', function(e){
+    e.preventDefault();
+    var em = $('email').value.trim(), er = $('emailerr'), b = $('salvaemail');
+    if (!buona(em)) { er.textContent = 'Questa email non sembra giusta: controlla la @ e il punto.'; er.hidden = false; return; }
+    er.hidden = true; b.disabled = true; b.textContent = 'Invio…';
+    var dato = { tipo: 'email', giorno: oggi(), email: em, id: ID_EMAIL };
+    if (ENDPOINT) inCoda(dato);
+    // Parte qualche secondo dopo, con un suo codice: nel foglio non si collega alle risposte.
+    setTimeout(function(){
+      send(dato).then(function(){
+        $('femail').hidden = true;
+        $('emailok').textContent = ENDPOINT ? 'Fatto: ti scriviamo quando puoi provarla.' : 'Prova: email non registrata.';
+        $('emailok').hidden = false;
+        $('v-no').textContent = 'Vedi il risultato';
+        setTimeout(chiudiEmail, 1800);
+      }).catch(function(){ b.disabled = false; b.textContent = 'Avvisami'; er.textContent = 'Invio non riuscito, riprova tra poco.'; er.hidden = false; });
+    }, ENDPOINT ? 1500 + Math.floor(Math.random() * 3000) : 600);
+  });
+  $('email').addEventListener('input', function(){ $('emailerr').hidden = true; });
+
+  apertura();
+})();
+</script>
+</body>
+</html>
