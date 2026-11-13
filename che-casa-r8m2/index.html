@@ -583,7 +583,8 @@
   function uno(a){ return a[Math.floor(Math.random() * a.length)]; }
   function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e) { return null; } }
 
-  if (!ENDPOINT) { $('prova').hidden = false; $('okinvio').textContent = 'Prova completata · niente è stato salvato'; }
+  // 7.1: la fascia «Versione di prova» non si mostra più (Lorenzo, 13 novembre 2026). Se qualcuno lascia l'email, la pagina dice che non è registrata.
+  if (!ENDPOINT) { $('okinvio').textContent = 'Prova completata · niente è stato salvato'; }
 
   var SI = 'sì', VISSUTO = "ci ho vissuto nell'ultimo anno", ANDRO = 'ci andrò nei prossimi mesi', NO = 'no';
   var COLORI = ['#ffb020', '#ff6fa8', '#22b8a7', '#7c5cff'];
